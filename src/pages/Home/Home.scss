@@ -1,0 +1,54 @@
+.container {
+  text-align: center;
+}
+
+.logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.title {
+  font-size: 1.5em;
+}
+
+.intro {
+  font-size: large;
+}
+
+.containerButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  padding: 1rem;
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.red {
+    background-color: #ff6775;
+    &:hover {
+      background-color: darken(#ff6775, 10%);
+    }
+  }
+
+  &.blue {
+    background-color: aquamarine;
+    &:hover {
+      background-color: darken(aquamarine, 10%);
+    }
+  }
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
