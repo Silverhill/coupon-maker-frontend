@@ -84,6 +84,7 @@ module.exports = {
     // for React Native Web.
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
+      Services: path.resolve(__dirname, '../src/services'),
       Actions: path.resolve(__dirname, '../src/actions'),
       Atoms: path.resolve(__dirname, '../src/commons/components/atoms'),
       Molecules: path.resolve(__dirname, '../src/commons/components/molecules'),
@@ -161,7 +162,8 @@ module.exports = {
           // In production, we use a plugin to extract that CSS to a file, but
           // in development "style" loader enables hot editing of CSS.
           {
-            test: /\.(css|sass|scss)$/,
+            test: [/\.css$/, /\.scss$/, /\.sass$/],
+            exclude: /node_modules/,
             use: [
               require.resolve('style-loader'),
               {
@@ -169,7 +171,7 @@ module.exports = {
                 options: {
                   importLoaders: 1,
                   modules: true,
-                  localIdentName: "[name]__[local]___[hash:base64:4]",
+                  localIdentName: "[name]__[local]___[hash:base64:5]"
                 },
               },
               {
@@ -195,6 +197,14 @@ module.exports = {
                   ],
                 },
               },
+            ],
+          },
+          {
+            test: [/\.css$/],
+            include: /node_modules/,
+            use: [
+              require.resolve('style-loader'),
+              require.resolve('css-loader')
             ],
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.
