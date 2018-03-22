@@ -1,6 +1,6 @@
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
-import { ApolloLink, concat } from 'apollo-link'
+import { ApolloLink, concat } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 const httpLink = new HttpLink({ uri: `http://localhost:3000/graphql` });
@@ -11,10 +11,10 @@ const middlewareAuthLink = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers }) => ({
     headers: {
       authentication: authorizationHeader,
-      ...headers,
+      ...headers
     },
   }));
-  return forward(operation)
+  return forward(operation);
 });
 
 const client = new ApolloClient({

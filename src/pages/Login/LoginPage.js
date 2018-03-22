@@ -1,13 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import { graphql } from 'react-apollo';
 
-import QueryService from 'Services/graphql/queries-service';
-import * as userActions from 'Actions/userActions';
+// import { allHunters } from '../../services/graphql/queries.graphql';
 import { InputBox, Button } from 'coupon-components';
-
-import gql from 'graphql-tag';
-
 class LogInPage extends React.Component {
   state = {
     credentials: {
@@ -33,7 +27,6 @@ class LogInPage extends React.Component {
     return (
       <div>
         <form onChange={this.onChange} onSubmit={this.onSave}>
-
           <InputBox
             name="email"
             leftIcon="FaUser"
@@ -61,19 +54,5 @@ class LogInPage extends React.Component {
   }
 }
 
-let query = gql`
-  query {
-    allHunters {
-      name
-    }
-  }
-`;
-
-const LoginPageWithLogin = graphql(query)(LogInPage);
-
-export default connect(
-  null,
-{
-  loginUser: userActions.login,
-})(LoginPageWithLogin);
+export default LogInPage;
 
