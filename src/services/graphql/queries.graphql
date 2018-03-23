@@ -4,10 +4,14 @@ query getHunters {
   }
 }
 
-query getMyInfo {
+query getMe {
   me {
     name
     _id
     role
   }
+}
+
+mutation loginUser($email: String!, $password: String!) {
+  login(email: $email, password: $password)
 }

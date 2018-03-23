@@ -1,4 +1,5 @@
 import React from 'react';
+import { loginUser } from 'Services/graphql/queries.graphql'
 
 // import { allHunters } from '../../services/graphql/queries.graphql';
 import { InputBox, Button } from 'coupon-components';
@@ -20,13 +21,14 @@ class LogInPage extends React.Component {
 
   }
 
-  onSave = () => {
+  onSubmit = () => {
+
   }
 
   render() {
     return (
       <div>
-        <form onChange={this.onChange} onSubmit={this.onSave}>
+        <form onChange={this.onChange} onSubmit={this.onSubmit}>
           <InputBox
             name="email"
             leftIcon="FaUser"
