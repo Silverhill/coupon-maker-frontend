@@ -7,7 +7,7 @@ import {
 import { connect } from 'react-redux';
 import styles from './Home.css';
 import { graphql } from 'react-apollo';
-import { getHunters, getMe } from 'Services/graphql/queries.graphql';
+import { getMe } from 'Services/graphql/queries.graphql';
 import { dark } from 'Styles/palette.css';
 
 // Components
@@ -23,16 +23,7 @@ class Home extends Component {
   render() {
     const { data: { error, loading } } = this.props;
 
-    if(error) {
-      const errors = (error.graphQLErrors || []).map(err => err.message);
-
-      if(errors.includes('jwt malformed')) {
-        localStorage.removeItem('jwt');
-        return <Redirect to='/login' />;
-      }
-
-      return <h4>{error.message}</h4>
-    }
+    if(error) return <h4>{error.message}</h4>
     else if(loading) return <h4>Loading...</h4>
 
     return (

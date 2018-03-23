@@ -19,7 +19,7 @@ class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-      <Provider store={store}>
+        <Provider store={store}>
           <IntlProvider locale={locale} messages={flattenMessages(messages[locale])}>
             <BrowserRouter>
               <Pages />
