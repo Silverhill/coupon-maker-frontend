@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import user from './userReducer'
 
 const initialState = {
   counter: 0,
@@ -19,6 +20,7 @@ const counterReducer = (state = initialState.counter, action = {}) => {
 
 const rootReducer = combineReducers({
   counter: counterReducer,
+  user,
 })
 
 export default rootReducer;

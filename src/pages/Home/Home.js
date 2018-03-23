@@ -1,51 +1,54 @@
 import React, { Component } from 'react';
+import {
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import { connect } from 'react-redux';
-import classNames from 'classnames/bind';
-import { FormattedMessage  } from 'react-intl';
-import * as counterActions from './../../actions/counterActions';
-import logo from '../../logo.svg';
-import styles from './Home.scss';
+import styles from './Home.css';
+import { graphql } from 'react-apollo';
+import { getHunters, getMe } from 'Services/graphql/queries.graphql';
+import { dark } from 'Styles/palette.css';
 
-const cx = classNames.bind(styles);
+// Components
+import AppNav from '../../commons/components/Nav';
+import CampaignsPage from '../Campaigns/CampaignsPage';
+
+const PageHome = (props) => <div><h1>Home</h1></div>
 
 @connect(state => ({
-  counter: state.counter,
-}), {
-  increment: counterActions.increment,
-  decrement: counterActions.decrement,
-  reset: counterActions.reset,
-})
+  user: state.user,
+}))
 class Home extends Component {
-
-  increment = () => {
-    const { increment: incrementAction } = this.props;
-    incrementAction();
-  }
-
-  decrement = () => {
-    const { decrement: decrementAction } = this.props;
-    decrementAction();
-  }
-
   render() {
-    const { counter, reset } = this.props;
+    const { data: { error, loading } } = this.props;
+
+    if(error) {
+      const errors = (error.graphQLErrors || []).map(err => err.message);
+
+      if(errors.includes('jwt malformed')) {
+        localStorage.removeItem('jwt');
+        return <Redirect to='/login' />;
+      }
+
+      return <h4>{error.message}</h4>
+    }
+    else if(loading) return <h4>Loading...</h4>
+
     return (
       <div className={styles.container}>
-        <header className={styles.header}>
-          <img src={logo} className={styles.logo} alt="logo" />
-          <h1 className={styles.title}>{counter}</h1>
-          <h2><FormattedMessage id="greetings"/></h2>
-        </header>
-        <div className={styles.containerButtons}>
-          <div className={cx(styles.button, styles.blue)} onClick={this.increment}>+</div>
-          <div className={cx(styles.button, styles.red)} onClick={this.decrement}>-</div>
-          <div className={cx(styles.button, styles.red)} onClick={() => reset()}>Reset</div>
-        </div>
+        <h1 style={{ background: dark, color: 'white' }}>Welcome</h1>
+        <AppNav />
 
-        <small>Este counter reacciona a las acciones que hacer que el reducer modifique el estado actual del counter</small>
+        <main className={styles.renderContainer}>
+          <Switch>
+            <Route exact path='/' component={PageHome} />
+            <Route path='/campaigns' component={CampaignsPage} />
+          </Switch>
+        </main>
       </div>
     );
   }
 }
 
-export default Home;
+export default graphql(getMe)(Home);
