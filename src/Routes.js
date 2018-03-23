@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from 'react-router-dom';
 
 import Home from './pages/Home';
