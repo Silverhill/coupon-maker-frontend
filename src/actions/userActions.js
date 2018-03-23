@@ -20,6 +20,6 @@ export const login = (token = '') => (dispatch) => {
   return { logged: !!token, token };
 }
 
-export const getAuthentication = () => (dispatch, getState) => {
+export const getAuthentication = () => (dispatch) => {
   return localStorage.getItem('jwt');
 }

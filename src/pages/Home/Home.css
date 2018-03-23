@@ -1,5 +1,11 @@
+@value dark: #242424;
+
 .container {
   text-align: center;
+}
+
+.renderContainer {
+  padding: 1rem;
 }
 
 .logo {

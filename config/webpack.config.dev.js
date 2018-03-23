@@ -86,9 +86,7 @@ module.exports = {
     alias: {
       Services: path.resolve(__dirname, '../src/services'),
       Actions: path.resolve(__dirname, '../src/actions'),
-      Atoms: path.resolve(__dirname, '../src/commons/components/atoms'),
-      Molecules: path.resolve(__dirname, '../src/commons/components/molecules'),
-      Organisms: path.resolve(__dirname, '../src/commons/components/organisms'),
+      Styles: path.resolve(__dirname, '../src/styles'),
 
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -190,6 +188,7 @@ module.exports = {
                   // https://github.com/facebookincubator/create-react-app/issues/2677
                   ident: 'postcss',
                   plugins: () => [
+                    require('postcss-modules-values'),
                     require('postcss-flexbugs-fixes'),
                     autoprefixer({
                       browsers: [

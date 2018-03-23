@@ -1,20 +1,33 @@
 import React from 'react';
 import {
   Route,
-  Switch
+  Switch,
+  Redirect
 } from 'react-router-dom';
 
 import Home from './pages/Home';
-import Error404 from './pages/Error404'
 import LogInPage from './pages/Login/LoginPage';
+import auth from './auth/authenticator';
+
+const PrivateRoute = ({ component: Component }) => (
+  <Route render={props => (
+    auth.loggedIn() ? (
+      <Component {...props} />
+    ) : (
+      <Redirect to={{
+        pathname: '/login',
+        state: { from: props.location },
+      }} />
+    )
+  )}/>
+)
 
 const Pages = () => {
   return (
     <main role='application'>
       <Switch>
-        <Route path='/' exact component={Home}/>
         <Route path="/login" component={LogInPage} />
-        <Route component={Error404} />
+        <PrivateRoute path='/' component={Home} />
       </Switch>
     </main>
   );

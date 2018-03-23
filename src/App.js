@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import es from 'react-intl/locale-data/es';
 import en from 'react-intl/locale-data/en';
-import Pages from './Routes';
+import Pages from './routes';
 
 import store from './store';
 import messages from './messages';

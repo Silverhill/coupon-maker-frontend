@@ -3,3 +3,11 @@ query getHunters {
     name
   }
 }
+
+query getMyInfo {
+  me {
+    name
+    _id
+    role
+  }
+}
