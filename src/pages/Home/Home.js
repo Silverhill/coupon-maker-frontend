@@ -25,13 +25,37 @@ const PageHome = (props) => <div><h1>Home</h1></div>
 class Home extends Component {
   render() {
     const { data: { error, loading } } = this.props;
+    let tabOptions = [
+      {
+        id: 0,
+        label: 'Registro Cupones',
+        route: '/new_coupon',
+        icon: 'CpTicket'
+      },
+      {
+        id: 1,
+        label: 'Campañas',
+        route: '/campaigns',
+        icon: 'FaListAlt'
+      },
+      {
+        id: 2,
+        label: 'Notificaciones',
+        route: '/notifications',
+        icon: 'FaBellO'
+      },
+    ];
+    let userData = {
+      name: 'Carbon Burguer',
+      image: 'https://i.pinimg.com/564x/bc/c8/10/bcc8102f42e58720355ca02d833c204b.jpg',
+    };
 
     if(error) return <h4>{error.message}</h4>
     else if(loading) return <h4>Loading...</h4>
 
     return (
       <div className={styles.container}>
-        <Header/>
+        <Header tabs={tabOptions} userData={userData}/>
         <main className={styles.renderContainer}>
           <Switch>
             <Route exact path='/' component={PageHome} />

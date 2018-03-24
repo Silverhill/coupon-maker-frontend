@@ -1,4 +1,4 @@
-.container{
+.container {
   height: 57px;
   width: 100%;
   background: #fafafa;
@@ -6,7 +6,7 @@
   justify-content: space-between;
 }
 
-.avatarContainer{
+.avatarContainer {
   width: 35px;
   height: 100%;
   display: flex;
@@ -14,7 +14,45 @@
   align-items: center;
 }
 
-.itemsContainer{
+.itemsContainer {
   display: flex;
   align-items: center;
+  padding-right: 1rem;
+}
+
+a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.logo {
+  padding-left: 1rem;
+}
+
+.dividerLogo {
+  height: 90%;
+  width: 0.1rem;
+  background: #ff4a67;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+}
+
+.active {
+  color: #ff4a67;
+}
+
+.tabs {
+  margin-right: 0.8rem;
+  p {
+    padding-left: 0.5rem;
+  }
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 9.5rem;
 }
