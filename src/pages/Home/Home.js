@@ -11,7 +11,8 @@ import { getMe } from 'Services/graphql/queries.graphql';
 import { dark } from 'Styles/palette.css';
 
 // Components
-import Header from '../../commons/components/Header/Header';
+import Header from 'Components/Header/Header';
+import Footer from 'Components/Footer/Footer';
 // Pages
 import CampaignsPage from '../Campaigns/CampaignsPage';
 import NotificationsPage from '../Notifications/NotificationsPage';
@@ -64,6 +65,7 @@ class Home extends Component {
             <Route path='/notifications' component={NotificationsPage} />
           </Switch>
         </main>
+        <Footer/>
       </div>
     );
   }
