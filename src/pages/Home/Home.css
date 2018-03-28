@@ -1,4 +1,9 @@
-@value dark: #242424;
+.container{
+  position: absolute;
+  display: table;
+  height: 100%;
+  width: 100%
+}
 
 .renderContainer {
   width: 75%;
@@ -18,48 +23,8 @@
   color: white;
 }
 
-.title {
-  font-size: 1.5em;
-}
-
-.intro {
-  font-size: large;
-}
-
-.containerButtons {
-  display: flex;
-  justify-content: center;
-}
-
-.button {
-  padding: 1rem;
-  &:hover {
-    cursor: pointer;
-  }
-
-  &.red {
-    background-color: #ff6775;
-    &:hover {
-      background-color: darken(#ff6775, 10%);
-    }
-  }
-
-  &.blue {
-    background-color: aquamarine;
-    &:hover {
-      background-color: darken(aquamarine, 10%);
-    }
-  }
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 .mainView {
   display: flex;
-  width: 100%;
 }
 
 .lefPanel {

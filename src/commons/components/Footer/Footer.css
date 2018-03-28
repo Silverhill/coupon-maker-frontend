@@ -1,4 +1,5 @@
 .container {
+  display: table-row;
   width: 100%;
   height: 57px;
 }
