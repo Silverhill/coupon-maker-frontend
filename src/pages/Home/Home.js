@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import styles from './Home.css';
 import { graphql } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
-import { dark } from 'Styles/palette.css';
 
 // Components
 import Header from 'Components/Header/Header';
@@ -27,6 +26,7 @@ const PageHome = (props) => <div><h1>Home</h1></div>
 class Home extends Component {
   render() {
     const { data: { error, loading } } = this.props;
+
     let tabOptions = [
       {
         id: 0,

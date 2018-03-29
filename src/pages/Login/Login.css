@@ -1,0 +1,7 @@
+@value (
+  primaryColor
+) from 'Styles/palette.css';
+
+.container {
+  background: primaryColor;
+}

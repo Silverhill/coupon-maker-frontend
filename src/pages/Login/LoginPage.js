@@ -1,5 +1,6 @@
 import React from 'react';
 import { loginUser } from 'Services/graphql/queries.graphql'
+import styles from './Login.css';
 
 // import { allHunters } from '../../services/graphql/queries.graphql';
 import { InputBox, Button } from 'coupon-components';
@@ -27,7 +28,7 @@ class LogInPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.container}>
         <form onChange={this.onChange} onSubmit={this.onSubmit}>
           <InputBox
             name="email"
