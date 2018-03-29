@@ -43,13 +43,16 @@ class Header extends React.Component {
                 <Icon name="FaCaretDown" size={10}/>
               </div>
             </DropdownTrigger>
-            <DropdownContent>
-              <div style={{textAlign:'center'}}>
-                <ul style={{listStyleType:'none', padding:'0 10px'}}>
-                  <li>My Profile</li>
-                  <li>Logout</li>
-                </ul>
-              </div>
+            <DropdownContent className={styles.menuContainer}>
+              {userData.options && userData.options.map((option, i) => {
+                return (
+                  <div key={`option-${i}`} onClick={option.onClick} className={styles.menuOption}>
+                    <Typography.Text small>
+                      {option.value}
+                    </Typography.Text>
+                  </div>
+                )
+              })}
             </DropdownContent>
           </Dropdown>
         </div>

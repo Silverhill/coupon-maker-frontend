@@ -50,6 +50,14 @@ class Home extends Component {
     let userData = {
       name: 'Carbon Burguer',
       image: 'https://i.pinimg.com/564x/bc/c8/10/bcc8102f42e58720355ca02d833c204b.jpg',
+      options: [
+        {
+          value: 'Mi perfil'
+        },
+        {
+          value: 'Cerrar Sesion'
+        }
+      ]
     };
     const pizzaHut = {
       maker: {
