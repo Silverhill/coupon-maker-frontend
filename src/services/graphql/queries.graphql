@@ -12,6 +12,8 @@ query getMe {
   }
 }
 
-mutation loginUser($email: String!, $password: String!) {
-  login(email: $email, password: $password)
+query loginUser($email: String!, $password: String!) {
+  signIn(email: $email, password: $password) {
+   token
+  }
 }

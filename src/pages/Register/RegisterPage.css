@@ -1,0 +1,51 @@
+
+.page {
+  position: absolute;
+  display: table;
+  height: 100%;
+  width: 100%;
+
+  .container {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    height:100%;
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 50px;
+
+      & .pipe {
+        width: 1px;
+        height: 50px;
+        background-color: #ff4a67;
+        margin: 0 10px;
+      }
+
+      & path {
+        fill: #ff4a67;
+      }
+
+      & h3 {
+        color: #ff4a67;
+      }
+    }
+
+    .form {
+      width: 250px;
+      padding: 10px;
+      text-align: center;
+
+      & .input {
+        padding-bottom: 10px;
+      }
+
+      & .link {
+        padding-top: 10px;
+        font-size: 12px;
+      }
+    }
+  }
+}

@@ -1,8 +1,54 @@
 {
   "en": {
-    "greetings": "Hello"
+    "greetings": "Hello",
+    "login": {
+      "labels": {
+        "email": "Email Address",
+        "password": "Password"
+      },
+      "buttons": {
+        "newUser": "Are you new? Create an account",
+        "login": "Login"
+      }
+    },
+    "register": {
+      "labels": {
+        "name": "Legal Representate",
+        "company": "Company Name",
+        "email": "Email",
+        "password": "Password",
+        "confirmPassword": "Confirm Password"
+      },
+      "buttons": {
+        "hasAccount": "Already an account? Login",
+        "register": "Register"
+      }
+    }
   },
   "es": {
-    "greetings": "Hola"
+    "greetings": "Hola",
+    "login": {
+      "labels": {
+        "email": "Dirección de Email",
+        "password": "Contraseña"
+      },
+      "buttons": {
+        "newUser": "Nuevo en coupon? Crea una cuenta",
+        "login": "Inciar Sesión"
+      }
+    },
+    "register": {
+      "labels": {
+        "name": "Representate Legal",
+        "company": "Nombre de la Empresa",
+        "email": "Email",
+        "password": "Contraseña",
+        "confirmPassword": "Confirmar Contraseña"
+      },
+      "buttons": {
+        "hasAccount": "Ya tienes cuenta? Ingresa",
+        "register": "Registrarme"
+      }
+    }
   }
 }
