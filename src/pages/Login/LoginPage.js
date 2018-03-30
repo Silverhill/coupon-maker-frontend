@@ -19,24 +19,9 @@ import * as userActions from '../../actions/userActions';
 })
 
 class LogInPage extends React.Component {
-  state = {
-    credentials: {
-      email: '',
-      password: ''
-    }
-  }
-
-  onChange = (event) => {
-    this.setState({
-      credentials: {
-        ...this.state.credentials,
-        [event.target.name]: event.target.value,
-      }
-    });
-  }
 
   goToHome = () => {
-    this.props.history.push('/home')
+    this.props.history.push('/')
   }
 
   loginApp = async (values = {}) => {
