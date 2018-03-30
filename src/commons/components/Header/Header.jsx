@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames/bind';
 import styles from './Header.css';
 import Logo from 'Components/Logo/Logo';
-
+import { primaryColor } from 'Styles/palette.css';
 const cx = classNames.bind(styles)
 
 class Header extends React.Component {
@@ -16,18 +16,18 @@ class Header extends React.Component {
     return (
       <div className={cx(styles.container)}>
         <div className={cx(styles.logo)}>
-          <NavLink exact to='/' activeClassName={styles.active}>
-            <Logo color="#ff4a67"/>
+          <NavLink to='/'>
+            <Logo color={primaryColor}/>
             <div className={cx(styles.dividerLogo)}></div>
-            <Typography.Subtitle light style={{color: "#ff4a67"}}>MAKER</Typography.Subtitle>
+            <Typography.Subtitle light style={{color: primaryColor}}>MAKER</Typography.Subtitle>
           </NavLink>
         </div>
         <div className={cx(styles.itemsContainer)}>
           {tabs && tabs.map((tab) => {
             const key = { key: tab.id };
             return (
-              <NavLink {...key} to={tab.route} className={cx(styles.tabs)} activeClassName={styles.active}>
-                <Icon name={tab.icon} size={30}/>
+              <NavLink {...key} to={tab.route} className={styles.tabs} activeClassName={styles.active}>
+                <Icon name={tab.icon} size={30} />
                 <Typography.Text small bold>{tab.label}</Typography.Text>
               </NavLink>
             )

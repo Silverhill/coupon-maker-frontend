@@ -3,7 +3,7 @@ import { Typography, Icon } from 'coupon-components';
 import classNames from 'classnames/bind';
 import styles from './Footer.css';
 import Logo from 'Components/Logo/Logo';
-
+import { primaryColor, darkNeutral } from 'Styles/palette.css';
 const cx = classNames.bind(styles)
 
 class Footer extends React.Component {
@@ -16,9 +16,9 @@ class Footer extends React.Component {
         <div className={cx(styles.footer)}>
           <div className={cx(styles.logo)}>
             <Logo/>
-            <Typography.Subtitle bold style={{color: "#9b9b9b"}}>2017</Typography.Subtitle>
+            <Typography.Subtitle bold style={{color: darkNeutral}}>2017</Typography.Subtitle>
           </div>
-          <Typography.Subtitle light style={{color: "#ff4a67"}}>Contactanos</Typography.Subtitle>
+          <Typography.Subtitle light style={{color: primaryColor}}>Contactanos</Typography.Subtitle>
           <div className={cx(styles.logo)}>
             <Icon name="FaFacebook" color='#1e477b' size={20}/>
             <Icon name="FaInstagram" color='#285b9e' size={20}/>

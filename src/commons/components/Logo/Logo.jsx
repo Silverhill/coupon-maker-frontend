@@ -1,12 +1,13 @@
 import React from 'react';
 import classNames from 'classnames/bind';
+import { darkNeutral } from 'Styles/palette.css';
 
 const width = 80;
 const height = 25;
 const aspect = width / height;
 
 
-const Logo = ({ color = "#9B9B9B", width = 80 }) => {
+const Logo = ({ color = darkNeutral, width = 80 }) => {
   const currentAspect = Math.round(width / aspect);
 
   return (

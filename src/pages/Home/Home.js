@@ -12,11 +12,12 @@ import { getMe } from 'Services/graphql/queries.graphql';
 // Components
 import Header from 'Components/Header/Header';
 import Footer from 'Components/Footer/Footer';
+import { Card, Cupon, Campaign } from 'coupon-components';
 // Pages
 import CampaignsPage from '../Campaigns/CampaignsPage';
 import NotificationsPage from '../Notifications/NotificationsPage';
-import { Card, Cupon, Campaign } from 'coupon-components';
 import CouponsPage from '../Coupons/CouponsPage';
+import ProfilePage from '../Profile/ProfilePage';
 
 const PageHome = (props) => <div><h1>Home</h1></div>
 
@@ -52,7 +53,8 @@ class Home extends Component {
       image: 'https://i.pinimg.com/564x/bc/c8/10/bcc8102f42e58720355ca02d833c204b.jpg',
       options: [
         {
-          value: 'Mi perfil'
+          value: 'Mi perfil',
+          onClick: ()=>{this.props.history.push('/profile');}
         },
         {
           value: 'Cerrar Sesion'
@@ -95,12 +97,16 @@ class Home extends Component {
         <div className={styles.mainView}>
           <div className={styles.lefPanel}>
             <Card title="Campañas" subtitle="Activas">
-              <Cupon data={pizzaHut} className={styles.campaign}/>
-              <Cupon data={starbucks} className={styles.campaign}/>
+              <Cupon data={pizzaHut} className={styles.campaign}
+                onClick={()=>{this.props.history.push('/campaigns');}}/>
+              <Cupon data={starbucks} className={styles.campaign}
+                onClick={()=>{this.props.history.push('/campaigns');}}/>
             </Card>
             <Card title="Campañas" subtitle="Inactivas">
-              <Campaign data={pizzaHut} className={styles.campaign}/>
-              <Campaign data={starbucks} className={styles.campaign}/>
+              <Campaign data={pizzaHut} className={styles.campaign}
+                onClick={()=>{this.props.history.push('/campaigns');}}/>
+              <Campaign data={starbucks} className={styles.campaign}
+                onClick={()=>{this.props.history.push('/campaigns');}}/>
             </Card>
           </div>
           <main className={styles.renderContainer}>
@@ -109,6 +115,7 @@ class Home extends Component {
               <Route path='/campaigns' component={CampaignsPage} />
               <Route path='/new_coupon' component={CouponsPage} />
               <Route path='/notifications' component={NotificationsPage} />
+              <Route path='/profile' component={ProfilePage} />
             </Switch>
           </main>
         </div>
