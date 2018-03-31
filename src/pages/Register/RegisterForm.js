@@ -13,6 +13,14 @@ import Logo from 'Components/Logo/Logo';
 
 const cx = classNames.bind(styles);
 
+const inputField = (props) => (
+  <div className="input-row">
+    <input {...props.input} type="text"/>
+    {props.meta.touched && props.meta.error &&
+     <span className="error">{props.meta.error}</span>}
+  </div>
+)
+
 class RegisterForm extends React.Component {
   state = {
     credentials: {
@@ -40,8 +48,7 @@ class RegisterForm extends React.Component {
           { placeholder =>
             <Field
               name="name"
-              reduxFormInput
-              component={InputBox}
+              component={inputField}
               leftIcon="FaUser"
               placeholder={placeholder}
               shape="pill"
@@ -55,8 +62,7 @@ class RegisterForm extends React.Component {
           { placeholder =>
             <Field
               name="company"
-              reduxFormInput
-              component={InputBox}
+              component={inputField}
               leftIcon="FaBriefcase"
               placeholder={placeholder}
               shape="pill"
@@ -70,8 +76,7 @@ class RegisterForm extends React.Component {
           { placeholder =>
             <Field
               name="email"
-              reduxFormInput
-              component={InputBox}
+              component={inputField}
               leftIcon="FaEnvelope"
               placeholder={placeholder}
               shape="pill"
@@ -85,8 +90,7 @@ class RegisterForm extends React.Component {
           { placeholder =>
             <Field
               name="password"
-              reduxFormInput
-              component={InputBox}
+              component={inputField}
               leftIcon="FaLock"
               type="password"
               placeholder={placeholder}
@@ -101,7 +105,7 @@ class RegisterForm extends React.Component {
           shape="pill"
           gradient
           type="submit"
-          text={<FormattedMessage id='register.buttons.register'/>}
+          text={<FormattedMessage id='register.buttons.register' />}
         />
       </form>
     )

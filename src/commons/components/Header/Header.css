@@ -1,15 +1,15 @@
-/* @value colors: "Styles/palette.css";
+@value colors: "Styles/palette.css";
 @value (
   whiteColor,
   primaryColor,
   secondaryColor,
   lightNeutral
-) from colors; */
+) from colors;
 
 .container {
   height: 57px;
   width: 100%;
-  background: #fafafa;
+  background: lightNeutral;
   display: flex;
   justify-content: space-between;
 }
@@ -42,7 +42,7 @@
 .dividerLogo {
   height: 90%;
   width: 0.1rem;
-  background: #ff4a67;
+  background: primaryColor;
   margin-left: 0.3rem;
   margin-right: 0.3rem;
 }
@@ -67,7 +67,7 @@
 
 .menuContainer {
   width: 100%;
-  background-color: white;
+  background-color: whiteColor;
   max-height: 10rem;
   overflow-y: scroll;
 }
@@ -81,7 +81,7 @@
   }
 
   &:hover {
-    background-color: #0076ff;
+    background-color: secondaryColor;
 
     & p {
       color: whiteColor !important;
