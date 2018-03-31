@@ -3,7 +3,7 @@ import { HttpLink } from 'apollo-link-http';
 import { ApolloLink, concat } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-const httpLink = new HttpLink({ uri: `http://localhost:3000/graphql` });
+const httpLink = new HttpLink({ uri: `http://localhost:7001/graphql` });
 
 const middlewareAuthLink = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem('jwt')
