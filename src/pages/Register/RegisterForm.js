@@ -24,7 +24,7 @@ const inputField = (props) => (
 class RegisterForm extends React.Component {
   state = {
     credentials: {
-      representate: '',
+      name: '',
       company: '',
       email: '',
       password: ''
@@ -43,11 +43,12 @@ class RegisterForm extends React.Component {
 
   render() {
     const form = (
-      <form onChange={this.onChange} onSubmit={this.onSubmit}>
+      <form onChange={this.onChange} onSubmit={this.props.handleSubmit}>
         <FormattedMessage id="register.labels.name">
           { placeholder =>
-            <InputBox
-              name="representate"
+            <Field
+              name="name"
+              component={inputField}
               leftIcon="FaUser"
               placeholder={placeholder}
               shape="pill"
@@ -59,8 +60,9 @@ class RegisterForm extends React.Component {
 
         <FormattedMessage id="register.labels.company">
           { placeholder =>
-            <InputBox
+            <Field
               name="company"
+              component={inputField}
               leftIcon="FaBriefcase"
               placeholder={placeholder}
               shape="pill"
@@ -72,8 +74,9 @@ class RegisterForm extends React.Component {
 
         <FormattedMessage id="register.labels.email">
           { placeholder =>
-            <InputBox
+            <Field
               name="email"
+              component={inputField}
               leftIcon="FaEnvelope"
               placeholder={placeholder}
               shape="pill"
@@ -85,8 +88,9 @@ class RegisterForm extends React.Component {
 
         <FormattedMessage id="register.labels.password">
           { placeholder =>
-            <InputBox
+            <Field
               name="password"
+              component={inputField}
               leftIcon="FaLock"
               type="password"
               placeholder={placeholder}
@@ -114,8 +118,8 @@ class RegisterForm extends React.Component {
           <Typography.Subtitle light >MAKER</Typography.Subtitle>
         </div>
         {form}
-        <Link to='register' className={styles.link}>
-          <FormattedMessage id='login.buttons.newUser' />
+        <Link to='login' className={styles.link}>
+          <FormattedMessage id='register.buttons.hasAccount' />
         </Link>
       </div>
     );
@@ -124,6 +128,6 @@ class RegisterForm extends React.Component {
 
 export default connect()(
   reduxForm({
-    form: 'login'
+    form: 'register'
   })(RegisterForm)
 );

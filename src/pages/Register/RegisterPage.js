@@ -1,4 +1,5 @@
 import React from 'react';
+import { registerUser } from 'Services/graphql/queries.graphql';
 import { loginUser } from 'Services/graphql/queries.graphql';
 import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
@@ -11,6 +12,12 @@ import RegisterForm from './RegisterForm';
 import Footer from 'Components/Footer/Footer';
 import * as userActions from '../../actions/userActions';
 
+@connect(state => ({
+  form: state.form.register
+}), {
+  loginAsync: userActions.login,
+})
+
 class RegisterPage extends React.Component {
 
   goToHome = () => {
@@ -19,17 +26,24 @@ class RegisterPage extends React.Component {
 
   registerApp = async (values = {}) => {
     const { loginAsync, form } = this.props;
-    const { client: { query } } = this.props;
-
+    const { client: { mutate, query } } = this.props;
     try {
-      const res = await query({
+      const res = await mutate({
+        mutation: registerUser,
+        variables: {
+          name: form.values.name,
+          email: form.values.email,
+          password: form.values.password
+        }
+      });
+      const resLogin = await query({
         query: loginUser,
         variables: {
           email: form.values.email,
           password: form.values.password
         }
       });
-      const { data: { signIn } } = res;
+      const { data: { signIn } } = resLogin;
       const { logged } = loginAsync(signIn.token);
       if(logged) this.goToHome();
     } catch (error) {
