@@ -86,6 +86,8 @@ module.exports = {
     alias: {
       Services: path.resolve(__dirname, '../src/services'),
       Actions: path.resolve(__dirname, '../src/actions'),
+      Components: path.resolve(__dirname, '../src/commons/components'),
+      Assets: path.resolve(__dirname, '../src/assets'),
       Styles: path.resolve(__dirname, '../src/styles'),
 
       // Support React Native Web
@@ -173,7 +175,7 @@ module.exports = {
               {
                 loader: require.resolve('css-loader'),
                 options: {
-                  importLoaders: 1,
+                  importLoaders: 2,
                   modules: true,
                   localIdentName: "[name]__[local]___[hash:base64:5]"
                 },
