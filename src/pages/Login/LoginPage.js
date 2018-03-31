@@ -3,7 +3,6 @@ import { loginUser } from 'Services/graphql/queries.graphql';
 import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
 //styles
-import classNames from 'classnames/bind';
 import styles from './LoginPage.css';
 import 'coupon-components/build/styles.css';
 //components

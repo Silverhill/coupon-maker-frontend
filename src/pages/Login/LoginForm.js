@@ -13,10 +13,6 @@ import Logo from 'Components/Logo/Logo';
 
 const cx = classNames.bind(styles);
 
-// @reduxForm({
-//   form: 'login',
-// })
-
 const inputField = (props) => (
   <div className="input-row">
     <input {...props.input} type="text"/>
