@@ -20,7 +20,6 @@ query loginUser($email: String!, $password: String!) {
 
 mutation registerUser($name: String!, $email: String!, $password: String!) {
   signUp(input:{name: $name, email: $email, password: $password, role: "maker"}) {
-    email
-    name
+    _id
   }
 }

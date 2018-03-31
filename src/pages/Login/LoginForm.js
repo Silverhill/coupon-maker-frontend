@@ -13,14 +13,6 @@ import Logo from 'Components/Logo/Logo';
 
 const cx = classNames.bind(styles);
 
-const inputField = (props) => (
-  <div className="input-row">
-    <input {...props.input} type="text"/>
-    {props.meta.touched && props.meta.error &&
-     <span className="error">{props.meta.error}</span>}
-  </div>
-)
-
 class LoginForm extends React.Component {
   state = {
     credentials: {
@@ -45,9 +37,9 @@ class LoginForm extends React.Component {
         <FormattedMessage id="login.labels.email">
           {placeholder =>
             <Field
-              reduxFormInput
               name="email"
-              component={inputField}
+              reduxFormInput
+              component={InputBox}
               leftIcon="FaUser"
               placeholder={placeholder}
               shape="pill"
@@ -62,7 +54,7 @@ class LoginForm extends React.Component {
             <Field
               name="password"
               reduxFormInput
-              component={inputField}
+              component={InputBox}
               leftIcon="FaLock"
               type="password"
               placeholder={placeholder}
