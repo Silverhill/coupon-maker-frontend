@@ -18,6 +18,8 @@ import CampaignsPage from '../Campaigns/CampaignsPage';
 import NotificationsPage from '../Notifications/NotificationsPage';
 import CouponsPage from '../Coupons/CouponsPage';
 import ProfilePage from '../Profile/ProfilePage';
+import CampaingPage from '../Campaing/CampaingPage';
+import NewCampaingPage from '../Campaing/NewCampaing/NewCampaingPage';
 
 const PageHome = (props) => <div><h1>Home</h1></div>
 
@@ -98,15 +100,15 @@ class Home extends Component {
           <div className={styles.lefPanel}>
             <Card title="Campañas" subtitle="Activas">
               <Cupon data={pizzaHut} className={styles.campaign}
-                onClick={()=>{this.props.history.push('/campaigns');}}/>
+                onClick={()=>{this.props.history.push('/campaign');}}/>
               <Cupon data={starbucks} className={styles.campaign}
-                onClick={()=>{this.props.history.push('/campaigns');}}/>
+                onClick={()=>{this.props.history.push('/campaign');}}/>
             </Card>
             <Card title="Campañas" subtitle="Inactivas">
               <Campaign data={pizzaHut} className={styles.campaign}
-                onClick={()=>{this.props.history.push('/campaigns');}}/>
+                onClick={()=>{this.props.history.push('/campaign');}}/>
               <Campaign data={starbucks} className={styles.campaign}
-                onClick={()=>{this.props.history.push('/campaigns');}}/>
+                onClick={()=>{this.props.history.push('/campaign');}}/>
             </Card>
           </div>
           <main className={styles.renderContainer}>
@@ -116,6 +118,8 @@ class Home extends Component {
               <Route path='/new_coupon' component={CouponsPage} />
               <Route path='/notifications' component={NotificationsPage} />
               <Route path='/profile' component={ProfilePage} />
+              <Route path='/new_campaign' component={NewCampaingPage} />
+              <Route path='/campaign' component={CampaingPage} />
             </Switch>
           </main>
         </div>
