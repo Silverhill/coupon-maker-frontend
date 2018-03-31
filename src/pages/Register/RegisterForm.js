@@ -13,14 +13,6 @@ import Logo from 'Components/Logo/Logo';
 
 const cx = classNames.bind(styles);
 
-const inputField = (props) => (
-  <div className="input-row">
-    <input {...props.input} type="text"/>
-    {props.meta.touched && props.meta.error &&
-     <span className="error">{props.meta.error}</span>}
-  </div>
-)
-
 class RegisterForm extends React.Component {
   state = {
     credentials: {
@@ -48,7 +40,8 @@ class RegisterForm extends React.Component {
           { placeholder =>
             <Field
               name="name"
-              component={inputField}
+              reduxFormInput
+              component={InputBox}
               leftIcon="FaUser"
               placeholder={placeholder}
               shape="pill"
@@ -62,7 +55,8 @@ class RegisterForm extends React.Component {
           { placeholder =>
             <Field
               name="company"
-              component={inputField}
+              reduxFormInput
+              component={InputBox}
               leftIcon="FaBriefcase"
               placeholder={placeholder}
               shape="pill"
@@ -76,7 +70,8 @@ class RegisterForm extends React.Component {
           { placeholder =>
             <Field
               name="email"
-              component={inputField}
+              reduxFormInput
+              component={InputBox}
               leftIcon="FaEnvelope"
               placeholder={placeholder}
               shape="pill"
@@ -90,7 +85,8 @@ class RegisterForm extends React.Component {
           { placeholder =>
             <Field
               name="password"
-              component={inputField}
+              reduxFormInput
+              component={InputBox}
               leftIcon="FaLock"
               type="password"
               placeholder={placeholder}
@@ -105,7 +101,7 @@ class RegisterForm extends React.Component {
           shape="pill"
           gradient
           type="submit"
-          text={<FormattedMessage id='register.buttons.register' />}
+          text={<FormattedMessage id='register.buttons.register'/>}
         />
       </form>
     )
