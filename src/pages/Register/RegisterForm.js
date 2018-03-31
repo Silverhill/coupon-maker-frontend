@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import styles from './RegisterPage.css'
 import 'coupon-components/build/styles.css';
 //components
-import { InputBox, Button, Typography } from 'coupon-components';
+import { InputBox, Button, Typography, Card } from 'coupon-components';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Logo from 'Components/Logo/Logo';
@@ -108,15 +108,19 @@ class RegisterForm extends React.Component {
 
     return (
       <div className={styles.form}>
-        <div className={cx(styles.logo)}>
-          <Logo/>
-          <div className={cx(styles.pipe)}/>
-          <Typography.Subtitle light >MAKER</Typography.Subtitle>
+        <Card>
+          <div className={cx(styles.logo)}>
+            <Logo/>
+            <div className={cx(styles.pipe)}/>
+            <Typography.Subtitle light >MAKER</Typography.Subtitle>
+          </div>
+          {form}
+        </Card>
+        <div className={styles.linkBtn}>
+          <Link to='login' className={styles.link}>
+          <FormattedMessage id='register.buttons.hasAccount'/>
+          </Link>
         </div>
-        {form}
-        <Link to='login' className={styles.link}>
-          <FormattedMessage id='register.buttons.hasAccount' />
-        </Link>
       </div>
     );
   }

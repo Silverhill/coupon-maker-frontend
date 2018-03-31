@@ -1,3 +1,4 @@
+@value paddingForm: 30px;
 
 .page {
   position: absolute;
@@ -8,43 +9,65 @@
   .container {
     display: flex;
     justify-content: center;
-    padding-top: 50px;
+    align-items: center;
     height:100%;
 
-    .logo {
+    .view {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-bottom: 50px;
 
-      & .pipe {
-        width: 1px;
-        height: 50px;
-        background-color: #ff4a67;
-        margin: 0 10px;
+      .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: paddingForm;
+
+        & .pipe {
+          width: 1px;
+          height: 50px;
+          background-color: #ff4a67;
+          margin: 0 10px;
+        }
+
+        & path {
+          fill: #ff4a67;
+        }
+
+        & h3 {
+          color: #ff4a67;
+        }
       }
 
-      & path {
-        fill: #ff4a67;
-      }
+      .form {
+        width: 280px;
+        padding: 10px;
+        text-align: center;
 
-      & h3 {
-        color: #ff4a67;
-      }
-    }
+        & .input {
+          padding-bottom: 10px;
+        }
 
-    .form {
-      width: 250px;
-      padding: 10px;
-      text-align: center;
+        & button {
+          margin-top: paddingForm;
+        }
 
-      & .input {
-        padding-bottom: 10px;
-      }
+        & .linkBtn {
+          position: relative;
+          margin-top: 10px;
+          border-radius: 10px;
+          background: #fafafa;
+          border: solid 1px #e4e4e4;
+          height: 40px;
 
-      & .link {
-        padding-top: 10px;
-        font-size: 12px;
+          & .link {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+          }
+        }
       }
     }
   }

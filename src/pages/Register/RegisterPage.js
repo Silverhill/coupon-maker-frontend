@@ -79,9 +79,11 @@ class RegisterPage extends React.Component {
     return (
       <div className={styles.page}>
         <div className={styles.container}>
-          <RegisterForm onSubmit={this.registerApp}/>
-          <div style={{width: '500px', height: '600px'}}>
-            <Slider items={items}/>
+          <div className={styles.view}>
+            <RegisterForm onSubmit={this.registerApp}/>
+            <div style={{width: '500px', height: '600px'}}>
+              <Slider items={items}/>
+            </div>
           </div>
         </div>
         <Footer/>

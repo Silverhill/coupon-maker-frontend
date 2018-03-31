@@ -71,9 +71,11 @@ class LogInPage extends React.Component {
     return (
       <div className={styles.page}>
         <div className={styles.container}>
-          <LoginForm onSubmit={this.loginApp}/>
-          <div style={{width: '500px', height: '600px'}}>
-            <Slider items={items}/>
+          <div className={styles.view}>
+            <LoginForm onSubmit={this.loginApp}/>
+            <div style={{width: '500px', height: '600px'}}>
+              <Slider items={items}/>
+            </div>
           </div>
         </div>
         <Footer/>
