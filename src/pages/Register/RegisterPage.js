@@ -28,7 +28,7 @@ class RegisterPage extends React.Component {
     const { loginAsync, form } = this.props;
     const { client: { mutate, query } } = this.props;
     try {
-      const res = await mutate({
+      await mutate({
         mutation: registerUser,
         variables: {
           name: form.values.name,
@@ -36,14 +36,14 @@ class RegisterPage extends React.Component {
           password: form.values.password
         }
       });
-      const resLogin = await query({
+      const res = await query({
         query: loginUser,
         variables: {
           email: form.values.email,
           password: form.values.password
         }
       });
-      const { data: { signIn } } = resLogin;
+      const { data: { signIn } } = res;
       const { logged } = loginAsync(signIn.token);
       if(logged) this.goToHome();
     } catch (error) {

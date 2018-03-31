@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Avatar, Typography, Icon, Menu, Dropdown, DropdownTrigger, DropdownContent } from 'coupon-components';
+import { Avatar, Typography, Icon, Dropdown, DropdownTrigger, DropdownContent } from 'coupon-components';
 import PropTypes from 'prop-types'
 import classNames from 'classnames/bind';
 import styles from './Header.css';
