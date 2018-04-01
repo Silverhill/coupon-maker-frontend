@@ -1,0 +1,24 @@
+@value colors: "Styles/palette.css";
+@value (
+  neutralColorMedium
+) from colors;
+
+.previewCampaing {
+  display: flex;
+  justify-content: center;
+
+  .uploadImage {
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    border: 2px solid neutralColorMedium;
+    border-radius: 10px;
+  }
+
+  .campaing {
+    width: 400px;
+    margin: 10px;
+  }
+}
