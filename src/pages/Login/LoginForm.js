@@ -14,13 +14,6 @@ import Logo from 'Components/Logo/Logo';
 const cx = classNames.bind(styles);
 
 class LoginForm extends React.Component {
-  state = {
-    credentials: {
-      email: '',
-      password: ''
-    }
-  }
-
   render() {
     const form = (
       <form onSubmit={this.props.handleSubmit}>
@@ -33,7 +26,6 @@ class LoginForm extends React.Component {
               leftIcon="FaUser"
               placeholder={placeholder}
               shape="pill"
-              value={this.state.credentials.email}
               className={styles.input}
             />
           }
@@ -49,7 +41,6 @@ class LoginForm extends React.Component {
               type="password"
               placeholder={placeholder}
               shape="pill"
-              value={this.state.credentials.password}
               className={styles.input}
             />
           }

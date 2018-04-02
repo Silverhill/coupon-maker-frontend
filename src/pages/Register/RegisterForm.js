@@ -14,15 +14,6 @@ import Logo from 'Components/Logo/Logo';
 const cx = classNames.bind(styles);
 
 class RegisterForm extends React.Component {
-  state = {
-    credentials: {
-      name: '',
-      company: '',
-      email: '',
-      password: ''
-    }
-  }
-
   render() {
     const form = (
       <form onSubmit={this.props.handleSubmit}>
@@ -35,7 +26,6 @@ class RegisterForm extends React.Component {
               leftIcon="FaUser"
               placeholder={placeholder}
               shape="pill"
-              value={this.state.credentials.name}
               className={styles.input}
             />
           }
@@ -50,7 +40,6 @@ class RegisterForm extends React.Component {
               leftIcon="FaBriefcase"
               placeholder={placeholder}
               shape="pill"
-              value={this.state.credentials.company}
               className={styles.input}
             />
           }
@@ -65,7 +54,6 @@ class RegisterForm extends React.Component {
               leftIcon="FaEnvelope"
               placeholder={placeholder}
               shape="pill"
-              value={this.state.credentials.email}
               className={styles.input}
             />
           }
@@ -81,7 +69,6 @@ class RegisterForm extends React.Component {
               type="password"
               placeholder={placeholder}
               shape="pill"
-              value={this.state.credentials.password}
               className={styles.input}
             />
           }
