@@ -21,19 +21,9 @@ class LoginForm extends React.Component {
     }
   }
 
-  onChange = (event) => {
-    this.setState({
-      credentials: {
-        ...this.state.credentials,
-        [event.target.name]: event.target.value,
-      }
-    });
-
-  }
-
   render() {
     const form = (
-      <form onChange={this.onChange} onSubmit={this.props.handleSubmit}>
+      <form onSubmit={this.props.handleSubmit}>
         <FormattedMessage id="login.labels.email">
           {placeholder =>
             <Field
