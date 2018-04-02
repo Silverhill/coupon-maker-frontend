@@ -7,6 +7,7 @@ import {
 
 import Home from './pages/Home';
 import LogInPage from './pages/Login/LoginPage';
+import RegisterPage from './pages/Register/RegisterPage';
 import auth from './auth/authenticator';
 
 const PrivateRoute = ({ component: Component }) => (
@@ -26,6 +27,7 @@ const Pages = () => {
   return (
     <main role='application'>
       <Switch>
+        <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LogInPage} />
         <PrivateRoute path='/' component={Home} />
       </Switch>

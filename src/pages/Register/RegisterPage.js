@@ -1,33 +1,41 @@
 import React from 'react';
+import { registerUser } from 'Services/graphql/queries.graphql';
 import { loginUser } from 'Services/graphql/queries.graphql';
 import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
 //styles
-import styles from './LoginPage.css';
+import styles from './RegisterPage.css';
 import 'coupon-components/build/styles.css';
 //components
 import { Slider } from 'coupon-components';
-import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 import Footer from 'Components/Footer/Footer';
 import * as userActions from '../../actions/userActions';
 
 @connect(state => ({
-  form: state.form.login
+  form: state.form.register
 }), {
   loginAsync: userActions.login,
 })
 
-class LogInPage extends React.Component {
+class RegisterPage extends React.Component {
 
   goToHome = () => {
     this.props.history.push('/')
   }
 
-  loginApp = async (values = {}) => {
+  registerApp = async (values = {}) => {
     const { loginAsync, form } = this.props;
-    const { client: { query } } = this.props;
-
+    const { client: { mutate, query } } = this.props;
     try {
+      await mutate({
+        mutation: registerUser,
+        variables: {
+          name: form.values.name,
+          email: form.values.email,
+          password: form.values.password
+        }
+      });
       const res = await query({
         query: loginUser,
         variables: {
@@ -72,7 +80,7 @@ class LogInPage extends React.Component {
       <div className={styles.page}>
         <div className={styles.container}>
           <div className={styles.view}>
-            <LoginForm onSubmit={this.loginApp}/>
+            <RegisterForm onSubmit={this.registerApp}/>
             <div style={{width: '500px', height: '600px'}}>
               <Slider items={items}/>
             </div>
@@ -80,8 +88,8 @@ class LogInPage extends React.Component {
         </div>
         <Footer/>
       </div>
-  );
+    );
   }
 }
 
-export default withApollo(LogInPage);
+export default withApollo(RegisterPage);

@@ -12,6 +12,14 @@ query getMe {
   }
 }
 
-mutation loginUser($email: String!, $password: String!) {
-  login(email: $email, password: $password)
+query loginUser($email: String!, $password: String!) {
+  signIn(email: $email, password: $password) {
+   token
+  }
+}
+
+mutation registerUser($name: String!, $email: String!, $password: String!) {
+  signUp(input:{name: $name, email: $email, password: $password, role: "maker"}) {
+    _id
+  }
 }

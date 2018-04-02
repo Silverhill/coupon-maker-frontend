@@ -9,8 +9,6 @@ const cx = classNames.bind(styles)
 class Footer extends React.Component {
 
   render() {
-    const { tabs, userData } = this.props;
-
     return (
       <div className={cx(styles.container)}>
         <div className={cx(styles.footer)}>

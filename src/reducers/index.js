@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import user from './userReducer'
+import { reducer as formReducer } from 'redux-form'
 
 const initialState = {
   counter: 0,
@@ -21,6 +22,7 @@ const counterReducer = (state = initialState.counter, action = {}) => {
 const rootReducer = combineReducers({
   counter: counterReducer,
   user,
+  form: formReducer,
 })
 
 export default rootReducer;
