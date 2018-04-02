@@ -1,3 +1,10 @@
+@value colors: "Styles/palette.css";
+@value (
+  pinkRed,
+  paleLilac,
+  paleGray
+) from colors;
+
 @value paddingForm: 30px;
 
 .page {
@@ -24,16 +31,16 @@
         & .pipe {
           width: 1px;
           height: 50px;
-          background-color: #ff4a67;
+          background-color: pinkRed;
           margin: 0 10px;
         }
 
         & path {
-          fill: #ff4a67;
+          fill: pinkRed;
         }
 
         & h3 {
-          color: #ff4a67;
+          color: pinkRed;
         }
       }
 
@@ -54,8 +61,8 @@
           position: relative;
           margin-top: 10px;
           border-radius: 10px;
-          background: #fafafa;
-          border: solid 1px #e4e4e4;
+          background: paleLilac;
+          border: solid 1px paleGray;
           height: 40px;
 
           & .link {
