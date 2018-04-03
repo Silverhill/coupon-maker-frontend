@@ -4,6 +4,9 @@ import FirstStep from './partials/FirstStep';
 import SecondStep from './partials/SecondStep';
 import ThirdStep from './partials/ThirdStep';
 
+import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+
 class StepsContainer extends Component {
   state = {
     steps: [],
@@ -45,10 +48,16 @@ class StepsContainer extends Component {
     return (
       <Card title="Crear una campaña">
         <StepByStep steps={steps} onChange={this.handleStepsChange}/>
-        {this.renderContent(currentStep)}
+        <form onSubmit={this.props.handleSubmit}>
+          {this.renderContent(currentStep)}
+        </form>
       </Card>
     )
   }
 }
 
-export default StepsContainer;
+export default connect()(
+  reduxForm({
+    form: 'create_campaign'
+  })(StepsContainer)
+);

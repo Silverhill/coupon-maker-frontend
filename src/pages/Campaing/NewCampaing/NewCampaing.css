@@ -3,22 +3,22 @@
   neutralColorMedium
 ) from colors;
 
-.previewCampaing {
-  display: flex;
-  justify-content: center;
+.campaing {
+  width: 100%;
+  margin: 10px;
+}
 
-  .uploadImage {
-    width: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
-    border: 2px solid neutralColorMedium;
-    border-radius: 10px;
-  }
+.panel {
+  padding: 10px;
+}
 
-  .campaing {
-    width: 400px;
-    margin: 10px;
-  }
+.devider {
+  background: neutralColorMedium;
+  height: 5px;
+  width: 100%;
+}
+
+.headerWithoutTitle {
+  padding: 0 !important;
+  height: 5px;
 }
