@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import { Panel, InputBox, Cupon, InputNested } from 'coupon-components';
+import { Panel, InputBox, InputNested } from 'coupon-components';
 import styles from '../../NewCampaing/NewCampaing.css';
 
 class FirstStep extends Component {
   render() {
-    const cuponData = {
-      maker: {},
-      cupon: {}
-    }
-
     return (
       <div>
-        <Panel title="Previsualización" classNameContainer={styles.panel}>
-          <Cupon data={cuponData} className={styles.campaing}/>
-        </Panel>
         <Panel title="Información Básica" classNameContainer={styles.panel}>
           <Field name="campaign"
                 reduxFormInput
@@ -48,9 +40,14 @@ class FirstStep extends Component {
               placeholder="2017/2/20"
             />
           </InputNested>
+          <Field name="coupons"
+                reduxFormInput
+                component={InputBox}
+                type="number"
+                labelText="Cupones a utilizar"
+                placeholder="Seleccione un numero"/>
         </Panel>
       </div>
-
     )
   }
 }
