@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Card, Panel, Cupon, StepByStep, RoundButton } from 'coupon-components';
+import { Card, Panel, Cupon, StepByStep, RoundButton, InputFile } from 'coupon-components';
 import FirstStep from './partials/FirstStep';
 import SecondStep from './partials/SecondStep';
 
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
 import styles from './NewCampaing.css';
@@ -64,15 +64,20 @@ class StepsContainer extends Component {
       cuponData.cupon.promo = valuesForm.promotion;
       cuponData.cupon.address = valuesForm.address;
       cuponData.maker.cupons = valuesForm.coupons;
+      cuponData.cupon.image = valuesForm.image.imagePreviewUrl;
     }
 
     return (
       <Card title="Crear una campaña">
         <StepByStep steps={steps} />
-        <Panel title="Previsualización" classNameContainer={styles.panel}>
-          <Cupon data={cuponData} className={styles.campaing}/>
-        </Panel>
         <form onSubmit={this.props.handleSubmit} onChange={this.onChangeForm}>
+          <Panel title="Previsualización" classNameContainer={styles.panel}>
+            <Field name="image"
+                reduxFormInput
+                component={InputFile}>
+                <Cupon data={cuponData} className={styles.campaing}/>
+            </Field>
+          </Panel>
           {this.renderContent(currentStep)}
           {(currentStep.id === 1) && <RoundButton icon="FaArrowRight" type="submit"/>}
         </form>
