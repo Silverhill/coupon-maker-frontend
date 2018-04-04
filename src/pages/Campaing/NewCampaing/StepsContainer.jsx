@@ -5,8 +5,10 @@ import SecondStep from './partials/SecondStep';
 
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import classNames from 'classnames/bind';
 
 import styles from './NewCampaing.css';
+const cx = classNames.bind(styles)
 
 class StepsContainer extends Component {
   state = {
@@ -59,30 +61,47 @@ class StepsContainer extends Component {
       maker: {},
       cupon: {}
     };
+    let moveBtn;
+    if(currentStep.id === 1){
+      moveBtn = {
+        position: 'absolute',
+        bottom: '16px',
+        right: '72px',
+      };
+    }
     const valuesForm = this.props.form_campaing && this.props.form_campaing.values;
     if(valuesForm){
-      cuponData.cupon.promo = valuesForm.promotion;
+      cuponData.cupon.promo = valuesForm.title;
       cuponData.cupon.address = valuesForm.address;
-      cuponData.maker.cupons = valuesForm.coupons;
-      cuponData.cupon.image = valuesForm.image.imagePreviewUrl;
+      cuponData.maker.cupons = valuesForm.totalCoupons;
+      cuponData.cupon.image = valuesForm.image && valuesForm.image.imagePreviewUrl;
     }
 
     return (
-      <Card title="Crear una campaña">
-        <StepByStep steps={steps} />
-        <form onSubmit={this.props.handleSubmit} onChange={this.onChangeForm}>
-          <Panel title="Previsualización" classNameContainer={styles.panel}>
+      <Card title="Crear una campaña" style={{position: 'relative'}}>
+        <div className={styles.tabs}>
+          <StepByStep steps={steps} onChange={this.handleStepsChange} className={styles.steps}/>
+        </div>
+
+        <form onSubmit={this.props.handleSubmit}>
+          <Panel title="Previsualización" classNameContainer={cx(styles.panel, styles.cuponContainer)}>
             <Field name="image"
                 reduxFormInput
-                component={InputFile}>
+                component={InputFile}
+                className={styles.inputFileTrigger}>
                 <Cupon data={cuponData} className={styles.campaing}/>
             </Field>
           </Panel>
           {this.renderContent(currentStep)}
-          {(currentStep.id === 1) && <RoundButton icon="FaArrowRight" type="submit"/>}
+          {(currentStep.id === 1) && <div className={styles.submitButton}>
+            <RoundButton icon="FaArrowRight" type="submit"/>
+          </div>}
         </form>
-        {(currentStep.id === 1) && <RoundButton icon="FaArrowLeft" onClick={this.prevStep}/>}
-        {(currentStep.id === 0) && <RoundButton icon="FaArrowRight" onClick={this.nextStep}/>}
+
+        <div className={styles.submitButton} style={moveBtn}>
+          {(currentStep.id === 1) && <RoundButton icon="FaArrowLeft" onClick={this.prevStep}/>}
+          {(currentStep.id === 0) && <RoundButton icon="FaArrowRight" onClick={this.nextStep}/>}
+        </div>
       </Card>
     )
   }
