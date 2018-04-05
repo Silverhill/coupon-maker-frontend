@@ -16,7 +16,7 @@ class FirstStep extends Component {
                 placeholder="Escribe un nombre creativo de tu campaña"
                 labelText="Cual es el nombre de tu campaña?"
                 className={styles.row_padding}/>
-          <Field name="promo"
+          <Field name="customMessage"
                 reduxFormInput
                 component={InputBox}
                 placeholder="Ingresa una descripción especifica de tu promoción"
@@ -38,7 +38,6 @@ class FirstStep extends Component {
                 className={styles.row_padding}/>
           <InputNested labelText="Duración" description="Elige el rango de duración para tu campaña" className={styles.row_padding}>
             <Field name="startAt"
-                date={1523302872000}
                 reduxFormInput
                 component={InputDate}/>
             <Field
@@ -46,7 +45,7 @@ class FirstStep extends Component {
               reduxFormInput
               component={InputDate}/>
           </InputNested>
-          <Field name="totalCoupons"
+          <Field name="couponsNumber"
                 reduxFormInput
                 component={InputBox}
                 type="number"
