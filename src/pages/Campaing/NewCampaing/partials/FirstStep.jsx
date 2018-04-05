@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import { Panel, InputBox, InputNested } from 'coupon-components';
+import InputDate from 'Components/InputDate/InputDate'
+
 import styles from '../../NewCampaing/NewCampaing.css';
 
 class FirstStep extends Component {
@@ -34,17 +36,15 @@ class FirstStep extends Component {
                 placeholder="Si prefieres escribir tu mensaje… eje: 2x1"
                 labelText="Personaliza tu mensaje"
                 className={styles.row_padding}/>
-          <InputNested labelText="Duración" description="Elige el rango de duración para tu campaña">
-            <InputBox
-              type="text"
-              name="startAt"
-              placeholder="2017/1/20"
-            />
-            <InputBox
-              type="text"
+          <InputNested labelText="Duración" description="Elige el rango de duración para tu campaña" className={styles.row_padding}>
+            <Field name="startAt"
+                date={1523302872000}
+                reduxFormInput
+                component={InputDate}/>
+            <Field
               name="endAt"
-              placeholder="2017/2/20"
-            />
+              reduxFormInput
+              component={InputDate}/>
           </InputNested>
           <Field name="totalCoupons"
                 reduxFormInput
