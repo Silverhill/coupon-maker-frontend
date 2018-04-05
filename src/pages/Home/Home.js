@@ -11,7 +11,7 @@ import { getMe } from 'Services/graphql/queries.graphql';
 // Components
 import Header from 'Components/Header/Header';
 import Footer from 'Components/Footer/Footer';
-import { Card, Cupon, Campaign } from 'coupon-components';
+import { Card, Coupon, Campaign } from 'coupon-components';
 // Pages
 import CampaignsPage from '../Campaigns/CampaignsPage';
 import NotificationsPage from '../Notifications/NotificationsPage';
@@ -96,17 +96,44 @@ class Home extends Component {
       <div className={styles.container}>
         <Header tabs={tabOptions} userData={userData}/>
         <div className={styles.mainView}>
-          <div className={styles.lefPanel}>
-            <Card title="Campañas" subtitle="Activas">
-              <Cupon data={pizzaHut} className={styles.campaign}
-                onClick={()=>{this.props.history.push('/campaign');}}/>
-              <Cupon data={starbucks} className={styles.campaign}
+          <div className={styles.leftPanel}>
+            <Card title="Campañas" subtitle="Activas" classNameCard={styles.card}>
+              <Coupon
+                image={pizzaHut.cupon.image}
+                logo={pizzaHut.maker.image}
+                title={pizzaHut.cupon.promo}
+                date={pizzaHut.cupon.date}
+                address={pizzaHut.cupon.address}
+                totalCoupons={pizzaHut.maker.cupons}
+                className={styles.campaign}
+                onClick={()=>{this.props.history.push('/campaign');}}
+              />
+              <Coupon
+                image={starbucks.cupon.image}
+                logo={starbucks.maker.image}
+                title={starbucks.cupon.promo}
+                date={starbucks.cupon.date}
+                address={starbucks.cupon.address}
+                totalCoupons={starbucks.maker.cupons}
+                className={styles.campaign}
                 onClick={()=>{this.props.history.push('/campaign');}}/>
             </Card>
-            <Card title="Campañas" subtitle="Inactivas">
-              <Campaign data={pizzaHut} className={styles.campaign}
+            <Card title="Campañas" subtitle="Inactivas" classNameCard={styles.card}>
+              <Campaign
+                title={pizzaHut.cupon.promo}
+                date={pizzaHut.cupon.date}
+                address={pizzaHut.cupon.address}
+                totalCoupons={pizzaHut.maker.cupons}
+                totalCouponsHunted={pizzaHut.maker.hunted}
+                className={styles.campaign}
                 onClick={()=>{this.props.history.push('/campaign');}}/>
-              <Campaign data={starbucks} className={styles.campaign}
+              <Campaign
+                title={starbucks.cupon.promo}
+                date={starbucks.cupon.date}
+                address={starbucks.cupon.address}
+                totalCoupons={starbucks.maker.cupons}
+                totalCouponsHunted={pizzaHut.maker.hunted}
+                className={styles.campaign}
                 onClick={()=>{this.props.history.push('/campaign');}}/>
             </Card>
           </div>

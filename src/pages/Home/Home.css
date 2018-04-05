@@ -2,25 +2,29 @@
   position: absolute;
   display: table;
   height: 100%;
-  width: 100%
-}
+  width: 100%;
 
-.renderContainer {
-  width: 75%;
-  margin-right: 10%;
-  text-align: center;
-}
+  .mainView {
+    display: flex;
+    margin-top: 15px;
 
-.mainView {
-  display: flex;
-  margin-top: 15px;
-}
+    .leftPanel {
+      width: 25%;
+      margin-left: 10%;
 
-.lefPanel {
-  width: 25%;
-  margin-left: 10%;
-}
+      .card {
+        padding-bottom: 10px;
+      }
 
-.campaign {
-  margin-bottom: 7px;
+      .campaign {
+        margin-bottom: 7px;
+      }
+    }
+
+    .renderContainer {
+      width: 75%;
+      margin-right: 10%;
+      text-align: center;
+    }
+  }
 }
