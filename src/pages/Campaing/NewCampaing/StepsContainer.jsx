@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Card, Panel, Cupon, StepByStep, RoundButton, InputFile } from 'coupon-components';
+import { Card, Panel, Coupon, StepByStep, RoundButton, InputFile } from 'coupon-components';
 import FirstStep from './partials/FirstStep';
 import SecondStep from './partials/SecondStep';
 
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import classNames from 'classnames/bind';
 
 import styles from './NewCampaing.css';
@@ -57,10 +58,7 @@ class StepsContainer extends Component {
 
   render() {
     const { steps, currentStep } = this.state;
-    const cuponData = {
-      maker: {},
-      cupon: {}
-    };
+    const cuponData = {};
     let moveBtn;
     if(currentStep.id === 1){
       moveBtn = {
@@ -71,10 +69,11 @@ class StepsContainer extends Component {
     }
     const valuesForm = this.props.form_campaing && this.props.form_campaing.values;
     if(valuesForm){
-      cuponData.cupon.promo = valuesForm.title;
-      cuponData.cupon.address = valuesForm.address;
-      cuponData.maker.cupons = valuesForm.totalCoupons;
-      cuponData.cupon.image = valuesForm.image && valuesForm.image.imagePreviewUrl;
+      cuponData.title = valuesForm.title;
+      cuponData.address = valuesForm.address;
+      cuponData.totalCoupons = valuesForm.totalCoupons;
+      cuponData.date = moment(valuesForm.startAt).format("DD MMM") + '-' + moment(valuesForm.endAt).format("DD MMM YYYY");
+      cuponData.image = valuesForm.image && valuesForm.image.imagePreviewUrl;
     }
 
     return (
@@ -89,7 +88,12 @@ class StepsContainer extends Component {
                 reduxFormInput
                 component={InputFile}
                 className={styles.inputFileTrigger}>
-                <Cupon data={cuponData} className={styles.campaing}/>
+                <Coupon image={cuponData.image}
+                  title={cuponData.title}
+                  date={cuponData.date}
+                  address={cuponData.address}
+                  totalCoupons={cuponData.totalCoupons}
+                  className={styles.campaing}/>
             </Field>
           </Panel>
           {this.renderContent(currentStep)}
