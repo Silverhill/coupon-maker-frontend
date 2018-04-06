@@ -23,6 +23,14 @@
         "hasAccount": "Already an account? Login",
         "register": "Register"
       }
+    },
+    "campaigns": {
+      "myCampaigns": {
+        "empty": "There isn't Campaigns yet",
+        "description": "Campaign allow you created promotions",
+        "tip": "All your campaings will be listed here",
+        "new": "New Campaign"
+      }
     }
   },
   "es": {
@@ -48,6 +56,14 @@
       "buttons": {
         "hasAccount": "Ya tienes cuenta? Ingresa",
         "register": "Registrarme"
+      }
+    },
+    "campaigns": {
+      "myCampaigns": {
+        "empty": "Bienvenido A Campañas",
+        "description": "Campañas es una sección para crear tus promociones",
+        "tip": "Todas tus campañas seran listadas aquí",
+        "new": "Nueva Campaña"
       }
     }
   }

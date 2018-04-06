@@ -5,15 +5,16 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Home.css';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
+import { campaings } from 'Services/graphql/queries.graphql';
 
 // Components
 import Header from 'Components/Header/Header';
 import Footer from 'Components/Footer/Footer';
 import { Card, Coupon, Campaign } from 'coupon-components';
 // Pages
-import CampaignsPage from '../Campaigns/CampaignsPage';
+import Campaigns from '../Campaigns/Campaigns';
 import NotificationsPage from '../Notifications/NotificationsPage';
 import CouponsPage from '../Coupons/CouponsPage';
 import ProfilePage from '../Profile/ProfilePage';
@@ -140,7 +141,7 @@ class Home extends Component {
           <main className={styles.renderContainer}>
             <Switch>
               <Route exact path='/' component={PageHome} />
-              <Route path='/campaigns' component={CampaignsPage} />
+              <Route path='/campaigns' component={Campaigns} />
               <Route path='/new_coupon' component={CouponsPage} />
               <Route path='/notifications' component={NotificationsPage} />
               <Route path='/profile' component={ProfilePage} />
@@ -155,4 +156,9 @@ class Home extends Component {
   }
 }
 
-export default graphql(getMe)(Home);
+export default graphql(getMe, {
+  variables: {
+    withCampaigns: true
+  }
+})(Home);
+// export default compose(graphql(getMe))(Home)

@@ -18,6 +18,18 @@ query loginUser($email: String!, $password: String!) {
   }
 }
 
+query campaigns{
+  myCampaigns {
+   id
+   title
+   address
+   startAt
+   endAt
+   image
+   totalCoupons
+  }
+}
+
 mutation registerUser($name: String!, $email: String!, $password: String!) {
   signUp(input:{name: $name, email: $email, password: $password, role: "maker"}) {
     id

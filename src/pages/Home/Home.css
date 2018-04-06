@@ -11,6 +11,7 @@
     .renderContainer {
       width: 75%;
       margin-right: 10%;
+      margin-left: 20px;
     }
 
     .leftPanel {
