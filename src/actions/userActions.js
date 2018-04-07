@@ -23,3 +23,8 @@ export const login = (token = '') => (dispatch) => {
 export const getAuthentication = () => (dispatch) => {
   return localStorage.getItem('jwt');
 }
+
+export const removeAuthentication = () => (dispatch) => {
+  const removed = !localStorage.removeItem('jwt');
+  return removed;
+}

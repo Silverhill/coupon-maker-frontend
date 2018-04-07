@@ -1,0 +1,67 @@
+@value colors: "Styles/palette.css";
+@value (
+  pinkRed,
+  paleLilac,
+  paleGray,
+  lightNeutral
+) from colors;
+
+.campaigns {
+
+  .panel {
+    /* background-color: lightNeutral; */
+
+    h3 {
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    .emptyState {
+      text-align: center;
+
+      .linkBtn {
+        justify-content: center;
+      }
+    }
+
+   .linkBtn {
+      position: relative;
+      display: flex;
+      height: 40px;
+      margin: 10px 0;
+
+      & .link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 15px;
+        font-size: 12px;
+        border-radius: 20px;
+        background-color: pinkRed;
+        color: white;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+
+    .table {
+
+      .row {
+        &:nth-child(odd) {
+          border-top: 1px solid paleGray;
+          border-bottom: 1px solid paleGray;
+        }
+
+        &:hover {
+          background-color: lightNeutral;
+        }
+      }
+
+      .linkBtn {
+        justify-content: flex-end;
+      }
+    }
+  }
+}

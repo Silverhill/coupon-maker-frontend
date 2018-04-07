@@ -7,14 +7,38 @@ query getHunters {
 query getMe {
   me {
     name
+    email
     id
     role
+  }
+
+  myCampaigns {
+    id
+    title
+    address
+    startAt
+    endAt
+    image
+    totalCoupons
+    capturedCoupons
   }
 }
 
 query loginUser($email: String!, $password: String!) {
   signIn(email: $email, password: $password) {
    token
+  }
+}
+
+query makerCampaigns{
+  myCampaigns {
+   id
+   title
+   address
+   startAt
+   endAt
+   image
+   totalCoupons
   }
 }
 

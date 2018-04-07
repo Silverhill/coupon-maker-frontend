@@ -23,6 +23,37 @@
         "hasAccount": "Already an account? Login",
         "register": "Register"
       }
+    },
+    "home":{
+      "campaings" : {
+        "active": {
+          "title": "Campaings",
+          "subtitle": "Active",
+          "empty": {
+            "text": "Here you will see your most recent campaigns"
+          }
+        },
+        "inactive": {
+          "title": "Campaings",
+          "subtitle": "Inactive",
+          "empty": {
+            "text": "Here you will see a history of your campaigns"
+          }
+        }
+      }
+    },
+    "campaigns": {
+      "myCampaigns": {
+        "title": "My Campaings",
+        "panelTitle": "Registered Campaigns",
+        "empty": "There isn't Campaigns yet",
+        "description": "Campaign allow you created promotions",
+        "tip": "All your campaings will be listed here",
+        "new": "New Campaign"
+      }
+    },
+    "profile": {
+      "title": "Profile"
     }
   },
   "es": {
@@ -49,6 +80,37 @@
         "hasAccount": "Ya tienes cuenta? Ingresa",
         "register": "Registrarme"
       }
+    },
+    "home":{
+      "campaings" : {
+        "active": {
+          "title": "Campañas",
+          "subtitle": "Activas",
+          "empty": {
+            "text": "Aqui se mostrara tus campañas más recientes"
+          }
+        },
+        "inactive": {
+          "title": "Campañas",
+          "subtitle": "Inactivas",
+          "empty": {
+            "text": "Aqui se mostrara un historial de tus campañas"
+          }
+        }
+      }
+    },
+    "campaigns": {
+      "myCampaigns": {
+        "title": "Mis Campañas",
+        "panelTitle": "Campañas Registradas",
+        "empty": "Bienvenido A Campañas",
+        "description": "Campañas es una sección para crear tus promociones",
+        "tip": "Todas tus campañas seran listadas aquí",
+        "new": "Nueva Campaña"
+      }
+    },
+    "profile": {
+      "title": "Perfil"
     }
   }
 }

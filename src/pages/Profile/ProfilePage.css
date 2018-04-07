@@ -1,0 +1,22 @@
+.profile {
+  .profileContent {
+    display: flex;
+    flex-direction: initial;
+
+    .avatar {
+      width: 120px;
+    }
+
+    .information {
+      margin-left: 30px;
+    }
+  }
+
+  .accountOptions {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: initial;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
