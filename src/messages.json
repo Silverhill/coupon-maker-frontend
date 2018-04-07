@@ -51,6 +51,9 @@
         "tip": "All your campaings will be listed here",
         "new": "New Campaign"
       }
+    },
+    "profile": {
+      "title": "Profile"
     }
   },
   "es": {
@@ -105,6 +108,9 @@
         "tip": "Todas tus campañas seran listadas aquí",
         "new": "Nueva Campaña"
       }
+    },
+    "profile": {
+      "title": "Perfil"
     }
   }
 }

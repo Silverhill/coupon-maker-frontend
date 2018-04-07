@@ -9,17 +9,17 @@
     margin-top: 15px;
 
     .renderContainer {
-      width: 75%;
+      width: 100%;
       margin-right: 10%;
       margin-left: 20px;
     }
 
     .leftPanel {
-      width: 25%;
       margin-left: 10%;
 
       .card {
         padding-bottom: 10px;
+        width: 350px;
       }
 
       .campaign {

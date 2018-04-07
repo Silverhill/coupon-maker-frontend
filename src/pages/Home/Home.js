@@ -9,6 +9,7 @@ import { graphql } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import moment from 'moment';
+
 // Components
 import Header from 'Components/Header/Header';
 import Footer from 'Components/Footer/Footer';
@@ -22,16 +23,21 @@ import CampaingPage from '../Campaing/CampaingPage';
 import NewCampaingPage from '../Campaing/NewCampaing/NewCampaingPage';
 // Styles
 import * as palette from 'Styles/palette.css';
+//Actions
+import * as userActions from '../../actions/userActions';
 
 const PageHome = (props) => <div><h1>Home</h1></div>
 
 @connect(state => ({
   user: state.user,
-}))
+}),{
+  removeAuthentication: userActions.removeAuthentication,
+})
+
 class Home extends Component {
 
   render() {
-    const { data: { error, loading, myCampaigns, me }, intl } = this.props;
+    const { data: { error, loading, myCampaigns, me }, intl, removeAuthentication } = this.props;
     const total = myCampaigns ? myCampaigns.length : 0;
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
     const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
@@ -64,7 +70,11 @@ class Home extends Component {
           onClick: ()=>{this.props.history.push('/profile');}
         },
         {
-          value: 'Cerrar Sesion'
+          value: 'Cerrar Sesion',
+          onClick: ()=>{
+            const remove = removeAuthentication();
+            if(remove) this.props.history.push('/login');
+          }
         }
       ]
     };
