@@ -25,6 +25,10 @@
       .campaign {
         margin-bottom: 7px;
       }
+
+      .emptyState {
+        text-align: center;
+      }
     }
   }
 }

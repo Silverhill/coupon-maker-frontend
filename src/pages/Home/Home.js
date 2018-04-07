@@ -5,14 +5,14 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Home.css';
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
-import { campaings } from 'Services/graphql/queries.graphql';
-
+import { injectIntl } from 'react-intl';
+import moment from 'moment';
 // Components
 import Header from 'Components/Header/Header';
 import Footer from 'Components/Footer/Footer';
-import { Card, Coupon, Campaign } from 'coupon-components';
+import { Card, Coupon, Campaign, Typography, Icon } from 'coupon-components';
 // Pages
 import Campaigns from '../Campaigns/Campaigns';
 import NotificationsPage from '../Notifications/NotificationsPage';
@@ -20,6 +20,8 @@ import CouponsPage from '../Coupons/CouponsPage';
 import ProfilePage from '../Profile/ProfilePage';
 import CampaingPage from '../Campaing/CampaingPage';
 import NewCampaingPage from '../Campaing/NewCampaing/NewCampaingPage';
+// Styles
+import * as palette from 'Styles/palette.css';
 
 const PageHome = (props) => <div><h1>Home</h1></div>
 
@@ -27,9 +29,13 @@ const PageHome = (props) => <div><h1>Home</h1></div>
   user: state.user,
 }))
 class Home extends Component {
-  render() {
-    const { data: { error, loading } } = this.props;
 
+  render() {
+    const { data: { error, loading, myCampaigns, me }, intl } = this.props;
+    // const total = myCampaigns ? myCampaigns.length : 0;
+    const total = 0;
+    const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
+    const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
     let tabOptions = [
       {
         id: 0,
@@ -51,8 +57,8 @@ class Home extends Component {
       },
     ];
     let userData = {
-      name: 'Carbon Burguer',
-      image: 'https://i.pinimg.com/564x/bc/c8/10/bcc8102f42e58720355ca02d833c204b.jpg',
+      name: me && me.name,
+      image: (me && me.image) || 'https://i.pinimg.com/564x/bc/c8/10/bcc8102f42e58720355ca02d833c204b.jpg',
       options: [
         {
           value: 'Mi perfil',
@@ -63,32 +69,85 @@ class Home extends Component {
         }
       ]
     };
-    const pizzaHut = {
-      maker: {
-        image: 'https://aalfredosalinas.files.wordpress.com/2010/09/pizza-hut-logo1.jpg',
-        cupons: 125,
-        hunted: 50
-      },
-      cupon: {
-        image: 'https://i2.wp.com/food.thecookbk.com/wp-content/uploads/2017/10/pizza-hut.jpg?fit=800%2C600',
-        date: '11 Feb - 20 May 2017',
-        promo: 'Martes 2 x 1 en pizzas',
-        address: '12-34 Downtown S.Q'
-      }
-    }
-    const starbucks = {
-      maker: {
-        image: 'https://pbs.twimg.com/profile_images/968173455580397568/Qe0pSZTk_400x400.jpg',
-        cupons: 345,
-        hunted: 2
-      },
-      cupon: {
-        image: 'https://assets3.thrillist.com/v1/image/2439237/size/gn-gift_guide_variable_c.jpg',
-        date: '11 Feb - 20 May 2017',
-        promo: 'Enjoy 50% off any Starbucks drink',
-        address: '901 S Miami Ave #106, Miami, FL 33130, EE. UU.'
-      }
-    }
+
+    const emptyStateActiveCampaigns = (
+      <div className={styles.emptyState}>
+        <Icon
+          name="FaNewspaperO"
+          color={palette.baseGrayMedium}
+          size={50}
+          style={
+            {
+              margin: 20,
+              padding: 30,
+              background: palette.baseGrayLow,
+              borderRadius: '50%'
+            }
+          }
+        />
+        <Typography.Text small>
+          {intl.formatMessage({id: 'home.campaings.active.empty.text'})}
+        </Typography.Text>
+      </div>
+    )
+
+    const emptyStateInactiveCampaigns = (
+      <div className={styles.emptyState}>
+        <Icon
+          name="FaClockO"
+          color={palette.baseGrayMedium}
+          size={50}
+          style={
+            {
+              margin: 20,
+              padding: 30,
+              background: palette.baseGrayLow,
+              borderRadius: '50%'
+            }
+          }
+        />
+        <Typography.Text small>
+          {intl.formatMessage({id: 'home.campaings.inactive.empty.text'})}
+        </Typography.Text>
+      </div>
+    )
+
+    const campaignsActives = (
+      myCampaigns && myCampaigns.map((cpg) => {
+        const key = { key: cpg.id };
+        const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
+        return (
+          <Coupon {...key}
+            image={cpg.image || placeholderImage}
+            logo={cpg.logo || placeholderlogo}
+            title={cpg.title}
+            date={date}
+            address={cpg.address}
+            totalCoupons={cpg.totalCoupons}
+            className={styles.campaign}
+            onClick={()=>{this.props.history.push('/campaign');}}
+          />
+        )
+      })
+    )
+
+    const campaignsInactives = (
+      myCampaigns && myCampaigns.map((cpg) => {
+        const key = { key: cpg.id };
+        const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
+        return (
+          <Campaign {...key}
+            title={cpg.title}
+            date={date}
+            address={cpg.address}
+            totalCoupons={cpg.totalCoupons}
+            totalCouponsHunted={cpg.capturedCoupons || 0}
+            className={styles.campaign}
+            onClick={()=>{this.props.history.push('/campaign');}}
+          />
+        )
+      })
+    )
 
     if(error) return <h4>{error.message}</h4>
     else if(loading) return <h4>Loading...</h4>
@@ -98,44 +157,19 @@ class Home extends Component {
         <Header tabs={tabOptions} userData={userData}/>
         <div className={styles.mainView}>
           <div className={styles.leftPanel}>
-            <Card title="Campañas" subtitle="Activas" classNameCard={styles.card}>
-              <Coupon
-                image={pizzaHut.cupon.image}
-                logo={pizzaHut.maker.image}
-                title={pizzaHut.cupon.promo}
-                date={pizzaHut.cupon.date}
-                address={pizzaHut.cupon.address}
-                totalCoupons={pizzaHut.maker.cupons}
-                className={styles.campaign}
-                onClick={()=>{this.props.history.push('/campaign');}}
-              />
-              <Coupon
-                image={starbucks.cupon.image}
-                logo={starbucks.maker.image}
-                title={starbucks.cupon.promo}
-                date={starbucks.cupon.date}
-                address={starbucks.cupon.address}
-                totalCoupons={starbucks.maker.cupons}
-                className={styles.campaign}
-                onClick={()=>{this.props.history.push('/campaign');}}/>
+            <Card
+              title={intl.formatMessage({id: 'home.campaings.active.title'})}
+              subtitle={intl.formatMessage({id: 'home.campaings.active.subtitle'})}
+              classNameCard={styles.card}>
+              {total === 0 && emptyStateActiveCampaigns}
+              {total > 0 && campaignsActives}
             </Card>
-            <Card title="Campañas" subtitle="Inactivas" classNameCard={styles.card}>
-              <Campaign
-                title={pizzaHut.cupon.promo}
-                date={pizzaHut.cupon.date}
-                address={pizzaHut.cupon.address}
-                totalCoupons={pizzaHut.maker.cupons}
-                totalCouponsHunted={pizzaHut.maker.hunted}
-                className={styles.campaign}
-                onClick={()=>{this.props.history.push('/campaign');}}/>
-              <Campaign
-                title={starbucks.cupon.promo}
-                date={starbucks.cupon.date}
-                address={starbucks.cupon.address}
-                totalCoupons={starbucks.maker.cupons}
-                totalCouponsHunted={pizzaHut.maker.hunted}
-                className={styles.campaign}
-                onClick={()=>{this.props.history.push('/campaign');}}/>
+            <Card
+              title={intl.formatMessage({id: 'home.campaings.inactive.title'})}
+              subtitle={intl.formatMessage({id: 'home.campaings.inactive.subtitle'})}
+              classNameCard={styles.card}>
+              {total === 0 && emptyStateInactiveCampaigns}
+              {total > 0 && campaignsInactives}
             </Card>
           </div>
           <main className={styles.renderContainer}>
@@ -156,9 +190,4 @@ class Home extends Component {
   }
 }
 
-export default graphql(getMe, {
-  variables: {
-    withCampaigns: true
-  }
-})(Home);
-// export default compose(graphql(getMe))(Home)
+export default graphql(getMe)(injectIntl(Home));

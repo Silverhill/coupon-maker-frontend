@@ -19,29 +19,35 @@
     .emptyState {
       text-align: center;
 
-      & .linkBtn {
-        position: relative;
-        margin: 30px 0 20px 0;
-        border-radius: 10px;
-        background: pinkRed;
-        border: solid 1px paleGray;
-        height: 40px;
+      .linkBtn {
+        justify-content: center;
+      }
+    }
 
-        & .link {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          /* padding: 10px; */
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 12px;
-          color: white;
+   .linkBtn {
+      position: relative;
+      display: flex;
+      height: 40px;
+      margin: 10px 0;
+
+      & .link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 15px;
+        font-size: 12px;
+        border-radius: 20px;
+        background-color: pinkRed;
+        color: white;
+
+        &:hover {
+          opacity: 0.9;
         }
       }
     }
 
     .table {
+
       .row {
         &:nth-child(odd) {
           border-top: 1px solid paleGray;
@@ -51,6 +57,10 @@
         &:hover {
           background-color: lightNeutral;
         }
+      }
+
+      .linkBtn {
+        justify-content: flex-end;
       }
     }
   }
