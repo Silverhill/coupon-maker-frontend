@@ -38,7 +38,8 @@ class Home extends Component {
 
   render() {
     const { data: { error, loading, myCampaigns, me }, intl, removeAuthentication } = this.props;
-    const total = myCampaigns ? myCampaigns.length : 0;
+    const campaigns = myCampaigns ? myCampaigns.slice(0,3) : null;
+    const total = campaigns ? campaigns.length : 0;
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
     const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
     let tabOptions = [
@@ -122,7 +123,7 @@ class Home extends Component {
     )
 
     const campaignsActives = (
-      myCampaigns && myCampaigns.map((cpg) => {
+      campaigns && campaigns.map((cpg) => {
         const key = { key: cpg.id };
         const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
         return (
@@ -141,7 +142,7 @@ class Home extends Component {
     )
 
     const campaignsInactives = (
-      myCampaigns && myCampaigns.map((cpg) => {
+      campaigns && campaigns.map((cpg) => {
         const key = { key: cpg.id };
         const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
         return (
