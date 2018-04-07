@@ -32,8 +32,7 @@ class Home extends Component {
 
   render() {
     const { data: { error, loading, myCampaigns, me }, intl } = this.props;
-    // const total = myCampaigns ? myCampaigns.length : 0;
-    const total = 0;
+    const total = myCampaigns ? myCampaigns.length : 0;
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
     const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
     let tabOptions = [

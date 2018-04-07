@@ -12,8 +12,7 @@ import * as palette from 'Styles/palette.css';
 class Campaigns extends Component {
   render() {
     const { data: { myCampaigns }, intl } = this.props;
-    const total = 0;
-    // const total = myCampaigns ? myCampaigns.length : 0;
+    const total = myCampaigns ? myCampaigns.length : 0;
     const placeholderImage = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
 
     const tableCampaigns = (
