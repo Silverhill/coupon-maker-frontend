@@ -115,41 +115,43 @@
         "title": "Sucursales",
         "new": {
           "title": "Añadir sucursal",
+          "firstStep": "Información Básica",
+          "secondStep": "Información Sucursal",
           "ruc": {
             "label": "Ruc",
-            "placholder": "Cual es tu Ruc"
+            "placeholder": "Cual es tu Ruc"
           },
           "economicActivity": {
             "label": "Actividad Económica",
-            "placholder": "Ingresa tu actividad económica"
+            "placeholder": "Ingresa tu actividad económica"
           },
           "contributorType": {
             "label": "Tipo de Contribuidor",
-            "placholder": "Ingresa que tipo de contribuidor eres"
+            "placeholder": "Ingresa que tipo de contribuidor eres"
           },
           "legalRepresentative": {
             "label": "Representante legal",
-            "placholder": "Ingresa el nombre de tu representate legal"
+            "placeholder": "Ingresa el nombre de tu representate legal"
           },
           "name": {
             "label": "Nombre",
-            "placholder": "Cual es el nombre tu sucursal"
+            "placeholder": "Cual es el nombre tu sucursal"
           },
           "officePhone": {
             "label": "Número de telefono",
-            "placholder": "Cual es tu número de telefono"
+            "placeholder": "Cual es tu número de telefono"
           },
           "cellPhone": {
             "label": "Número de celular",
-            "placholder": "Cual es tu número de celular"
+            "placeholder": "Cual es tu número de celular"
           },
           "address": {
             "label": "Dirección",
-            "placholder": "Cual es tu dirección"
+            "placeholder": "Cual es tu dirección"
           },
           "email": {
             "label": "Correo",
-            "placholder": "Ingresa tu correo"
+            "placeholder": "Ingresa tu correo"
           }
         }
       },

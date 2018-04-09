@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { StepByStep, RoundButton } from 'coupon-components';
 import FirstStep from './partials/FirstStep';
 import SecondStep from './partials/SecondStep';
+import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
 import styles from './NewOffice.css';
 
@@ -84,4 +86,8 @@ class StepsContainer extends Component {
   }
 }
 
-export default StepsContainer;
+export default connect()(
+  reduxForm({
+    form: 'create_office'
+  })(StepsContainer)
+);

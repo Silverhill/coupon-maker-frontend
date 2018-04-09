@@ -13,8 +13,8 @@ class NewOffice extends Component {
 
   render() {
     const data = [
-      { id: 0, label: 'Información', icon: 'FaUser', tooltip: 'Información', active: true },
-      { id: 1, label: 'Dirección', icon: 'FaHome', tooltip: 'Dirección', active: false }
+      { id: 0, label: 'Representante', icon: 'FaUser', tooltip: 'Representante', active: true },
+      { id: 1, label: 'Sucursal', icon: 'FaHome', tooltip: 'Sucursal', active: false }
     ];
 
     return <StepsContainer steps={data} onSubmit={this.createOffice}/>
