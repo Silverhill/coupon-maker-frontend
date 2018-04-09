@@ -1,0 +1,23 @@
+@value colors: "Styles/palette.css";
+@value (
+  pinkRed
+) from colors;
+
+.offices {
+  .panel {
+    h3 {
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    .emptyState {
+      text-align: center;
+      .btnCreate {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}

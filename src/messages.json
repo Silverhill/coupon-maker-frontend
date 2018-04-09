@@ -110,7 +110,57 @@
       }
     },
     "profile": {
-      "title": "Perfil"
+      "title": "Perfil",
+      "office": {
+        "title": "Sucursales",
+        "new": {
+          "title": "Añadir sucursal",
+          "ruc": {
+            "label": "Ruc",
+            "placholder": "Cual es tu Ruc"
+          },
+          "economicActivity": {
+            "label": "Actividad Económica",
+            "placholder": "Ingresa tu actividad económica"
+          },
+          "contributorType": {
+            "label": "Tipo de Contribuidor",
+            "placholder": "Ingresa que tipo de contribuidor eres"
+          },
+          "legalRepresentative": {
+            "label": "Representante legal",
+            "placholder": "Ingresa el nombre de tu representate legal"
+          },
+          "name": {
+            "label": "Nombre",
+            "placholder": "Cual es el nombre tu sucursal"
+          },
+          "officePhone": {
+            "label": "Número de telefono",
+            "placholder": "Cual es tu número de telefono"
+          },
+          "cellPhone": {
+            "label": "Número de celular",
+            "placholder": "Cual es tu número de celular"
+          },
+          "address": {
+            "label": "Dirección",
+            "placholder": "Cual es tu dirección"
+          },
+          "email": {
+            "label": "Correo",
+            "placholder": "Ingresa tu correo"
+          }
+        }
+      },
+      "myOffices": {
+        "title": "Mis Sucursales",
+        "panelTitle": "Sucursales Registradas",
+        "empty": "Bienvenido A Sucursales",
+        "description": "Sucursales es una sección para crear tus sucursales",
+        "tip": "Todas tus Sucursales seran listadas aquí",
+        "new": "Nueva Sucursal"
+      }
     }
   }
 }

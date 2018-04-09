@@ -6,6 +6,7 @@ import { injectIntl } from 'react-intl';
 
 import styles from './ProfilePage.css';
 import * as palette from 'Styles/palette.css';
+import OfficeSection from './OfficeSection'
 class ProfilePage extends Component {
 
   render() {
@@ -27,6 +28,7 @@ class ProfilePage extends Component {
             </Typography.Text>
           </div>
         </Card>
+        <OfficeSection/>
         <Card classNameContent={styles.accountOptions}>
           <div className={styles.information}>
             <Typography.Text bold style={{padding:"10px 0", fontSize:'20px', color: palette.pinkRed}}>
