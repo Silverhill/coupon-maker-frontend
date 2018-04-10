@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { injectIntl } from 'react-intl';
 import { Card } from 'coupon-components';
-import Offices from './Offices/Offices'
-import NewOffice from './Office/NewOffice'
+import Offices from './Offices/Offices';
+import NewOffice from './Office/NewOffice';
 import styles from './ProfilePage.css';
 
 class OfficeSection extends Component {
@@ -19,7 +19,7 @@ class OfficeSection extends Component {
       case 'list':
         return <Offices changeSection={this.handleSection}/>;
       case 'create':
-        return <NewOffice changeSection={this.handleSection}/>;
+        return <NewOffice/>;
       default:
         break;
     }
