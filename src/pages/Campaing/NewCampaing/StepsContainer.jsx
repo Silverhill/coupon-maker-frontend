@@ -71,7 +71,7 @@ class StepsContainer extends Component {
     if(valuesForm){
       cuponData.title = valuesForm.title;
       cuponData.address = valuesForm.address;
-      cuponData.totalCoupons = valuesForm.totalCoupons;
+      cuponData.totalCoupons = valuesForm.couponsNumber;
       cuponData.date = moment(valuesForm.startAt).format("DD MMM") + '-' + moment(valuesForm.endAt).format("DD MMM YYYY");
       cuponData.image = valuesForm.image && valuesForm.image.imagePreviewUrl;
     }
@@ -92,7 +92,7 @@ class StepsContainer extends Component {
                   title={cuponData.title}
                   date={cuponData.date}
                   address={cuponData.address}
-                  totalCoupons={cuponData.totalCoupons}
+                  totalCoupons={parseInt(cuponData.totalCoupons|| '0')}
                   className={styles.campaing}/>
             </Field>
           </Panel>
