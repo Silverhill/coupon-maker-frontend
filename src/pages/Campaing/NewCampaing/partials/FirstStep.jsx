@@ -3,7 +3,9 @@ import { Field } from 'redux-form';
 import { Panel, InputBox, InputNested } from 'coupon-components';
 import InputDate from 'Components/InputDate/InputDate'
 
+import classNames from 'classnames/bind';
 import styles from '../../NewCampaing/NewCampaing.css';
+const cx = classNames.bind(styles)
 
 class FirstStep extends Component {
   render() {
@@ -36,7 +38,7 @@ class FirstStep extends Component {
                 placeholder="Si prefieres escribir tu mensaje… eje: 2x1"
                 labelText="Personaliza tu mensaje"
                 className={styles.row_padding}/>
-          <InputNested labelText="Duración" description="Elige el rango de duración para tu campaña" className={styles.row_padding}>
+          <InputNested labelText="Duración" description="Elige el rango de duración para tu campaña" className={cx(styles.row_padding, styles.daterange)}>
             <Field name="startAt"
                 reduxFormInput
                 component={InputDate}/>
