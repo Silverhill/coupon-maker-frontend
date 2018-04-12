@@ -63,6 +63,63 @@
         "description": "Campaign allow you created promotions",
         "tip": "All your campaings will be listed here",
         "new": "New Campaign"
+      },
+      "new": {
+        "card": {
+          "title": "Create campaign"
+        },
+        "panel": {
+          "information": "Basic Information",
+          "previsualization": "Previsualization"
+        },
+        "title": {
+          "label": "What's the name of your campaign?",
+          "placeholder":"Write a creative name for your campaign"
+        },
+        "customMessage": {
+          "label": "Short description of your campaign (Optional)",
+          "placeholder": "Enter a specific description of your promotion"
+        },
+        "address": {
+          "label": "What is the address of your company?",
+          "placeholder": "Enter the address where the coupon, main or office is going to be made"
+        },
+        "description": {
+          "label": "Customize your message",
+          "placeholder": "If you prefer to write your message ... e.g: 2x1"
+        },
+        "duration": {
+          "label": "Duration",
+          "description": "Choose the duration range for your campaign"
+        },
+        "couponsNumber": {
+          "label": "How coupons do you want use?",
+          "placeholder": "Select a number"
+        },
+        "place": {
+          "title": "Place",
+          "description": "Where do you want your coupons advertised?",
+          "country": {
+            "label": "Country",
+            "placeholder": "Select any country"
+          },
+          "city": {
+            "label": "City",
+            "placeholder": "Select any city"
+          }
+        },
+        "ageRange": {
+          "title": "Age Range",
+          "description": "People you choose by age",
+          "initial": {
+            "label": "From",
+            "placeholder": "Write a number"
+          },
+          "final": {
+            "label": "To",
+            "placeholder": "Write un number"
+          }
+        }
       }
     },
     "profile": {
@@ -135,6 +192,13 @@
         "new": "Nueva Campaña"
       },
       "new": {
+        "card": {
+          "title": "Crear una campaña"
+        },
+        "panel": {
+          "information": "Información Básica",
+          "previsualization": "Previsualización"
+        },
         "title": {
           "label": "Cual es el nombre de tu campaña?",
           "placeholder":"Escribe un nombre creativo de tu campaña"
@@ -157,7 +221,7 @@
         },
         "couponsNumber": {
           "label": "Cupones a utilizar",
-          "placeholder": "Seleccione un número"
+          "placeholder": "Escriba un número"
         },
         "place": {
           "title": "Lugar",
@@ -176,11 +240,11 @@
           "description": "Personas a las que eliges por segmentación",
           "initial": {
             "label": "Desde",
-            "placeholder": "Seleccione un número"
+            "placeholder": "Escriba un número"
           },
           "final": {
             "label": "Hasta",
-            "placeholder": "Seleccione un número"
+            "placeholder": "Escriba un número"
           }
         }
       }

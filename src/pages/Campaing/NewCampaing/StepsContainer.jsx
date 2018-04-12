@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Panel, Coupon, StepByStep, RoundButton, InputFile } from 'coupon-components';
 import FirstStep from './partials/FirstStep';
 import SecondStep from './partials/SecondStep';
+import { injectIntl } from 'react-intl';
 
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
@@ -58,6 +59,7 @@ class StepsContainer extends Component {
 
   render() {
     const { steps, currentStep } = this.state;
+    const { intl } = this.props;
     const cuponData = {};
     let moveBtn;
     if(currentStep.id === 1){
@@ -77,13 +79,13 @@ class StepsContainer extends Component {
     }
 
     return (
-      <Card title="Crear una campaña" style={{position: 'relative'}}>
+      <Card title={intl.formatMessage({id: 'campaigns.new.card.title'})} style={{position: 'relative'}}>
         <div className={styles.tabs}>
           <StepByStep steps={steps} onChange={this.handleStepsChange} className={styles.steps}/>
         </div>
 
         <form onSubmit={this.props.handleSubmit}>
-          <Panel title="Previsualización" classNameContainer={cx(styles.panel, styles.cuponContainer)}>
+          <Panel title={intl.formatMessage({id: 'campaigns.new.panel.previsualization'})} classNameContainer={cx(styles.panel, styles.cuponContainer)}>
             <Field name="image"
                 reduxFormInput
                 component={InputFile}
@@ -114,5 +116,5 @@ class StepsContainer extends Component {
 export default connect(state => ({ form_campaing: state.form.create_campaign }))(
   reduxForm({
     form: 'create_campaign'
-  })(StepsContainer)
+  })(injectIntl(StepsContainer))
 );
