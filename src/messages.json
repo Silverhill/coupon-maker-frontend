@@ -1,6 +1,19 @@
 {
   "en": {
     "greetings": "Hello",
+    "header": {
+      "option": {
+        "coupons": "Register Coupon",
+        "campaigns": "Campaigns",
+        "notifications": "Notifications"
+      },
+      "user": {
+        "option": {
+          "profile": "Profile",
+          "logout": "Logout"
+        }
+      }
+    },
     "login": {
       "labels": {
         "email": "Email Address",
@@ -58,6 +71,19 @@
   },
   "es": {
     "greetings": "Hola",
+    "header": {
+      "option": {
+        "coupons": "Registro Cupones",
+        "campaigns": "Campañas",
+        "notifications": "Notificaciones"
+      },
+      "user": {
+        "option": {
+          "profile": "Perfil",
+          "logout": "Cerrar Sesion"
+        }
+      }
+    },
     "login": {
       "labels": {
         "email": "Dirección de Email",
@@ -107,6 +133,56 @@
         "description": "Campañas es una sección para crear tus promociones",
         "tip": "Todas tus campañas seran listadas aquí",
         "new": "Nueva Campaña"
+      },
+      "new": {
+        "title": {
+          "label": "Cual es el nombre de tu campaña?",
+          "placeholder":"Escribe un nombre creativo de tu campaña"
+        },
+        "customMessage": {
+          "label": "Descripción corta de tu campaña (Opcional)",
+          "placeholder": "Ingresa una descripción especifica de tu promoción"
+        },
+        "address": {
+          "label": "Cual es la dirección de tu empresa?",
+          "placeholder": "Ingresa la dirección donde se va a hacer efectivo el cupón, principal o Sucursal"
+        },
+        "description": {
+          "label": "Personaliza tu mensaje",
+          "placeholder": "Si prefieres escribir tu mensaje… eje: 2x1"
+        },
+        "duration": {
+          "label": "Duración",
+          "description": "Elige el rango de duración para tu campaña"
+        },
+        "couponsNumber": {
+          "label": "Cupones a utilizar",
+          "placeholder": "Seleccione un número"
+        },
+        "place": {
+          "title": "Lugar",
+          "description": "Donde quieres que se publiciten tus cupones",
+          "country": {
+            "label": "País",
+            "placeholder": "Seleccione un país"
+          },
+          "city": {
+            "label": "Ciudad",
+            "placeholder": "Seleccione una ciudad"
+          }
+        },
+        "ageRange": {
+          "title": "Rango de edad",
+          "description": "Personas a las que eliges por segmentación",
+          "initial": {
+            "label": "Desde",
+            "placeholder": "Seleccione un número"
+          },
+          "final": {
+            "label": "Hasta",
+            "placeholder": "Seleccione un número"
+          }
+        }
       }
     },
     "profile": {

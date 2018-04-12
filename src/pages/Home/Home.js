@@ -45,19 +45,19 @@ class Home extends Component {
     let tabOptions = [
       {
         id: 0,
-        label: 'Registro Cupones',
+        label: intl.formatMessage({id: 'header.option.coupons'}),
         route: '/new_coupon',
         icon: 'CpTicket'
       },
       {
         id: 1,
-        label: 'Campañas',
+        label: intl.formatMessage({id: 'header.option.campaigns'}),
         route: '/campaigns',
         icon: 'FaListAlt'
       },
       {
         id: 2,
-        label: 'Notificaciones',
+        label:  intl.formatMessage({id: 'header.option.notifications'}),
         route: '/notifications',
         icon: 'FaBellO'
       },
@@ -67,11 +67,11 @@ class Home extends Component {
       image: (me && me.image) || 'https://i.pinimg.com/564x/bc/c8/10/bcc8102f42e58720355ca02d833c204b.jpg',
       options: [
         {
-          value: 'Mi perfil',
+          value: intl.formatMessage({id: 'header.user.option.profile'}),
           onClick: ()=>{this.props.history.push('/profile');}
         },
         {
-          value: 'Cerrar Sesion',
+          value: intl.formatMessage({id: 'header.user.option.logout'}),
           onClick: ()=>{
             const remove = removeAuthentication();
             if(remove) this.props.history.push('/login');
