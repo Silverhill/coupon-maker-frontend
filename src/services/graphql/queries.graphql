@@ -20,7 +20,7 @@ query getMe {
     endAt
     image
     totalCoupons
-    capturedCoupons
+    huntedCoupons
   }
 }
 
