@@ -1,7 +1,6 @@
-@value colors: "Styles/palette.css";
 @value (
   neutralColorMedium
-) from colors;
+) from "Styles/palette.css";
 
 .campaing {
   width: 100%;

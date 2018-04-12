@@ -1,10 +1,9 @@
-@value colors: "Styles/palette.css";
 @value (
   pinkRed,
   paleLilac,
   paleGray,
   lightNeutral
-) from colors;
+) from "Styles/palette.css";
 
 .campaigns {
 

@@ -1,9 +1,8 @@
-@value colors: "Styles/palette.css";
 @value (
   mediumNeutral,
   darkColor,
   highlightNeutral
-) from colors;
+) from "Styles/palette.css";
 .container{
   & input {
     border-radius: 5px;

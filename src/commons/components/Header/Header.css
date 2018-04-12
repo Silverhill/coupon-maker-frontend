@@ -1,10 +1,9 @@
-@value colors: "Styles/palette.css";
 @value (
   whiteColor,
   primaryColor,
   secondaryColor,
   lightNeutral
-) from colors;
+) from "Styles/palette.css";
 
 .container {
   height: 57px;

@@ -1,9 +1,8 @@
-@value colors: "Styles/palette.css";
 @value (
   pinkRed,
   paleLilac,
   paleGray
-) from colors;
+) from "Styles/palette.css";
 
 @value paddingForm: 30px;
 
