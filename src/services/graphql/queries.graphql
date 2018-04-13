@@ -42,6 +42,13 @@ query makerCampaigns{
   }
 }
 
+query getMyCompany{
+  myCompany {
+    id
+    businessName
+  }
+}
+
 mutation registerUser($name: String!, $email: String!, $password: String!) {
   signUp(input:{name: $name, email: $email, password: $password, role: "maker"}) {
     id
@@ -74,5 +81,32 @@ mutation createCampaing(
       finalAgeRange: $finalAgeRange
     }) {
       title
+    }
+}
+
+mutation createOffice(
+  $ruc: String!,
+  $economicActivity: String!,
+  $contributorType: String!,
+  $legalRepresentative: String!,
+  $name: String!,
+  $officePhone: String,
+  $cellPhone: String,
+  $address: String!,
+  $email: String!,
+  $companyId: String!){
+    addOffice(input:{
+      ruc: $ruc,
+      economicActivity: $economicActivity,
+      contributorType: $contributorType,
+      legalRepresentative: $legalRepresentative,
+      name: $name,
+      officePhone: $officePhone,
+      cellPhone: $cellPhone,
+      address: $address,
+      email: $email,
+      companyId: $companyId
+    }) {
+      id
     }
 }

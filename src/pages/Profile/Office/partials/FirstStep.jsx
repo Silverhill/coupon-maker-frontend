@@ -17,7 +17,8 @@ class FirstStep extends Component {
                 component={InputBox}
                 placeholder={intl.formatMessage({id: 'profile.office.new.ruc.placeholder'})}
                 labelText={intl.formatMessage({id: 'profile.office.new.ruc.label'})}
-                className={styles.row_padding}/>
+                className={styles.row_padding}
+                type="number"/>
           <Field name="economicActivity"
                 reduxFormInput
                 component={InputBox}

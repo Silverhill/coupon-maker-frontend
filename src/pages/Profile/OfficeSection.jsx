@@ -10,16 +10,20 @@ class OfficeSection extends Component {
     currentSection: 'list'
   }
 
-  handleSection = () => {
+  goToNewOffice = () => {
     this.setState({ currentSection: 'create' });
+  }
+
+  goToOffices = () => {
+    this.setState({ currentSection: 'list' });
   }
 
   renderSection = (section) => {
     switch (section) {
       case 'list':
-        return <Offices changeSection={this.handleSection}/>;
+        return <Offices changeSection={this.goToNewOffice}/>;
       case 'create':
-        return <NewOffice/>;
+        return <NewOffice changeSection={this.goToOffices}/>;
       default:
         break;
     }

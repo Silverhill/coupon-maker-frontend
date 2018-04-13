@@ -54,7 +54,7 @@ class StepsContainer extends Component {
 
   render() {
     const { steps, currentStep } = this.state;
-    const { handleSubmit } = this.props;
+    const { handleSubmit, changeSection } = this.props;
     let moveBtn;
     if(currentStep.id === 1){
       moveBtn = {
@@ -67,6 +67,7 @@ class StepsContainer extends Component {
     return (
       <div>
         <div className={styles.tabs}>
+          <RoundButton icon="FaArrowLeft" color="secondaryColor" onClick={changeSection} className={styles.returnBtn}/>
           <StepByStep steps={steps} onChange={this.handleStepsChange} className={styles.steps}/>
         </div>
 
