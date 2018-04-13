@@ -58,6 +58,10 @@ query getCampaign($id:String!){
     endAt
     image
     totalCoupons
+    customMessage
+    city
+    country
+    description
   }
 }
 

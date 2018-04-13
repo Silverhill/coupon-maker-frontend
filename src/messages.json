@@ -120,6 +120,21 @@
             "placeholder": "Write un number"
           }
         }
+      },
+      "show": {
+        "card": {
+          "title": "Campaingn Details"
+        },
+        "panel": {
+          "title": "Hunters"
+        },
+        "labels": {
+          "office": "Office",
+          "title": "Campaign",
+          "description": "Description",
+          "available": "Available",
+          "segmentation": "Segmentation"
+        }
       }
     },
     "profile": {
@@ -189,7 +204,7 @@
         "empty": "Bienvenido A Campañas",
         "description": "Campañas es una sección para crear tus promociones",
         "tip": "Todas tus campañas seran listadas aquí",
-        "new": "Nueva Campaña"
+        "new": "Crear Campaña"
       },
       "new": {
         "card": {
@@ -246,6 +261,24 @@
             "label": "Hasta",
             "placeholder": "Escriba un número"
           }
+        }
+      },
+      "show": {
+        "card": {
+          "title": "Detalles de tu campaña"
+        },
+        "panel": {
+          "title": "Hunters"
+        },
+        "coupons": {
+          "available": "Disponibles"
+        },
+        "labels": {
+          "office": "Sucursal",
+          "title": "Campaña",
+          "description": "Descripción",
+          "available": "Disponibles",
+          "segmentation": "Segmentación"
         }
       }
     },
