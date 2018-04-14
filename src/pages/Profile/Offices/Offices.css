@@ -1,0 +1,57 @@
+@value colors: "Styles/palette.css";
+@value (
+  pinkRed,
+  paleGray,
+  lightNeutral
+) from colors;
+
+.offices {
+  .panel {
+    .emptyState {
+      text-align: center;
+      .btnCreate {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .table {
+
+      .row {
+        &:nth-child(odd) {
+          border-top: 1px solid paleGray;
+          border-bottom: 1px solid paleGray;
+        }
+
+        &:hover {
+          background-color: lightNeutral;
+        }
+      }
+
+      .btnCreate {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+      }
+
+    }
+
+    .rowContainer {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.9;
+      }
+
+      .information {
+        display: block;
+        text-align: left;
+      }
+    }
+  }
+}
