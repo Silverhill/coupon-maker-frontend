@@ -1,5 +1,5 @@
 import React from 'react';
-import { loginUser } from 'Services/graphql/queries.graphql';
+import { loginUser, customer } from 'Services/graphql/queries.graphql';
 import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
 //styles
@@ -15,17 +15,22 @@ import * as userActions from '../../actions/userActions';
   form: state.form.login
 }), {
   loginAsync: userActions.login,
+  removeAuthentication: userActions.removeAuthentication,
 })
 
 class LogInPage extends React.Component {
 
   goToHome = () => {
-    this.props.history.push('/')
+    this.props.history.push('/');
   }
 
   loginApp = async (values = {}) => {
-    const { loginAsync, form } = this.props;
-    const { client: { query } } = this.props;
+    const {
+      loginAsync,
+      removeAuthentication,
+      form,
+      client: { query }
+    } = this.props;
 
     try {
       const res = await query({
@@ -36,8 +41,21 @@ class LogInPage extends React.Component {
         }
       });
       const { data: { signIn } } = res;
-      const { logged } = loginAsync(signIn.token);
-      if(logged) this.goToHome();
+      const { logged } = await loginAsync(signIn.token);
+      if(logged) {
+        try {
+          const resp = await query({query: customer});
+          const { data: { me } } = resp;
+          if (me.role === 'maker') {
+            this.goToHome();
+          }else{
+            removeAuthentication();
+            this.props.history.push(`/customer/${me.name}`);
+          }
+        } catch (error) {
+          return
+        }
+      }
     } catch (error) {
       return;
     }

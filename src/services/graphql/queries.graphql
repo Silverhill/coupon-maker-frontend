@@ -4,6 +4,13 @@ query getHunters {
   }
 }
 
+query customer {
+  me {
+    name
+    role
+  }
+}
+
 query getMe {
   me {
     name
