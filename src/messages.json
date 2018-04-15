@@ -138,7 +138,59 @@
       }
     },
     "profile": {
-      "title": "Profile"
+      "title": "Profile",
+      "office": {
+        "title": "Office",
+        "new": {
+          "title": "Create office",
+          "firstStep": "Basic Information",
+          "secondStep": "Office Informatión",
+          "ruc": {
+            "label": "Ruc",
+            "placeholder": "Write your Ruc"
+          },
+          "economicActivity": {
+            "label": "Economic Activity",
+            "placeholder": "Write your economic activity"
+          },
+          "contributorType": {
+            "label": "Type of Contribuidor",
+            "placeholder": "Write your type of contribuidor"
+          },
+          "legalRepresentative": {
+            "label": "Legal Representate",
+            "placeholder": "Name of legal representate"
+          },
+          "name": {
+            "label": "Name",
+            "placeholder": "Name of your address"
+          },
+          "officePhone": {
+            "label": "Telephone",
+            "placeholder": "What is your telephone number"
+          },
+          "cellPhone": {
+            "label": "Identificaction",
+            "placeholder": "Number of identification"
+          },
+          "address": {
+            "label": "Address",
+            "placeholder": "What is your address"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Write your email"
+          }
+        }
+      },
+      "myOffices": {
+        "title": "My Offices",
+        "panelTitle": "Address Register",
+        "empty": "Wellcome to Offices",
+        "description": "Offices allow you register your offices",
+        "tip": "All your offices will be listed here",
+        "new": "New Office"
+      }
     }
   },
   "es": {
