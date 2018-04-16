@@ -1,6 +1,19 @@
 {
   "en": {
     "greetings": "Hello",
+    "header": {
+      "option": {
+        "coupons": "Register Coupon",
+        "campaigns": "Campaigns",
+        "notifications": "Notifications"
+      },
+      "user": {
+        "option": {
+          "profile": "Profile",
+          "logout": "Logout"
+        }
+      }
+    },
     "login": {
       "labels": {
         "email": "Email Address",
@@ -50,14 +63,151 @@
         "description": "Campaign allow you created promotions",
         "tip": "All your campaings will be listed here",
         "new": "New Campaign"
+      },
+      "new": {
+        "card": {
+          "title": "Create campaign"
+        },
+        "panel": {
+          "information": "Basic Information",
+          "previsualization": "Previsualization"
+        },
+        "title": {
+          "label": "What's the name of your campaign?",
+          "placeholder":"Write a creative name for your campaign"
+        },
+        "customMessage": {
+          "label": "Short description of your campaign (Optional)",
+          "placeholder": "Enter a specific description of your promotion"
+        },
+        "address": {
+          "label": "What is the address of your company?",
+          "placeholder": "Enter the address where the coupon, main or office is going to be made"
+        },
+        "description": {
+          "label": "Customize your message",
+          "placeholder": "If you prefer to write your message ... e.g: 2x1"
+        },
+        "duration": {
+          "label": "Duration",
+          "description": "Choose the duration range for your campaign"
+        },
+        "couponsNumber": {
+          "label": "How coupons do you want use?",
+          "placeholder": "Select a number"
+        },
+        "place": {
+          "title": "Place",
+          "description": "Where do you want your coupons advertised?",
+          "country": {
+            "label": "Country",
+            "placeholder": "Select any country"
+          },
+          "city": {
+            "label": "City",
+            "placeholder": "Select any city"
+          }
+        },
+        "ageRange": {
+          "title": "Age Range",
+          "description": "People you choose by age",
+          "initial": {
+            "label": "From",
+            "placeholder": "Write a number"
+          },
+          "final": {
+            "label": "To",
+            "placeholder": "Write un number"
+          }
+        }
+      },
+      "show": {
+        "card": {
+          "title": "Campaingn Details"
+        },
+        "panel": {
+          "title": "Hunters"
+        },
+        "labels": {
+          "office": "Office",
+          "title": "Campaign",
+          "description": "Description",
+          "available": "Available",
+          "segmentation": "Segmentation"
+        }
       }
     },
     "profile": {
-      "title": "Profile"
+      "title": "Profile",
+      "office": {
+        "title": "Office",
+        "new": {
+          "title": "Create office",
+          "firstStep": "Basic Information",
+          "secondStep": "Office Informatión",
+          "ruc": {
+            "label": "Ruc",
+            "placeholder": "Write your Ruc"
+          },
+          "economicActivity": {
+            "label": "Economic Activity",
+            "placeholder": "Write your economic activity"
+          },
+          "contributorType": {
+            "label": "Type of Contribuidor",
+            "placeholder": "Write your type of contribuidor"
+          },
+          "legalRepresentative": {
+            "label": "Legal Representate",
+            "placeholder": "Name of legal representate"
+          },
+          "name": {
+            "label": "Name",
+            "placeholder": "Name of your address"
+          },
+          "officePhone": {
+            "label": "Telephone",
+            "placeholder": "What is your telephone number"
+          },
+          "cellPhone": {
+            "label": "Identificaction",
+            "placeholder": "Number of identification"
+          },
+          "address": {
+            "label": "Address",
+            "placeholder": "What is your address"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Write your email"
+          }
+        }
+      },
+      "myOffices": {
+        "title": "My Offices",
+        "panelTitle": "Address Register",
+        "empty": "Wellcome to Offices",
+        "description": "Offices allow you register your offices",
+        "tip": "All your offices will be listed here",
+        "new": "New Office"
+      }
     }
   },
   "es": {
     "greetings": "Hola",
+    "header": {
+      "option": {
+        "coupons": "Registro Cupones",
+        "campaigns": "Campañas",
+        "notifications": "Notificaciones"
+      },
+      "user": {
+        "option": {
+          "profile": "Perfil",
+          "logout": "Cerrar Sesion"
+        }
+      }
+    },
     "login": {
       "labels": {
         "email": "Dirección de Email",
@@ -106,7 +256,82 @@
         "empty": "Bienvenido A Campañas",
         "description": "Campañas es una sección para crear tus promociones",
         "tip": "Todas tus campañas seran listadas aquí",
-        "new": "Nueva Campaña"
+        "new": "Crear Campaña"
+      },
+      "new": {
+        "card": {
+          "title": "Crear una campaña"
+        },
+        "panel": {
+          "information": "Información Básica",
+          "previsualization": "Previsualización"
+        },
+        "title": {
+          "label": "Cual es el nombre de tu campaña?",
+          "placeholder":"Escribe un nombre creativo de tu campaña"
+        },
+        "customMessage": {
+          "label": "Descripción corta de tu campaña (Opcional)",
+          "placeholder": "Ingresa una descripción especifica de tu promoción"
+        },
+        "address": {
+          "label": "Cual es la dirección de tu empresa?",
+          "placeholder": "Ingresa la dirección donde se va a hacer efectivo el cupón, principal o Sucursal"
+        },
+        "description": {
+          "label": "Personaliza tu mensaje",
+          "placeholder": "Si prefieres escribir tu mensaje… eje: 2x1"
+        },
+        "duration": {
+          "label": "Duración",
+          "description": "Elige el rango de duración para tu campaña"
+        },
+        "couponsNumber": {
+          "label": "Cupones a utilizar",
+          "placeholder": "Escriba un número"
+        },
+        "place": {
+          "title": "Lugar",
+          "description": "Donde quieres que se publiciten tus cupones",
+          "country": {
+            "label": "País",
+            "placeholder": "Seleccione un país"
+          },
+          "city": {
+            "label": "Ciudad",
+            "placeholder": "Seleccione una ciudad"
+          }
+        },
+        "ageRange": {
+          "title": "Rango de edad",
+          "description": "Personas a las que eliges por segmentación",
+          "initial": {
+            "label": "Desde",
+            "placeholder": "Escriba un número"
+          },
+          "final": {
+            "label": "Hasta",
+            "placeholder": "Escriba un número"
+          }
+        }
+      },
+      "show": {
+        "card": {
+          "title": "Detalles de tu campaña"
+        },
+        "panel": {
+          "title": "Hunters"
+        },
+        "coupons": {
+          "available": "Disponibles"
+        },
+        "labels": {
+          "office": "Sucursal",
+          "title": "Campaña",
+          "description": "Descripción",
+          "available": "Disponibles",
+          "segmentation": "Segmentación"
+        }
       }
     },
     "profile": {

@@ -19,7 +19,7 @@ import Campaigns from '../Campaigns/Campaigns';
 import NotificationsPage from '../Notifications/NotificationsPage';
 import CouponsPage from '../Coupons/CouponsPage';
 import ProfilePage from '../Profile/ProfilePage';
-import CampaingPage from '../Campaing/CampaingPage';
+import ShowCampaign from '../Campaing/ShowCampaign/ShowCampaign';
 import NewCampaingPage from '../Campaing/NewCampaing/NewCampaingPage';
 // Styles
 import * as palette from 'Styles/palette.css';
@@ -37,7 +37,12 @@ const PageHome = (props) => <div><h1>Home</h1></div>
 class Home extends Component {
 
   render() {
-    const { data: { error, loading, myCampaigns, me }, intl, removeAuthentication } = this.props;
+    const {
+      data: { error, loading, myCampaigns, me },
+      intl,
+      removeAuthentication,
+      history
+    } = this.props;
     const campaigns = myCampaigns ? myCampaigns.slice(0,3) : null;
     const total = campaigns ? campaigns.length : 0;
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
@@ -45,19 +50,19 @@ class Home extends Component {
     let tabOptions = [
       {
         id: 0,
-        label: 'Registro Cupones',
+        label: intl.formatMessage({id: 'header.option.coupons'}),
         route: '/new_coupon',
         icon: 'CpTicket'
       },
       {
         id: 1,
-        label: 'Campañas',
+        label: intl.formatMessage({id: 'header.option.campaigns'}),
         route: '/campaigns',
         icon: 'FaListAlt'
       },
       {
         id: 2,
-        label: 'Notificaciones',
+        label:  intl.formatMessage({id: 'header.option.notifications'}),
         route: '/notifications',
         icon: 'FaBellO'
       },
@@ -67,11 +72,11 @@ class Home extends Component {
       image: (me && me.image) || 'https://i.pinimg.com/564x/bc/c8/10/bcc8102f42e58720355ca02d833c204b.jpg',
       options: [
         {
-          value: 'Mi perfil',
+          value: intl.formatMessage({id: 'header.user.option.profile'}),
           onClick: ()=>{this.props.history.push('/profile');}
         },
         {
-          value: 'Cerrar Sesion',
+          value: intl.formatMessage({id: 'header.user.option.logout'}),
           onClick: ()=>{
             const remove = removeAuthentication();
             if(remove) this.props.history.push('/login');
@@ -135,7 +140,7 @@ class Home extends Component {
             address={cpg.address}
             totalCoupons={cpg.totalCoupons}
             className={styles.campaign}
-            onClick={()=>{this.props.history.push('/campaign');}}
+            onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
           />
         )
       })
@@ -153,7 +158,7 @@ class Home extends Component {
             totalCoupons={cpg.totalCoupons}
             totalCouponsHunted={cpg.capturedCoupons || 0}
             className={styles.campaign}
-            onClick={()=>{this.props.history.push('/campaign');}}
+            onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
           />
         )
       })
@@ -190,7 +195,7 @@ class Home extends Component {
               <Route path='/notifications' component={NotificationsPage} />
               <Route path='/profile' component={ProfilePage} />
               <Route path='/new_campaign' component={NewCampaingPage} />
-              <Route path='/campaign' component={CampaingPage} />
+              <Route path='/campaign/:id' component={ShowCampaign} />
             </Switch>
           </main>
         </div>

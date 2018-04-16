@@ -11,7 +11,7 @@ import * as palette from 'Styles/palette.css';
 
 class Campaigns extends Component {
   render() {
-    const { data: { myCampaigns }, intl } = this.props;
+    const { data: { myCampaigns }, intl, history } = this.props;
     const total = myCampaigns ? myCampaigns.length : 0;
     const placeholderImage = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
 
@@ -28,6 +28,7 @@ class Campaigns extends Component {
               label={date}
               number={cpg.totalCoupons}
               className={styles.row}
+              onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
             />
           )
         })}
