@@ -49,6 +49,16 @@ query makerCampaigns{
   }
 }
 
+query makerOffices{
+  myOffices {
+    id
+    name
+    address
+    officePhone
+    email
+	}
+}
+
 query getMyCompany{
   myCompany {
     id

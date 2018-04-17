@@ -4,28 +4,15 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import RowOffice from './partials/RowOffice';
 
+import { graphql } from 'react-apollo';
+import { makerOffices } from 'Services/graphql/queries.graphql';
+
 import styles from './OfficesPage.css';
 import * as palette from 'Styles/palette.css';
 
 class OfficesPage extends Component {
   render() {
-    const { intl } = this.props;
-    const myOffices = [
-      {
-        "id": 0,
-        "name": "Sucursal 1",
-        "address": "Av 24 de Mayo y 10 de Agosto",
-        "officePhone": '072567345',
-        "email": 'admin@example.com'
-      },
-      {
-        "id": 1,
-        "name": "Sucursal 2",
-        "address": "Centro comercial la pradera",
-        "officePhone": '072557346',
-        "email": 'admin@example.com'
-      },
-    ];
+    const { intl, data: { myOffices } } = this.props;
     const total = myOffices ? myOffices.length : 0;
 
     const tableOffices = (
@@ -95,4 +82,4 @@ class OfficesPage extends Component {
   }
 }
 
-export default (injectIntl(OfficesPage));
+export default graphql(makerOffices)(injectIntl(OfficesPage));
