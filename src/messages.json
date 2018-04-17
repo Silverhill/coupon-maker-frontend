@@ -5,7 +5,7 @@
       "option": {
         "coupons": "Register Coupon",
         "campaigns": "Campaigns",
-        "notifications": "Notifications"
+        "offices": "Offices"
       },
       "user": {
         "option": {
@@ -138,59 +138,59 @@
       }
     },
     "profile": {
-      "title": "Profile",
-      "office": {
-        "title": "Office",
-        "new": {
-          "title": "Create office",
-          "firstStep": "Basic Information",
-          "secondStep": "Office Informatión",
-          "ruc": {
-            "label": "Ruc",
-            "placeholder": "Write your Ruc"
-          },
-          "economicActivity": {
-            "label": "Economic Activity",
-            "placeholder": "Write your economic activity"
-          },
-          "contributorType": {
-            "label": "Type of Contribuidor",
-            "placeholder": "Write your type of contribuidor"
-          },
-          "legalRepresentative": {
-            "label": "Legal Representate",
-            "placeholder": "Name of legal representate"
-          },
-          "name": {
-            "label": "Name",
-            "placeholder": "Name of your address"
-          },
-          "officePhone": {
-            "label": "Telephone",
-            "placeholder": "What is your telephone number"
-          },
-          "cellPhone": {
-            "label": "Identificaction",
-            "placeholder": "Number of identification"
-          },
-          "address": {
-            "label": "Address",
-            "placeholder": "What is your address"
-          },
-          "email": {
-            "label": "Email",
-            "placeholder": "Write your email"
-          }
+      "title": "Profile"
+    },
+    "office": {
+      "title": "Office",
+      "new": {
+        "title": "Create an office",
+        "firstStep": "Basic Information",
+        "secondStep": "Office Informatión",
+        "ruc": {
+          "label": "Ruc",
+          "placeholder": "Write your Ruc"
+        },
+        "economicActivity": {
+          "label": "Economic Activity",
+          "placeholder": "Write your economic activity"
+        },
+        "contributorType": {
+          "label": "Type of Contribuidor",
+          "placeholder": "Write your type of contribuidor"
+        },
+        "legalRepresentative": {
+          "label": "Legal Representate",
+          "placeholder": "Name of legal representate"
+        },
+        "name": {
+          "label": "Name",
+          "placeholder": "Name of your address"
+        },
+        "officePhone": {
+          "label": "Telephone",
+          "placeholder": "What is your telephone number"
+        },
+        "cellPhone": {
+          "label": "Identificaction",
+          "placeholder": "Number of identification"
+        },
+        "address": {
+          "label": "Address",
+          "placeholder": "What is your address"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Write your email"
         }
-      },
-      "myOffices": {
-        "title": "My Offices",
-        "panelTitle": "Address Register",
-        "empty": "Wellcome to Offices",
-        "description": "Offices allow you register your offices",
-        "tip": "All your offices will be listed here",
-        "new": "New Office"
       }
+    },
+    "myOffices": {
+      "title": "My Offices",
+      "panelTitle": "Address Register",
+      "empty": "Wellcome to Offices",
+      "description": "Offices allow you register your offices",
+      "tip": "All your offices will be listed here",
+      "new": "New Office"
     }
   },
   "es": {
@@ -199,7 +199,7 @@
       "option": {
         "coupons": "Registro Cupones",
         "campaigns": "Campañas",
-        "notifications": "Notificaciones"
+        "offices": "Oficinas"
       },
       "user": {
         "option": {
@@ -335,59 +335,59 @@
       }
     },
     "profile": {
-      "title": "Perfil",
-      "office": {
-        "title": "Sucursales",
-        "new": {
-          "title": "Añadir sucursal",
-          "firstStep": "Información Básica",
-          "secondStep": "Información Sucursal",
-          "ruc": {
-            "label": "Ruc",
-            "placeholder": "Cual es tu Ruc"
-          },
-          "economicActivity": {
-            "label": "Actividad Económica",
-            "placeholder": "Ingresa tu actividad económica"
-          },
-          "contributorType": {
-            "label": "Tipo de Contribuidor",
-            "placeholder": "Ingresa que tipo de contribuidor eres"
-          },
-          "legalRepresentative": {
-            "label": "Representante legal",
-            "placeholder": "Ingresa el nombre de tu representate legal"
-          },
-          "name": {
-            "label": "Nombre",
-            "placeholder": "Cual es el nombre tu sucursal"
-          },
-          "officePhone": {
-            "label": "Número de telefono",
-            "placeholder": "Cual es tu número de telefono"
-          },
-          "cellPhone": {
-            "label": "Número de celular",
-            "placeholder": "Cual es tu número de celular"
-          },
-          "address": {
-            "label": "Dirección",
-            "placeholder": "Cual es tu dirección"
-          },
-          "email": {
-            "label": "Correo",
-            "placeholder": "Ingresa tu correo"
-          }
+      "title": "Perfil"
+    },
+    "office": {
+      "title": "Sucursales",
+      "new": {
+        "title": "Crear una sucursal",
+        "firstStep": "Información Básica",
+        "secondStep": "Información Sucursal",
+        "ruc": {
+          "label": "Ruc",
+          "placeholder": "Cual es tu Ruc"
+        },
+        "economicActivity": {
+          "label": "Actividad Económica",
+          "placeholder": "Ingresa tu actividad económica"
+        },
+        "contributorType": {
+          "label": "Tipo de Contribuidor",
+          "placeholder": "Ingresa que tipo de contribuidor eres"
+        },
+        "legalRepresentative": {
+          "label": "Representante legal",
+          "placeholder": "Ingresa el nombre de tu representate legal"
+        },
+        "name": {
+          "label": "Nombre",
+          "placeholder": "Cual es el nombre tu sucursal"
+        },
+        "officePhone": {
+          "label": "Número de telefono",
+          "placeholder": "Cual es tu número de telefono"
+        },
+        "cellPhone": {
+          "label": "Número de celular",
+          "placeholder": "Cual es tu número de celular"
+        },
+        "address": {
+          "label": "Dirección",
+          "placeholder": "Cual es tu dirección"
+        },
+        "email": {
+          "label": "Correo",
+          "placeholder": "Ingresa tu correo"
         }
-      },
-      "myOffices": {
-        "title": "Mis Sucursales",
-        "panelTitle": "Sucursales Registradas",
-        "empty": "Bienvenido A Sucursales",
-        "description": "Sucursales es una sección para crear tus sucursales",
-        "tip": "Todas tus Sucursales seran listadas aquí",
-        "new": "Nueva Sucursal"
       }
+    },
+    "myOffices": {
+      "title": "Mis Sucursales",
+      "panelTitle": "Sucursales Registradas",
+      "empty": "Bienvenido A Sucursales",
+      "description": "Sucursales es una sección para crear tus sucursales",
+      "tip": "Todas tus Sucursales seran listadas aquí",
+      "new": "Nueva Sucursal"
     }
   }
 }

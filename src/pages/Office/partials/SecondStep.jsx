@@ -13,38 +13,38 @@ class SecondStep extends Component {
     const { intl } = this.props;
     return (
       <div>
-        <Panel title={intl.formatMessage({id: 'profile.office.new.secondStep'})} classNameContainer={styles.panel}>
+        <Panel title={intl.formatMessage({id: 'office.new.secondStep'})} classNameContainer={styles.panel}>
           <Field name="name"
                 reduxFormInput
                 component={InputBox}
-                placeholder={intl.formatMessage({id: 'profile.office.new.name.placeholder'})}
-                labelText={intl.formatMessage({id: 'profile.office.new.name.label'})}
+                placeholder={intl.formatMessage({id: 'office.new.name.placeholder'})}
+                labelText={intl.formatMessage({id: 'office.new.name.label'})}
                 className={styles.row_padding}/>
           <Field name="officePhone"
                 reduxFormInput
                 component={InputBox}
-                placeholder={intl.formatMessage({id: 'profile.office.new.officePhone.placeholder'})}
-                labelText={intl.formatMessage({id: 'profile.office.new.officePhone.label'})}
+                placeholder={intl.formatMessage({id: 'office.new.officePhone.placeholder'})}
+                labelText={intl.formatMessage({id: 'office.new.officePhone.label'})}
                 className={cx(styles.row_padding, styles.office_number)}
                 type="number"/>
           <Field name="cellPhone"
                 reduxFormInput
                 component={InputBox}
-                placeholder={intl.formatMessage({id: 'profile.office.new.cellPhone.placeholder'})}
-                labelText={intl.formatMessage({id: 'profile.office.new.cellPhone.label'})}
+                placeholder={intl.formatMessage({id: 'office.new.cellPhone.placeholder'})}
+                labelText={intl.formatMessage({id: 'office.new.cellPhone.label'})}
                 className={cx(styles.row_padding, styles.office_number)}
                 type="number"/>
           <Field name="address"
                 reduxFormInput
                 component={InputBox}
-                placeholder={intl.formatMessage({id: 'profile.office.new.address.placeholder'})}
-                labelText={intl.formatMessage({id: 'profile.office.new.address.label'})}
+                placeholder={intl.formatMessage({id: 'office.new.address.placeholder'})}
+                labelText={intl.formatMessage({id: 'office.new.address.label'})}
                 className={styles.row_padding}/>
           <Field name="email"
                 reduxFormInput
                 component={InputBox}
-                placeholder={intl.formatMessage({id: 'profile.office.new.email.placeholder'})}
-                labelText={intl.formatMessage({id: 'profile.office.new.email.label'})}
+                placeholder={intl.formatMessage({id: 'office.new.email.placeholder'})}
+                labelText={intl.formatMessage({id: 'office.new.email.label'})}
                 className={styles.row_padding}
                 type="email"/>
         </Panel>

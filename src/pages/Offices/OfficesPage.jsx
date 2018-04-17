@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Typography, Icon, Panel, Button } from 'coupon-components';
+import { Typography, Icon, Panel, Card } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import { NavLink } from 'react-router-dom';
 import RowOffice from './partials/RowOffice';
 
-import styles from './Offices.css';
+import styles from './OfficesPage.css';
 import * as palette from 'Styles/palette.css';
 
-class Offices extends Component {
+class OfficesPage extends Component {
   render() {
-    const { intl, changeSection } = this.props;
+    const { intl } = this.props;
     const myOffices = [
       {
         "id": 0,
@@ -41,12 +42,10 @@ class Offices extends Component {
             />
           )
         })}
-        <div className={styles.btnCreate}>
-          <Button
-            onClick={changeSection}
-            text={intl.formatMessage({id: 'profile.myOffices.new'})}
-            shape="pill"
-          />
+        <div className={styles.linkBtn}>
+          <NavLink to='/new_office' className={styles.link}>
+            <FormattedMessage id='myOffices.new' />
+          </NavLink>
         </div>
       </div>
     )
@@ -66,34 +65,34 @@ class Offices extends Component {
           }
         />
         <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
-          <FormattedMessage id='profile.myOffices.empty' />
+          <FormattedMessage id='myOffices.empty' />
         </Typography.Text>
         <Typography.Text small>
-          <FormattedMessage id='profile.myOffices.description' />
+          <FormattedMessage id='myOffices.description' />
         </Typography.Text>
         <Typography.Text small>
-          <FormattedMessage id='profile.myOffices.tip' />
+          <FormattedMessage id='myOffices.tip' />
         </Typography.Text>
-        <div className={styles.btnCreate}>
-          <Button
-            onClick={changeSection}
-            text={intl.formatMessage({id: 'profile.myOffices.new'})}
-            shape="pill"
-          />
+        <div className={styles.linkBtn}>
+          <NavLink to='/new_office' className={styles.link}>
+            <FormattedMessage id='myOffices.new' />
+          </NavLink>
         </div>
       </div>
     )
 
     return (
-      <div className={styles.offices}>
-        <Panel title={intl.formatMessage({id: 'profile.myOffices.panelTitle'})}
+      <Card title={intl.formatMessage({id: 'myOffices.title'})}
+            classNameCard={styles.offices}
+            style={{position: 'relative'}}>
+        <Panel title={intl.formatMessage({id: 'myOffices.panelTitle'})}
           className={styles.panel}>
           { total === 0 && emptyState}
           { total > 0 && tableOffices}
         </Panel>
-      </div>
+      </Card>
     )
   }
 }
 
-export default (injectIntl(Offices));
+export default (injectIntl(OfficesPage));

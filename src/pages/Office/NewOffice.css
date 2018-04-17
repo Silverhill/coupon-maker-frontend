@@ -19,12 +19,6 @@
   align-items: center;
 }
 
-.returnBtn {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-}
-
 .steps {
   width: 200px;
 }

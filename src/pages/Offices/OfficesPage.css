@@ -7,12 +7,31 @@
 
 .offices {
   .panel {
+    .linkBtn {
+      position: relative;
+      display: flex;
+      height: 40px;
+      margin: 10px 0;
+
+      & .link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 15px;
+        font-size: 12px;
+        border-radius: 20px;
+        background-color: pinkRed;
+        color: white;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+
     .emptyState {
       text-align: center;
-      .btnCreate {
-        display: flex;
-        width: 100%;
-        align-items: center;
+      .linkBtn {
         justify-content: center;
       }
     }
@@ -29,11 +48,8 @@
         }
       }
 
-      .btnCreate {
-        display: flex;
-        width: 100%;
-        align-items: center;
-        justify-content: center;
+      .linkBtn {
+        justify-content: flex-end;
       }
 
     }
