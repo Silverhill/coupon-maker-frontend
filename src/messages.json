@@ -65,6 +65,10 @@
         "new": "New Campaign"
       },
       "new": {
+        "emptyOffice":{
+          "title": "Sorry",
+          "description": "You need create an office before"
+        },
         "card": {
           "title": "Create campaign"
         },
@@ -80,9 +84,9 @@
           "label": "Short description of your campaign (Optional)",
           "placeholder": "Enter a specific description of your promotion"
         },
-        "address": {
-          "label": "What is the address of your company?",
-          "placeholder": "Enter the address where the coupon, main or office is going to be made"
+        "office": {
+          "label": "Office",
+          "placeholder": "Select any office"
         },
         "description": {
           "label": "Customize your message",
@@ -259,6 +263,10 @@
         "new": "Crear Campaña"
       },
       "new": {
+        "emptyOffice":{
+          "title": "Lo sentimos",
+          "description": "Tu necesitas crear una sucursal antes"
+        },
         "card": {
           "title": "Crear una campaña"
         },
@@ -274,9 +282,9 @@
           "label": "Descripción corta de tu campaña (Opcional)",
           "placeholder": "Ingresa una descripción especifica de tu promoción"
         },
-        "address": {
-          "label": "Cual es la dirección de tu empresa?",
-          "placeholder": "Ingresa la dirección donde se va a hacer efectivo el cupón, principal o Sucursal"
+        "office": {
+          "label": "Oficina",
+          "placeholder": "Selecciona una oficina"
         },
         "description": {
           "label": "Personaliza tu mensaje",
