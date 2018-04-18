@@ -16,7 +16,8 @@ import Footer from 'Components/Footer/Footer';
 import { Card, Coupon, Campaign, Typography, Icon } from 'coupon-components';
 // Pages
 import Campaigns from '../Campaigns/Campaigns';
-import NotificationsPage from '../Notifications/NotificationsPage';
+import OfficesPage from '../Offices/OfficesPage';
+import NewOfficePage from '../Office/NewOfficePage'
 import CouponsPage from '../Coupons/CouponsPage';
 import ProfilePage from '../Profile/ProfilePage';
 import ShowCampaign from '../Campaing/ShowCampaign/ShowCampaign';
@@ -62,9 +63,9 @@ class Home extends Component {
       },
       {
         id: 2,
-        label:  intl.formatMessage({id: 'header.option.notifications'}),
-        route: '/notifications',
-        icon: 'FaBellO'
+        label:  intl.formatMessage({id: 'header.option.offices'}),
+        route: '/offices',
+        icon: 'FaHome'
       },
     ];
     let userData = {
@@ -192,7 +193,8 @@ class Home extends Component {
               <Route exact path='/' component={PageHome} />
               <Route path='/campaigns' component={Campaigns} />
               <Route path='/new_coupon' component={CouponsPage} />
-              <Route path='/notifications' component={NotificationsPage} />
+              <Route path='/offices' component={OfficesPage} />
+              <Route path='/new_office' component={NewOfficePage} />
               <Route path='/profile' component={ProfilePage} />
               <Route path='/new_campaign' component={NewCampaingPage} />
               <Route path='/campaign/:id' component={ShowCampaign} />

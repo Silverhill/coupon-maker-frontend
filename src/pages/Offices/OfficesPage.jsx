@@ -1,30 +1,18 @@
 import React, { Component } from 'react';
-import { Typography, Icon, Panel, Button } from 'coupon-components';
+import { Typography, Icon, Panel, Card } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import { NavLink } from 'react-router-dom';
 import RowOffice from './partials/RowOffice';
 
-import styles from './Offices.css';
+import { graphql } from 'react-apollo';
+import { makerOffices } from 'Services/graphql/queries.graphql';
+
+import styles from './OfficesPage.css';
 import * as palette from 'Styles/palette.css';
 
-class Offices extends Component {
+class OfficesPage extends Component {
   render() {
-    const { intl, changeSection } = this.props;
-    const myOffices = [
-      {
-        "id": 0,
-        "name": "Sucursal 1",
-        "address": "Av 24 de Mayo y 10 de Agosto",
-        "officePhone": '072567345',
-        "email": 'admin@example.com'
-      },
-      {
-        "id": 1,
-        "name": "Sucursal 2",
-        "address": "Centro comercial la pradera",
-        "officePhone": '072557346',
-        "email": 'admin@example.com'
-      },
-    ];
+    const { intl, data: { myOffices } } = this.props;
     const total = myOffices ? myOffices.length : 0;
 
     const tableOffices = (
@@ -41,12 +29,10 @@ class Offices extends Component {
             />
           )
         })}
-        <div className={styles.btnCreate}>
-          <Button
-            onClick={changeSection}
-            text={intl.formatMessage({id: 'profile.myOffices.new'})}
-            shape="pill"
-          />
+        <div className={styles.linkBtn}>
+          <NavLink to='/new_office' className={styles.link}>
+            <FormattedMessage id='myOffices.new' />
+          </NavLink>
         </div>
       </div>
     )
@@ -66,34 +52,34 @@ class Offices extends Component {
           }
         />
         <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
-          <FormattedMessage id='profile.myOffices.empty' />
+          <FormattedMessage id='myOffices.empty' />
         </Typography.Text>
         <Typography.Text small>
-          <FormattedMessage id='profile.myOffices.description' />
+          <FormattedMessage id='myOffices.description' />
         </Typography.Text>
         <Typography.Text small>
-          <FormattedMessage id='profile.myOffices.tip' />
+          <FormattedMessage id='myOffices.tip' />
         </Typography.Text>
-        <div className={styles.btnCreate}>
-          <Button
-            onClick={changeSection}
-            text={intl.formatMessage({id: 'profile.myOffices.new'})}
-            shape="pill"
-          />
+        <div className={styles.linkBtn}>
+          <NavLink to='/new_office' className={styles.link}>
+            <FormattedMessage id='myOffices.new' />
+          </NavLink>
         </div>
       </div>
     )
 
     return (
-      <div className={styles.offices}>
-        <Panel title={intl.formatMessage({id: 'profile.myOffices.panelTitle'})}
+      <Card title={intl.formatMessage({id: 'myOffices.title'})}
+            classNameCard={styles.offices}
+            style={{position: 'relative'}}>
+        <Panel title={intl.formatMessage({id: 'myOffices.panelTitle'})}
           className={styles.panel}>
           { total === 0 && emptyState}
           { total > 0 && tableOffices}
         </Panel>
-      </div>
+      </Card>
     )
   }
 }
 
-export default (injectIntl(Offices));
+export default graphql(makerOffices)(injectIntl(OfficesPage));

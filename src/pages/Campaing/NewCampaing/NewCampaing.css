@@ -1,6 +1,7 @@
 @value colors: "Styles/palette.css";
 @value (
-  neutralColorMedium
+  neutralColorMedium,
+  pinkRed
 ) from colors;
 
 .campaing {
@@ -90,4 +91,31 @@
 .selectItem {
   width: 184px;
   margin-right: 15px;
+}
+
+.emptyOffice {
+  text-align: center;
+
+  .linkBtn {
+    position: relative;
+    display: flex;
+    height: 40px;
+    margin: 10px 0;
+    justify-content: center;
+
+    & .link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0px 15px;
+      font-size: 12px;
+      border-radius: 20px;
+      background-color: pinkRed;
+      color: white;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
 }

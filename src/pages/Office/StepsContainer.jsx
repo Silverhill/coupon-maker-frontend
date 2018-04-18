@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StepByStep, RoundButton } from 'coupon-components';
+import { StepByStep, RoundButton, Card } from 'coupon-components';
 import FirstStep from './partials/FirstStep';
 import SecondStep from './partials/SecondStep';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import { injectIntl } from 'react-intl';
 
 import styles from './NewOffice.css';
 
@@ -54,7 +55,7 @@ class StepsContainer extends Component {
 
   render() {
     const { steps, currentStep } = this.state;
-    const { handleSubmit, changeSection } = this.props;
+    const { handleSubmit, intl } = this.props;
     let moveBtn;
     if(currentStep.id === 1){
       moveBtn = {
@@ -65,9 +66,10 @@ class StepsContainer extends Component {
     }
 
     return (
-      <div>
+      <Card title={intl.formatMessage({id: 'office.new.title'})}
+            classNameCard={styles.offices}
+            style={{position: 'relative'}}>
         <div className={styles.tabs}>
-          <RoundButton icon="FaArrowLeft" color="secondaryColor" onClick={changeSection} className={styles.returnBtn}/>
           <StepByStep steps={steps} onChange={this.handleStepsChange} className={styles.steps}/>
         </div>
 
@@ -82,7 +84,7 @@ class StepsContainer extends Component {
           {(currentStep.id === 1) && <RoundButton icon="FaArrowLeft" onClick={this.prevStep}/>}
           {(currentStep.id === 0) && <RoundButton icon="FaArrowRight" onClick={this.nextStep}/>}
         </div>
-      </div>
+      </Card>
     )
   }
 }
@@ -90,5 +92,5 @@ class StepsContainer extends Component {
 export default connect()(
   reduxForm({
     form: 'create_office'
-  })(StepsContainer)
+  })(injectIntl(StepsContainer))
 );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from 'coupon-components';
 
-import styles from '../Offices.css';
+import styles from '../OfficesPage.css';
 import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 

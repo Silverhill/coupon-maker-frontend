@@ -49,6 +49,16 @@ query makerCampaigns{
   }
 }
 
+query makerOffices{
+  myOffices {
+    id
+    name
+    address
+    officePhone
+    email
+	}
+}
+
 query getMyCompany{
   myCompany {
     id
@@ -90,7 +100,8 @@ mutation createCampaing(
   $description: String,
   $customMessage: String,
   $initialAgeRange: Int,
-  $finalAgeRange: Int) {
+  $finalAgeRange: Int,
+  $officeId: String!) {
     addCampaign(input:{
       startAt: $startAt,
       endAt: $endAt,
@@ -102,7 +113,8 @@ mutation createCampaing(
       description: $description,
       customMessage: $customMessage,
       initialAgeRange: $initialAgeRange,
-      finalAgeRange: $finalAgeRange
+      finalAgeRange: $finalAgeRange,
+      officeId: $officeId
     }) {
       title
     }

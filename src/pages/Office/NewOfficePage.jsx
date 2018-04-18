@@ -3,15 +3,19 @@ import StepsContainer from './StepsContainer';
 import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
 import { createOffice, getMyCompany } from 'Services/graphql/queries.graphql';
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 
 @connect(state => ({
   form: state.form.create_office
 }))
-class NewOffice extends Component {
+class NewOfficePage extends Component {
+
+  goToOffices = () =>{
+    this.props.history.push('/offices')
+  }
 
   createOffice = async (values = {}) => {
-    const { form, changeSection, data: { myCompany } } = this.props;
+    const { form, data: { myCompany } } = this.props;
     const { client: { mutate } } = this.props;
     try {
       await mutate({
@@ -29,7 +33,7 @@ class NewOffice extends Component {
           companyId: myCompany.id
         }
       });
-      changeSection();
+      this.goToOffices();
     } catch (error) {
       return;
     }
@@ -40,9 +44,8 @@ class NewOffice extends Component {
       { id: 0, label: 'Representante', icon: 'FaUser', tooltip: 'Representante', active: true },
       { id: 1, label: 'Sucursal', icon: 'FaHome', tooltip: 'Sucursal', active: false }
     ];
-    const { changeSection } = this.props;
-    return <StepsContainer steps={data} changeSection={changeSection} onSubmit={this.createOffice}/>
+    return <StepsContainer steps={data} onSubmit={this.createOffice}/>
   }
 }
 
-export default graphql(getMyCompany)(withApollo(NewOffice));
+export default graphql(getMyCompany)(withApollo(NewOfficePage));
