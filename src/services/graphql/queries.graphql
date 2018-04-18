@@ -101,7 +101,8 @@ mutation createCampaing(
   $customMessage: String,
   $initialAgeRange: Int,
   $finalAgeRange: Int,
-  $officeId: String!) {
+  $officeId: String!,
+  $upload: Upload) {
     addCampaign(input:{
       startAt: $startAt,
       endAt: $endAt,
@@ -114,7 +115,8 @@ mutation createCampaing(
       customMessage: $customMessage,
       initialAgeRange: $initialAgeRange,
       finalAgeRange: $finalAgeRange,
-      officeId: $officeId
+      officeId: $officeId,
+      upload: $upload
     }) {
       title
     }
