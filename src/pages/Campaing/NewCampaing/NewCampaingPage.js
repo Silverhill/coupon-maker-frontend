@@ -47,9 +47,9 @@ class NewCampaingPage extends Component {
         variables: {
           startAt: form.values.startAt,
           endAt: form.values.endAt,
-          address: form.values.address,
-          country: form.values.country,
-          city: form.values.city,
+          officeId: form.values.office.id,
+          country: form.values.country.value,
+          city: form.values.city.value,
           couponsNumber: parseInt(form.values.couponsNumber),
           title: form.values.title,
           description: form.values.description,

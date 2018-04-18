@@ -17,7 +17,7 @@ class FirstStep extends Component {
   render() {
     const { intl, offices } = this.props;
     const officesOptions = offices && offices.map(office => {
-      return {key: office.id, value: office.address};
+      return { key: office.id, id: office.id, value: office.address, name: office.name };
     });
 
     return (
