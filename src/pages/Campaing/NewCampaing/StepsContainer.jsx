@@ -72,7 +72,7 @@ class StepsContainer extends Component {
     const valuesForm = this.props.form_campaing && this.props.form_campaing.values;
     if(valuesForm){
       cuponData.title = valuesForm.title;
-      cuponData.address = valuesForm.office.value;
+      cuponData.address = valuesForm.office && valuesForm.office.value;
       cuponData.totalCoupons = valuesForm.couponsNumber;
       cuponData.date = moment(valuesForm.startAt).format("DD MMM") + '-' + moment(valuesForm.endAt).format("DD MMM YYYY");
       cuponData.image = valuesForm.image && valuesForm.image.imagePreviewUrl;

@@ -55,7 +55,8 @@ class NewCampaingPage extends Component {
           description: form.values.description,
           customMessage: form.values.customMessage,
           initialAgeRange: parseInt(form.values.initialAgeRange),
-          finalAgeRange: parseInt(form.values.finalAgeRange)
+          finalAgeRange: parseInt(form.values.finalAgeRange),
+          upload: form.values.image.file
         }
       });
       this.goToCampaings();
