@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import StepsContainer from './StepsContainer';
 import { NavLink } from 'react-router-dom';
-import { Card, Typography, Icon, BasicRow, Panel } from 'coupon-components';
+import { Typography, Icon } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { createCampaing } from 'Services/graphql/queries.graphql';
+import { createCampaing, makerCampaigns } from 'Services/graphql/queries.graphql';
 import { withApollo } from 'react-apollo';
 import { makerOffices } from 'Services/graphql/queries.graphql';
 import * as companyActions from 'Actions/companyActions';
@@ -21,7 +21,7 @@ import styles from './NewCampaing.css';
 class NewCampaingPage extends Component {
 
   async componentDidMount() {
-    const { setCampaigns, client, setOffices } = this.props;
+    const { client, setOffices } = this.props;
 
     try {
       const { data: { myOffices } } = await client.query({
@@ -39,8 +39,7 @@ class NewCampaingPage extends Component {
   }
 
   createCampaing = async (values = {}) => {
-    const { form, offices, client: { mutate } } = this.props;
-
+    const { form, client: { mutate } } = this.props;
     try {
       await mutate({
         mutation: createCampaing,
@@ -57,10 +56,16 @@ class NewCampaingPage extends Component {
           initialAgeRange: parseInt(form.values.initialAgeRange),
           finalAgeRange: parseInt(form.values.finalAgeRange),
           upload: form.values.image.file
+        },
+        update: (store, { data: { addCampaign } }) => {
+          const data = store.readQuery({ query: makerCampaigns });
+          data.myCampaigns.push(addCampaign);
+          store.writeQuery({ query: makerCampaigns, data });
         }
       });
       this.goToCampaings();
     } catch (error) {
+      debugger
       return;
     }
   }

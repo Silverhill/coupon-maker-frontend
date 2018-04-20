@@ -83,8 +83,8 @@ query getCampaign($id:String!){
 }
 
 
-mutation registerUser($name: String!, $email: String!, $password: String!) {
-  signUp(input:{name: $name, email: $email, password: $password, role: "maker"}) {
+mutation registerUser($company: String!, $name: String!, $email: String!, $password: String!) {
+  signUp(input:{company: $company, name: $name, email: $email, password: $password, role: "maker"}) {
     id
   }
 }
@@ -118,7 +118,17 @@ mutation createCampaing(
       officeId: $officeId,
       upload: $upload
     }) {
+      id
       title
+      address
+      startAt
+      endAt
+      image
+      totalCoupons
+      customMessage
+      city
+      country
+      description
     }
 }
 
