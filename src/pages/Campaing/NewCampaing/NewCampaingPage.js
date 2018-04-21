@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { Typography, Icon } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { createCampaing, makerCampaigns } from 'Services/graphql/queries.graphql';
+import { createCampaing, makerCampaigns, getMe } from 'Services/graphql/queries.graphql';
 import { withApollo } from 'react-apollo';
 import { makerOffices } from 'Services/graphql/queries.graphql';
 import * as companyActions from 'Actions/companyActions';
@@ -59,14 +59,17 @@ class NewCampaingPage extends Component {
         },
         update: (store, { data: { addCampaign } }) => {
           const data = store.readQuery({ query: makerCampaigns });
+          const me = store.readQuery({ query: getMe });
+          // update store campaigns
           data.myCampaigns.push(addCampaign);
+          me.myCampaigns.push(addCampaign);
           store.writeQuery({ query: makerCampaigns, data });
+          store.writeQuery({ query: getMe, data: me });
         }
       });
       this.goToCampaings();
     } catch (error) {
-      debugger
-      return;
+      return error;
     }
   }
 

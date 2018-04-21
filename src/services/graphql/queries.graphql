@@ -46,6 +46,7 @@ query makerCampaigns{
    endAt
    image
    totalCoupons
+   createdAt
   }
 }
 
@@ -79,6 +80,8 @@ query getCampaign($id:String!){
     city
     country
     description
+    initialAgeRange
+    finalAgeRange
   }
 }
 
@@ -129,6 +132,8 @@ mutation createCampaing(
       city
       country
       description
+      initialAgeRange
+      finalAgeRange
     }
 }
 
