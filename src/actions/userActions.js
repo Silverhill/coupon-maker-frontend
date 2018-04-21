@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import decode from 'jwt-decode';
 
 const authValid = (token) => ({
   type: actionTypes.AUTH_VALID,
@@ -10,14 +11,16 @@ const authNotValid = () => ({
 });
 
 export const login = (token = '') => (dispatch) => {
-  if(token) {
+  const { role } = decode(token);
+
+  if(token && role === "maker") {
     localStorage.setItem('jwt', token);
     dispatch(authValid(token));
-  }else {
+  }else{
     dispatch(authNotValid());
   }
 
-  return { logged: !!token, token };
+  return { logged: !!token, token, role: role };
 }
 
 export const getAuthentication = () => (dispatch) => {

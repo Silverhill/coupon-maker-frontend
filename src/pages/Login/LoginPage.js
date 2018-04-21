@@ -1,5 +1,5 @@
 import React from 'react';
-import { loginUser, customer } from 'Services/graphql/queries.graphql';
+import { loginUser } from 'Services/graphql/queries.graphql';
 import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
 //styles
@@ -15,7 +15,6 @@ import * as userActions from '../../actions/userActions';
   form: state.form.login
 }), {
   loginAsync: userActions.login,
-  removeAuthentication: userActions.removeAuthentication,
 })
 
 class LogInPage extends React.Component {
@@ -27,7 +26,6 @@ class LogInPage extends React.Component {
   loginApp = async (values = {}) => {
     const {
       loginAsync,
-      removeAuthentication,
       form,
       client: { query }
     } = this.props;
@@ -41,20 +39,11 @@ class LogInPage extends React.Component {
         }
       });
       const { data: { signIn } } = res;
-      const { logged } = await loginAsync(signIn.token);
-      if(logged) {
-        try {
-          const resp = await query({query: customer});
-          const { data: { me } } = resp;
-          if (me.role === 'maker') {
-            this.goToHome();
-          }else{
-            removeAuthentication();
-            this.props.history.push(`/customer/${me.name}`);
-          }
-        } catch (error) {
-          return
-        }
+      const { logged, role } = await loginAsync(signIn.token);
+      if(logged && role === 'maker') {
+        this.goToHome();
+      }else{
+        this.props.history.push(`/customer/${role}`);
       }
     } catch (error) {
       return;

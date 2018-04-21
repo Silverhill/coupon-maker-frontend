@@ -30,7 +30,7 @@ const Pages = () => {
       <Switch>
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LogInPage} />
-        <Route path="/customer/:name" component={Customer} />
+        <Route path="/customer/:role" component={Customer} />
         <PrivateRoute path='/' component={Home} />
       </Switch>
     </main>
