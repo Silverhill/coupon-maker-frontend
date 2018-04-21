@@ -12,32 +12,32 @@ import * as palette from 'Styles/palette.css';
 
 class ShowCampaing extends Component {
   render() {
-    const { data: {campaign, error}, intl } = this.props;
+    const { data: {campaign, huntersByCampaign, error}, intl } = this.props;
     const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
     let stylesImage = {backgroundImage: `url(${campaign && campaign.image || placeholderImage})`}
-    const hunters = [
-      {
-        name: 'Khal Drogo',
-        email: 'khaldrogo@gmail.com',
-        image: 'https://i.pinimg.com/originals/78/df/55/78df55e142774e705484324c944a0bb7.jpg',
-        totalCoupons: 10,
-        id: 1
-      },
-      {
-        name: 'Hodor Harries',
-        email: 'hodor@gmail.com',
-        image: 'http://www.mariapicasso.com/wp-content/uploads/2015/09/hodor_by_mariapicasso.jpg',
-        totalCoupons: 2,
-        id: 2
-      },
-      {
-        name: 'Margaery Tyrell',
-        email: 'margaerytyrell@gmail.com',
-        image: 'https://i.pinimg.com/originals/70/e2/9f/70e29fb0ec6721fcd6d740444c80e2e0.jpg',
-        totalCoupons: 4,
-        id: 3
-      }
-    ]
+    const hunters = (
+      huntersByCampaign && huntersByCampaign.map((cpg) => {
+        const key = { key: cpg.id };
+        return (
+          <BasicRow {...key}
+            title={cpg.name}
+            image={cpg.image}
+            subtitle={cpg.email}
+            label= 'Total Coupons'
+            number= {1}
+            className={styles.row}
+          />
+        )
+      })
+    )
+    const anyHunter = (
+      <div className={styles.notFound}>
+        <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
+          Aun nadie a tomado esta promoción
+        </Typography.Text>
+      </div>
+    )
+
     const notFound = (
       <div className={styles.notFound}>
         <Typography.Text bold style={{fontSize:'40px'}}>
@@ -125,26 +125,14 @@ class ShowCampaing extends Component {
               />
             </div>
             <Typography.Text small>
-              16 - 20 años
+              {campaign && campaign.initialAgeRange} - {campaign && campaign.finalAgeRange} años
             </Typography.Text>
           </div>
         </div>
         <Panel
           title={intl.formatMessage({id: 'campaigns.show.panel.title'})}
           className={styles.panel}>
-            {hunters && hunters.map((cpg) => {
-              const key = { key: cpg.id };
-              return (
-                <BasicRow {...key}
-                  title={cpg.name}
-                  image={cpg.image}
-                  subtitle={cpg.email}
-                  label= 'Total Coupons'
-                  number={cpg.totalCoupons}
-                  className={styles.row}
-                />
-              )
-            })}
+            {huntersByCampaign && huntersByCampaign.length > 0 ? hunters : anyHunter}
         </Panel>
       </div>
     )

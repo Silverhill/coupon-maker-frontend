@@ -83,8 +83,13 @@ query getCampaign($id:String!){
     initialAgeRange
     finalAgeRange
   }
+  huntersByCampaign(campaignId: $id){
+    id
+    name
+    email
+    image
+  }
 }
-
 
 mutation registerUser($company: String!, $name: String!, $email: String!, $password: String!) {
   signUp(input:{company: $company, name: $name, email: $email, password: $password, role: "maker"}) {
