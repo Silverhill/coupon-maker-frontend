@@ -65,6 +65,7 @@ class Home extends Component {
       // data: { error, loading, myCampaigns, me },
       error,
       loading,
+      client,
       // myCampaigns,
       // me,
       intl,
@@ -108,7 +109,7 @@ class Home extends Component {
           value: intl.formatMessage({id: 'header.user.option.logout'}),
           onClick: ()=>{
             const remove = removeAuthentication();
-            if(remove) this.props.history.push('/login');
+            if(remove) client.resetStore(); this.props.history.push('/login');
           }
         }
       ]
