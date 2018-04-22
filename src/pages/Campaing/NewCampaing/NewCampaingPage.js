@@ -11,11 +11,14 @@ import * as palette from 'Styles/palette.css';
 import styles from './NewCampaing.css';
 
 @connect(state => ({
-  form: state.form.create_campaign,
-  offices: state.company.offices,
+  form: state.form.create_campaign
 }))
 
 class NewCampaingPage extends Component {
+
+  state = {
+    offices: [],
+  }
 
   async componentDidMount() {
     const { client } = this.props;
@@ -23,6 +26,9 @@ class NewCampaingPage extends Component {
     try {
       const { data: { myOffices } } = await client.query({
         query: makerOffices
+      });
+      this.setState({
+        offices: myOffices
       });
     } catch (error) {
       console.log(error);
@@ -62,13 +68,13 @@ class NewCampaingPage extends Component {
   }
 
   render() {
-    const data = [
+    const steps = [
       { id: 0, label: 'Información', icon: 'FaImage', tooltip: 'Información', active: true },
       { id: 1, label: 'Segmentación', icon: 'FaGroup', tooltip: 'Segmentación', active: false }
     ];
-    const { offices } = this.props;
+    const { offices } = this.state;
     const total = offices ? offices.length : 0;
-    const createCampaing = (<StepsContainer steps={data} onSubmit={this.createCampaing}/>);
+    const createCampaing = (<StepsContainer steps={steps} offices={offices} onSubmit={this.createCampaing}/>);
     const emptyState = (
       <div className={styles.emptyOffice}>
         <Icon

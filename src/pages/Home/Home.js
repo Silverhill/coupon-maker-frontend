@@ -53,8 +53,6 @@ class Home extends Component {
         me: me,
         myCampaigns: myCampaigns
        });
-      console.log(me);
-      console.log(myCampaigns);
     } catch (error) {
       console.log(error);
     }
