@@ -4,31 +4,26 @@ import { NavLink } from 'react-router-dom';
 import { Typography, Icon } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { createCampaing, makerCampaigns, getMe } from 'Services/graphql/queries.graphql';
+import { createCampaing, makerCampaigns } from 'Services/graphql/queries.graphql';
 import { withApollo } from 'react-apollo';
 import { makerOffices } from 'Services/graphql/queries.graphql';
-import * as companyActions from 'Actions/companyActions';
 import * as palette from 'Styles/palette.css';
 import styles from './NewCampaing.css';
 
 @connect(state => ({
   form: state.form.create_campaign,
   offices: state.company.offices,
-}), {
-  setOffices: companyActions.setOffices,
-})
+}))
 
 class NewCampaingPage extends Component {
 
   async componentDidMount() {
-    const { client, setOffices } = this.props;
+    const { client } = this.props;
 
     try {
       const { data: { myOffices } } = await client.query({
         query: makerOffices
       });
-
-      setOffices(myOffices);
     } catch (error) {
       console.log(error);
     }
@@ -41,6 +36,7 @@ class NewCampaingPage extends Component {
   createCampaing = async (values = {}) => {
     const { form, client: { mutate } } = this.props;
     try {
+      console.log('saving');
       await mutate({
         mutation: createCampaing,
         variables: {
@@ -57,15 +53,7 @@ class NewCampaingPage extends Component {
           finalAgeRange: parseInt(form.values.finalAgeRange),
           upload: form.values.image.file
         },
-        update: (store, { data: { addCampaign } }) => {
-          const data = store.readQuery({ query: makerCampaigns });
-          const me = store.readQuery({ query: getMe });
-          // update store campaigns
-          data.myCampaigns.push(addCampaign);
-          me.myCampaigns.push(addCampaign);
-          store.writeQuery({ query: makerCampaigns, data });
-          store.writeQuery({ query: getMe, data: me });
-        }
+        refetchQueries: [{query: makerCampaigns}]
       });
       this.goToCampaings();
     } catch (error) {

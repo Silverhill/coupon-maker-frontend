@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import user from './userReducer';
-import company from './companyReducer';
 import { reducer as formReducer } from 'redux-form'
 
 const initialState = {
@@ -24,7 +23,6 @@ const rootReducer = combineReducers({
   counter: counterReducer,
   user,
   form: formReducer,
-  company,
 })
 
 export default rootReducer;
