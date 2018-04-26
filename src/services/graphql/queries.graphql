@@ -11,17 +11,6 @@ query getMe {
     id
     role
   }
-
-  myCampaigns {
-    id
-    title
-    address
-    startAt
-    endAt
-    image
-    totalCoupons
-    huntedCoupons
-  }
 }
 
 query loginUser($email: String!, $password: String!) {
@@ -32,14 +21,19 @@ query loginUser($email: String!, $password: String!) {
 
 query makerCampaigns{
   myCampaigns {
-   id
-   title
-   address
-   startAt
-   endAt
-   image
-   totalCoupons
-   createdAt
+    campaigns{
+      id
+      title
+      office {
+        id
+        name
+        address
+      }
+      startAt
+      endAt
+      image
+      totalCoupons
+    }
   }
 }
 
