@@ -5,6 +5,7 @@
 
     .avatar {
       width: 120px;
+      cursor: pointer;
     }
 
     .information {
