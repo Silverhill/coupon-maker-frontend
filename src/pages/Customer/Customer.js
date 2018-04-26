@@ -17,7 +17,7 @@ class Customer extends React.Component {
               <img src="http://res.cloudinary.com/meruba/image/upload/v1523672883/hunter2_ltsm1g.png" alt="hunter" height="250px;"/>
             </div>
             <Typography.Subtitle light style={{margin:"20px 0 10px 0"}}>
-              Al parecer eres un Hunter: {this.props.match.params.name}
+              Esta cuenta se ha registrado como: {this.props.match.params.role}
             </Typography.Subtitle>
             <Link to='/register' className={styles.link}>
               Me gustaria ser Maker

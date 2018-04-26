@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Home.css';
-import { graphql } from 'react-apollo';
+import { withApollo } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import moment from 'moment';
@@ -37,13 +37,40 @@ const PageHome = (props) => <div><h1>Home</h1></div>
 
 class Home extends Component {
 
+  state = {
+    me: null,
+    myCampaigns: []
+  }
+
+  async componentDidMount() {
+    const { client } = this.props;
+
+    try {
+      const { data: { me, myCampaigns } } = await client.query({
+        query: getMe
+      });
+      this.setState({
+        me: me,
+        myCampaigns: myCampaigns
+       });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   render() {
     const {
-      data: { error, loading, myCampaigns, me },
+      // data: { error, loading, myCampaigns, me },
+      error,
+      loading,
+      client,
+      // myCampaigns,
+      // me,
       intl,
       removeAuthentication,
       history
     } = this.props;
+    const { me, myCampaigns} = this.state;
     const campaigns = myCampaigns ? myCampaigns.slice(0,3) : null;
     const total = campaigns ? campaigns.length : 0;
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
@@ -80,7 +107,7 @@ class Home extends Component {
           value: intl.formatMessage({id: 'header.user.option.logout'}),
           onClick: ()=>{
             const remove = removeAuthentication();
-            if(remove) this.props.history.push('/login');
+            if(remove) client.resetStore(); this.props.history.push('/login');
           }
         }
       ]
@@ -207,4 +234,4 @@ class Home extends Component {
   }
 }
 
-export default graphql(getMe)(injectIntl(Home));
+export default withApollo(injectIntl(Home));

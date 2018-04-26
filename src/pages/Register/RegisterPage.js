@@ -31,6 +31,7 @@ class RegisterPage extends React.Component {
       await mutate({
         mutation: registerUser,
         variables: {
+          company: form.values.company,
           name: form.values.name,
           email: form.values.email,
           password: form.values.password
@@ -47,7 +48,8 @@ class RegisterPage extends React.Component {
       const { logged } = loginAsync(signIn.token);
       if(logged) this.goToHome();
     } catch (error) {
-      return;
+      console.log(error);
+      return error;
     }
   }
 

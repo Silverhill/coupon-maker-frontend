@@ -10,9 +10,6 @@ import classNames from 'classnames/bind';
 import styles from '../../NewCampaing/NewCampaing.css';
 const cx = classNames.bind(styles)
 
-@connect(state => ({
-  offices: state.company.offices,
-}))
 class FirstStep extends Component {
   render() {
     const { intl, offices } = this.props;

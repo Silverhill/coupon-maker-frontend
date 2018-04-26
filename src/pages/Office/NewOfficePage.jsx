@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import StepsContainer from './StepsContainer';
 import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
-import { createOffice, getMyCompany } from 'Services/graphql/queries.graphql';
+import { createOffice, getMyCompany, makerOffices } from 'Services/graphql/queries.graphql';
 import { graphql } from 'react-apollo';
 
 @connect(state => ({
@@ -31,7 +31,8 @@ class NewOfficePage extends Component {
           address: form.values.address,
           email: form.values.email,
           companyId: myCompany.id
-        }
+        },
+        refetchQueries: [{query: makerOffices}]
       });
       this.goToOffices();
     } catch (error) {

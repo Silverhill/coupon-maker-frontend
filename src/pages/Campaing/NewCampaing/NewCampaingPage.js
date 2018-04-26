@@ -1,34 +1,35 @@
 import React, { Component } from 'react';
 import StepsContainer from './StepsContainer';
 import { NavLink } from 'react-router-dom';
-import { Card, Typography, Icon, BasicRow, Panel } from 'coupon-components';
+import { Typography, Icon } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { createCampaing } from 'Services/graphql/queries.graphql';
+import { createCampaing, makerCampaigns } from 'Services/graphql/queries.graphql';
 import { withApollo } from 'react-apollo';
 import { makerOffices } from 'Services/graphql/queries.graphql';
-import * as companyActions from 'Actions/companyActions';
 import * as palette from 'Styles/palette.css';
 import styles from './NewCampaing.css';
 
 @connect(state => ({
-  form: state.form.create_campaign,
-  offices: state.company.offices,
-}), {
-  setOffices: companyActions.setOffices,
-})
+  form: state.form.create_campaign
+}))
 
 class NewCampaingPage extends Component {
 
+  state = {
+    offices: [],
+  }
+
   async componentDidMount() {
-    const { setCampaigns, client, setOffices } = this.props;
+    const { client } = this.props;
 
     try {
       const { data: { myOffices } } = await client.query({
         query: makerOffices
       });
-
-      setOffices(myOffices);
+      this.setState({
+        offices: myOffices
+      });
     } catch (error) {
       console.log(error);
     }
@@ -39,9 +40,9 @@ class NewCampaingPage extends Component {
   }
 
   createCampaing = async (values = {}) => {
-    const { form, offices, client: { mutate } } = this.props;
-
+    const { form, client: { mutate } } = this.props;
     try {
+      console.log('saving');
       await mutate({
         mutation: createCampaing,
         variables: {
@@ -57,22 +58,23 @@ class NewCampaingPage extends Component {
           initialAgeRange: parseInt(form.values.initialAgeRange),
           finalAgeRange: parseInt(form.values.finalAgeRange),
           upload: form.values.image.file
-        }
+        },
+        refetchQueries: [{query: makerCampaigns}]
       });
       this.goToCampaings();
     } catch (error) {
-      return;
+      return error;
     }
   }
 
   render() {
-    const data = [
+    const steps = [
       { id: 0, label: 'Información', icon: 'FaImage', tooltip: 'Información', active: true },
       { id: 1, label: 'Segmentación', icon: 'FaGroup', tooltip: 'Segmentación', active: false }
     ];
-    const { offices } = this.props;
+    const { offices } = this.state;
     const total = offices ? offices.length : 0;
-    const createCampaing = (<StepsContainer steps={data} onSubmit={this.createCampaing}/>);
+    const createCampaing = (<StepsContainer steps={steps} offices={offices} onSubmit={this.createCampaing}/>);
     const emptyState = (
       <div className={styles.emptyOffice}>
         <Icon

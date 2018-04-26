@@ -38,7 +38,7 @@ class StepsContainer extends Component {
   renderContent = (currentStep) => {
     switch (currentStep.id) {
       case 0:
-        return <FirstStep/>;
+        return <FirstStep offices={this.props.offices}/>;
       case 1:
         return <SecondStep/>;
       default:
@@ -59,7 +59,7 @@ class StepsContainer extends Component {
 
   render() {
     const { steps, currentStep } = this.state;
-    const { intl } = this.props;
+    const { intl, offices } = this.props;
     const cuponData = {};
     let moveBtn;
     if(currentStep.id === 1){
