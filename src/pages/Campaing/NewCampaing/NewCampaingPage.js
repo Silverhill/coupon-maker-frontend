@@ -41,6 +41,7 @@ class NewCampaingPage extends Component {
 
   createCampaing = async (values = {}) => {
     const { form, client: { mutate } } = this.props;
+
     try {
       console.log('saving');
       await mutate({

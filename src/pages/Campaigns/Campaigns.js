@@ -11,13 +11,19 @@ import * as palette from 'Styles/palette.css';
 
 class Campaigns extends Component {
   render() {
-    const { data: { myCampaigns }, intl, history } = this.props;
-    const total = myCampaigns ? myCampaigns.length : 0;
+    const { data: { loading, error, myCampaigns }, intl, history } = this.props;
+
+    if(loading) return <p>Loading...</p>
+    else if(error) return <p>{error.message}</p>
+
+    const { campaigns } = myCampaigns;
+
+    const total = campaigns ? campaigns.length : 0;
     const placeholderImage = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
 
     const tableCampaigns = (
       <div className={styles.table}>
-        {myCampaigns && myCampaigns.map((cpg) => {
+        {campaigns && campaigns.map((cpg) => {
           const key = { key: cpg.id };
           const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
           return (
