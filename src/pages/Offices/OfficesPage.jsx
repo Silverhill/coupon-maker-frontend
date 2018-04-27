@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Typography, Icon, Panel, Card, Cover } from 'coupon-components';
+import { Typography, Icon, Panel, Card, Cover, InputFile } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import RowOffice from './partials/RowOffice';
 
 import { graphql, compose } from 'react-apollo';
-import { makerOffices, getMyCompany } from 'Services/graphql/queries.graphql';
+import { makerOffices } from 'Services/graphql/queries.graphql';
+import { withApollo } from 'react-apollo';
+import { changeLogoCompany } from 'Services/graphql/queries.graphql';
 
 import styles from './OfficesPage.css';
 import * as palette from 'Styles/palette.css';
@@ -13,6 +15,7 @@ import * as palette from 'Styles/palette.css';
 class OfficesPage extends Component {
   state ={
     currentOffice:'',
+    isLoadingImage: false
   };
 
   selectRowOffice(office){
@@ -23,13 +26,30 @@ class OfficesPage extends Component {
       this.setState({currentOffice: ''});
     }
   }
+  changeImage = async (ev, value) => {
+    const { client: { mutate } } = this.props;
+    this.setState({isLoadingImage: true});
+    try {
+      await mutate({
+        mutation: changeLogoCompany,
+        variables: {
+          upload: value.file
+        },
+        refetchQueries: [{query: makerOffices, variables: { withCompany: true }}]
+      });
+      this.setState({isLoadingImage: false});
+    } catch (error) {
+      return;
+    }
+  }
+
 
   render() {
-    const { intl, data: { myCompany, myOffices } } = this.props;
-    const { currentOffice } = this.state;
+    const { intl, data: { myOffices, myCompany } } = this.props;
+    const { currentOffice, isLoadingImage } = this.state;
     const total = myOffices ? myOffices.length : 0;
     const company = myCompany ? myCompany : {};
-    let placeholderCompany = 'https://www.dropque.com/assets/placeholder-company-5f3438282f524800f1d49cd2921bb0a56101e1aa16097ebd313b64778fc7c4bd.png';
+    let placeholderCompany = 'http://www.lavenderceiling.com/wp-content/uploads/2016/08/logo_placehold.jpg';
     let companyLogo = company && company.logo ? company.logo : placeholderCompany;
 
     const tableOffices = (
@@ -89,11 +109,13 @@ class OfficesPage extends Component {
       <Card title={intl.formatMessage({id: 'myCompany.title'})}
             classNameCard={styles.offices}
             style={{position: 'relative'}}>
-        <Cover logo={companyLogo}
-          leftLabel={intl.formatMessage({id: 'myCompany.slogan'})}
-          leftText="Aqui va tu slogan(Ejm, Enganchate conmigo)"
-          rightLabel={intl.formatMessage({id: 'myCompany.company'})}
-          rightText={company.businessName}/>
+        <InputFile updateFile={this.changeImage} isLoading={isLoadingImage}>
+          <Cover logo={companyLogo}
+            leftLabel={intl.formatMessage({id: 'myCompany.slogan'})}
+            leftText="Aqui va tu slogan(Ejm, Enganchate conmigo)"
+            rightLabel={intl.formatMessage({id: 'myCompany.company'})}
+            rightText={company.businessName}/>
+        </InputFile>
         <Panel title={intl.formatMessage({id: 'myOffices.panelTitle'})}
           className={styles.panel}>
           { total === 0 && emptyState}
@@ -104,4 +126,6 @@ class OfficesPage extends Component {
   }
 }
 
-export default graphql(makerOffices)(injectIntl(OfficesPage));
+export default graphql(makerOffices, { options: () => ({
+  variables: { withCompany: true }
+}) })(withApollo(injectIntl(OfficesPage)));

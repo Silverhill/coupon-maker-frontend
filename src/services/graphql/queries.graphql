@@ -38,7 +38,7 @@ query makerCampaigns{
   }
 }
 
-query makerOffices{
+query makerOffices($withCompany: Boolean = false){
   myOffices {
     id
     name
@@ -49,6 +49,13 @@ query makerOffices{
     cellPhone
     ruc
 	}
+
+  myCompany @include(if: $withCompany) {
+    id
+    businessName
+    logo
+    slogan
+  }
 }
 
 query getMyCompany{
@@ -169,5 +176,12 @@ mutation changeUserImage($upload: Upload!){
     image
     id
     role
+  }
+}
+
+mutation changeLogoCompany($upload: Upload!){
+  addImageToCompany(upload: $upload){
+    id
+    businessName
   }
 }
