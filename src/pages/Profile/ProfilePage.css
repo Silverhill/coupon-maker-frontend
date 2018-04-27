@@ -4,8 +4,8 @@
     flex-direction: initial;
 
     .avatar {
-      width: 120px;
-      cursor: pointer;
+      width: 70px;
+      height: 70px;
     }
 
     .information {

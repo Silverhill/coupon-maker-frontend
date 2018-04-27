@@ -10,13 +10,12 @@ import styles from './ProfilePage.css';
 import * as palette from 'Styles/palette.css';
 class ProfilePage extends Component {
   state = {
-    imageState: '',
+    isLoadingImage: false
   }
 
   changeImage = async (ev, value) => {
-
     const { client: { mutate } } = this.props;
-
+    this.setState({isLoadingImage: true});
     try {
       await mutate({
         mutation: changeUserImage,
@@ -25,9 +24,7 @@ class ProfilePage extends Component {
         },
         refetchQueries: [{query: getMe}]
       });
-
-
-
+      this.setState({isLoadingImage: false});
     } catch (error) {
       return;
     }
@@ -35,16 +32,15 @@ class ProfilePage extends Component {
 
   render() {
     const { data: { me }, intl } = this.props;
+    const { isLoadingImage } = this.state;
     let userImage = (me && me.image) ? me.image : '';
     return (
       <div className={styles.profile}>
         <Card title={intl.formatMessage({id: 'profile.title'})}
           classNameContent={styles.profileContent}>
-          <div className={styles.avatar}>
-            <InputFile updateFile={this.changeImage}>
-              <Avatar image={userImage}/>
-            </InputFile>
-          </div>
+          <InputFile updateFile={this.changeImage} isLoading={isLoadingImage}>
+            <Avatar image={userImage} className={styles.avatar}/>
+          </InputFile>
           <div className={styles.information}>
             <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
               {me && me.name}
