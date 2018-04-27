@@ -1,23 +1,46 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
-import { Card, Typography, Button, Avatar } from 'coupon-components';
+import { Card, Typography, Button, Avatar, InputFile } from 'coupon-components';
 import { injectIntl } from 'react-intl';
+import { withApollo } from 'react-apollo';
+import { changeUserImage } from 'Services/graphql/queries.graphql';
 
 import styles from './ProfilePage.css';
 import * as palette from 'Styles/palette.css';
 class ProfilePage extends Component {
+  state = {
+    isLoadingImage: false
+  }
+
+  changeImage = async (ev, value) => {
+    const { client: { mutate } } = this.props;
+    this.setState({isLoadingImage: true});
+    try {
+      await mutate({
+        mutation: changeUserImage,
+        variables: {
+          upload: value.file
+        },
+        refetchQueries: [{query: getMe}]
+      });
+      this.setState({isLoadingImage: false});
+    } catch (error) {
+      return;
+    }
+  }
 
   render() {
     const { data: { me }, intl } = this.props;
-
+    const { isLoadingImage } = this.state;
+    let userImage = (me && me.image) ? me.image : '';
     return (
       <div className={styles.profile}>
         <Card title={intl.formatMessage({id: 'profile.title'})}
           classNameContent={styles.profileContent}>
-          <div className={styles.avatar}>
-            <Avatar image={'https://i.pinimg.com/564x/bc/c8/10/bcc8102f42e58720355ca02d833c204b.jpg'}/>
-          </div>
+          <InputFile updateFile={this.changeImage} isLoading={isLoadingImage}>
+            <Avatar image={userImage} className={styles.avatar}/>
+          </InputFile>
           <div className={styles.information}>
             <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
               {me && me.name}
@@ -48,4 +71,4 @@ class ProfilePage extends Component {
   }
 }
 
-export default graphql(getMe)(injectIntl(ProfilePage));
+export default graphql(getMe)(withApollo((injectIntl(ProfilePage))));

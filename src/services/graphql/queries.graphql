@@ -8,6 +8,7 @@ query getMe {
   me {
     name
     email
+    image
     id
     role
   }
@@ -154,4 +155,14 @@ mutation createOffice(
     }) {
       id
     }
+}
+
+mutation changeUserImage($upload: Upload!){
+  addImageToUser(upload: $upload){
+    name
+    email
+    image
+    id
+    role
+  }
 }
