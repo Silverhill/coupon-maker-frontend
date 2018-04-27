@@ -195,6 +195,12 @@
       "description": "Offices allow you register your offices",
       "tip": "All your offices will be listed here",
       "new": "New Office"
+    },
+    "myCompany": {
+      "title": "My Company",
+      "address": "Address",
+      "company": "Company",
+      "slogan": "Slogan"
     }
   },
   "es": {
@@ -203,7 +209,7 @@
       "option": {
         "coupons": "Registro Cupones",
         "campaigns": "Campañas",
-        "offices": "Oficinas"
+        "offices": "Sucursales"
       },
       "user": {
         "option": {
@@ -396,6 +402,12 @@
       "description": "Sucursales es una sección para crear tus sucursales",
       "tip": "Todas tus Sucursales seran listadas aquí",
       "new": "Nueva Sucursal"
+    },
+    "myCompany": {
+      "title": "Mi Compañia",
+      "address": "Dirección",
+      "company": "Compañia",
+      "slogan": "Slogan"
     }
   }
 }

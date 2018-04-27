@@ -14,7 +14,7 @@ class Footer extends React.Component {
         <div className={cx(styles.footer)}>
           <div className={cx(styles.logo)}>
             <Logo/>
-            <Typography.Subtitle bold style={{color: darkNeutral}}>2017</Typography.Subtitle>
+            <Typography.Subtitle bold style={{color: darkNeutral}}>2018</Typography.Subtitle>
           </div>
           <Typography.Subtitle light style={{color: primaryColor}}>Contactanos</Typography.Subtitle>
           <div className={cx(styles.logo)}>

@@ -2,11 +2,13 @@
 @value (
   pinkRed,
   paleGray,
-  lightNeutral
+  lightNeutral,
+  neutralColorMedium
 ) from colors;
 
 .offices {
   .panel {
+    margin-top: 10px;
     .linkBtn {
       position: relative;
       display: flex;
@@ -56,17 +58,26 @@
 
     .rowContainer {
       display: flex;
-      justify-content: space-between;
-      padding: 10px;
+      flex-direction: column;
       cursor: pointer;
+      .basicInformation {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+
+        .information {
+          display: block;
+          text-align: left;
+        }
+      }
+
+      .moreInformation {
+        padding: 10px 0px 0px 25px;
+        background-color: neutralColorMedium;
+      }
 
       &:hover {
         opacity: 0.9;
-      }
-
-      .information {
-        display: block;
-        text-align: left;
       }
     }
   }

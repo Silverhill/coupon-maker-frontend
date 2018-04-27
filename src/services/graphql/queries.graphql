@@ -45,6 +45,9 @@ query makerOffices{
     address
     officePhone
     email
+    legalRepresentative
+    cellPhone
+    ruc
 	}
 }
 
@@ -52,6 +55,8 @@ query getMyCompany{
   myCompany {
     id
     businessName
+    logo
+    slogan
   }
 }
 

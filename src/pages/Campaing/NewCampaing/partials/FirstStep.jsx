@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import { injectIntl } from 'react-intl';
-import { connect } from 'react-redux';
 //Components
 import { Panel, InputBox, InputNested, Select } from 'coupon-components';
 import InputDate from 'Components/InputDate/InputDate'
