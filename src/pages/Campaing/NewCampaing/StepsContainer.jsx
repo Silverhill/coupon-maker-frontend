@@ -59,7 +59,7 @@ class StepsContainer extends Component {
 
   render() {
     const { steps, currentStep } = this.state;
-    const { intl, offices } = this.props;
+    const { intl } = this.props;
     const cuponData = {};
     let moveBtn;
     if(currentStep.id === 1){

@@ -1,31 +1,68 @@
 import React, { Component } from 'react';
-import { Typography, Icon, Panel, Card } from 'coupon-components';
+import { Typography, Icon, Panel, Card, Cover, InputFile } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import RowOffice from './partials/RowOffice';
 
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import { makerOffices } from 'Services/graphql/queries.graphql';
+import { withApollo } from 'react-apollo';
+import { changeLogoCompany } from 'Services/graphql/queries.graphql';
 
 import styles from './OfficesPage.css';
 import * as palette from 'Styles/palette.css';
 
 class OfficesPage extends Component {
+  state ={
+    currentOffice:'',
+    isLoadingImage: false
+  };
+
+  selectRowOffice(office){
+    const { currentOffice } = this.state;
+    if(currentOffice !== office.id){
+      this.setState({currentOffice: office.id});
+    }else {
+      this.setState({currentOffice: ''});
+    }
+  }
+  changeImage = async (ev, value) => {
+    const { client: { mutate } } = this.props;
+    this.setState({isLoadingImage: true});
+    try {
+      await mutate({
+        mutation: changeLogoCompany,
+        variables: {
+          upload: value.file
+        },
+        refetchQueries: [{query: makerOffices, variables: { withCompany: true }}]
+      });
+      this.setState({isLoadingImage: false});
+    } catch (error) {
+      return;
+    }
+  }
+
+
   render() {
-    const { intl, data: { myOffices } } = this.props;
+    const { intl, data: { myOffices, myCompany } } = this.props;
+    const { currentOffice, isLoadingImage } = this.state;
     const total = myOffices ? myOffices.length : 0;
+    const company = myCompany ? myCompany : {};
+    let placeholderCompany = 'http://www.lavenderceiling.com/wp-content/uploads/2016/08/logo_placehold.jpg';
+    let companyLogo = company && company.logo ? company.logo : placeholderCompany;
 
     const tableOffices = (
       <div className={styles.table}>
         {myOffices && myOffices.map((office) => {
           const key = { key: office.id };
+          let isOpen = office.id === currentOffice;
           return (
             <RowOffice {...key}
-              name={office.name}
-              address={office.address}
-              officePhone={office.officePhone}
-              email={office.email}
+              data={office}
               className={styles.row}
+              isOpen={isOpen}
+              onClick={()=>{this.selectRowOffice(office)}}
             />
           )
         })}
@@ -69,9 +106,16 @@ class OfficesPage extends Component {
     )
 
     return (
-      <Card title={intl.formatMessage({id: 'myOffices.title'})}
+      <Card title={intl.formatMessage({id: 'myCompany.title'})}
             classNameCard={styles.offices}
             style={{position: 'relative'}}>
+        <InputFile updateFile={this.changeImage} isLoading={isLoadingImage}>
+          <Cover logo={companyLogo}
+            leftLabel={intl.formatMessage({id: 'myCompany.slogan'})}
+            leftText="Aqui va tu slogan(Ejm, Enganchate conmigo)"
+            rightLabel={intl.formatMessage({id: 'myCompany.company'})}
+            rightText={company.businessName}/>
+        </InputFile>
         <Panel title={intl.formatMessage({id: 'myOffices.panelTitle'})}
           className={styles.panel}>
           { total === 0 && emptyState}
@@ -82,4 +126,6 @@ class OfficesPage extends Component {
   }
 }
 
-export default graphql(makerOffices)(injectIntl(OfficesPage));
+export default graphql(makerOffices, { options: () => ({
+  variables: { withCompany: true }
+}) })(withApollo(injectIntl(OfficesPage)));

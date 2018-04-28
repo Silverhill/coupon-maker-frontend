@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 import { Field } from 'redux-form';
 import { InputBox } from 'coupon-components';
 
-import styles from '../../Office/NewOffice.css';
+import styles from '../NewOffice.css';
 
 class FirstStep extends Component {
   render() {

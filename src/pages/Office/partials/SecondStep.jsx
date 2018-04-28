@@ -5,7 +5,7 @@ import { Field } from 'redux-form';
 import { InputBox } from 'coupon-components';
 import classNames from 'classnames/bind';
 
-import styles from '../../Office/NewOffice.css';
+import styles from '../NewOffice.css';
 const cx = classNames.bind(styles)
 
 class SecondStep extends Component {
