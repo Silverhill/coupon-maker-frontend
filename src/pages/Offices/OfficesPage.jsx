@@ -4,7 +4,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import RowOffice from './partials/RowOffice';
 
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { makerOffices } from 'Services/graphql/queries.graphql';
 import { withApollo } from 'react-apollo';
 import { changeLogoCompany } from 'Services/graphql/queries.graphql';
@@ -110,7 +110,10 @@ class OfficesPage extends Component {
             classNameCard={styles.offices}
             style={{position: 'relative'}}>
         <InputFile updateFile={this.changeImage} isLoading={isLoadingImage}>
-          <Cover logo={companyLogo}
+          <Cover
+            logo={companyLogo}
+            backgroundColor="#f7f7f7"
+            image="https://previews.123rf.com/images/flameandstar/flameandstar1511/flameandstar151100006/48071268-life-in-the-city-picture-in-flat-design-blue-background-taxi-cars-bicycle.jpg"
             leftLabel={intl.formatMessage({id: 'myCompany.slogan'})}
             leftText="Aqui va tu slogan(Ejm, Enganchate conmigo)"
             rightLabel={intl.formatMessage({id: 'myCompany.company'})}

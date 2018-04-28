@@ -59,7 +59,7 @@ class StepsContainer extends Component {
 
   render() {
     const { steps, currentStep } = this.state;
-    const { intl } = this.props;
+    const { intl, company } = this.props;
     const cuponData = {};
     let moveBtn;
     if(currentStep.id === 1){
@@ -90,7 +90,9 @@ class StepsContainer extends Component {
                 reduxFormInput
                 component={InputFile}
                 className={styles.inputFileTrigger}>
-                <Coupon image={cuponData.image}
+                <Coupon
+                  image={cuponData.image}
+                  logo={company.logo}
                   title={cuponData.title}
                   date={cuponData.date}
                   address={cuponData.address}
