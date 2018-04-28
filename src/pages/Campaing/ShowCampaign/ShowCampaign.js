@@ -15,6 +15,9 @@ class ShowCampaing extends Component {
     const { data: {campaign, huntersByCampaign, error}, intl } = this.props;
     const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
     let imageCover = campaign && campaign.image || placeholderImage
+    let stylesStatus = campaign && campaign.status === "expired" ?
+                      {color: palette.dark, backgroundColor: palette.baseGrayMedium} :
+                      {color: palette.whiteColor, backgroundColor: palette.primaryColor};
     const hunters = (
       huntersByCampaign && huntersByCampaign.map((cpg) => {
         const key = { key: cpg.id };
@@ -73,7 +76,7 @@ class ShowCampaing extends Component {
             }
             rightLabel={intl.formatMessage({id: 'campaigns.show.labels.available'})}
             rightText={campaign && String(campaign.totalCoupons)}
-            stylesStatus={{color: palette.whiteColor, backgroundColor: palette.primaryColor}}
+            stylesStatus={stylesStatus}
           />
         </div>
         <div className={styles.panelInformation}>

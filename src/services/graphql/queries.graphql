@@ -4,13 +4,19 @@ query getHunters {
   }
 }
 
-query getMe {
+query getMe($withCompany: Boolean = false) {
   me {
     name
     email
     image
     id
     role
+  }
+  myCompany @include(if: $withCompany) {
+    id
+    businessName
+    logo
+    slogan
   }
 }
 
