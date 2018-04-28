@@ -5,7 +5,7 @@ import { getCampaign } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import moment from 'moment';
 
-import { Typography, Icon, Panel, Card, BasicRow } from 'coupon-components';
+import { Typography, Icon, Panel, Card, BasicRow, Cover } from 'coupon-components';
 
 import styles from './ShowCampaign.css';
 import * as palette from 'Styles/palette.css';
@@ -14,7 +14,10 @@ class ShowCampaing extends Component {
   render() {
     const { data: {campaign, huntersByCampaign, error}, intl } = this.props;
     const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
-    let stylesImage = {backgroundImage: `url(${campaign && campaign.image || placeholderImage})`}
+    let imageCover = campaign && campaign.image || placeholderImage
+    let stylesStatus = campaign && campaign.status === "expired" ?
+                      {color: palette.dark, backgroundColor: palette.baseGrayMedium} :
+                      {color: palette.whiteColor, backgroundColor: palette.primaryColor};
     const hunters = (
       huntersByCampaign && huntersByCampaign.map((cpg) => {
         const key = { key: cpg.id };
@@ -63,35 +66,18 @@ class ShowCampaing extends Component {
     )
     const viewCampaign = (
       <div className={styles.view}>
-        <div className={styles.header} style={stylesImage}>
-          <div className={styles.contentText}>
-            <div className={styles.linkBtn}>
-              <NavLink to='/new_campaign' className={styles.link}>
-                {intl.formatMessage({id: 'campaigns.myCampaigns.new'})}
-              </NavLink>
-            </div>
-            <div className={styles.address}>
-              <Typography.Text small bold>
-                {intl.formatMessage({id: 'campaigns.show.labels.office'})}
-              </Typography.Text>
-              <Typography.Text small>
-                {campaign && campaign.address}
-              </Typography.Text>
-              <Typography.Text small style={{paddingTop: '5px'}}>
-                {
-                  moment(campaign && campaign.startAt).format("DD MMM") + ' - ' + moment(campaign && campaign.endAt).format("DD MMM YYYY")
-                }
-              </Typography.Text>
-            </div>
-            <div className={styles.coupons}>
-              <Typography.Text small>
-                {intl.formatMessage({id: 'campaigns.show.labels.available'})}
-              </Typography.Text>
-              <Typography.Title bold>
-                {campaign && campaign.totalCoupons}
-              </Typography.Title>
-            </div>
-          </div>
+        <div className={styles.header}>
+          <Cover
+            status={campaign && campaign.status}
+            image={imageCover}
+            leftLabel={intl.formatMessage({id: 'campaigns.show.labels.office'})}
+            leftText= {
+              moment(campaign && campaign.startAt).format("DD MMM") + ' - ' + moment(campaign && campaign.endAt).format("DD MMM YYYY")
+            }
+            rightLabel={intl.formatMessage({id: 'campaigns.show.labels.available'})}
+            rightText={campaign && String(campaign.totalCoupons)}
+            stylesStatus={stylesStatus}
+          />
         </div>
         <div className={styles.panelInformation}>
           <div className={styles.left}>

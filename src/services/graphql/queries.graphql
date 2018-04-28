@@ -4,13 +4,19 @@ query getHunters {
   }
 }
 
-query getMe {
+query getMe($withCompany: Boolean = false) {
   me {
     name
     email
     image
     id
     role
+  }
+  myCompany @include(if: $withCompany) {
+    id
+    businessName
+    logo
+    slogan
   }
 }
 
@@ -82,6 +88,7 @@ query getCampaign($id:String!){
     description
     initialAgeRange
     finalAgeRange
+    status
   }
   huntersByCampaign(campaignId: $id){
     id
@@ -94,6 +101,14 @@ query getCampaign($id:String!){
 mutation registerUser($company: String!, $name: String!, $email: String!, $password: String!) {
   signUp(input:{company: $company, name: $name, email: $email, password: $password, role: "maker"}) {
     id
+  }
+}
+
+mutation canjear($code: String!){
+  redeemCoupon(input:{ couponCode: $code}){
+    code
+    id
+    status
   }
 }
 

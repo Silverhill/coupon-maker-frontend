@@ -18,17 +18,20 @@ class NewCampaingPage extends Component {
 
   state = {
     offices: [],
+    company: null,
   }
 
   async componentDidMount() {
     const { client } = this.props;
 
     try {
-      const { data: { myOffices } } = await client.query({
-        query: makerOffices
+      const { data: { myOffices, myCompany } } = await client.query({
+        query: makerOffices,
+        variables: { withCompany: true }
       });
       this.setState({
-        offices: myOffices
+        offices: myOffices,
+        company: myCompany
       });
     } catch (error) {
       console.log(error);
@@ -43,7 +46,6 @@ class NewCampaingPage extends Component {
     const { form, client: { mutate } } = this.props;
 
     try {
-      console.log('saving');
       await mutate({
         mutation: createCampaing,
         variables: {
@@ -73,9 +75,9 @@ class NewCampaingPage extends Component {
       { id: 0, label: 'Información', icon: 'FaImage', tooltip: 'Información', active: true },
       { id: 1, label: 'Segmentación', icon: 'FaGroup', tooltip: 'Segmentación', active: false }
     ];
-    const { offices } = this.state;
+    const { offices, company } = this.state;
     const total = offices ? offices.length : 0;
-    const createCampaing = (<StepsContainer steps={steps} offices={offices} onSubmit={this.createCampaing}/>);
+    const createCampaing = (<StepsContainer steps={steps} offices={offices} company={company} onSubmit={this.createCampaing}/>);
     const emptyState = (
       <div className={styles.emptyOffice}>
         <Icon

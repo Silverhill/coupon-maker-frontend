@@ -13,69 +13,6 @@
   }
 
   .view {
-    .header {
-      background-repeat: no-repeat;
-      background-size: cover;
-      position: relative;
-      width: 100%;
-      border-radius: borderRadius;
-      min-height: 200px;
-      color: white;
-
-      p {
-        color: white;
-      }
-      .contentText {
-        .linkBtn {
-          position: absolute;
-          top: 0;
-          right: 0;
-          display: flex;
-          height: 25px;
-          margin: 10px;
-
-          & .link {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0px 15px;
-            font-size: 12px;
-            border-radius: 20px;
-            background-color: pinkRed;
-            color: white;
-
-            &:hover {
-              opacity: 0.9;
-            }
-          }
-        }
-
-        .address {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          padding: 0 0 15px 10px;
-        }
-
-        .coupons {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          text-align: center;
-          padding: 10px;
-        }
-      }
-    }
-
-    .header::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: black;
-      opacity: 0.4;
-    }
-
     .panelInformation {
       display: flex;
       align-items: baseline;

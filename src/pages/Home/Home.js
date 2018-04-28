@@ -6,7 +6,7 @@ import {
 import { connect } from 'react-redux';
 import styles from './Home.css';
 import { withApollo } from 'react-apollo';
-import { getMe } from 'Services/graphql/queries.graphql';
+import { getMe, makerCampaigns } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import moment from 'moment';
 
@@ -39,19 +39,27 @@ class Home extends Component {
 
   state = {
     me: null,
-    myCampaigns: []
+    myCampaigns: [],
+    company: null
   }
 
   async componentDidMount() {
     const { client } = this.props;
 
     try {
-      const { data: { me, myCampaigns } } = await client.query({
-        query: getMe
+      const { data: { me, myCompany } } = await client.query({
+        query: getMe,
+        variables: {
+          withCompany: true
+        }
+      });
+      const { data: { myCampaigns: {campaigns} } } = await client.query({
+        query: makerCampaigns
       });
       this.setState({
         me: me,
-        myCampaigns: myCampaigns
+        myCampaigns: campaigns,
+        company: myCompany,
        });
     } catch (error) {
       console.log(error);
@@ -60,17 +68,14 @@ class Home extends Component {
 
   render() {
     const {
-      // data: { error, loading, myCampaigns, me },
       error,
       loading,
       client,
-      // myCampaigns,
-      // me,
       intl,
       removeAuthentication,
       history
     } = this.props;
-    const { me, myCampaigns} = this.state;
+    const { me, myCampaigns, company} = this.state;
     const campaigns = myCampaigns ? myCampaigns.slice(0,3) : null;
     const total = campaigns ? campaigns.length : 0;
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
@@ -162,7 +167,7 @@ class Home extends Component {
         return (
           <Coupon {...key}
             image={cpg.image || placeholderImage}
-            logo={cpg.logo || placeholderlogo}
+            logo={company.logo || placeholderlogo}
             title={cpg.title}
             date={date}
             address={cpg.address}

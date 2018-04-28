@@ -20,7 +20,7 @@ import * as userActions from '../../actions/userActions';
 class LogInPage extends React.Component {
 
   goToHome = () => {
-    this.props.history.push('/');
+    this.props.history.push('new_coupon');
   }
 
   loginApp = async (values = {}) => {
