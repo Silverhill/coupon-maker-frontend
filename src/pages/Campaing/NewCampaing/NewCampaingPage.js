@@ -43,7 +43,6 @@ class NewCampaingPage extends Component {
     const { form, client: { mutate } } = this.props;
 
     try {
-      console.log('saving');
       await mutate({
         mutation: createCampaing,
         variables: {

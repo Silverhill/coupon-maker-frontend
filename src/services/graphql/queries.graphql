@@ -97,6 +97,14 @@ mutation registerUser($company: String!, $name: String!, $email: String!, $passw
   }
 }
 
+mutation canjear($code: String!){
+  redeemCoupon(input:{ couponCode: $code}){
+    code
+    id
+    status
+  }
+}
+
 mutation createCampaing(
   $startAt: Timestamp!,
   $endAt: Timestamp!,
