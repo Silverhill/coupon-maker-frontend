@@ -191,11 +191,8 @@ mutation createOffice(
 
 mutation changeUserImage($upload: Upload!){
   addImageToUser(upload: $upload){
-    name
-    email
     image
     id
-    role
   }
 }
 

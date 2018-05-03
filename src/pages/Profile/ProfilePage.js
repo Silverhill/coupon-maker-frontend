@@ -22,7 +22,19 @@ class ProfilePage extends Component {
         variables: {
           upload: value.file
         },
-        refetchQueries: [{query: getMe}]
+        optimisticResponse: {
+          __typename: "Mutation",
+          addImageToUser: {
+            __typename: "Maker",
+            id: -1,
+            image: value.imagePreviewUrl,
+          }
+        },
+        update: (cache, { data: {addImageToUser} }) => {
+          const data = cache.readQuery({ query: getMe });
+          data.me.image = addImageToUser.image;
+          cache.writeQuery({ query: getMe, data: data });
+        }
       });
       this.setState({isLoadingImage: false});
     } catch (error) {
