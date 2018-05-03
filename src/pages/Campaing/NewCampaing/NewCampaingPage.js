@@ -88,13 +88,8 @@ class NewCampaingPage extends Component {
           }
         },
         update: (cache, { data: {addCampaign} }) => {
-          // Read the data from our cache for this query.
           const data = cache.readQuery({ query: makerCampaigns });
-          // Add our comment from the mutation to the end.
-          console.log('DATA query',data);
           data.myCampaigns.campaigns.push(addCampaign);
-          console.log('DATA Pushed', data);
-          // Write our data back to the cache.
           cache.writeQuery({ query: makerCampaigns, data: data });
           this.goToCampaings();
         }

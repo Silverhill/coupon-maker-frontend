@@ -1,6 +1,21 @@
+fragment userFields on UserBase{
+  name
+  email
+  image
+  id
+  role
+}
+
+fragment companyFields on Company{
+  id
+  businessName
+  logo
+  slogan
+}
+
 query getHunters {
   allHunters {
-    name
+    ...userFields
   }
 }
 
@@ -13,10 +28,7 @@ query getMe($withCompany: Boolean = false) {
     role
   }
   myCompany @include(if: $withCompany) {
-    id
-    businessName
-    logo
-    slogan
+    ...companyFields
   }
 }
 
@@ -56,19 +68,13 @@ query makerOffices($withCompany: Boolean = false){
 	}
 
   myCompany @include(if: $withCompany) {
-    id
-    businessName
-    logo
-    slogan
+    ...companyFields
   }
 }
 
 query getMyCompany{
   myCompany {
-    id
-    businessName
-    logo
-    slogan
+    ...companyFields
   }
 }
 
@@ -89,11 +95,15 @@ query getCampaign($id:String!){
     finalAgeRange
     status
   }
-  huntersByCampaign(campaignId: $id){
-    id
+}
+
+query huntersCampaign($id:String!){
+  hunters: huntersByCampaign(campaignId: $id){
     name
     email
     image
+    id
+    couponsInCampaign
   }
 }
 
