@@ -51,7 +51,7 @@ class Header extends React.Component {
                             borderColor="accentColorSecondary"
                           />
                         </div>
-                        <Typography.Text small bold>{me.name}</Typography.Text>
+                        <Typography.Text small bold style={{margin: "0 10px"}}>{me.name}</Typography.Text>
                         <Icon name="FaCaretDown" size={10}/>
                       </div>
                     );
