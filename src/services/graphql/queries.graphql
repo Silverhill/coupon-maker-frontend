@@ -199,6 +199,6 @@ mutation changeUserImage($upload: Upload!){
 mutation changeLogoCompany($upload: Upload!){
   addImageToCompany(upload: $upload){
     id
-    businessName
+    logo
   }
 }

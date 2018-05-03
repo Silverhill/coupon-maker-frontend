@@ -13,7 +13,7 @@ const cx = classNames.bind(styles)
 class Header extends React.Component {
 
   render() {
-    const { tabs, userData } = this.props;
+    const { tabs, optionsUser } = this.props;
 
     return (
       <div className={cx(styles.container)}>
@@ -60,7 +60,7 @@ class Header extends React.Component {
               </div>
             </DropdownTrigger>
             <DropdownContent className={styles.menuContainer}>
-              {userData.options && userData.options.map((option, i) => {
+              {optionsUser.options && optionsUser.options.map((option, i) => {
                 return (
                   <div key={`option-${i}`} onClick={option.onClick} className={styles.menuOption}>
                     <Typography.Text small>
@@ -78,7 +78,7 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  userData: PropTypes.object,
+  optionsUser: PropTypes.object,
   tabs: PropTypes.array,
 }
 

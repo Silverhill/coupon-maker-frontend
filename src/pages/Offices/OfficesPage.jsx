@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import RowOffice from './partials/RowOffice';
 
 import { graphql } from 'react-apollo';
-import { makerOffices } from 'Services/graphql/queries.graphql';
+import { makerOffices, getMyCompany } from 'Services/graphql/queries.graphql';
 import { withApollo } from 'react-apollo';
 import { changeLogoCompany } from 'Services/graphql/queries.graphql';
 
@@ -35,7 +35,19 @@ class OfficesPage extends Component {
         variables: {
           upload: value.file
         },
-        refetchQueries: [{query: makerOffices, variables: { withCompany: true }}]
+        optimisticResponse: {
+          __typename: "Mutation",
+          addImageToCompany: {
+            __typename: "Company",
+            id: -1,
+            logo: value.imagePreviewUrl,
+          }
+        },
+        update: (cache, { data: {addImageToCompany} }) => {
+          const data = cache.readQuery({ query: getMyCompany});
+          data.myCompany.logo = addImageToCompany.logo;
+          cache.writeQuery({ query: getMyCompany, data: data });
+        }
       });
       this.setState({isLoadingImage: false});
     } catch (error) {

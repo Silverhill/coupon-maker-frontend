@@ -6,7 +6,7 @@ import {
 import { connect } from 'react-redux';
 import styles from './Home.css';
 import { withApollo, Query } from 'react-apollo';
-import { getMe, makerCampaigns } from 'Services/graphql/queries.graphql';
+import { getMyCompany, makerCampaigns } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import moment from 'moment';
 
@@ -38,7 +38,6 @@ const PageHome = (props) => <div><h1>Home</h1></div>
 class Home extends Component {
 
   state = {
-    me: null,
     company: null
   }
 
@@ -46,14 +45,10 @@ class Home extends Component {
     const { client } = this.props;
 
     try {
-      const { data: { me, myCompany } } = await client.query({
-        query: getMe,
-        variables: {
-          withCompany: true
-        }
+      const { data: { myCompany } } = await client.query({
+        query: getMyCompany
       });
       this.setState({
-        me: me,
         company: myCompany,
        });
     } catch (error) {
@@ -69,7 +64,7 @@ class Home extends Component {
       history
     } = this.props;
 
-    const { me, company} = this.state;
+    const {company} = this.state;
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
     const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
     let tabOptions = [
@@ -92,9 +87,8 @@ class Home extends Component {
         icon: 'FaHome'
       },
     ];
-    let userData = {
-      name: me && me.name,
-      image: (me && me.image) || 'https://i.pinimg.com/564x/bc/c8/10/bcc8102f42e58720355ca02d833c204b.jpg',
+
+    let optionsUser = {
       options: [
         {
           value: intl.formatMessage({id: 'header.user.option.profile'}),
@@ -189,7 +183,7 @@ class Home extends Component {
 
     return (
       <div className={styles.container}>
-        <Header tabs={tabOptions} userData={userData}/>
+        <Header tabs={tabOptions} optionsUser={optionsUser}/>
         <div className={styles.mainView}>
           <div className={styles.leftPanel}>
             <Card

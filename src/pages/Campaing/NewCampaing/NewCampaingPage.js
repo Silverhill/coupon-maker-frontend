@@ -96,9 +96,9 @@ class NewCampaingPage extends Component {
           console.log('DATA Pushed', data);
           // Write our data back to the cache.
           cache.writeQuery({ query: makerCampaigns, data: data });
+          this.goToCampaings();
         }
       });
-      this.goToCampaings();
     } catch (error) {
       return error;
     }
