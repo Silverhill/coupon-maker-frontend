@@ -13,7 +13,7 @@ import moment from 'moment';
 // Components
 import Header from 'Components/Header/Header';
 import Footer from 'Components/Footer/Footer';
-import { Card, Coupon, Campaign, Typography, Icon } from 'coupon-components';
+import { Card, Coupon, Typography, Icon } from 'coupon-components';
 // Pages
 import Campaigns from '../Campaigns/Campaigns';
 import OfficesPage from '../Offices/OfficesPage';
@@ -39,7 +39,6 @@ class Home extends Component {
 
   state = {
     me: null,
-    myCampaigns: [],
     company: null
   }
 
@@ -53,12 +52,8 @@ class Home extends Component {
           withCompany: true
         }
       });
-      // const { data: { myCampaigns: {campaigns} } } = await client.query({
-      //   query: makerCampaigns
-      // });
       this.setState({
         me: me,
-        myCampaigns: [],
         company: myCompany,
        });
     } catch (error) {
@@ -68,18 +63,13 @@ class Home extends Component {
 
   render() {
     const {
-      error,
-      loading,
       client,
       intl,
       removeAuthentication,
       history
     } = this.props;
 
-    const { me, myCampaigns, company} = this.state;
-    // const campaigns = myCampaigns ? myCampaigns.slice(0,3) : null;
-    const campaigns = myCampaigns;
-    const total = campaigns ? campaigns.length : 0;
+    const { me, company} = this.state;
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
     const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
     let tabOptions = [
@@ -169,17 +159,18 @@ class Home extends Component {
           if (error) return `Error! ${error.message}`;
           const {myCampaigns: {campaigns} } = data;
           const total = campaigns ? campaigns.length : 0;
+          const logo = company && company.logo || placeholderlogo;
           return (
-            campaigns && campaigns.map((cpg) => {
-              const key = { key: cpg.id };
-              const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
-              return (
-                <div>
-                  {total == 0 && emptyStateActiveCampaigns}
-                  {total > 0 &&
+            <div>
+              {total === 0 && emptyStateActiveCampaigns}
+              {total > 0 &&
+                campaigns && campaigns.map((cpg) => {
+                  const key = { key: cpg.id };
+                  const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
+                  return (
                     <Coupon {...key}
                       image={cpg.image || placeholderImage}
-                      logo={company.logo || placeholderlogo}
+                      logo={logo}
                       title={cpg.title}
                       date={date}
                       address={cpg.address}
@@ -187,35 +178,14 @@ class Home extends Component {
                       className={styles.campaign}
                       onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
                     />
-                  }
-                </div>
-              )
-            })
+                  )
+                })
+              }
+            </div>
           );
         }}
       </Query>
     );
-
-    const campaignsInactives = (
-      campaigns && campaigns.map((cpg) => {
-        const key = { key: cpg.id };
-        const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
-        return (
-          <Campaign {...key}
-            title={cpg.title}
-            date={date}
-            address={cpg.address}
-            totalCoupons={cpg.totalCoupons}
-            totalCouponsHunted={cpg.capturedCoupons || 0}
-            className={styles.campaign}
-            onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
-          />
-        )
-      })
-    )
-
-    if(error) return <h4>{error.message}</h4>
-    else if(loading) return <h4>Loading...</h4>
 
     return (
       <div className={styles.container}>
@@ -232,8 +202,7 @@ class Home extends Component {
               title={intl.formatMessage({id: 'home.campaings.inactive.title'})}
               subtitle={intl.formatMessage({id: 'home.campaings.inactive.subtitle'})}
               classNameCard={styles.card}>
-              {total === 0 && emptyStateInactiveCampaigns}
-              {total > 0 && campaignsInactives}
+              {emptyStateInactiveCampaigns}
             </Card>
           </div>
           <main className={styles.renderContainer}>

@@ -33,7 +33,6 @@ query makerCampaigns{
       title
       office {
         id
-        name
         address
       }
       startAt

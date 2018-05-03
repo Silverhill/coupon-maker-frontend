@@ -72,21 +72,19 @@ class NewCampaingPage extends Component {
             officeId: form.values.office.id,
             country: form.values.country.value,
             city: form.values.city.value,
-            couponsNumber: parseInt(form.values.couponsNumber),
             title: form.values.title,
             description: form.values.description,
             customMessage: form.values.customMessage,
             initialAgeRange: parseInt(form.values.initialAgeRange),
             finalAgeRange: parseInt(form.values.finalAgeRange),
-            image: form.values.image,
-            address: 'nullllll',
+            image: form.values.image.imagePreviewUrl,
+            address: 'empty',
             office: {
               __typename:"OfficeSimple",
               id: -1,
-              name: 'dsadas',
-              address: 'dsadas'
+              address: 'waiting address'
             },
-            totalCoupons: 1
+            totalCoupons: parseInt(form.values.couponsNumber)
           }
         },
         update: (cache, { data: {addCampaign} }) => {
@@ -99,7 +97,6 @@ class NewCampaingPage extends Component {
           // Write our data back to the cache.
           cache.writeQuery({ query: makerCampaigns, data: data });
         }
-        // refetchQueries: [{query: makerCampaigns}]
       });
       this.goToCampaings();
     } catch (error) {
