@@ -154,6 +154,12 @@ mutation createCampaing(
       description
       initialAgeRange
       finalAgeRange
+      office {
+        id
+        name
+        address
+      }
+      totalCoupons
     }
 }
 

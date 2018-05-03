@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { graphql } from 'react-apollo';
+import { graphql, Query } from 'react-apollo';
 import { makerCampaigns } from 'Services/graphql/queries.graphql';
 import { Card, Typography, Icon, BasicRow, Panel } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';

@@ -62,7 +62,44 @@ class NewCampaingPage extends Component {
           finalAgeRange: parseInt(form.values.finalAgeRange),
           upload: form.values.image.file
         },
-        refetchQueries: [{query: makerCampaigns}]
+        optimisticResponse: {
+          __typename: "Mutation",
+          addCampaign: {
+            __typename: "CampaignForHunter",
+            id: -1,
+            startAt: form.values.startAt,
+            endAt: form.values.endAt,
+            officeId: form.values.office.id,
+            country: form.values.country.value,
+            city: form.values.city.value,
+            couponsNumber: parseInt(form.values.couponsNumber),
+            title: form.values.title,
+            description: form.values.description,
+            customMessage: form.values.customMessage,
+            initialAgeRange: parseInt(form.values.initialAgeRange),
+            finalAgeRange: parseInt(form.values.finalAgeRange),
+            image: form.values.image,
+            address: 'nullllll',
+            office: {
+              __typename:"OfficeSimple",
+              id: -1,
+              name: 'dsadas',
+              address: 'dsadas'
+            },
+            totalCoupons: 1
+          }
+        },
+        update: (cache, { data: {addCampaign} }) => {
+          // Read the data from our cache for this query.
+          const data = cache.readQuery({ query: makerCampaigns });
+          // Add our comment from the mutation to the end.
+          console.log('DATA query',data);
+          data.myCampaigns.campaigns.push(addCampaign);
+          console.log('DATA Pushed', data);
+          // Write our data back to the cache.
+          cache.writeQuery({ query: makerCampaigns, data: data });
+        }
+        // refetchQueries: [{query: makerCampaigns}]
       });
       this.goToCampaings();
     } catch (error) {

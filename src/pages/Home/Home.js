@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Home.css';
-import { withApollo } from 'react-apollo';
+import { withApollo, Query } from 'react-apollo';
 import { getMe, makerCampaigns } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import moment from 'moment';
@@ -53,12 +53,12 @@ class Home extends Component {
           withCompany: true
         }
       });
-      const { data: { myCampaigns: {campaigns} } } = await client.query({
-        query: makerCampaigns
-      });
+      // const { data: { myCampaigns: {campaigns} } } = await client.query({
+      //   query: makerCampaigns
+      // });
       this.setState({
         me: me,
-        myCampaigns: campaigns,
+        myCampaigns: [],
         company: myCompany,
        });
     } catch (error) {
@@ -75,8 +75,10 @@ class Home extends Component {
       removeAuthentication,
       history
     } = this.props;
+
     const { me, myCampaigns, company} = this.state;
-    const campaigns = myCampaigns ? myCampaigns.slice(0,3) : null;
+    // const campaigns = myCampaigns ? myCampaigns.slice(0,3) : null;
+    const campaigns = myCampaigns;
     const total = campaigns ? campaigns.length : 0;
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
     const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
@@ -161,23 +163,38 @@ class Home extends Component {
     )
 
     const campaignsActives = (
-      campaigns && campaigns.map((cpg) => {
-        const key = { key: cpg.id };
-        const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
-        return (
-          <Coupon {...key}
-            image={cpg.image || placeholderImage}
-            logo={company.logo || placeholderlogo}
-            title={cpg.title}
-            date={date}
-            address={cpg.address}
-            totalCoupons={cpg.totalCoupons}
-            className={styles.campaign}
-            onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
-          />
-        )
-      })
-    )
+      <Query query={makerCampaigns}>
+        {({ loading, error, data}) => {
+          if (loading) return "Loading...";
+          if (error) return `Error! ${error.message}`;
+          const {myCampaigns: {campaigns} } = data;
+          const total = campaigns ? campaigns.length : 0;
+          return (
+            campaigns && campaigns.map((cpg) => {
+              const key = { key: cpg.id };
+              const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
+              return (
+                <div>
+                  {total == 0 && emptyStateActiveCampaigns}
+                  {total > 0 &&
+                    <Coupon {...key}
+                      image={cpg.image || placeholderImage}
+                      logo={company.logo || placeholderlogo}
+                      title={cpg.title}
+                      date={date}
+                      address={cpg.address}
+                      totalCoupons={cpg.totalCoupons}
+                      className={styles.campaign}
+                      onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
+                    />
+                  }
+                </div>
+              )
+            })
+          );
+        }}
+      </Query>
+    );
 
     const campaignsInactives = (
       campaigns && campaigns.map((cpg) => {
@@ -209,8 +226,7 @@ class Home extends Component {
               title={intl.formatMessage({id: 'home.campaings.active.title'})}
               subtitle={intl.formatMessage({id: 'home.campaings.active.subtitle'})}
               classNameCard={styles.card}>
-              {total === 0 && emptyStateActiveCampaigns}
-              {total > 0 && campaignsActives}
+              {campaignsActives}
             </Card>
             <Card
               title={intl.formatMessage({id: 'home.campaings.inactive.title'})}
