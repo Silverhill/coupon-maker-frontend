@@ -107,6 +107,16 @@ query huntersCampaign($id:String!){
   }
 }
 
+query huntersCompany{
+  hunters: myHunters{
+    name
+    email
+    id
+    redeemedCoupons
+    huntedCoupons
+  }
+}
+
 mutation registerUser($company: String!, $name: String!, $email: String!, $password: String!) {
   signUp(input:{company: $company, name: $name, email: $email, password: $password, role: "maker"}) {
     id

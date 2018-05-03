@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { withApollo } from 'react-apollo';
+import { withApollo, Query } from 'react-apollo';
 import { connect } from 'react-redux';
-import { canjear } from 'Services/graphql/queries.graphql';
+import { canjear, huntersCompany } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 
 import { Typography, Panel, Card, BasicRow } from 'coupon-components';
@@ -40,48 +40,37 @@ class CouponsPage extends Component {
 
   render() {
 
-    const lastHunters = [
-      {
-        name: 'Khal Drogo',
-        email: 'khaldrogo@gmail.com',
-        image: 'https://i.pinimg.com/originals/78/df/55/78df55e142774e705484324c944a0bb7.jpg',
-        totalCoupons: 10,
-        id: 1,
-        campaign: "2x1 en hamburguesas"
-      },
-      {
-        name: 'Hodor Harries',
-        email: 'hodor@gmail.com',
-        image: 'http://www.mariapicasso.com/wp-content/uploads/2015/09/hodor_by_mariapicasso.jpg',
-        totalCoupons: 2,
-        id: 2,
-        campaign: "30% de descuento en bebidas y jugos"
-      },
-      {
-        name: 'Margaery Tyrell',
-        email: 'margaerytyrell@gmail.com',
-        image: 'https://i.pinimg.com/originals/70/e2/9f/70e29fb0ec6721fcd6d740444c80e2e0.jpg',
-        totalCoupons: 4,
-        id: 3,
-        campaign: "Jueves 2x1 en pizzas medianas y familiares"
-      }
-    ]
-
     const hunters = (
-      lastHunters && lastHunters.map((cpg) => {
-        const key = { key: cpg.id };
-        return (
-          <BasicRow {...key}
-            title={cpg.name}
-            image={cpg.image}
-            subtitle={cpg.email}
-            label= {cpg.campaign}
-            number= {1}
-            className={styles.row}
-          />
-        )
-      })
+      <Query query={huntersCompany} variables={{ id: this.props.match.params.id }}>
+        {({ loading, error, data}) => {
+          if (loading) return "Loading...";
+          if (error) return `Error! ${error.message}`;
+          const {hunters} = data;
+          const total = hunters ? hunters.length : 0;
+          return (
+            <div>
+              {total === 0 && anyHunter}
+              {total > 0 &&
+                hunters && hunters.map((cpg) => {
+                  const key = { key: cpg.id };
+                  return (
+                    <BasicRow {...key}
+                      title={cpg.name}
+                      image={cpg.image}
+                      subtitle={cpg.email}
+                      label= {cpg.campaign}
+                      number= {cpg.redeemedCoupons}
+                      className={styles.row}
+                    />
+                  )
+                })
+              }
+            </div>
+          );
+        }}
+      </Query>
     )
+
     const anyHunter = (
       <div className={styles.notFound}>
         <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
@@ -97,6 +86,7 @@ class CouponsPage extends Component {
         </Typography.Text>
       </div>
     )
+
     return (
       <div className={styles.container}>
         <Card title="Registrar Coupon">
@@ -105,13 +95,13 @@ class CouponsPage extends Component {
             {this.state.errors ? errorMessages : ""}
           </div>
           <div style={{marginTop: '10px'}}>
-            <Panel title="Top 5 Hunters">
-              {hunters.length > 0 ? hunters : anyHunter }
-            </Panel>
+            {/* <Panel title="Top 5 Hunters">
+              {hunters}
+            </Panel> */}
           </div>
           <div style={{marginTop: '10px'}}>
             <Panel title="Todos los Hunters">
-            {hunters.length > 0 ? hunters : anyHunter }
+            {hunters}
             </Panel>
           </div>
         </Card>
