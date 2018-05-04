@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import { getCampaign, huntersCampaign } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
-import moment from 'moment';
 
 import { Typography, Icon, Panel, Card, BasicRow, Cover } from 'coupon-components';
 
@@ -93,9 +92,7 @@ class ShowCampaing extends Component {
                   status={campaign && campaign.status}
                   image={imageCover}
                   leftLabel={intl.formatMessage({id: 'campaigns.show.labels.office'})}
-                  leftText= {
-                    moment(campaign && campaign.startAt).format("DD MMM") + ' - ' + moment(campaign && campaign.endAt).format("DD MMM YYYY")
-                  }
+                  leftText= {campaign.office.address}
                   rightLabel={intl.formatMessage({id: 'campaigns.show.labels.available'})}
                   rightText={campaign && String(campaign.totalCoupons)}
                   stylesStatus={stylesStatus}

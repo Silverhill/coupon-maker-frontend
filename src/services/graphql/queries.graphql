@@ -45,6 +45,7 @@ query makerCampaigns{
       title
       office {
         id
+        name
         address
       }
       startAt
@@ -82,7 +83,6 @@ query getCampaign($id:String!){
   campaign(id:$id){
     id
     title
-    address
     startAt
     endAt
     image
@@ -94,6 +94,11 @@ query getCampaign($id:String!){
     initialAgeRange
     finalAgeRange
     status
+    office {
+      id
+      name
+      address
+    }
   }
 }
 
