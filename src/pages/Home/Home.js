@@ -22,6 +22,7 @@ import CouponsPage from '../Coupons/CouponsPage';
 import ProfilePage from '../Profile/ProfilePage';
 import ShowCampaign from '../Campaing/ShowCampaign/ShowCampaign';
 import NewCampaingPage from '../Campaing/NewCampaing/NewCampaingPage';
+import EditProfilePage from '../Profile/EditProfile/EditProfilePage';
 // Styles
 import * as palette from 'Styles/palette.css';
 //Actions
@@ -195,9 +196,10 @@ class Home extends Component {
               <Route path='/new_coupon' component={CouponsPage} />
               <Route path='/offices' component={OfficesPage} />
               <Route path='/new_office' component={NewOfficePage} />
-              <Route path='/profile' component={ProfilePage} />
+              <Route exact path='/profile' component={ProfilePage} />
               <Route path='/new_campaign' component={NewCampaingPage} />
               <Route path='/campaign/:id' component={ShowCampaign} />
+              <Route path='/profile/edit' component={EditProfilePage} />
             </Switch>
           </main>
         </div>

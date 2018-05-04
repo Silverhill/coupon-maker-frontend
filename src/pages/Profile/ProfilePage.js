@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
-import { Card, Typography, Button, Avatar, InputFile } from 'coupon-components';
+import { Card, Typography, Button, Avatar, InputFile, Menu } from 'coupon-components';
 import { injectIntl } from 'react-intl';
 import { withApollo } from 'react-apollo';
 import { changeUserImage } from 'Services/graphql/queries.graphql';
@@ -42,6 +42,10 @@ class ProfilePage extends Component {
     }
   }
 
+  changeMenu = (ev, value) => {
+    this.props.history.push('/profile/edit')
+  }
+
   render() {
     const { data: { me }, intl } = this.props;
     const { isLoadingImage } = this.state;
@@ -61,6 +65,10 @@ class ProfilePage extends Component {
               {me && me.email}
             </Typography.Text>
           </div>
+          <Menu className={styles.menuOpts}
+                iconOptions={{name: "FaCog", size: 20}}
+                options={[{label: "Editar", iconName: "FaEdit"}]}
+                onChange={this.changeMenu}/>
         </Card>
         <Card classNameContent={styles.accountOptions}>
           <div className={styles.information}>
