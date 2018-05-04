@@ -222,3 +222,18 @@ mutation changeLogoCompany($upload: Upload!){
     logo
   }
 }
+
+mutation updateProfile(
+  $name: String,
+  $email: String,
+  $upload: Upload){
+  updateUser(input:{
+    name: $name,
+    email: $email,
+    upload: $upload}){
+      id
+      name
+      email
+      image
+  }
+}
