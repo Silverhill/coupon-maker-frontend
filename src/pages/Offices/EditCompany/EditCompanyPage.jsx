@@ -1,0 +1,125 @@
+import React, { Component } from 'react';
+import { injectIntl } from 'react-intl';
+import { Card, InputFile, Avatar, InputBox, Button } from 'coupon-components';
+import { withApollo } from 'react-apollo';
+import { Query } from 'react-apollo';
+import { getMe, getMyCompany, updateMyCompany } from 'Services/graphql/queries.graphql';
+
+import styles from './EditCompany.css';
+
+class EditCompanyPage extends Component {
+  state = {
+    company: {}
+  }
+
+  onSubmit = async (ev) => {
+    ev.preventDefault();
+    const { company } = this.state;
+    const { client: { mutate } } = this.props;
+    let companyFile = company.upload ? company.upload.file : null;
+    let companyImage = company.upload ? company.upload.imagePreviewUrl : null;
+    debugger
+    try {
+       await mutate({
+        mutation: updateMyCompany,
+        variables: {
+          businessName: company.businessName,
+          slogan: company.slogan,
+          upload: companyFile,
+          id: this.props.match.params.id,
+        },
+        optimisticResponse: {
+          __typename: "Mutation",
+          updateMyCompany: {
+            __typename: "Company",
+            id: -1,
+            businessName: company.businessName,
+            slogan: company.slogan,
+            logo: companyImage
+          }
+        },
+        update: (cache, { data: {updateMyCompany} }) => {
+          const data = cache.readQuery({ query: getMyCompany });
+          debugger
+          // if(updateMyCompany.businessName) { data.me.businessName = updateMyCompany.businessName; }
+          // if(updateMyCompany.slogan) { data.me.slogan = updateMyCompany.slogan; }
+          // if(updateMyCompany.image) { data.me.image = updateMyCompany.image; }
+          // cache.writeQuery({ query: getMe, data: data });
+          // this.props.history.push('/profile')
+        }
+      });
+    } catch (error) {
+      console.log('error', error);
+      return;
+    }
+  }
+
+  onChange = (ev) => {
+    const field = { [ev.target.name]: ev.target.value };
+    this.setState(prevState => ({
+      company: {
+        ...prevState.company,
+        ...field,
+      }
+    }));
+  }
+
+  onChangeImage = (ev, values) => {
+    const field = { upload:  values};
+    this.setState(prevState => ({
+      company: {
+        ...prevState.company,
+        ...field,
+      }
+    }));
+  }
+
+  render() {
+    const { intl } = this.props;
+    const { company } = this.state;
+    return (
+      <Query query={getMyCompany}>
+        {({ loading, error, data}) => {
+          if (loading) return "Loading...";
+          if (error) return `Error! ${error.message}`;
+          const { myCompany } = data;
+          const imageCompany = (company.upload && company.upload.imagePreviewUrl) ? company.upload.imagePreviewUrl : myCompany.logo;
+
+          return (
+            <div className={styles.editProfile}>
+              <Card title={intl.formatMessage({id: 'profile.edit.title'})}>
+                <div className={styles.formContainer}>
+                  <div className={styles.avatarContainer}>
+                    <InputFile updateFile={this.onChangeImage}>
+                      <Avatar image={imageCompany} className={styles.avatar}/>
+                    </InputFile>
+                  </div>
+                  <div className={styles.fieldsContainer}>
+                    <form onChange={this.onChange}>
+                      <InputBox name="name"
+                            placeholder={intl.formatMessage({id: 'profile.edit.name.placeholder'})}
+                            labelText={intl.formatMessage({id: 'myCompany.company'})}
+                            className={styles.row_padding}
+                            value={company.name || myCompany.businessName}/>
+                      <InputBox name="slogan"
+                            placeholder={intl.formatMessage({id: 'profile.edit.email.placeholder'})}
+                            labelText={intl.formatMessage({id: 'myCompany.slogan'})}
+                            className={styles.row_padding}
+                            value={company.slogan || myCompany.slogan}/>
+                    </form>
+                  </div>
+                </div>
+                <Button shape="pill"
+                          text={intl.formatMessage({id: 'profile.edit.update'})}
+                          onClick={this.onSubmit}
+                          className={styles.btnUpdate}/>
+              </Card>
+            </div>
+          );
+        }}
+      </Query>
+    )
+  }
+}
+
+export default withApollo(injectIntl(EditCompanyPage));

@@ -23,6 +23,8 @@ import ProfilePage from '../Profile/ProfilePage';
 import ShowCampaign from '../Campaing/ShowCampaign/ShowCampaign';
 import NewCampaingPage from '../Campaing/NewCampaing/NewCampaingPage';
 import EditProfilePage from '../Profile/EditProfile/EditProfilePage';
+import EditCompanyPage from '../Offices/EditCompany/EditCompanyPage';
+
 // Styles
 import * as palette from 'Styles/palette.css';
 //Actions
@@ -200,6 +202,7 @@ class Home extends Component {
               <Route path='/new_campaign' component={NewCampaingPage} />
               <Route path='/campaign/:id' component={ShowCampaign} />
               <Route path='/profile/edit' component={EditProfilePage} />
+              <Route path='/company/:id/edit' component={EditCompanyPage} />
             </Switch>
           </main>
         </div>

@@ -18,6 +18,10 @@ class OfficesPage extends Component {
     isLoadingImage: false
   };
 
+  changeMenu = (id) => {
+    this.props.history.push(`/company/${id}/edit`)
+  }
+
   selectRowOffice(office){
     const { currentOffice } = this.state;
     if(currentOffice !== office.id){
@@ -85,7 +89,7 @@ class OfficesPage extends Component {
               <Menu className={styles.menu}
                 iconOptions={{name: "FaCog", size: 20, color:"white"}}
                 options={[{label: "Editar", iconName: "FaEdit"}]}
-                onChange={this.changeMenu}
+                onChange={() => {this.changeMenu(myCompany.id)} }
               />
             </div>
           );

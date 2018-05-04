@@ -244,11 +244,11 @@ mutation updateProfile(
   }
 }
 
-mutation updateCompany(
+mutation updateMyCompany(
   $businessName: String,
   $slogan: String,
   $upload: Upload){
-  updateUser(input:{
+  updateCompany(input:{
     businessName: $businessName,
     slogan: $slogan,
     upload: $upload
