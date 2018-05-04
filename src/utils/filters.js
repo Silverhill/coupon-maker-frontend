@@ -41,6 +41,7 @@ export const maxnum=(num, max, reduce, decimals)=>{
     unit = units[i];
 
     num /= Math.pow(1000, i);
+    num = num.toFixedDown(decimals); // round decimals down
 
     if ((actualNum > 1000) && (actualNum % 1000 !== 0)) {
       plus = '+';
@@ -50,3 +51,9 @@ export const maxnum=(num, max, reduce, decimals)=>{
   num = num + unit + plus;
   return num ? num : '0';
 }
+
+Number.prototype.toFixedDown = function(digits) {
+  var re = new RegExp('(\\d+\\.\\d{' + digits + '})(\\d)'),
+      m = this.toString().match(re);
+  return m ? parseFloat(m[1]) : this.valueOf();
+};

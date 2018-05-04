@@ -6,6 +6,8 @@ import { Card, Typography, Icon, BasicRow, Panel } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import moment from 'moment';
 
+import { maxnum } from 'Utils/filters';
+
 import styles from './Campaigns.css';
 import * as palette from 'Styles/palette.css';
 
@@ -32,7 +34,7 @@ class Campaigns extends Component {
               image={cpg.image || placeholderImage}
               subtitle={cpg.address}
               label={date}
-              number={cpg.totalCoupons}
+              number={maxnum(cpg.totalCoupons)}
               className={styles.row}
               onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
             />

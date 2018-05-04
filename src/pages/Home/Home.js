@@ -50,7 +50,7 @@ class Home extends Component {
 
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
     const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
-    console.log('Max Number', maxnum('1000'));
+
     let tabOptions = [
       {
         id: 0,
