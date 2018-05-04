@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import classNames from 'classnames/bind';
 
+import { maxnum } from 'Utils/filters';
+
 import styles from './NewCampaing.css';
 const cx = classNames.bind(styles)
 
@@ -96,7 +98,7 @@ class StepsContainer extends Component {
                   title={cuponData.title}
                   date={cuponData.date}
                   address={cuponData.address}
-                  totalCoupons={parseInt(cuponData.totalCoupons|| '0')}
+                  totalCoupons={maxnum(cuponData.totalCoupons)}
                   className={styles.campaing}/>
             </Field>
           </Panel>
