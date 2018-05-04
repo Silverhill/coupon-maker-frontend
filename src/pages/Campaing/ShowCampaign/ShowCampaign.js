@@ -5,6 +5,8 @@ import { injectIntl } from 'react-intl';
 
 import { Typography, Icon, Panel, Card, BasicRow, Cover } from 'coupon-components';
 
+import { maxnum } from 'Utils/filters';
+
 import styles from './ShowCampaign.css';
 import * as palette from 'Styles/palette.css';
 
@@ -94,7 +96,7 @@ class ShowCampaing extends Component {
                   leftLabel={intl.formatMessage({id: 'campaigns.show.labels.office'})}
                   leftText= {campaign.office.address}
                   rightLabel={intl.formatMessage({id: 'campaigns.show.labels.available'})}
-                  rightText={campaign && String(campaign.totalCoupons)}
+                  rightText={maxnum(campaign.totalCoupons)}
                   stylesStatus={stylesStatus}
                 />
               </div>

@@ -30,6 +30,8 @@ import * as palette from 'Styles/palette.css';
 //Actions
 import * as userActions from '../../actions/userActions';
 
+import { maxnum } from 'Utils/filters';
+
 const PageHome = (props) => <div><h1>Home</h1></div>
 
 @connect(state => ({
@@ -50,6 +52,7 @@ class Home extends Component {
 
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
     const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
+
     let tabOptions = [
       {
         id: 0,
@@ -157,7 +160,7 @@ class Home extends Component {
                             title={cpg.title}
                             date={date}
                             address={cpg.office.address}
-                            totalCoupons={cpg.totalCoupons}
+                            totalCoupons={maxnum(cpg.totalCoupons)}
                             className={styles.campaign}
                             onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
                           />
