@@ -158,7 +158,7 @@ class Home extends Component {
                             title={cpg.title}
                             date={date}
                             address={cpg.office.address}
-                            totalCoupons={cpg.totalCoupons}
+                            totalCoupons={maxnum(cpg.totalCoupons)}
                             className={styles.campaign}
                             onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
                           />
