@@ -35,13 +35,14 @@ class ShowCampaing extends Component {
               {total > 0 &&
                 hunters && hunters.map((cpg) => {
                   const key = { key: cpg.id };
+                  const image = cpg.image || "http://www.drjoydentalclinic.com/wp-content/uploads/2017/03/user.png";
                   return (
                     <BasicRow {...key}
                       title={cpg.name}
-                      image={cpg.image}
+                      image={image}
                       subtitle={cpg.email}
                       label= 'Total Coupons'
-                      number= {cpg.couponsInCampaign}
+                      number= {maxnum(cpg.couponsInCampaign)}
                       className={styles.row}
                     />
                   )

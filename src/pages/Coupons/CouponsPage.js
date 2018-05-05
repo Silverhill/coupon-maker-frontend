@@ -7,6 +7,7 @@ import { injectIntl } from 'react-intl';
 import { Typography, Panel, Card, BasicRow } from 'coupon-components';
 import styles from './CouponsPage.css';
 import RegisterCouponForm from './RegisterCouponForm';
+import { maxnum } from 'Utils/filters';
 
 @connect(state => ({
   form: state.form.registerCoupon
@@ -53,13 +54,14 @@ class CouponsPage extends Component {
               {total > 0 &&
                 hunters && hunters.map((cpg) => {
                   const key = { key: cpg.id };
+                  const image = cpg.image || "http://www.drjoydentalclinic.com/wp-content/uploads/2017/03/user.png";
                   return (
                     <BasicRow {...key}
                       title={cpg.name}
-                      image={cpg.image}
+                      image={image}
                       subtitle={cpg.email}
                       label= {cpg.campaign}
-                      number= {cpg.redeemedCoupons}
+                      number= {maxnum(cpg.redeemedCoupons)}
                       className={styles.row}
                     />
                   )
