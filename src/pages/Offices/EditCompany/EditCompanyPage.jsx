@@ -3,7 +3,7 @@ import { injectIntl } from 'react-intl';
 import { Card, InputFile, Avatar, InputBox, Button } from 'coupon-components';
 import { withApollo } from 'react-apollo';
 import { Query } from 'react-apollo';
-import { getMe, getMyCompany, updateMyCompany } from 'Services/graphql/queries.graphql';
+import { getMyCompany, updateMyCompany } from 'Services/graphql/queries.graphql';
 
 import styles from './EditCompany.css';
 
@@ -18,34 +18,33 @@ class EditCompanyPage extends Component {
     const { client: { mutate } } = this.props;
     let companyFile = company.upload ? company.upload.file : null;
     let companyImage = company.upload ? company.upload.imagePreviewUrl : null;
-    debugger
+
     try {
        await mutate({
         mutation: updateMyCompany,
         variables: {
-          businessName: company.businessName,
+          businessName: company.name,
           slogan: company.slogan,
           upload: companyFile,
           id: this.props.match.params.id,
         },
         optimisticResponse: {
           __typename: "Mutation",
-          updateMyCompany: {
+          updateCompany: {
             __typename: "Company",
             id: -1,
-            businessName: company.businessName,
-            slogan: company.slogan,
+            businessName: company.name || '',
+            slogan: company.slogan || '',
             logo: companyImage
           }
         },
-        update: (cache, { data: {updateMyCompany} }) => {
+        update: (cache, { data: {updateCompany} }) => {
           const data = cache.readQuery({ query: getMyCompany });
-          debugger
-          // if(updateMyCompany.businessName) { data.me.businessName = updateMyCompany.businessName; }
-          // if(updateMyCompany.slogan) { data.me.slogan = updateMyCompany.slogan; }
-          // if(updateMyCompany.image) { data.me.image = updateMyCompany.image; }
-          // cache.writeQuery({ query: getMe, data: data });
-          // this.props.history.push('/profile')
+          if(updateCompany.businessName) { data.myCompany.businessName = updateCompany.businessName; }
+          if(updateCompany.slogan) { data.myCompany.slogan = updateCompany.slogan; }
+          if(updateCompany.logo) { data.myCompany.logo = updateCompany.logo; }
+          cache.writeQuery({ query: getMyCompany, data: data });
+          this.props.history.push('/offices')
         }
       });
     } catch (error) {

@@ -245,10 +245,12 @@ mutation updateProfile(
 }
 
 mutation updateMyCompany(
+  $id: String!,
   $businessName: String,
   $slogan: String,
   $upload: Upload){
   updateCompany(input:{
+    id: $id,
     businessName: $businessName,
     slogan: $slogan,
     upload: $upload
