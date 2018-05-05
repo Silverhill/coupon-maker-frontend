@@ -1,5 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Query } from 'react-apollo';
+import { getMe } from 'Services/graphql/queries.graphql';
 import { Avatar, Typography, Icon, Dropdown, DropdownTrigger, DropdownContent } from 'coupon-components';
 import PropTypes from 'prop-types'
 import classNames from 'classnames/bind';
@@ -11,7 +13,7 @@ const cx = classNames.bind(styles)
 class Header extends React.Component {
 
   render() {
-    const { tabs, userData } = this.props;
+    const { tabs, optionsUser } = this.props;
 
     return (
       <div className={cx(styles.container)}>
@@ -34,17 +36,31 @@ class Header extends React.Component {
           })}
           <Dropdown>
             <DropdownTrigger>
-              <div className={cx(styles.userMenu)}>
-                <div className={cx(styles.avatarContainer)}>
-                  <Avatar image={userData.image}
-                  borderColor="accentColorSecondary"/>
-                </div>
-                <Typography.Text small bold>{userData.name}</Typography.Text>
-                <Icon name="FaCaretDown" size={10}/>
+              <div>
+                <Query query={getMe}>
+                  {({ loading, error, data}) => {
+                    if (loading) return "Loading...";
+                    if (error) return `Error! ${error.message}`;
+                    const {me} = data;
+                    const image = me.image || 'https://i.pinimg.com/564x/bc/c8/10/bcc8102f42e58720355ca02d833c204b.jpg';
+                    return (
+                      <div className={cx(styles.userMenu)}>
+                        <div className={cx(styles.avatarContainer)}>
+                          <Avatar
+                            image={image}
+                            borderColor="accentColorSecondary"
+                          />
+                        </div>
+                        <Typography.Text small bold style={{margin: "0 10px"}}>{me.name}</Typography.Text>
+                        <Icon name="FaCaretDown" size={10}/>
+                      </div>
+                    );
+                  }}
+                </Query>
               </div>
             </DropdownTrigger>
             <DropdownContent className={styles.menuContainer}>
-              {userData.options && userData.options.map((option, i) => {
+              {optionsUser.options && optionsUser.options.map((option, i) => {
                 return (
                   <div key={`option-${i}`} onClick={option.onClick} className={styles.menuOption}>
                     <Typography.Text small>
@@ -62,7 +78,7 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  userData: PropTypes.object,
+  optionsUser: PropTypes.object,
   tabs: PropTypes.array,
 }
 

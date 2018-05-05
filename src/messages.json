@@ -142,7 +142,19 @@
       }
     },
     "profile": {
-      "title": "Profile"
+      "title": "Profile",
+      "edit": {
+        "title": "Edit Profile",
+        "name": {
+          "label": "Name",
+          "placeholder": "Update your name"
+        },
+        "email": {
+          "label": "Email",
+           "placeholder": "Update your email"
+        },
+        "update": "Update"
+      }
     },
     "office": {
       "title": "Office",
@@ -349,7 +361,19 @@
       }
     },
     "profile": {
-      "title": "Perfil"
+      "title": "Perfil",
+      "edit": {
+        "title": "Editar Perfil",
+        "name": {
+          "label": "Nombre",
+          "placeholder": "Actualiza tu nombre"
+        },
+        "email": {
+          "label": "Correo",
+           "placeholder": "Actualiza tu correo"
+        },
+        "update": "Actualizar"
+      }
     },
     "office": {
       "title": "Sucursales",

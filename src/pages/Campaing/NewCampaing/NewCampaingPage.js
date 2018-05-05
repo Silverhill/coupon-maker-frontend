@@ -62,9 +62,38 @@ class NewCampaingPage extends Component {
           finalAgeRange: parseInt(form.values.finalAgeRange),
           upload: form.values.image.file
         },
-        refetchQueries: [{query: makerCampaigns}]
+        optimisticResponse: {
+          __typename: "Mutation",
+          addCampaign: {
+            __typename: "CampaignForHunter",
+            id: -1,
+            startAt: form.values.startAt,
+            endAt: form.values.endAt,
+            officeId: form.values.office.id,
+            country: form.values.country.value,
+            city: form.values.city.value,
+            title: form.values.title,
+            description: form.values.description,
+            customMessage: form.values.customMessage,
+            initialAgeRange: parseInt(form.values.initialAgeRange),
+            finalAgeRange: parseInt(form.values.finalAgeRange),
+            image: form.values.image.imagePreviewUrl,
+            address: 'empty',
+            office: {
+              __typename:"OfficeSimple",
+              id: -1,
+              address: 'waiting address'
+            },
+            totalCoupons: parseInt(form.values.couponsNumber)
+          }
+        },
+        update: (cache, { data: {addCampaign} }) => {
+          const data = cache.readQuery({ query: makerCampaigns });
+          data.myCampaigns.campaigns.push(addCampaign);
+          cache.writeQuery({ query: makerCampaigns, data: data });
+          this.goToCampaings();
+        }
       });
-      this.goToCampaings();
     } catch (error) {
       return error;
     }

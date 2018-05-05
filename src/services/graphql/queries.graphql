@@ -1,6 +1,21 @@
+fragment userFields on UserBase{
+  name
+  email
+  image
+  id
+  role
+}
+
+fragment companyFields on Company{
+  id
+  businessName
+  logo
+  slogan
+}
+
 query getHunters {
   allHunters {
-    name
+    ...userFields
   }
 }
 
@@ -13,10 +28,7 @@ query getMe($withCompany: Boolean = false) {
     role
   }
   myCompany @include(if: $withCompany) {
-    id
-    businessName
-    logo
-    slogan
+    ...companyFields
   }
 }
 
@@ -57,19 +69,13 @@ query makerOffices($withCompany: Boolean = false){
 	}
 
   myCompany @include(if: $withCompany) {
-    id
-    businessName
-    logo
-    slogan
+    ...companyFields
   }
 }
 
 query getMyCompany{
   myCompany {
-    id
-    businessName
-    logo
-    slogan
+    ...companyFields
   }
 }
 
@@ -77,7 +83,6 @@ query getCampaign($id:String!){
   campaign(id:$id){
     id
     title
-    address
     startAt
     endAt
     image
@@ -89,12 +94,31 @@ query getCampaign($id:String!){
     initialAgeRange
     finalAgeRange
     status
+    office {
+      id
+      name
+      address
+    }
   }
-  huntersByCampaign(campaignId: $id){
-    id
+}
+
+query huntersCampaign($id:String!){
+  hunters: huntersByCampaign(campaignId: $id){
     name
     email
     image
+    id
+    couponsInCampaign
+  }
+}
+
+query huntersCompany{
+  hunters: myHunters{
+    name
+    email
+    id
+    redeemedCoupons
+    huntedCoupons
   }
 }
 
@@ -154,6 +178,12 @@ mutation createCampaing(
       description
       initialAgeRange
       finalAgeRange
+      office {
+        id
+        name
+        address
+      }
+      totalCoupons
     }
 }
 
@@ -186,17 +216,48 @@ mutation createOffice(
 
 mutation changeUserImage($upload: Upload!){
   addImageToUser(upload: $upload){
-    name
-    email
     image
     id
-    role
   }
 }
 
 mutation changeLogoCompany($upload: Upload!){
   addImageToCompany(upload: $upload){
     id
+    logo
+  }
+}
+
+mutation updateProfile(
+  $name: String,
+  $email: String,
+  $upload: Upload){
+  updateUser(input:{
+    name: $name,
+    email: $email,
+    upload: $upload
+  }){
+    id
+    name
+    email
+    image
+  }
+}
+
+mutation updateMyCompany(
+  $id: String!,
+  $businessName: String,
+  $slogan: String,
+  $upload: Upload){
+  updateCompany(input:{
+    id: $id,
+    businessName: $businessName,
+    slogan: $slogan,
+    upload: $upload
+  }){
+    id
+    slogan
+    logo
     businessName
   }
 }

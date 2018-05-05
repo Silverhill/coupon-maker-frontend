@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import { injectIntl } from 'react-intl';
+import moment from 'moment';
 //Components
 import { Panel, InputBox, InputNested, Select } from 'coupon-components';
 import InputDate from 'Components/InputDate/InputDate'
@@ -52,10 +53,12 @@ class FirstStep extends Component {
             className={cx(styles.row_padding, styles.daterange)}>
             <Field name="startAt"
                 reduxFormInput
+                minDate={moment()}
                 component={InputDate}/>
             <Field
               name="endAt"
               reduxFormInput
+              minDate={moment()}
               component={InputDate}/>
           </InputNested>
           <Field name="couponsNumber"

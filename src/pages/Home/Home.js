@@ -5,15 +5,15 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Home.css';
-import { withApollo } from 'react-apollo';
-import { getMe, makerCampaigns } from 'Services/graphql/queries.graphql';
+import { withApollo, Query } from 'react-apollo';
+import { getMyCompany, makerCampaigns } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import moment from 'moment';
 
 // Components
 import Header from 'Components/Header/Header';
 import Footer from 'Components/Footer/Footer';
-import { Card, Coupon, Campaign, Typography, Icon } from 'coupon-components';
+import { Card, Coupon, Typography, Icon } from 'coupon-components';
 // Pages
 import Campaigns from '../Campaigns/Campaigns';
 import OfficesPage from '../Offices/OfficesPage';
@@ -22,10 +22,15 @@ import CouponsPage from '../Coupons/CouponsPage';
 import ProfilePage from '../Profile/ProfilePage';
 import ShowCampaign from '../Campaing/ShowCampaign/ShowCampaign';
 import NewCampaingPage from '../Campaing/NewCampaing/NewCampaingPage';
+import EditProfilePage from '../Profile/EditProfile/EditProfilePage';
+import EditCompanyPage from '../Offices/EditCompany/EditCompanyPage';
+
 // Styles
 import * as palette from 'Styles/palette.css';
 //Actions
 import * as userActions from '../../actions/userActions';
+
+import { maxnum } from 'Utils/filters';
 
 const PageHome = (props) => <div><h1>Home</h1></div>
 
@@ -37,49 +42,17 @@ const PageHome = (props) => <div><h1>Home</h1></div>
 
 class Home extends Component {
 
-  state = {
-    me: null,
-    myCampaigns: [],
-    company: null
-  }
-
-  async componentDidMount() {
-    const { client } = this.props;
-
-    try {
-      const { data: { me, myCompany } } = await client.query({
-        query: getMe,
-        variables: {
-          withCompany: true
-        }
-      });
-      const { data: { myCampaigns: {campaigns} } } = await client.query({
-        query: makerCampaigns
-      });
-      this.setState({
-        me: me,
-        myCampaigns: campaigns,
-        company: myCompany,
-       });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   render() {
     const {
-      error,
-      loading,
       client,
       intl,
       removeAuthentication,
       history
     } = this.props;
-    const { me, myCampaigns, company} = this.state;
-    const campaigns = myCampaigns ? myCampaigns.slice(0,3) : null;
-    const total = campaigns ? campaigns.length : 0;
+
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
     const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
+
     let tabOptions = [
       {
         id: 0,
@@ -100,9 +73,8 @@ class Home extends Component {
         icon: 'FaHome'
       },
     ];
-    let userData = {
-      name: me && me.name,
-      image: (me && me.image) || 'https://i.pinimg.com/564x/bc/c8/10/bcc8102f42e58720355ca02d833c204b.jpg',
+
+    let optionsUser = {
       options: [
         {
           value: intl.formatMessage({id: 'header.user.option.profile'}),
@@ -161,63 +133,65 @@ class Home extends Component {
     )
 
     const campaignsActives = (
-      campaigns && campaigns.map((cpg) => {
-        const key = { key: cpg.id };
-        const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
-        return (
-          <Coupon {...key}
-            image={cpg.image || placeholderImage}
-            logo={company.logo || placeholderlogo}
-            title={cpg.title}
-            date={date}
-            address={cpg.address}
-            totalCoupons={cpg.totalCoupons}
-            className={styles.campaign}
-            onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
-          />
-        )
-      })
-    )
-
-    const campaignsInactives = (
-      campaigns && campaigns.map((cpg) => {
-        const key = { key: cpg.id };
-        const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
-        return (
-          <Campaign {...key}
-            title={cpg.title}
-            date={date}
-            address={cpg.address}
-            totalCoupons={cpg.totalCoupons}
-            totalCouponsHunted={cpg.capturedCoupons || 0}
-            className={styles.campaign}
-            onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
-          />
-        )
-      })
-    )
-
-    if(error) return <h4>{error.message}</h4>
-    else if(loading) return <h4>Loading...</h4>
+      <Query query={getMyCompany}>
+        {({ loading, error, data}) => {
+          if (loading) return "Loading...";
+          if (error) return `Error! ${error.message}`;
+          const { myCompany } = data;
+          const logo = myCompany && myCompany.logo || placeholderlogo;
+          return (
+            <Query query={makerCampaigns}>
+              {({ loading, error, data}) => {
+                if (loading) return "Loading...";
+                if (error) return `Error! ${error.message}`;
+                const {myCampaigns: {campaigns} } = data;
+                const total = campaigns ? campaigns.length : 0;
+                return (
+                  <div>
+                    {total === 0 && emptyStateActiveCampaigns}
+                    {total > 0 &&
+                      campaigns && campaigns.map((cpg) => {
+                        const key = { key: cpg.id };
+                        const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
+                        return (
+                          <Coupon {...key}
+                            image={cpg.image || placeholderImage}
+                            logo={logo}
+                            title={cpg.title}
+                            date={date}
+                            address={cpg.office.address}
+                            totalCoupons={maxnum(cpg.totalCoupons)}
+                            className={styles.campaign}
+                            onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
+                          />
+                        )
+                      })
+                    }
+                  </div>
+                );
+              }}
+            </Query>
+          );
+        }}
+      </Query>
+    );
 
     return (
       <div className={styles.container}>
-        <Header tabs={tabOptions} userData={userData}/>
+        <Header tabs={tabOptions} optionsUser={optionsUser}/>
         <div className={styles.mainView}>
           <div className={styles.leftPanel}>
             <Card
               title={intl.formatMessage({id: 'home.campaings.active.title'})}
               subtitle={intl.formatMessage({id: 'home.campaings.active.subtitle'})}
               classNameCard={styles.card}>
-              {total === 0 && emptyStateActiveCampaigns}
-              {total > 0 && campaignsActives}
+              {campaignsActives}
             </Card>
             <Card
               title={intl.formatMessage({id: 'home.campaings.inactive.title'})}
               subtitle={intl.formatMessage({id: 'home.campaings.inactive.subtitle'})}
               classNameCard={styles.card}>
-              {total === 0 && emptyStateInactiveCampaigns}
-              {total > 0 && campaignsInactives}
+              {emptyStateInactiveCampaigns}
             </Card>
           </div>
           <main className={styles.renderContainer}>
@@ -227,9 +201,11 @@ class Home extends Component {
               <Route path='/new_coupon' component={CouponsPage} />
               <Route path='/offices' component={OfficesPage} />
               <Route path='/new_office' component={NewOfficePage} />
-              <Route path='/profile' component={ProfilePage} />
+              <Route exact path='/profile' component={ProfilePage} />
               <Route path='/new_campaign' component={NewCampaingPage} />
               <Route path='/campaign/:id' component={ShowCampaign} />
+              <Route path='/profile/edit' component={EditProfilePage} />
+              <Route path='/company/:id/edit' component={EditCompanyPage} />
             </Switch>
           </main>
         </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
-import { Card, Typography, Button, Avatar, InputFile } from 'coupon-components';
+import { Card, Typography, Button, Avatar, InputFile, Menu } from 'coupon-components';
 import { injectIntl } from 'react-intl';
 import { withApollo } from 'react-apollo';
 import { changeUserImage } from 'Services/graphql/queries.graphql';
@@ -22,12 +22,28 @@ class ProfilePage extends Component {
         variables: {
           upload: value.file
         },
-        refetchQueries: [{query: getMe}]
+        optimisticResponse: {
+          __typename: "Mutation",
+          addImageToUser: {
+            __typename: "Maker",
+            id: -1,
+            image: value.imagePreviewUrl,
+          }
+        },
+        update: (cache, { data: {addImageToUser} }) => {
+          const data = cache.readQuery({ query: getMe });
+          data.me.image = addImageToUser.image;
+          cache.writeQuery({ query: getMe, data: data });
+        }
       });
       this.setState({isLoadingImage: false});
     } catch (error) {
       return;
     }
+  }
+
+  changeMenu = (ev, value) => {
+    this.props.history.push('/profile/edit')
   }
 
   render() {
@@ -49,6 +65,10 @@ class ProfilePage extends Component {
               {me && me.email}
             </Typography.Text>
           </div>
+          <Menu className={styles.menuOpts}
+                iconOptions={{name: "FaCog", size: 20}}
+                options={[{label: "Editar", iconName: "FaEdit"}]}
+                onChange={this.changeMenu}/>
         </Card>
         <Card classNameContent={styles.accountOptions}>
           <div className={styles.information}>

@@ -10,14 +10,13 @@ const cx = classNames.bind(styles);
 
 class InputDate extends Component {
   state = {
-    startDate: moment()
+    startDate: null
   }
 
   componentWillMount() {
     const { date } = this.props;
-    if(date){
-      this.setState({ startDate: moment(date) });
-    }
+    let currentDate = date ? date : moment();
+    this.handleChange(currentDate);
   }
 
   handleChange = (moment) => {
@@ -39,13 +38,14 @@ class InputDate extends Component {
 
 
   render () {
-    const { className } = this.props;
+    const { className, ...rest } = this.props;
     const { startDate } = this.state;
     return (
       <div className={cx(className, styles.container)}>
         <DatePicker
             selected={startDate}
-            onChange={this.handleChange}/>
+            onChange={this.handleChange}
+            {...rest}/>
       </div>
     )
   }
