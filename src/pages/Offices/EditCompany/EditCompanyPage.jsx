@@ -85,7 +85,7 @@ class EditCompanyPage extends Component {
           const imageCompany = (company.upload && company.upload.imagePreviewUrl) ? company.upload.imagePreviewUrl : myCompany.logo;
 
           return (
-            <div className={styles.editProfile}>
+            <div className={styles.editcCompany}>
               <Card title={intl.formatMessage({id: 'profile.edit.title'})}>
                 <div className={styles.formContainer}>
                   <div className={styles.avatarContainer}>
