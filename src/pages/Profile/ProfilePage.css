@@ -1,0 +1,31 @@
+.profile {
+  .profileContent {
+    display: flex;
+    flex-direction: initial;
+    position: relative;
+
+    .avatar {
+      width: 70px;
+      height: 70px;
+    }
+
+    .information {
+      margin-left: 30px;
+    }
+
+    .menuOpts {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 10px;
+    }
+  }
+
+  .accountOptions {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: initial;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

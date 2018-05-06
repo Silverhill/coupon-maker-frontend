@@ -1,0 +1,51 @@
+@value colors: "Styles/palette.css";
+@value (
+  pinkRed,
+  paleLilac,
+  paleGray,
+  lightNeutral
+) from colors;
+
+.container {
+
+  .notFound {
+    text-align: center;
+  }
+
+  .view {
+    .panelInformation {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      background-color: #f7f7f7;
+      padding: 0 10px 20px 10px;
+
+      .left {
+        width: 70%;
+        text-align: left;
+      }
+
+      .right {
+        width: 30%;
+        text-align: right;
+
+        .icons {
+          padding-right: 15px;
+        }
+      }
+    }
+
+    .panel {
+      .row {
+        &:nth-child(odd) {
+          border-top: 1px solid paleGray;
+          border-bottom: 1px solid paleGray;
+        }
+
+        &:hover {
+          background-color: lightNeutral;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,121 @@
+@value colors: "Styles/palette.css";
+@value (
+  neutralColorMedium,
+  pinkRed
+) from colors;
+
+.campaing {
+  width: 100%;
+  margin: 10px;
+}
+
+.panel {
+  padding: 10px;
+}
+
+.devider {
+  background: neutralColorMedium;
+  height: 5px;
+  width: 100%;
+}
+
+.headerWithoutTitle {
+  padding: 0 !important;
+  height: 5px;
+}
+
+.hideInputFile {
+    display: block;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.descriptionField {
+  margin-top: 4px;
+}
+
+.row_padding {
+  padding-bottom: 10px;
+}
+
+.rowsContainer {
+  display: flex;
+  flex-direction: column;
+
+  .row {
+    display: flex;
+
+    .fieldColumn {
+      width: 50%;
+    }
+  }
+}
+
+.submitButton {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footerButtons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tabs {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.steps {
+  width: 200px;
+}
+
+.cuponContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputFileTrigger {
+  width: 422px !important;
+}
+
+.daterange {
+  width: 300px;
+}
+
+.selectItem {
+  width: 184px;
+  margin-right: 15px;
+}
+
+.emptyOffice {
+  text-align: center;
+
+  .linkBtn {
+    position: relative;
+    display: flex;
+    height: 40px;
+    margin: 10px 0;
+    justify-content: center;
+
+    & .link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0px 15px;
+      font-size: 12px;
+      border-radius: 20px;
+      background-color: pinkRed;
+      color: white;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+@value colors: "Styles/palette.css";
+@value (
+  lightNeutral
+) from colors;
+
+.panel {
+  padding: 10px;
+}
+
+.row_padding {
+  padding-bottom: 10px;
+}
+
+.tabs {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.steps {
+  width: 200px;
+}
+
+.submitButton {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.office_number {
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

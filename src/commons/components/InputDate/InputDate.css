@@ -1,0 +1,22 @@
+@value colors: "Styles/palette.css";
+@value (
+  mediumNeutral,
+  darkColor,
+  highlightNeutral
+) from colors;
+.container{
+  & input {
+    border-radius: 5px;
+    border: solid 1px mediumNeutral;
+    height: 45px;
+    font-size: 12px;
+    text-align: center;
+    color: darkColor;
+    cursor: pointer;
+    &:focus {
+      border-color: highlightNeutral;
+      border-width: 2px;
+      outline: none;
+    }
+  }
+}

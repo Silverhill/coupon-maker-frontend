@@ -1,0 +1,27 @@
+.editcCompany {
+  .formContainer {
+    display: flex;
+    .avatar {
+      width: 130px;
+      height: 130px;
+    }
+    .avatarContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 1%;
+    }
+    .fieldsContainer {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .row_padding {
+      padding-bottom: 10px;
+    }
+    .btnUpdate {
+      margin-top: 10px;
+    }
+  }
+
+}

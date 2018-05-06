@@ -1,0 +1,34 @@
+.container{
+  position: absolute;
+  display: table;
+  height: 100%;
+  width: 100%;
+
+  .mainView {
+    display: flex;
+    margin-top: 15px;
+
+    .renderContainer {
+      width: 100%;
+      margin-right: 10%;
+      margin-left: 20px;
+    }
+
+    .leftPanel {
+      margin-left: 10%;
+
+      .card {
+        padding-bottom: 10px;
+        width: 350px;
+      }
+
+      .campaign {
+        margin-bottom: 7px;
+      }
+
+      .emptyState {
+        text-align: center;
+      }
+    }
+  }
+}

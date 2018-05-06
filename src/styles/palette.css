@@ -1,0 +1,68 @@
+@value clearBlue: #2962ff;
+@value clearBlueAlpha: #2962fa;
+@value pinkRed: #ff4a67;
+@value lightRoyalBlueAlpha: #5c4cfd;
+@value dark: #000000;
+@value brightBlue: #0076ff;
+@value paleGray: #e4e4e4;
+@value paleLilac: #fafafa;
+@value silverColor: #979797;
+@value baseGreen: #b8e986;
+@value sunshineLightYellow: rgba(255, 252, 53, 0.884);
+@value strongPink: #ff007c;
+@value baseGray: #4a4a4a;
+@value baseGrayMedium: #c7c7cd;
+@value greenAccent: #3c763d;
+@value greenNeutral: #dff0d8;
+@value greenLight: #d6e9c6;
+@value blueAccent: #31708f;
+@value blueNeutral: #d9edf7;
+@value blueLight: #bce8f1;
+@value brownAccent: #8a6d3b;
+@value brownNeutral: #fcf8e3;
+@value brownLight: #faebcc;
+@value redAccent: #a94442;
+@value redNeutral: #f2dede;
+@value redLight: #ebccd1;
+@value goldGradient: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+@value baseGrayLow: #f4f4f4;
+@value lightBlueColor: #4a9fff;
+
+/****************
+ * Main Pallette
+ ****************/
+
+@value primaryColor: pinkRed;
+@value secondaryColor: brightBlue;
+@value lightNeutral: paleLilac;
+@value mediumNeutral: paleGray;
+@value darkNeutral: #8F8E94;
+@value darkColor: baseGray;
+@value highlightColor: brightBlue;
+
+/****************
+ * Pallette
+ ****************/
+
+@value neutralColorDark: #8F8E94;
+@value neutralColorMedium: paleGray;
+@value neutralColorLight: paleLilac;
+@value neutralColorPlain: baseGrayMedium;
+@value whiteColor: white;
+@value accentColor: clearBlue;
+@value accentColorSecondary: pinkRed;
+@value starGradient: sunshineLightYellow;
+@value endGradient: strongPink;
+@value highlightNeutral: brightBlue;
+@value successAccent: greenAccent;
+@value successNeutral: greenNeutral;
+@value successLight: greenLight;
+@value infoAccent: blueAccent;
+@value infoNeutral: blueNeutral;
+@value infoLight: blueLight;
+@value warningAccent: brownAccent;
+@value warningNeutral: brownNeutral;
+@value warningLight: brownLight;
+@value dangerAccent: redAccent;
+@value dangerNeutral: redNeutral;
+@value dangerLight: redLight;

@@ -1,0 +1,100 @@
+@value colors: "Styles/palette.css";
+@value (
+  pinkRed,
+  paleGray,
+  lightNeutral,
+  neutralColorMedium
+) from colors;
+
+.offices {
+
+  .companyView {
+    position: relative;
+
+    .cover {
+      width: 100%;
+    }
+
+    .menu {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  }
+
+  .panel {
+    margin-top: 10px;
+
+    .linkBtn {
+      position: relative;
+      display: flex;
+      height: 40px;
+      margin: 10px 0;
+
+      & .link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 15px;
+        font-size: 12px;
+        border-radius: 20px;
+        background-color: pinkRed;
+        color: white;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+
+    .emptyState {
+      text-align: center;
+      .linkBtn {
+        justify-content: center;
+      }
+    }
+    .table {
+
+      .row {
+        &:nth-child(odd) {
+          border-top: 1px solid paleGray;
+          border-bottom: 1px solid paleGray;
+        }
+
+        &:hover {
+          background-color: lightNeutral;
+        }
+      }
+
+      .linkBtn {
+        justify-content: flex-end;
+      }
+
+    }
+
+    .rowContainer {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      .basicInformation {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+
+        .information {
+          display: block;
+          text-align: left;
+        }
+      }
+
+      .moreInformation {
+        padding: 10px 0px 0px 25px;
+        background-color: neutralColorMedium;
+      }
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}
