@@ -11,6 +11,22 @@
 
 .panel {
   padding: 10px;
+
+  .field {
+    width: 50%;
+  }
+
+  .left {
+    margin-right: 10px;
+  }
+
+  .right {
+    margin-left: 10px;
+  }
+
+  .fieldsInline {
+    display: flex;
+  }
 }
 
 .devider {
@@ -86,10 +102,6 @@
 
 .daterange {
   width: 300px;
-}
-
-.selectItem {
-  width: 50%;
 }
 
 .emptyOffice {

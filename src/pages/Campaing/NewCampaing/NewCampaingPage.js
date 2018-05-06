@@ -86,9 +86,12 @@ class NewCampaingPage extends Component {
           }
         },
         update: (cache, { data: {addCampaign} }) => {
-          const data = cache.readQuery({ query: makerCampaigns, variables: {limit:10, sortDirection:-1} });
-          data.myCampaigns.campaigns.push(addCampaign);
-          cache.writeQuery({ query: makerCampaigns, data: data });
+          const dataCampaingsPage = cache.readQuery({ query: makerCampaigns, variables: {limit:10, sortDirection:-1} });
+          const dataCampaingsHome = cache.readQuery({ query: makerCampaigns, variables: {limit:3, sortDirection:-1} });
+          dataCampaingsPage.myCampaigns.campaigns = [addCampaign, ...dataCampaingsPage.myCampaigns.campaigns]
+          dataCampaingsHome.myCampaigns.campaigns = [addCampaign, ...dataCampaingsHome.myCampaigns.campaigns]
+          cache.writeQuery({ query: makerCampaigns, variables: {limit:10, sortDirection:-1}, data: dataCampaingsPage });
+          cache.writeQuery({ query: makerCampaigns, variables: {limit:3, sortDirection:-1}, data: dataCampaingsHome });
           this.goToCampaings();
         }
       });
