@@ -170,7 +170,7 @@ module.exports = {
           // in development "style" loader enables hot editing of CSS.
           {
             test: [/\.css$/, /\.scss$/, /\.sass$/],
-            exclude: /node_modules/,
+            exclude: [/node_modules/, /coupon-components/],
             use: [
               require.resolve('style-loader'),
               {
@@ -209,7 +209,7 @@ module.exports = {
           },
           {
             test: [/\.css$/],
-            include: /node_modules/,
+            include: [/node_modules/, /coupon-components/],
             use: [
               require.resolve('style-loader'),
               require.resolve('css-loader')

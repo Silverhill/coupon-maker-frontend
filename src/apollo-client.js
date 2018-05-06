@@ -2,6 +2,7 @@ import { ApolloClient } from 'apollo-client';
 import { ApolloLink, concat } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createUploadLink } from 'apollo-upload-client'
+import config from './environment';
 
 const middlewareAuthLink = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem('jwt')
@@ -15,7 +16,7 @@ const middlewareAuthLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-const uploadLink = createUploadLink({ uri: `http://localhost:7001/graphql`});
+const uploadLink = createUploadLink({ uri: config.API_URL});
 
 const client = new ApolloClient({
   // By default, this client will send queries to the
