@@ -26,6 +26,12 @@ class FirstStep extends Component {
                 placeholder={intl.formatMessage({id: 'campaigns.new.title.placeholder'})}
                 labelText={intl.formatMessage({id: 'campaigns.new.title.label'})}
                 className={styles.row_padding}/>
+          <Field name="description"
+                reduxFormInput
+                component={InputBox}
+                placeholder={intl.formatMessage({id: 'campaigns.new.description.placeholder'})}
+                labelText={intl.formatMessage({id: 'campaigns.new.description.label'})}
+                className={styles.row_padding}/>
           <Field name="customMessage"
                 reduxFormInput
                 component={InputBox}
@@ -41,12 +47,7 @@ class FirstStep extends Component {
                 className={styles.selectItem}/>
         </Panel>
         <Panel classNameHeader={styles.headerWithoutTitle} classNameContainer={styles.panel}>
-          <Field name="description"
-                reduxFormInput
-                component={InputBox}
-                placeholder={intl.formatMessage({id: 'campaigns.new.description.placeholder'})}
-                labelText={intl.formatMessage({id: 'campaigns.new.description.label'})}
-                className={styles.row_padding}/>
+
           <InputNested
             labelText={intl.formatMessage({id: 'campaigns.new.duration.label'})}
             description={intl.formatMessage({id: 'campaigns.new.duration.description'})}
