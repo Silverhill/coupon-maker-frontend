@@ -38,8 +38,8 @@ query loginUser($email: String!, $password: String!) {
   }
 }
 
-query makerCampaigns{
-  myCampaigns {
+query makerCampaigns($limit: Int = 5, $sortDirection: Int = -1){
+  myCampaigns(limit:$limit, sortDirection: $sortDirection) {
     campaigns{
       id
       title

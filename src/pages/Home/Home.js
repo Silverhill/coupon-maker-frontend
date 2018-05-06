@@ -140,7 +140,7 @@ class Home extends Component {
           const { myCompany } = data;
           const logo = myCompany && myCompany.logo || placeholderlogo;
           return (
-            <Query query={makerCampaigns}>
+            <Query query={makerCampaigns} variables={{limit:3, sortDirection:-1}}>
               {({ loading, error, data}) => {
                 if (loading) return "Loading...";
                 if (error) return `Error! ${error.message}`;

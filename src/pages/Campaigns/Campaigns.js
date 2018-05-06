@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { graphql } from 'react-apollo';
+import { Query } from 'react-apollo';
 import { makerCampaigns } from 'Services/graphql/queries.graphql';
 import { Card, Typography, Icon, BasicRow, Panel } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -13,40 +13,58 @@ import * as palette from 'Styles/palette.css';
 
 class Campaigns extends Component {
   render() {
-    const { data: { loading, error, myCampaigns }, intl, history } = this.props;
+    const {intl, history } = this.props;
 
-    if(loading) return <p>Loading...</p>
-    else if(error) return <p>{error.message}</p>
-
-    const { campaigns } = myCampaigns;
-
-    const total = campaigns ? campaigns.length : 0;
-    const placeholderImage = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
-
-    const tableCampaigns = (
-      <div className={styles.table}>
-        {campaigns && campaigns.map((cpg) => {
-          const key = { key: cpg.id };
-          const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
-          return (
-            <BasicRow {...key}
-              title={cpg.title}
-              image={cpg.image || placeholderImage}
-              subtitle={cpg.address}
-              label={date}
-              number={maxnum(cpg.totalCoupons)}
-              className={styles.row}
-              onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
-            />
-          )
-        })}
-        <div className={styles.linkBtn}>
-          <NavLink to='/new_campaign' className={styles.link}>
-            <FormattedMessage id='campaigns.myCampaigns.new' />
-          </NavLink>
-        </div>
+    const btnLink = (
+      <div className={styles.linkBtn}>
+        <NavLink to='/new_campaign' className={styles.link}>
+          <FormattedMessage id='campaigns.myCampaigns.new' />
+        </NavLink>
       </div>
     )
+
+    const view = (
+      <div className={styles.container}>
+        <Query query={makerCampaigns} variables={{limit:10, sortDirection:-1}}>
+          {({ loading, error, data}) => {
+            if (loading) return "Loading...";
+            if (error) return `Error! ${error.message}`;
+            const {myCampaigns: {campaigns} } = data;
+            const total = campaigns ? campaigns.length : 0;
+            return (
+              <div>
+                {total === 0 && emptyState}
+                {total > 0 &&
+                  <div className={styles.table}>
+                    <div>
+                      {
+                        campaigns && campaigns.map((cpg) => {
+                        const key = { key: cpg.id };
+                        const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
+                        return (
+                          <BasicRow {...key}
+                            title={cpg.title}
+                            image={cpg.image}
+                            subtitle={cpg.address}
+                            label={date}
+                            number={maxnum(cpg.totalCoupons)}
+                            className={styles.row}
+                            onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
+                          />
+                        )
+                      })
+                      }
+                    </div>
+                    {btnLink}
+                  </div>
+                }
+              </div>
+            );
+          }}
+        </Query>
+      </div>
+    )
+
     const emptyState = (
       <div className={styles.emptyState}>
         <Icon
@@ -71,11 +89,7 @@ class Campaigns extends Component {
         <Typography.Text small>
           <FormattedMessage id='campaigns.myCampaigns.tip' />
         </Typography.Text>
-        <div className={styles.linkBtn}>
-          <NavLink to='/new_campaign' className={styles.link}>
-            <FormattedMessage id='campaigns.myCampaigns.new' />
-          </NavLink>
-        </div>
+        {btnLink}
       </div>
     )
 
@@ -84,8 +98,7 @@ class Campaigns extends Component {
         <Card title={intl.formatMessage({id: 'campaigns.myCampaigns.title'})}>
           <Panel title={intl.formatMessage({id: 'campaigns.myCampaigns.panelTitle'})}
             className={styles.panel}>
-            { total === 0 && emptyState}
-            { total > 0 && tableCampaigns}
+            {view}
           </Panel>
         </Card>
       </div>
@@ -93,4 +106,4 @@ class Campaigns extends Component {
   }
 }
 
-export default graphql(makerCampaigns)(injectIntl(Campaigns));
+export default injectIntl(Campaigns);
