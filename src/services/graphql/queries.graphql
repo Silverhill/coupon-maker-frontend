@@ -38,14 +38,13 @@ query loginUser($email: String!, $password: String!) {
   }
 }
 
-query makerCampaigns{
-  myCampaigns {
+query makerCampaigns($limit: Int, $sortDirection: Int){
+  myCampaigns(limit:$limit, sortDirection: $sortDirection) {
     campaigns{
       id
       title
       office {
         id
-        name
         address
       }
       startAt
@@ -96,7 +95,6 @@ query getCampaign($id:String!){
     status
     office {
       id
-      name
       address
     }
   }
@@ -139,7 +137,6 @@ mutation canjear($code: String!){
 mutation createCampaing(
   $startAt: Timestamp!,
   $endAt: Timestamp!,
-  $address: String,
   $country: String,
   $city: String,
   $couponsNumber: Int!,
@@ -153,7 +150,6 @@ mutation createCampaing(
     addCampaign(input:{
       startAt: $startAt,
       endAt: $endAt,
-      address: $address,
       country: $country,
       city: $city,
       couponsNumber: $couponsNumber,
@@ -167,7 +163,6 @@ mutation createCampaing(
     }) {
       id
       title
-      address
       startAt
       endAt
       image
@@ -180,7 +175,6 @@ mutation createCampaing(
       finalAgeRange
       office {
         id
-        name
         address
       }
       totalCoupons

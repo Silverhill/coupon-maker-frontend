@@ -31,21 +31,21 @@ class SecondStep extends Component {
                 </Typography.Label>
               </div>
             </div>
-            <div className={cx(styles.row, styles.row_padding)}>
+            <div className={cx(styles.fieldsInline, styles.row_padding)}>
               <Field name="country"
                     reduxFormInput
                     component={Select}
                     labelText={intl.formatMessage({id: 'campaigns.new.place.country.label'})}
                     placeholder={intl.formatMessage({id: 'campaigns.new.place.country.placeholder'})}
                     options={countries}
-                    className={styles.selectItem}/>
+                    className={cx(styles.field, styles.left )}/>
               <Field name="city"
                     reduxFormInput
                     component={Select}
                     labelText={intl.formatMessage({id: 'campaigns.new.place.city.label'})}
                     placeholder={intl.formatMessage({id: 'campaigns.new.place.city.placeholder'})}
                     options={cities}
-                    className={styles.selectItem}/>
+                    className={cx(styles.field, styles.right)}/>
             </div>
             <div className={cx(styles.row, styles.row_padding)}>
               <div className={styles.fieldColumn}>
@@ -57,21 +57,23 @@ class SecondStep extends Component {
                 </Typography.Label>
               </div>
             </div>
-            <div className={cx(styles.row, styles.row_padding)}>
-              <Field name="initialAgeRange"
+            <div className={cx(styles.fieldsInline, styles.row_padding, styles.field, styles.left)}>
+              <div className={cx(styles.field, styles.left)}>
+                <Field name="initialAgeRange"
                       reduxFormInput
                       component={InputBox}
                       type="number"
                       labelText={intl.formatMessage({id: 'campaigns.new.ageRange.initial.label'})}
-                      placeholder={intl.formatMessage({id: 'campaigns.new.ageRange.initial.placeholder'})}
-                      className={styles.selectItem}/>
-              <Field name="finalAgeRange"
-                      reduxFormInput
-                      component={InputBox}
-                      type="number"
-                      labelText={intl.formatMessage({id: 'campaigns.new.ageRange.final.label'})}
-                      placeholder={intl.formatMessage({id: 'campaigns.new.ageRange.final.placeholder'})}
-                      className={styles.selectItem}/>
+                      placeholder={intl.formatMessage({id: 'campaigns.new.ageRange.initial.placeholder'})}/>
+              </div>
+              <div className={cx(styles.field, styles.right)}>
+                <Field name="finalAgeRange"
+                        reduxFormInput
+                        component={InputBox}
+                        type="number"
+                        labelText={intl.formatMessage({id: 'campaigns.new.ageRange.final.label'})}
+                        placeholder={intl.formatMessage({id: 'campaigns.new.ageRange.final.placeholder'})}/>
+              </div>
             </div>
           </div>
         </Panel>

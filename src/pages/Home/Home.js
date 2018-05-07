@@ -140,17 +140,18 @@ class Home extends Component {
           const { myCompany } = data;
           const logo = myCompany && myCompany.logo || placeholderlogo;
           return (
-            <Query query={makerCampaigns}>
+            <Query query={makerCampaigns} variables={{limit:3, sortDirection:-1}}>
               {({ loading, error, data}) => {
                 if (loading) return "Loading...";
                 if (error) return `Error! ${error.message}`;
                 const {myCampaigns: {campaigns} } = data;
+                const lastCampaigns = campaigns ? campaigns.slice(0,3) : [];
                 const total = campaigns ? campaigns.length : 0;
                 return (
                   <div>
                     {total === 0 && emptyStateActiveCampaigns}
                     {total > 0 &&
-                      campaigns && campaigns.map((cpg) => {
+                      lastCampaigns && lastCampaigns.map((cpg) => {
                         const key = { key: cpg.id };
                         const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
                         return (

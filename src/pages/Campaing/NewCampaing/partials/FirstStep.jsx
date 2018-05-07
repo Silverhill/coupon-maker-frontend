@@ -26,27 +26,37 @@ class FirstStep extends Component {
                 placeholder={intl.formatMessage({id: 'campaigns.new.title.placeholder'})}
                 labelText={intl.formatMessage({id: 'campaigns.new.title.label'})}
                 className={styles.row_padding}/>
-          <Field name="customMessage"
-                reduxFormInput
-                component={InputBox}
-                placeholder={intl.formatMessage({id: 'campaigns.new.customMessage.placeholder'})}
-                labelText={intl.formatMessage({id: 'campaigns.new.customMessage.label'})}
-                className={styles.row_padding}/>
-          <Field name="office"
-                reduxFormInput
-                component={Select}
-                labelText={intl.formatMessage({id: 'campaigns.new.office.label'})}
-                placeholder={intl.formatMessage({id: 'campaigns.new.office.placeholder'})}
-                options={officesOptions}
-                className={styles.selectItem}/>
-        </Panel>
-        <Panel classNameHeader={styles.headerWithoutTitle} classNameContainer={styles.panel}>
           <Field name="description"
                 reduxFormInput
                 component={InputBox}
                 placeholder={intl.formatMessage({id: 'campaigns.new.description.placeholder'})}
                 labelText={intl.formatMessage({id: 'campaigns.new.description.label'})}
                 className={styles.row_padding}/>
+          <Field name="customMessage"
+                reduxFormInput
+                component={InputBox}
+                placeholder={intl.formatMessage({id: 'campaigns.new.customMessage.placeholder'})}
+                labelText={intl.formatMessage({id: 'campaigns.new.customMessage.label'})}
+                className={styles.row_padding}/>
+        </Panel>
+        <Panel classNameHeader={styles.headerWithoutTitle} classNameContainer={styles.panel}>
+          <div className={cx(styles.fieldsInline, styles.row_padding)}>
+            <Field name="office"
+                reduxFormInput
+                component={Select}
+                labelText={intl.formatMessage({id: 'campaigns.new.office.label'})}
+                placeholder={intl.formatMessage({id: 'campaigns.new.office.placeholder'})}
+                options={officesOptions}
+                className={cx(styles.field, styles.left)}/>
+            <div className={cx(styles.couponsNumber, styles.field, styles.right)}>
+              <Field name="couponsNumber"
+                  reduxFormInput
+                  component={InputBox}
+                  type="number"
+                  placeholder={intl.formatMessage({id: 'campaigns.new.couponsNumber.placeholder'})}
+                  labelText={intl.formatMessage({id: 'campaigns.new.couponsNumber.label'})}/>
+            </div>
+          </div>
           <InputNested
             labelText={intl.formatMessage({id: 'campaigns.new.duration.label'})}
             description={intl.formatMessage({id: 'campaigns.new.duration.description'})}
@@ -61,13 +71,6 @@ class FirstStep extends Component {
               minDate={moment()}
               component={InputDate}/>
           </InputNested>
-          <Field name="couponsNumber"
-                reduxFormInput
-                component={InputBox}
-                type="number"
-                placeholder={intl.formatMessage({id: 'campaigns.new.couponsNumber.placeholder'})}
-                labelText={intl.formatMessage({id: 'campaigns.new.couponsNumber.label'})}
-                className={styles.row_padding}/>
         </Panel>
       </div>
     )

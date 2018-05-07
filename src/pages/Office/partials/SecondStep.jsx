@@ -25,15 +25,13 @@ class SecondStep extends Component {
                 component={InputBox}
                 placeholder={intl.formatMessage({id: 'office.new.officePhone.placeholder'})}
                 labelText={intl.formatMessage({id: 'office.new.officePhone.label'})}
-                className={cx(styles.row_padding, styles.office_number)}
-                type="number"/>
+                className={cx(styles.row_padding, styles.office_number)}/>
           <Field name="cellPhone"
                 reduxFormInput
                 component={InputBox}
                 placeholder={intl.formatMessage({id: 'office.new.cellPhone.placeholder'})}
                 labelText={intl.formatMessage({id: 'office.new.cellPhone.label'})}
-                className={cx(styles.row_padding, styles.office_number)}
-                type="number"/>
+                className={cx(styles.row_padding, styles.office_number)}/>
           <Field name="address"
                 reduxFormInput
                 component={InputBox}

@@ -81,16 +81,16 @@
           "placeholder":"Write a creative name for your campaign"
         },
         "customMessage": {
-          "label": "Short description of your campaign (Optional)",
-          "placeholder": "Enter a specific description of your promotion"
+          "label": "Terms and Conditions (Optional)",
+          "placeholder": "Promotion valid for orders over $10"
         },
         "office": {
-          "label": "Office",
-          "placeholder": "Select any office"
+          "label": "Address",
+          "placeholder": "Select any address"
         },
         "description": {
-          "label": "Customize your message",
-          "placeholder": "If you prefer to write your message ... e.g: 2x1"
+          "label": "Describe your campaign",
+          "placeholder": "Only for this month discounts: 20%, 30%, 50%"
         },
         "duration": {
           "label": "Duration",
@@ -297,16 +297,16 @@
           "placeholder":"Escribe un nombre creativo de tu campaña"
         },
         "customMessage": {
-          "label": "Descripción corta de tu campaña (Opcional)",
-          "placeholder": "Ingresa una descripción especifica de tu promoción"
+          "label": "Terminos y Condiciones (Opcional)",
+          "placeholder": "Promoción valida por ordenes mayores a $10"
         },
         "office": {
-          "label": "Oficina",
-          "placeholder": "Selecciona una oficina"
+          "label": "Dirección",
+          "placeholder": "Selecciona una dirección"
         },
         "description": {
-          "label": "Personaliza tu mensaje",
-          "placeholder": "Si prefieres escribir tu mensaje… eje: 2x1"
+          "label": "Describe tu campaña",
+          "placeholder": "Solo por este mes descuentos: 20%, 30%, 50%"
         },
         "duration": {
           "label": "Duración",
