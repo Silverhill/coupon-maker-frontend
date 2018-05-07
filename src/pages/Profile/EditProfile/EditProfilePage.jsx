@@ -82,6 +82,8 @@ class EditProfilePage extends Component {
           if (error) return `Error! ${error.message}`;
           const { me } = data;
           const imageUser = (user.upload && user.upload.imagePreviewUrl) ? user.upload.imagePreviewUrl : me.image;
+          const name = (user.name === undefined) ? me.name : user.name;
+          const email = (user.email  === undefined) ? me.email : user.email;
 
           return (
             <div className={styles.editProfile}>
@@ -93,24 +95,26 @@ class EditProfilePage extends Component {
                     </InputFile>
                   </div>
                   <div className={styles.fieldsContainer}>
-                    <form onChange={this.onChange}>
+                    <form onChange={this.onChange} onSubmit={this.onSubmit}>
                       <InputBox name="name"
                             placeholder={intl.formatMessage({id: 'profile.edit.name.placeholder'})}
                             labelText={intl.formatMessage({id: 'profile.edit.name.label'})}
                             className={styles.row_padding}
-                            value={user.name || me.name}/>
+                            value={name}
+                            required="required"/>
                       <InputBox name="email"
                             placeholder={intl.formatMessage({id: 'profile.edit.email.placeholder'})}
                             labelText={intl.formatMessage({id: 'profile.edit.email.label'})}
                             className={styles.row_padding}
-                            value={user.email || me.email}/>
+                            value={email}
+                            required="required"/>
+                      <Button shape="pill"
+                          text={intl.formatMessage({id: 'profile.edit.update'})}
+                          type="submit"
+                          className={styles.btnUpdate}/>
                     </form>
                   </div>
                 </div>
-                <Button shape="pill"
-                          text={intl.formatMessage({id: 'profile.edit.update'})}
-                          onClick={this.onSubmit}
-                          className={styles.btnUpdate}/>
               </Card>
             </div>
           );
