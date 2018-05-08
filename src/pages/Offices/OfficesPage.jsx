@@ -54,7 +54,9 @@ class OfficesPage extends Component {
         }
       });
       this.setState({isLoadingImage: false});
-    } catch (error) {
+    } catch (err) {
+      this.setState({isLoadingImage: false});
+      console.log('Error-->', err);
       return;
     }
   }
