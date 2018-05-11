@@ -154,6 +154,17 @@
            "placeholder": "Update your email"
         },
         "update": "Update"
+      },
+      "password": {
+        "title": "Update Password",
+        "old":{
+          "label": "Old Password",
+          "placeholder": "Please type your old password"
+        },
+        "new":{
+          "label": "New Password",
+          "placeholder": "Please type your new password"
+        }
       }
     },
     "office": {
@@ -373,6 +384,17 @@
            "placeholder": "Actualiza tu correo"
         },
         "update": "Actualizar"
+      },
+      "password": {
+        "title": "Actualizar Contraseña",
+        "old":{
+          "label": "Contraseña Actual",
+          "placeholder": "Por favor ingresa tu contraseña actual"
+        },
+        "new":{
+          "label": "Contraseña Nueva",
+          "placeholder": "Por favor ingresa tu nueva contraseña"
+        }
       }
     },
     "office": {

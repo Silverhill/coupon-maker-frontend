@@ -5,8 +5,8 @@
     position: relative;
 
     .avatar {
-      width: 70px;
-      height: 70px;
+      width: 130px;
+      height: 130px;
     }
 
     .information {
@@ -18,6 +18,19 @@
       top: 0;
       right: 0;
       padding: 10px;
+    }
+    .formContainer {
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-around;
+      .newpass{
+        margin-left: 10px;
+      }
+      .btnUpdate {
+        display: flex;
+        align-items: flex-end;
+        margin-left: 10px;
+      }
     }
   }
 

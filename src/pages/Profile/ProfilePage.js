@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
-import { Card, Typography, Button, Avatar, InputFile, Menu } from 'coupon-components';
+import { Card, Typography, Button, Avatar, InputFile, Menu, InputBox } from 'coupon-components';
 import { injectIntl } from 'react-intl';
 import { withApollo } from 'react-apollo';
-import { changeUserImage } from 'Services/graphql/queries.graphql';
+import { changeUserImage, updateMyPassword } from 'Services/graphql/queries.graphql';
 
 import styles from './ProfilePage.css';
 import * as palette from 'Styles/palette.css';
 class ProfilePage extends Component {
   state = {
-    isLoadingImage: false
+    isLoadingImage: false,
+    showChangePassword: false,
+    user: {}
   }
 
   changeImage = async (ev, value) => {
@@ -46,13 +48,72 @@ class ProfilePage extends Component {
   }
 
   changeMenu = (ev, value) => {
-    this.props.history.push('/profile/edit')
+    if(value.iconName === 'FaEdit'){
+      this.props.history.push('/profile/edit')
+    }else if(value.iconName === 'FaKey'){
+      this.setState({showChangePassword: true});
+    }
+  }
+
+  onChange = (ev) => {
+    const field = { [ev.target.name]: ev.target.value };
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        ...field,
+      }
+    }));
+  }
+
+  onSubmit = async (ev) => {
+    ev.preventDefault();
+    const { user } = this.state;
+    const { client: { mutate } } = this.props;
+    try {
+       await mutate({
+        mutation: updateMyPassword,
+        variables: {
+          oldPass: user.oldPass,
+          newPass: user.newPass
+        }
+      });
+      this.setState({showChangePassword: false});
+    } catch (error) {
+      console.log('error', error);
+      return;
+    }
   }
 
   render() {
     const { data: { me }, intl } = this.props;
-    const { isLoadingImage } = this.state;
+    const { isLoadingImage, showChangePassword } = this.state;
     let userImage = (me && me.image) ? me.image : '';
+    const menuOptions = [
+      {label: "Editar", iconName: "FaEdit"},
+      {label: "Cambiar Contraseña", iconName: "FaKey"},
+    ];
+
+    const passwordSection = (
+      <form onChange={this.onChange} className={styles.formContainer}>
+        <InputBox name="oldPass"
+              type="password"
+              style={{width: 250}}
+              placeholder={intl.formatMessage({id: 'profile.password.old.placeholder'})}
+              labelText={intl.formatMessage({id: 'profile.password.old.label'})}/>
+        <div className={styles.newpass}>
+          <InputBox name="newPass"
+                type="password"
+                style={{width: 250}}
+                placeholder={intl.formatMessage({id: 'profile.password.new.placeholder'})}
+                labelText={intl.formatMessage({id: 'profile.password.new.label'})}/>
+        </div>
+        <Button shape="pill"
+                          text={intl.formatMessage({id: 'profile.edit.update'})}
+                          onClick={this.onSubmit}
+                          className={styles.btnUpdate}/>
+      </form>
+    )
+
     return (
       <div className={styles.profile}>
         <Card title={intl.formatMessage({id: 'profile.title'})}
@@ -67,10 +128,11 @@ class ProfilePage extends Component {
             <Typography.Text small>
               {me && me.email}
             </Typography.Text>
+            { showChangePassword && passwordSection}
           </div>
           <Menu className={styles.menuOpts}
                 iconOptions={{name: "FaCog", size: 20}}
-                options={[{label: "Editar", iconName: "FaEdit"}]}
+                options={menuOptions}
                 onChange={this.changeMenu}/>
         </Card>
         <Card classNameContent={styles.accountOptions}>
