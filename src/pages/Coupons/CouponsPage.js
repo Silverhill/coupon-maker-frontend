@@ -3,11 +3,15 @@ import { withApollo, Query } from 'react-apollo';
 import { connect } from 'react-redux';
 import { canjear, huntersCompany } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
+import classNames from 'classnames/bind';
 
 import { Typography, Panel, Card, BasicRow } from 'coupon-components';
 import styles from './CouponsPage.css';
 import RegisterCouponForm from './RegisterCouponForm';
 import { maxnum } from 'Utils/filters';
+
+const cx = classNames.bind(styles)
+
 
 @connect(state => ({
   form: state.form.registerCoupon
@@ -16,7 +20,18 @@ import { maxnum } from 'Utils/filters';
 class CouponsPage extends Component {
 
   state = {
-    errors: null
+    errors: null,
+    isOpenRowId: ''
+  }
+
+  showDetails = (e, id) => {
+    const {isOpenRowId} = this.state;
+    if (isOpenRowId === id) {
+      id = '';
+    }
+    this.setState({
+      isOpenRowId: id
+    })
   }
 
   registerCoupon = async (values = {}) => {
@@ -47,6 +62,7 @@ class CouponsPage extends Component {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           const {hunters} = data;
+          const {isOpenRowId} = this.state;
           const total = hunters ? hunters.length : 0;
           return (
             <div>
@@ -55,15 +71,64 @@ class CouponsPage extends Component {
                 hunters && hunters.map((cpg) => {
                   const key = { key: cpg.id };
                   const image = cpg.image || "http://www.drjoydentalclinic.com/wp-content/uploads/2017/03/user.png";
+                  const show = isOpenRowId === cpg.id;
+                  const classSelected = show ? styles.selected : '';
                   return (
-                    <BasicRow {...key}
-                      title={cpg.name}
-                      image={image}
-                      subtitle={cpg.email}
-                      label= {cpg.campaign}
-                      number= {maxnum(cpg.redeemedCoupons)}
-                      className={styles.row}
-                    />
+                    <div {...key}>
+                      <BasicRow
+                        title={cpg.name}
+                        image={image}
+                        subtitle={cpg.email}
+                        label= {cpg.campaign}
+                        number= {maxnum(cpg.redeemedCoupons )}
+                        onClick={e => this.showDetails(e, cpg.id)}
+                        className={cx(styles.row, classSelected)}
+                      />
+                      {
+                        show &&
+                        <div className={styles.moreInformation}>
+                          <table className={styles.tableDetails}>
+                            <thead>
+                              <tr>
+                                <th>
+                                  <Typography.Text bold>Fecha</Typography.Text>
+                                </th>
+                                <th>
+                                  <Typography.Text bold>Campaña</Typography.Text>
+                                </th>
+                                <th>
+                                  <Typography.Text bold>Cupones</Typography.Text>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <Typography.Text small>24 Mayo 2018</Typography.Text>
+                                </td>
+                                <td>
+                                <Typography.Text small>Batidos al 2x1</Typography.Text>
+                                </td>
+                                <td>
+                                  <Typography.Text small>1</Typography.Text>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <Typography.Text small>24 Enero 2018</Typography.Text>
+                                </td>
+                                <td>
+                                <Typography.Text small>Almuerzos al 2x1</Typography.Text>
+                                </td>
+                                <td>
+                                  <Typography.Text small>1</Typography.Text>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      }
+                    </div>
                   )
                 })
               }
@@ -102,7 +167,7 @@ class CouponsPage extends Component {
             </Panel> */}
           </div>
           <div style={{marginTop: '10px'}}>
-            <Panel title="Todos los Hunters">
+            <Panel title="Todos los Hunters" className={styles.hunters}>
             {hunters}
             </Panel>
           </div>
