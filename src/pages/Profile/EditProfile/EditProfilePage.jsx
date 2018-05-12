@@ -43,7 +43,7 @@ class EditProfilePage extends Component {
           if(updateUser.email) { data.me.email = updateUser.email; }
           if(updateUser.image) { data.me.image = updateUser.image; }
           cache.writeQuery({ query: getMe, data: data });
-          this.props.history.push('/profile')
+          if(updateUser.id === -1) this.props.history.push('/profile')
         }
       });
     } catch (error) {
