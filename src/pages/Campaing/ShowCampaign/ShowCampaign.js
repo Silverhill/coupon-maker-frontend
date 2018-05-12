@@ -2,15 +2,31 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import { getCampaign, huntersCampaign } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
-
+import classNames from 'classnames/bind';
 import { Typography, Icon, Panel, Card, BasicRow, Cover } from 'coupon-components';
-
 import { maxnum } from 'Utils/filters';
 
 import styles from './ShowCampaign.css';
 import * as palette from 'Styles/palette.css';
 
+const cx = classNames.bind(styles)
+
 class ShowCampaing extends Component {
+  state = {
+    errors: null,
+    isOpenRowId: ''
+  }
+
+  showDetails = (e, id) => {
+    const {isOpenRowId} = this.state;
+    if (isOpenRowId === id) {
+      id = '';
+    }
+    this.setState({
+      isOpenRowId: id
+    })
+  }
+
   render() {
     const { intl } = this.props;
 
@@ -27,6 +43,7 @@ class ShowCampaing extends Component {
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
+          const {isOpenRowId} = this.state;
           const {hunters} = data;
           const total = hunters ? hunters.length : 0;
           return (
@@ -36,15 +53,55 @@ class ShowCampaing extends Component {
                 hunters && hunters.map((cpg) => {
                   const key = { key: cpg.id };
                   const image = cpg.image || "http://www.drjoydentalclinic.com/wp-content/uploads/2017/03/user.png";
+                  const show = isOpenRowId === cpg.id;
+                  const classSelected = show ? styles.selected : '';
                   return (
-                    <BasicRow {...key}
-                      title={cpg.name}
-                      image={image}
-                      subtitle={cpg.email}
-                      label= 'Total Coupons'
-                      number= {maxnum(cpg.couponsInCampaign)}
-                      className={styles.row}
-                    />
+                    <div {...key}>
+                      <BasicRow
+                        title={cpg.name}
+                        image={image}
+                        subtitle={cpg.email}
+                        label= 'Total Coupons'
+                        number= {maxnum(cpg.couponsInCampaign)}
+                        onClick={e => this.showDetails(e, cpg.id)}
+                        className={cx(styles.row, classSelected)}
+                      />
+                      {
+                        show &&
+                        <div className={styles.moreInformation}>
+                          <table className={styles.tableDetails}>
+                            <thead>
+                              <tr>
+                                <th>
+                                  <Typography.Text bold>Fecha</Typography.Text>
+                                </th>
+                                <th>
+                                  <Typography.Text bold>Status</Typography.Text>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <Typography.Text small>24 Mayo 2018</Typography.Text>
+                                </td>
+                                <td>
+                                <Typography.Text small>Capturado</Typography.Text>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <Typography.Text small>24 Enero 2018</Typography.Text>
+                                </td>
+                                <td>
+                                <Typography.Text small>Canjeado</Typography.Text>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      }
+                    </div>
                   )
                 })
               }
@@ -139,7 +196,7 @@ class ShowCampaing extends Component {
               </div>
               <Panel
                 title={intl.formatMessage({id: 'campaigns.show.panel.title'})}
-                className={styles.panel}>
+                className={styles.hunters}>
                   {hunters}
               </Panel>
             </div>
