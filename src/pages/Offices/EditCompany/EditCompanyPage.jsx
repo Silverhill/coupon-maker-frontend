@@ -44,7 +44,7 @@ class EditCompanyPage extends Component {
           if(updateCompany.slogan) { data.myCompany.slogan = updateCompany.slogan; }
           if(updateCompany.logo) { data.myCompany.logo = updateCompany.logo; }
           cache.writeQuery({ query: getMyCompany, data: data });
-          this.props.history.push('/offices')
+          if(updateCompany.id === -1) this.props.history.push('/offices')
         }
       });
     } catch (error) {

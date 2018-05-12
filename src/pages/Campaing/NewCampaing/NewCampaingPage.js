@@ -92,7 +92,7 @@ class NewCampaingPage extends Component {
           dataCampaingsHome.myCampaigns.campaigns = [addCampaign, ...dataCampaingsHome.myCampaigns.campaigns]
           cache.writeQuery({ query: makerCampaigns, variables: {limit:10, sortDirection:-1}, data: dataCampaingsPage });
           cache.writeQuery({ query: makerCampaigns, variables: {limit:3, sortDirection:-1}, data: dataCampaingsHome });
-          this.goToCampaings();
+          if(addCampaign.id === -1) this.goToCampaings();
         }
       });
     } catch (error) {
