@@ -3,7 +3,8 @@
   pinkRed,
   paleLilac,
   paleGray,
-  lightNeutral
+  lightNeutral,
+  whiteColor
 ) from colors;
 
 .container {
@@ -35,8 +36,10 @@
       }
     }
 
-    .panel {
+    .hunters {
+
       .row {
+
         &:nth-child(odd) {
           border-top: 1px solid paleGray;
           border-bottom: 1px solid paleGray;
@@ -45,7 +48,51 @@
         &:hover {
           background-color: lightNeutral;
         }
+
+        &.selected {
+          background-color: lightNeutral;
+        }
+      }
+
+      .moreInformation {
+        background-color: lightNeutral;
+
+        table {
+          width: 100%;
+          border-spacing: 0;
+
+          th, td {
+            padding: 4px 0 4px 10px;
+          }
+
+          thead {
+            text-align: left;
+            background-color: pinkRed;
+
+            p {
+              color: whiteColor;
+            }
+          }
+
+          tbody {
+
+            tr {
+              padding: 5px 0;
+
+              &:nth-child(odd) {
+                /* border-top: 1px solid black; */
+                /* border-bottom: 1px solid black; */
+                background-color: whiteColor;
+              }
+
+              &:hover {
+                background-color: paleGray;
+              }
+            }
+          }
+        }
       }
     }
+
   }
 }
