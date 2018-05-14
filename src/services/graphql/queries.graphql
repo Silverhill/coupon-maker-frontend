@@ -255,3 +255,15 @@ mutation updateMyCompany(
     businessName
   }
 }
+
+mutation updateMyPassword(
+  $oldPass: String!,
+  $newPass: String!){
+  updatePassword(input:{
+    oldPass: $oldPass,
+    newPass: $newPass
+  }){
+    id
+    name
+  }
+}
