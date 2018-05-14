@@ -186,6 +186,7 @@ class StepsContainer extends Component {
                       size="25px"
                       currentColor={this.currentColor}
                       selectedColor={this.selectedColor}
+                      withDegrate={true}
                     />
                   )}
                 </Palette>

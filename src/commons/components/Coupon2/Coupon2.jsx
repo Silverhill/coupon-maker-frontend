@@ -25,17 +25,22 @@ class Cupon2 extends Component {
       patternUrl,
     } = this.props
 
-    const getBackground = (letter, value) => {
+    const getBackground = (value) => {
 
-      if(letter==="#" || letter==="r" ){ //hex or RGB
+      const rgbExp = /rgb\(\d{1,3}\,\d{1,3}\,\d{1,3}\)/;
+      const hexExp = /^\#\w{6,8}/;
+      const urlExp = /^http/;
+      const linearExp = /^linear-gradient/;
+
+      if(rgbExp.test(value) || hexExp.test(value) ){ //hex or RGB
         return {backgroundColor: value}
       }
 
-      if(letter==="h"){ //https
+      if(urlExp.test(value)){ //https
         return {backgroundImage: `url(${value})`, backgroundSize: 'contain'}
       }
 
-      if(letter==="l"){
+      if(linearExp.test(value)){ //linear-gradient
         return {backgroundImage: value}
       }
 
@@ -44,7 +49,7 @@ class Cupon2 extends Component {
 
     let stylesImage = {backgroundImage: `url(${image})`}
     let colorCupon = color || palette.accentColorSecondary
-    const patternStyles = getBackground(colorCupon.charAt(0), colorCupon)
+    const patternStyles = getBackground(colorCupon)
     colorCupon = disabled ? palette.neutralColorPlain : colorCupon
     colorCupon = gold ? palette.goldGradient : colorCupon
     return (
