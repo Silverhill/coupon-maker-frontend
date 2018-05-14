@@ -96,14 +96,14 @@ class ProfilePage extends Component {
               type="password"
               style={{width: 250}}
               placeholder={intl.formatMessage({id: 'profile.password.old.placeholder'})}
-              labelText={intl.formatMessage({id: 'profile.password.old.label'})}/>
-        <div className={styles.newpass}>
-          <InputBox name="newPass"
-                type="password"
-                style={{width: 250}}
-                placeholder={intl.formatMessage({id: 'profile.password.new.placeholder'})}
-                labelText={intl.formatMessage({id: 'profile.password.new.label'})}/>
-        </div>
+              labelText={intl.formatMessage({id: 'profile.password.old.label'})}
+              className={styles.row_padding}/>
+        <InputBox name="newPass"
+              type="password"
+              style={{width: 250}}
+              placeholder={intl.formatMessage({id: 'profile.password.new.placeholder'})}
+              labelText={intl.formatMessage({id: 'profile.password.new.label'})}
+              className={styles.row_padding}/>
         <Button shape="pill"
                           text={intl.formatMessage({id: 'profile.edit.update'})}
                           onClick={this.onSubmit}

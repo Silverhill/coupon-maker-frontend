@@ -21,15 +21,8 @@
     }
     .formContainer {
       margin-top: 8px;
-      display: flex;
-      justify-content: space-around;
-      .newpass{
-        margin-left: 10px;
-      }
-      .btnUpdate {
-        display: flex;
-        align-items: flex-end;
-        margin-left: 10px;
+      .row_padding {
+        padding-bottom: 10px;
       }
     }
   }
