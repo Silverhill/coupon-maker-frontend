@@ -9,6 +9,18 @@
   margin: 10px;
 }
 
+.previsualization {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .palettes {
+    display: flex;
+  }
+}
+
 .panel {
   padding: 10px;
 

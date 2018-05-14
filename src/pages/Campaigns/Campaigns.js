@@ -42,17 +42,17 @@ class Campaigns extends Component {
                         const key = { key: cpg.id };
                         const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
                         return (
-                          <BasicRow {...key}
-                            title={cpg.title}
-                            image={cpg.image}
-                            subtitle={cpg.address}
-                            label={date}
-                            number={maxnum(cpg.totalCoupons)}
-                            className={styles.row}
-                            onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
-                          />
-                        )
-                      })
+                            <BasicRow {...key}
+                              title={cpg.title}
+                              image={cpg.image}
+                              subtitle={cpg.address}
+                              label={date}
+                              number={maxnum(cpg.totalCoupons)}
+                              className={styles.row}
+                              onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
+                            />
+                          )
+                        })
                       }
                     </div>
                     {btnLink}

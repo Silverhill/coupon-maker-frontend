@@ -1,0 +1,123 @@
+@value colors: "Styles/palette.css";
+@value (
+  whiteColor,
+  pinkRed
+) from colors;
+@value paddingCupon: 10px;
+@value borderRadius: 10px;
+
+.container {
+  position: relative;
+  border-radius: borderRadius;
+  cursor: pointer;
+  max-width: 400px;
+  display: flex;
+  background-color: pinkRed;
+  border: 1.2px solid #bdb7b7;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.container::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  border-radius: 8px;
+  background-color: whiteColor;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(10%, -50%);
+  border: 1px solid #bdb7b7;
+  border-bottom-left-radius: 90px;
+  border-top-left-radius: 90px;
+  border-right: 1.2px solid whiteColor;
+  z-index: 1;
+}
+
+.container::after {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  border-radius: 8px;
+  background-color: whiteColor;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-10%, -50%);
+  border: 1px solid #bdb7b7;
+  border-bottom-right-radius: 90px;
+  border-top-right-radius: 90px;
+  border-left: 1.2px solid whiteColor;
+  z-index: 1;
+}
+
+.avatar {
+  width: 40px;
+}
+
+.brandCampaing {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0 120px 0;
+  position: relative;
+}
+
+.cupons {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: paddingCupon 0;
+}
+
+.cuponInformation {
+  position: relative;
+  width: 80%;
+  border-radius: 10px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: local;
+  background-size: cover;
+}
+
+.backgroundPromo::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.4;
+  border-radius: borderRadius;
+}
+
+.promo {
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: paddingCupon 0;
+}
+
+.promoTitle {
+  margin: 5px 0 !important;
+}
+
+.promo p {
+  padding: 0 paddingCupon;
+  margin: 0;
+}
+
+.company {
+  padding: paddingCupon;
+  text-transform: uppercase;
+}
