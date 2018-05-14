@@ -38,13 +38,10 @@ class ProfilePage extends Component {
           cache.writeQuery({ query: getMe, data: data });
         }
       });
-      this.setState({isLoadingImage: false});
     } catch (err) {
-      this.setState({isLoadingImage: false});
       console.log('Error-->', err);
-      return;
     }
-
+    this.setState({isLoadingImage: false});
   }
 
   changeMenu = (ev, value) => {
