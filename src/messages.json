@@ -115,14 +115,7 @@
         "ageRange": {
           "title": "Age Range",
           "description": "People you choose by age",
-          "initial": {
-            "label": "From",
-            "placeholder": "Write a number"
-          },
-          "final": {
-            "label": "To",
-            "placeholder": "Write un number"
-          }
+          "placeholder": "Select any range"
         }
       },
       "show": {
@@ -224,6 +217,17 @@
       "address": "Address",
       "company": "Company",
       "slogan": "Slogan"
+    },
+    "common": {
+      "agesRanges": {
+        "children": "Children",
+        "teenager": "Teenagers",
+        "young": "Youngs",
+        "adult": "Adults",
+        "adult_b": "Adults B",
+        "old": "Old Man",
+        "years": "years old"
+      }
     }
   },
   "es": {
@@ -342,14 +346,7 @@
         "ageRange": {
           "title": "Rango de edad",
           "description": "Personas a las que eliges por segmentación",
-          "initial": {
-            "label": "Desde",
-            "placeholder": "Escriba un número"
-          },
-          "final": {
-            "label": "Hasta",
-            "placeholder": "Escriba un número"
-          }
+          "placeholder": "Seleccione un rango"
         }
       },
       "show": {
@@ -454,6 +451,17 @@
       "address": "Dirección",
       "company": "Compañia",
       "slogan": "Slogan"
+    },
+    "common": {
+      "agesRanges": {
+        "children": "Niños",
+        "teenager": "Adolescentes",
+        "young": "Jóvenes",
+        "adult": "Adultos",
+        "adult_b": "Adultos B",
+        "old": "Ancianos",
+        "years": "Años"
+      }
     }
   }
 }

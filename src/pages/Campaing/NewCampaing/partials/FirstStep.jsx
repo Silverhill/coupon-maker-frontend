@@ -64,12 +64,18 @@ class FirstStep extends Component {
             <Field name="startAt"
                 reduxFormInput
                 minDate={moment()}
-                component={InputDate}/>
+                component={InputDate}
+                dateFormat="LLL"
+                showTimeSelect
+                timeFormat="HH:mm"/>
             <Field
               name="endAt"
               reduxFormInput
               minDate={moment()}
-              component={InputDate}/>
+              component={InputDate}
+              dateFormat="LLL"
+              showTimeSelect
+              timeFormat="HH:mm"/>
           </InputNested>
         </Panel>
       </div>
