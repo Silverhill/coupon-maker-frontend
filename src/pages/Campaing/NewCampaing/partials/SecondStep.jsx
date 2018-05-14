@@ -3,19 +3,29 @@ import { Field } from 'redux-form';
 import classNames from 'classnames/bind';
 import { injectIntl } from 'react-intl';
 // Components
-import { Panel, Select, InputBox, Typography } from 'coupon-components';
+import { Panel, Select, Typography } from 'coupon-components';
 import styles from '../../NewCampaing/NewCampaing.css';
+//values
+import * as constants from 'Utils/values';
+
 const cx = classNames.bind(styles);
 
 class SecondStep extends Component {
+
+  getValuesToAgeRange(){
+    const { intl } = this.props;
+    const agesRanges = constants.agesRanges.map((item) => {
+      let rangeField = intl.formatMessage({id: `common.agesRanges.${item.key}`});
+      let rangeDescription = ' ('+item.min+' - '+item.max+' '+intl.formatMessage({id: 'common.agesRanges.years'})+')';
+      item.value = rangeField + rangeDescription;
+      return item;
+    });
+    return agesRanges;
+  }
+
   render() {
     const { intl } = this.props;
-    const countries = [
-      {key:'ec', value:'Ecuador'}
-    ];
-    const cities = [
-      {key:'loh', value:'Loja'}
-    ];
+    const agesRanges = this.getValuesToAgeRange();
 
     return (
       <div>
@@ -37,14 +47,14 @@ class SecondStep extends Component {
                     component={Select}
                     labelText={intl.formatMessage({id: 'campaigns.new.place.country.label'})}
                     placeholder={intl.formatMessage({id: 'campaigns.new.place.country.placeholder'})}
-                    options={countries}
+                    options={constants.countries}
                     className={cx(styles.field, styles.left )}/>
               <Field name="city"
                     reduxFormInput
                     component={Select}
                     labelText={intl.formatMessage({id: 'campaigns.new.place.city.label'})}
                     placeholder={intl.formatMessage({id: 'campaigns.new.place.city.placeholder'})}
-                    options={cities}
+                    options={constants.cities}
                     className={cx(styles.field, styles.right)}/>
             </div>
             <div className={cx(styles.row, styles.row_padding)}>
@@ -58,22 +68,12 @@ class SecondStep extends Component {
               </div>
             </div>
             <div className={cx(styles.fieldsInline, styles.row_padding, styles.field, styles.left)}>
-              <div className={cx(styles.field, styles.left)}>
-                <Field name="initialAgeRange"
-                      reduxFormInput
-                      component={InputBox}
-                      type="number"
-                      labelText={intl.formatMessage({id: 'campaigns.new.ageRange.initial.label'})}
-                      placeholder={intl.formatMessage({id: 'campaigns.new.ageRange.initial.placeholder'})}/>
-              </div>
-              <div className={cx(styles.field, styles.right)}>
-                <Field name="finalAgeRange"
-                        reduxFormInput
-                        component={InputBox}
-                        type="number"
-                        labelText={intl.formatMessage({id: 'campaigns.new.ageRange.final.label'})}
-                        placeholder={intl.formatMessage({id: 'campaigns.new.ageRange.final.placeholder'})}/>
-              </div>
+              <Field name="ageRange"
+                    reduxFormInput
+                    component={Select}
+                    options={agesRanges}
+                    placeholder={intl.formatMessage({id: 'campaigns.new.ageRange.placeholder'})}
+                    className={cx(styles.field, styles.left )}/>
             </div>
           </div>
         </Panel>

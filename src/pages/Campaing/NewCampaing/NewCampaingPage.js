@@ -57,8 +57,8 @@ class NewCampaingPage extends Component {
           title: form.values.title,
           description: form.values.description,
           customMessage: form.values.customMessage,
-          initialAgeRange: parseInt(form.values.initialAgeRange),
-          finalAgeRange: parseInt(form.values.finalAgeRange),
+          initialAgeRange: form.values.ageRange.min,
+          finalAgeRange: form.values.ageRange.max,
           upload: form.values.image.file
         },
         optimisticResponse: {
@@ -74,8 +74,8 @@ class NewCampaingPage extends Component {
             title: form.values.title,
             description: form.values.description,
             customMessage: form.values.customMessage,
-            initialAgeRange: parseInt(form.values.initialAgeRange),
-            finalAgeRange: parseInt(form.values.finalAgeRange),
+            initialAgeRange: form.values.ageRange.min,
+            finalAgeRange: form.values.ageRange.max,
             image: form.values.image.imagePreviewUrl,
             office: {
               __typename:"OfficeSimple",
