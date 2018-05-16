@@ -3,7 +3,6 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 //styles
 import styles from './CouponsPage.css'
-import 'coupon-components/build/styles.css';
 //components
 import { InputBox, Button, Typography } from 'coupon-components';
 
