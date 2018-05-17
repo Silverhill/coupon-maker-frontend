@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { StepByStep, RoundButton, Card } from 'coupon-components';
 import FirstStep from './partials/FirstStep';
 import SecondStep from './partials/SecondStep';
-import { reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 
 import styles from './NewOffice.css';
@@ -12,6 +10,7 @@ class StepsContainer extends Component {
   state = {
     steps: [],
     currentStep: {},
+    office: {}
   }
 
   componentWillMount() {
@@ -34,28 +33,46 @@ class StepsContainer extends Component {
   renderContent = (currentStep) => {
     switch (currentStep.id) {
       case 0:
-        return <FirstStep/>;
+        return <FirstStep office={this.state.office}/>;
       case 1:
-        return <SecondStep/>;
+        return <SecondStep office={this.state.office}/>;
       default:
         break;
     }
   }
 
-  nextStep = () => {
-    const { steps } = this.state;
-    let newStep = this.state.currentStep.id + 1 ;
-    this.handleStepsChange(steps[newStep]);
-  }
   prevStep = () => {
     const { steps } = this.state;
     let newStep = this.state.currentStep.id - 1 ;
     this.handleStepsChange(steps[newStep]);
   }
 
+  onChange = (ev) => {
+    const field = { [ev.target.name]: ev.target.value };
+    this.setState(prevState => ({
+      office: {
+        ...prevState.office,
+        ...field,
+      }
+    }));
+  }
+
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+    const { office, currentStep } = this.state;
+    const { onSubmit } = this.props;
+    if(currentStep.id === 1 && onSubmit){
+      onSubmit(office);
+    }else{
+      const { steps } = this.state;
+      let newStep = this.state.currentStep.id + 1 ;
+      this.handleStepsChange(steps[newStep]);
+    }
+  }
+
   render() {
     const { steps, currentStep } = this.state;
-    const { handleSubmit, intl } = this.props;
+    const { intl } = this.props;
     let moveBtn;
     if(currentStep.id === 1){
       moveBtn = {
@@ -73,24 +90,19 @@ class StepsContainer extends Component {
           <StepByStep steps={steps} onChange={this.handleStepsChange} className={styles.steps}/>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onChange={this.onChange} onSubmit={this.handleSubmit}>
           {this.renderContent(currentStep)}
-          {(currentStep.id === 1) && <div className={styles.submitButton}>
+          <div className={styles.submitButton}>
             <RoundButton icon="FaArrowRight" type="submit"/>
-          </div>}
+          </div>
         </form>
 
         <div className={styles.submitButton} style={moveBtn}>
           {(currentStep.id === 1) && <RoundButton icon="FaArrowLeft" onClick={this.prevStep}/>}
-          {(currentStep.id === 0) && <RoundButton icon="FaArrowRight" onClick={this.nextStep}/>}
         </div>
       </Card>
     )
   }
 }
 
-export default connect()(
-  reduxForm({
-    form: 'create_office'
-  })(injectIntl(StepsContainer))
-);
+export default (injectIntl(StepsContainer));
