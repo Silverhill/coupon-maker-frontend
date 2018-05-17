@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Field } from 'redux-form';
 import classNames from 'classnames/bind';
 import { injectIntl } from 'react-intl';
 // Components
@@ -24,7 +23,7 @@ class SecondStep extends Component {
   }
 
   render() {
-    const { intl } = this.props;
+    const { intl, campaign } = this.props;
     const agesRanges = this.getValuesToAgeRange();
 
     return (
@@ -42,16 +41,12 @@ class SecondStep extends Component {
               </div>
             </div>
             <div className={cx(styles.fieldsInline, styles.row_padding)}>
-              <Field name="country"
-                    reduxFormInput
-                    component={Select}
+              <Select name="country"
                     labelText={intl.formatMessage({id: 'campaigns.new.place.country.label'})}
                     placeholder={intl.formatMessage({id: 'campaigns.new.place.country.placeholder'})}
                     options={constants.countries}
                     className={cx(styles.field, styles.left )}/>
-              <Field name="city"
-                    reduxFormInput
-                    component={Select}
+              <Select name="city"
                     labelText={intl.formatMessage({id: 'campaigns.new.place.city.label'})}
                     placeholder={intl.formatMessage({id: 'campaigns.new.place.city.placeholder'})}
                     options={constants.cities}
@@ -68,12 +63,11 @@ class SecondStep extends Component {
               </div>
             </div>
             <div className={cx(styles.fieldsInline, styles.row_padding, styles.field, styles.left)}>
-              <Field name="ageRange"
-                    reduxFormInput
-                    component={Select}
+              <Select name="ageRange"
                     options={agesRanges}
                     placeholder={intl.formatMessage({id: 'campaigns.new.ageRange.placeholder'})}
-                    className={cx(styles.field, styles.left )}/>
+                    className={cx(styles.field, styles.left )}
+                    value={campaign && campaign.ageRange}/>
             </div>
           </div>
         </Panel>

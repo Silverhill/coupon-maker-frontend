@@ -3,16 +3,11 @@ import StepsContainer from './StepsContainer';
 import { NavLink } from 'react-router-dom';
 import { Typography, Icon } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { connect } from 'react-redux';
 import { createCampaing, makerCampaigns } from 'Services/graphql/queries.graphql';
 import { withApollo } from 'react-apollo';
 import { makerOffices } from 'Services/graphql/queries.graphql';
 import * as palette from 'Styles/palette.css';
 import styles from './NewCampaing.css';
-
-@connect(state => ({
-  form: state.form.create_campaign
-}))
 
 class NewCampaingPage extends Component {
 
@@ -42,47 +37,47 @@ class NewCampaingPage extends Component {
     this.props.history.push('/campaigns')
   }
 
-  createCampaing = async (values = {}) => {
-    const { form, client: { mutate } } = this.props;
+  createCampaing = async (values) => {
+    const { client: { mutate } } = this.props;
     try {
       await mutate({
         mutation: createCampaing,
         variables: {
-          startAt: form.values.startAt,
-          endAt: form.values.endAt,
-          officeId: form.values.office.id,
-          country: form.values.country.value,
-          city: form.values.city.value,
-          couponsNumber: parseInt(form.values.couponsNumber),
-          title: form.values.title,
-          description: form.values.description,
-          customMessage: form.values.customMessage,
-          initialAgeRange: form.values.ageRange.min,
-          finalAgeRange: form.values.ageRange.max,
-          upload: form.values.image.file
+          startAt: values.startAt,
+          endAt: values.endAt,
+          officeId: values.office.id,
+          country: values.country.value,
+          city: values.city.value,
+          couponsNumber: parseInt(values.couponsNumber),
+          title: values.title,
+          description: values.description,
+          customMessage: values.customMessage,
+          initialAgeRange: values.ageRange.min,
+          finalAgeRange: values.ageRange.max,
+          upload: values.image.file
         },
         optimisticResponse: {
           __typename: "Mutation",
           addCampaign: {
             __typename: "CampaignForHunter",
             id: -1,
-            startAt: form.values.startAt,
-            endAt: form.values.endAt,
-            officeId: form.values.office.id,
-            country: form.values.country.value,
-            city: form.values.city.value,
-            title: form.values.title,
-            description: form.values.description,
-            customMessage: form.values.customMessage,
-            initialAgeRange: form.values.ageRange.min,
-            finalAgeRange: form.values.ageRange.max,
-            image: form.values.image.imagePreviewUrl,
+            startAt: values.startAt,
+            endAt: values.endAt,
+            officeId: values.office.id,
+            country: values.country.value,
+            city: values.city.value,
+            title: values.title,
+            description: values.description,
+            customMessage: values.customMessage,
+            initialAgeRange: values.ageRange.min,
+            finalAgeRange: values.ageRange.max,
+            image: values.image.imagePreviewUrl,
             office: {
               __typename:"OfficeSimple",
               id: -1,
               address: 'waiting address'
             },
-            totalCoupons: parseInt(form.values.couponsNumber)
+            totalCoupons: parseInt(values.couponsNumber)
           }
         },
         update: (cache, { data: {addCampaign} }) => {
@@ -95,8 +90,8 @@ class NewCampaingPage extends Component {
           if(addCampaign.id === -1) this.goToCampaings();
         }
       });
-    } catch (error) {
-      return error;
+    } catch (err) {
+      console.log('err', err.message);
     }
   }
 
