@@ -11,7 +11,7 @@ const cx = classNames.bind(styles)
 
 class FirstStep extends Component {
   render() {
-    const { intl, offices, campaign } = this.props;
+    const { intl, offices, campaign, onChangeData } = this.props;
     const officesOptions = offices && offices.map(office => {
       return { key: office.id, id: office.id, value: office.address, name: office.name };
     });
@@ -42,7 +42,8 @@ class FirstStep extends Component {
                 labelText={intl.formatMessage({id: 'campaigns.new.office.label'})}
                 placeholder={intl.formatMessage({id: 'campaigns.new.office.placeholder'})}
                 options={officesOptions}
-                className={cx(styles.field, styles.left)}/>
+                className={cx(styles.field, styles.left)}
+                selectedOption={values => onChangeData(values, 'office')}/>
             <div className={cx(styles.couponsNumber, styles.field, styles.right)}>
               <InputBox name="couponsNumber"
                   type="number"
@@ -60,14 +61,16 @@ class FirstStep extends Component {
                 dateFormat="LLL"
                 showTimeSelect
                 timeFormat="HH:mm"
-                date={campaign && campaign.startAt}/>
+                selected={campaign && campaign.startAt}
+                onChange={values => onChangeData(values, 'startAt')}/>
             <InputDate
               name="endAt"
               minDate={moment()}
               dateFormat="LLL"
               showTimeSelect
               timeFormat="HH:mm"
-              date={campaign && campaign.endAt}/>
+              selected={campaign && campaign.endAt}
+              onChange={values => onChangeData(values, 'endAt')}/>
           </InputNested>
         </Panel>
       </div>

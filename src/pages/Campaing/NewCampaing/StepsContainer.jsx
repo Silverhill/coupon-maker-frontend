@@ -16,7 +16,10 @@ class StepsContainer extends Component {
   state = {
     steps: [],
     currentStep: {},
-    campaign: {}
+    campaign: {
+      startAt: moment(),
+      endAt: moment()
+    }
   }
 
   componentWillMount() {
@@ -39,9 +42,12 @@ class StepsContainer extends Component {
   renderContent = (currentStep) => {
     switch (currentStep.id) {
       case 0:
-        return <FirstStep offices={this.props.offices} campaign={this.state.campaign}/>;
+        return <FirstStep offices={this.props.offices}
+                  campaign={this.state.campaign}
+                  onChangeData={this.onChangeData}/>;
       case 1:
-        return <SecondStep campaign={this.state.campaign}/>;
+        return <SecondStep campaign={this.state.campaign}
+                  onChangeData={this.onChangeData}/>;
       default:
         break;
     }
@@ -65,6 +71,16 @@ class StepsContainer extends Component {
 
   onChangeImage = (ev, values) => {
     const field = { upload:  values};
+    this.setState(prevState => ({
+      campaign: {
+        ...prevState.campaign,
+        ...field,
+      }
+    }));
+  }
+
+  onChangeData = (values, label) => {
+    const field = { [label]: values };
     this.setState(prevState => ({
       campaign: {
         ...prevState.campaign,
@@ -102,8 +118,8 @@ class StepsContainer extends Component {
       cuponData.title = campaign.title;
       cuponData.address = campaign.office && campaign.office.value;
       cuponData.totalCoupons = campaign.couponsNumber;
-      cuponData.date = moment(campaign.startAt).format("DD MMM") + '-' + moment(campaign.endAt).format("DD MMM YYYY");
-      cuponData.image = campaign.image && campaign.image.imagePreviewUrl;
+      cuponData.date = campaign.startAt.format("DD MMM") + '-' + campaign.endAt.format("DD MMM YYYY");
+      cuponData.image = campaign.upload && campaign.upload.imagePreviewUrl;
     }
 
     return (

@@ -43,8 +43,8 @@ class NewCampaingPage extends Component {
       await mutate({
         mutation: createCampaing,
         variables: {
-          startAt: values.startAt,
-          endAt: values.endAt,
+          startAt: values.startAt.valueOf(),
+          endAt: values.endAt.valueOf(),
           officeId: values.office.id,
           country: values.country.value,
           city: values.city.value,
@@ -54,15 +54,15 @@ class NewCampaingPage extends Component {
           customMessage: values.customMessage,
           initialAgeRange: values.ageRange.min,
           finalAgeRange: values.ageRange.max,
-          upload: values.image.file
+          upload: values.upload.file
         },
         optimisticResponse: {
           __typename: "Mutation",
           addCampaign: {
             __typename: "CampaignForHunter",
             id: -1,
-            startAt: values.startAt,
-            endAt: values.endAt,
+            startAt: values.startAt.valueOf(),
+            endAt: values.endAt.valueOf(),
             officeId: values.office.id,
             country: values.country.value,
             city: values.city.value,
@@ -71,7 +71,7 @@ class NewCampaingPage extends Component {
             customMessage: values.customMessage,
             initialAgeRange: values.ageRange.min,
             finalAgeRange: values.ageRange.max,
-            image: values.image.imagePreviewUrl,
+            image: values.upload.imagePreviewUrl,
             office: {
               __typename:"OfficeSimple",
               id: -1,

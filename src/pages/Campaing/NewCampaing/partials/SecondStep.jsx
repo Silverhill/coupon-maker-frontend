@@ -23,7 +23,7 @@ class SecondStep extends Component {
   }
 
   render() {
-    const { intl, campaign } = this.props;
+    const { intl, onChangeData } = this.props;
     const agesRanges = this.getValuesToAgeRange();
 
     return (
@@ -45,12 +45,14 @@ class SecondStep extends Component {
                     labelText={intl.formatMessage({id: 'campaigns.new.place.country.label'})}
                     placeholder={intl.formatMessage({id: 'campaigns.new.place.country.placeholder'})}
                     options={constants.countries}
-                    className={cx(styles.field, styles.left )}/>
+                    className={cx(styles.field, styles.left )}
+                    selectedOption={values => onChangeData(values, 'country')}/>
               <Select name="city"
                     labelText={intl.formatMessage({id: 'campaigns.new.place.city.label'})}
                     placeholder={intl.formatMessage({id: 'campaigns.new.place.city.placeholder'})}
                     options={constants.cities}
-                    className={cx(styles.field, styles.right)}/>
+                    className={cx(styles.field, styles.right)}
+                    selectedOption={values => onChangeData(values, 'city')}/>
             </div>
             <div className={cx(styles.row, styles.row_padding)}>
               <div className={styles.fieldColumn}>
@@ -67,7 +69,7 @@ class SecondStep extends Component {
                     options={agesRanges}
                     placeholder={intl.formatMessage({id: 'campaigns.new.ageRange.placeholder'})}
                     className={cx(styles.field, styles.left )}
-                    value={campaign && campaign.ageRange}/>
+                    selectedOption={values => onChangeData(values, 'ageRange')}/>
             </div>
           </div>
         </Panel>
