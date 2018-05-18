@@ -1,42 +1,37 @@
 import React, { Component } from 'react';
 import StepsContainer from './StepsContainer';
-import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
 import { createOffice, getMyCompany, makerOffices } from 'Services/graphql/queries.graphql';
 import { graphql } from 'react-apollo';
 
-@connect(state => ({
-  form: state.form.create_office
-}))
 class NewOfficePage extends Component {
 
   goToOffices = () =>{
     this.props.history.push('/offices')
   }
 
-  createOffice = async (values = {}) => {
-    const { form, data: { myCompany } } = this.props;
-    const { client: { mutate } } = this.props;
+  createOffice = async (values) => {
+    const { data: { myCompany }, client: { mutate } } = this.props;
     try {
       await mutate({
         mutation: createOffice,
         variables: {
-          ruc: form.values.ruc,
-          economicActivity: form.values.economicActivity,
-          contributorType: form.values.contributorType,
-          legalRepresentative: form.values.legalRepresentative,
-          name: form.values.name,
-          officePhone: form.values.officePhone,
-          cellPhone: form.values.cellPhone,
-          address: form.values.address,
-          email: form.values.email,
+          ruc: values.ruc,
+          economicActivity: values.economicActivity,
+          contributorType: values.contributorType,
+          legalRepresentative: values.legalRepresentative,
+          name: values.name,
+          officePhone: values.officePhone,
+          cellPhone: values.cellPhone,
+          address: values.address,
+          email: values.email,
           companyId: myCompany.id
         },
         refetchQueries: [{query: makerOffices}]
       });
       this.goToOffices();
-    } catch (error) {
-      return;
+    } catch (err) {
+      console.log('err', err.message);
     }
   }
 

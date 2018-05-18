@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withApollo, Query } from 'react-apollo';
-import { connect } from 'react-redux';
 import { canjear, huntersCompany } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import classNames from 'classnames/bind';
@@ -11,11 +10,6 @@ import RegisterCouponForm from './RegisterCouponForm';
 import { maxnum } from 'Utils/filters';
 
 const cx = classNames.bind(styles)
-
-
-@connect(state => ({
-  form: state.form.registerCoupon
-}))
 
 class CouponsPage extends Component {
 
@@ -34,16 +28,13 @@ class CouponsPage extends Component {
     })
   }
 
-  registerCoupon = async (values = {}) => {
-    const {
-      form,
-      client: { mutate }
-    } = this.props;
+  registerCoupon = async (code) => {
+    const { client: { mutate } } = this.props;
     try {
       await mutate({
         mutation: canjear,
         variables: {
-          code: form.values.code
+          code: code
         }
       })
     } catch (error) {

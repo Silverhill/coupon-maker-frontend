@@ -28,7 +28,7 @@ import EditCompanyPage from '../Offices/EditCompany/EditCompanyPage';
 // Styles
 import * as palette from 'Styles/palette.css';
 //Actions
-import * as userActions from '../../actions/userActions';
+import * as userActions from 'Actions/userActions';
 
 import { maxnum } from 'Utils/filters';
 

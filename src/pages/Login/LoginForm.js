@@ -1,56 +1,60 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
 //styles
 import classNames from 'classnames/bind';
 import styles from './LoginPage.css'
-import 'coupon-components/build/styles.css';
 //components
 import { InputBox, Button, Typography, Card } from 'coupon-components';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Logo from 'Components/Logo/Logo';
 
 const cx = classNames.bind(styles);
 
 class LoginForm extends React.Component {
+  state = {
+    account: {}
+  }
+
+  onChange = (ev) => {
+    const field = { [ev.target.name]: ev.target.value };
+    this.setState(prevState => ({
+      account: {
+        ...prevState.account,
+        ...field,
+      }
+    }));
+  }
+
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+    const { account } = this.state;
+    const { onSubmit } = this.props;
+    if(onSubmit) onSubmit(account);
+  }
+
   render() {
+    const { intl } = this.props;
     const form = (
-      <form onSubmit={this.props.handleSubmit}>
-        <FormattedMessage id="login.labels.email">
-          {placeholder =>
-            <Field
-              name="email"
-              reduxFormInput
-              component={InputBox}
-              leftIcon="FaUser"
-              placeholder={placeholder}
-              shape="pill"
-              className={styles.input}
-            />
-          }
-        </FormattedMessage>
-
-        <FormattedMessage id="login.labels.password">
-          { placeholder =>
-            <Field
-              name="password"
-              reduxFormInput
-              component={InputBox}
-              leftIcon="FaLock"
-              type="password"
-              placeholder={placeholder}
-              shape="pill"
-              className={styles.input}
-            />
-          }
-        </FormattedMessage>
-
+      <form onChange={this.onChange} onSubmit={this.handleSubmit}>
+        <InputBox name="email"
+          leftIcon="FaUser"
+          placeholder={intl.formatMessage({id: 'login.labels.email'})}
+          type="email"
+          shape="pill"
+          className={styles.input}
+          required="required"/>
+        <InputBox name="password"
+          leftIcon="FaLock"
+          placeholder={intl.formatMessage({id: 'login.labels.password'})}
+          type="password"
+          shape="pill"
+          className={styles.input}
+          required="required"/>
         <Button
           shape="pill"
           gradient
           type="submit"
-          text={<FormattedMessage id='login.buttons.login' />}
+          text={intl.formatMessage({id: 'login.buttons.login'})}
         />
       </form>
     )
@@ -67,7 +71,7 @@ class LoginForm extends React.Component {
         </Card>
         <div className={styles.linkBtn}>
           <Link to='register' className={styles.link}>
-            <FormattedMessage id='login.buttons.newUser' />
+            {intl.formatMessage({id: 'login.buttons.newUser'})}
           </Link>
         </div>
       </div>
@@ -75,8 +79,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default connect()(
-  reduxForm({
-    form: 'login'
-  })(LoginForm)
-);
+export default (injectIntl(LoginForm));
