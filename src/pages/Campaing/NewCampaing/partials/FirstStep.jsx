@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { injectIntl } from 'react-intl';
 import moment from 'moment';
 //Components
-import { Panel, InputBox, InputNested, Select } from 'coupon-components';
+import { Panel, InputBox, InputNested, Select, Typography } from 'coupon-components';
 import InputDate from 'Components/InputDate/InputDate'
 //Styles
 import classNames from 'classnames/bind';
@@ -11,10 +11,18 @@ const cx = classNames.bind(styles)
 
 class FirstStep extends Component {
   render() {
-    const { intl, offices, campaign, onChangeData } = this.props;
+    const { intl, offices, campaign, onChangeData, errors } = this.props;
     const officesOptions = offices && offices.map(office => {
       return { key: office.id, id: office.id, value: office.address, name: office.name };
     });
+
+    const errorMessages = (
+      <div className={styles.errorMessages}>
+        <Typography.Text  small style={{color:"red"}}>
+          { errors && errors.validNumberCoupon }
+        </Typography.Text>
+      </div>
+    );
 
     return (
       <div>
@@ -50,6 +58,7 @@ class FirstStep extends Component {
                   placeholder={intl.formatMessage({id: 'campaigns.new.couponsNumber.placeholder'})}
                   labelText={intl.formatMessage({id: 'campaigns.new.couponsNumber.label'})}
                   required="required"/>
+              { errors && errors.validNumberCoupon ? errorMessages : "" }
             </div>
           </div>
           <InputNested

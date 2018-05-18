@@ -19,7 +19,8 @@ class StepsContainer extends Component {
     campaign: {
       startAt: moment(),
       endAt: moment()
-    }
+    },
+    errors: null
   }
 
   componentWillMount() {
@@ -44,7 +45,8 @@ class StepsContainer extends Component {
       case 0:
         return <FirstStep offices={this.props.offices}
                   campaign={this.state.campaign}
-                  onChangeData={this.onChangeData}/>;
+                  onChangeData={this.onChangeData}
+                  errors={this.state.errors}/>;
       case 1:
         return <SecondStep campaign={this.state.campaign}
                   onChangeData={this.onChangeData}/>;
@@ -60,17 +62,25 @@ class StepsContainer extends Component {
   }
 
   onChange = (ev) => {
-    const field = { [ev.target.name]: ev.target.value };
-    this.setState(prevState => ({
-      campaign: {
-        ...prevState.campaign,
-        ...field,
-      }
-    }));
+    if(ev.target.name === 'couponsNumber'){
+      this.validateNumber(ev);
+    }else{
+      const field = { [ev.target.name]: ev.target.value };
+      this.updateState(field);
+    }
   }
 
   onChangeImage = (ev, values) => {
     const field = { upload:  values};
+    this.updateState(field);
+  }
+
+  onChangeData = (values, label) => {
+    const field = { [label]: values };
+    this.updateState(field);
+  }
+
+  updateState = (field) => {
     this.setState(prevState => ({
       campaign: {
         ...prevState.campaign,
@@ -79,14 +89,23 @@ class StepsContainer extends Component {
     }));
   }
 
-  onChangeData = (values, label) => {
-    const field = { [label]: values };
-    this.setState(prevState => ({
-      campaign: {
-        ...prevState.campaign,
-        ...field,
+  validateNumber = (ev) => {
+    var strNumber = ev.target.value;
+    var isvalid = /^[1-9][0-9]*$/.test(strNumber);
+    var msg = '';
+    if(isvalid){
+      if(parseInt(strNumber) <= Number.MAX_SAFE_INTEGER){
+        this.setState({ errors: null});
+        const field = { [ev.target.name]: ev.target.value };
+        this.updateState(field);
+      }else{
+        msg = 'Número fuera de rango, Por favor ingrese un número menor a '+Number.MAX_SAFE_INTEGER;
+        this.setState({ errors: { validNumberCoupon: msg}});
       }
-    }));
+    }else{
+      msg = 'Por favor ingrese un número entero positivo';
+      this.setState({ errors: { validNumberCoupon: msg}});
+    }
   }
 
   handleSubmit = (ev) => {

@@ -1,5 +1,5 @@
 export const agesRanges = [
-  {key:'children', value:'', min: 0, max: 14},
+  {key:'children', value:'', min: 1, max: 14},
   {key:'teenager', value:'', min: 15, max: 18},
   {key:'young', value:'', min: 18, max: 29},
   {key:'adult', value:'', min: 30, max: 40},
