@@ -1,20 +1,33 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
 //styles
 import styles from './CouponsPage.css'
 //components
 import { InputBox, Button, Typography } from 'coupon-components';
 
 class RegisterCouponForm extends React.Component {
+  state = {
+    code: ''
+  }
+
+  onChange = (ev) => {
+    this.setState({code: ev.target.value});
+  }
+
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+    const { code } = this.state;
+    const { onSubmit } = this.props;
+    if(onSubmit) onSubmit(code);
+  }
+
   render() {
     const form = (
-      <form onSubmit={this.props.handleSubmit} className={styles.formRegisterCoupon}>
+      <form className={styles.formRegisterCoupon}
+            onChange={this.onChange}
+            onSubmit={this.handleSubmit}>
         <div className={styles.inputRegister}>
-          <Field
+          <InputBox
             name="code"
-            reduxFormInput
-            component={InputBox}
             className={styles.inputCode}
             placeholder="COP1093"
           />
@@ -41,8 +54,4 @@ class RegisterCouponForm extends React.Component {
   }
 }
 
-export default connect()(
-  reduxForm({
-    form: 'registerCoupon'
-  })(RegisterCouponForm)
-);
+export default RegisterCouponForm;
