@@ -82,14 +82,13 @@
         padding: 10px;
 
         .information {
+          width: 70%;
           display: block;
           text-align: left;
         }
-      }
-
-      .moreInformation {
-        padding: 10px 0px 0px 25px;
-        background-color: neutralColorMedium;
+        .contacts {
+          width: 30%;
+        }
       }
 
       &:hover {
