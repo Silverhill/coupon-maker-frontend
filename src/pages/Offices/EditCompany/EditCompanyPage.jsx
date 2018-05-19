@@ -4,6 +4,7 @@ import { Card, InputFile, Avatar, InputBox, Button } from 'coupon-components';
 import { withApollo } from 'react-apollo';
 import { Query } from 'react-apollo';
 import { getMyCompany, updateMyCompany } from 'Services/graphql/queries.graphql';
+import { toast } from 'react-toastify';
 
 import styles from './EditCompany.css';
 
@@ -11,6 +12,16 @@ class EditCompanyPage extends Component {
   state = {
     company: {}
   }
+
+  toastId = 'companyToast';
+
+  notify = () => this.toastId = toast("Almacenando....", { autoClose: false });
+
+  update = () => toast.update(this.toastId, {
+    render: 'Actualizado',
+    type: toast.TYPE.SUCCESS,
+    autoClose: 2000
+  });
 
   onSubmit = async (ev) => {
     ev.preventDefault();
@@ -44,12 +55,19 @@ class EditCompanyPage extends Component {
           if(updateCompany.slogan) { data.myCompany.slogan = updateCompany.slogan; }
           if(updateCompany.logo) { data.myCompany.logo = updateCompany.logo; }
           cache.writeQuery({ query: getMyCompany, data: data });
-          if(updateCompany.id === -1) this.props.history.push('/offices')
+          if(updateCompany.id === -1) {
+            this.props.history.push('/offices')
+            this.notify();
+          }else{
+            this.update();
+          }
         }
       });
-    } catch (error) {
-      console.log('error', error);
-      return;
+    } catch (err) {
+      const errors = err;
+      errors.graphQLErrors.map((value)=>{
+        toast(value.message, { type: toast.TYPE.ERROR, autoClose: 5000 });
+      })
     }
   }
 

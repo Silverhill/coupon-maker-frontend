@@ -8,6 +8,7 @@ import { withApollo } from 'react-apollo';
 import { makerOffices } from 'Services/graphql/queries.graphql';
 import * as palette from 'Styles/palette.css';
 import styles from './NewCampaing.css';
+import { toast } from 'react-toastify';
 
 class NewCampaingPage extends Component {
 
@@ -36,6 +37,12 @@ class NewCampaingPage extends Component {
   goToCampaings = () =>{
     this.props.history.push('/campaigns')
   }
+
+  toastId = 'campaignToast';
+
+  notify = () => this.toastId = toast("Almacenando....", { autoClose: false });
+
+  update = () => toast.update(this.toastId, { render: 'Guardado', type: toast.TYPE.SUCCESS, autoClose: 2000 });
 
   createCampaing = async (values) => {
     const { client: { mutate } } = this.props;
@@ -87,11 +94,17 @@ class NewCampaingPage extends Component {
           dataCampaingsHome.myCampaigns.campaigns = [addCampaign, ...dataCampaingsHome.myCampaigns.campaigns]
           cache.writeQuery({ query: makerCampaigns, variables: {limit:10, sortDirection:-1}, data: dataCampaingsPage });
           cache.writeQuery({ query: makerCampaigns, variables: {limit:3, sortDirection:-1}, data: dataCampaingsHome });
-          if(addCampaign.id === -1) this.goToCampaings();
+          if(addCampaign.id === -1){
+            this.goToCampaings();
+            this.notify();
+          }else{
+            this.update();
+          }
         }
       });
     } catch (err) {
       console.log('err', err.message);
+      toast('Ha ocurrido un error', { type: toast.TYPE.ERROR, autoClose: 2000 });
     }
   }
 
