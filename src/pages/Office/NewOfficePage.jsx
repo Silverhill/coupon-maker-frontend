@@ -4,19 +4,32 @@ import { withApollo } from 'react-apollo';
 import { createOffice, getMyCompany, makerOffices } from 'Services/graphql/queries.graphql';
 import { graphql } from 'react-apollo';
 import { toast, Flip } from 'react-toastify';
+import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 class NewOfficePage extends Component {
 
-  toastId = 'officeToast';
+  showSuccessNotification = () => {
+    toast(
+      <ToastTemplate
+        title="Nueva Sucursal"
+        subtitle="Sucursal agregada correctamente"
+        status='success'
+      />
+    )
+  }
 
-  notify = () => this.toastId = toast("Almacenando....", { autoClose: false });
-
-  update = () => toast.update(this.toastId, {
-    render: 'Guardado',
-    type: toast.TYPE.SUCCESS,
-    autoClose: 2000,
-    transition: Flip
-  });
+  showErrorNotification = (resp) => {
+    const errors = resp || {};
+    errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
+      toast(
+        <ToastTemplate
+          title='Ha ocurrido un error'
+          subtitle={value.message}
+          status='error'
+        />
+      )
+    })
+  }
 
   goToOffices = () =>{
     this.props.history.push('/offices')
@@ -62,17 +75,13 @@ class NewOfficePage extends Component {
           cache.writeQuery({ query: makerOffices, data: data });
           if(addOffice.id === -1) {
             this.goToOffices();
-            this.notify();
           }else{
-            this.update();
+            this.showSuccessNotification();
           }
         }
       });
     } catch (err) {
-      const errors = err;
-      errors.graphQLErrors.map((value)=>{
-        toast(value.message, { type: toast.TYPE.ERROR, autoClose: 5000 });
-      })
+      this.showErrorNotification(err);
     }
   }
 

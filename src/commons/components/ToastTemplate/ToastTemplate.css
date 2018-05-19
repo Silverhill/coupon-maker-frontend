@@ -1,0 +1,28 @@
+@value colors: "Styles/palette.css";
+@value (
+  grayFlat
+) from colors;
+
+.container {
+
+  .toast {
+    display: flex;
+    align-items: center;
+
+    .icon {
+      width: 20%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .message {
+      width: 80%;
+
+      .subtitle {
+        font-size: 12px;
+        color: grayFlat;
+      }
+    }
+  }
+}

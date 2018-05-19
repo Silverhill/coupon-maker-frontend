@@ -5,6 +5,7 @@ import { withApollo } from 'react-apollo';
 import { Query } from 'react-apollo';
 import { getMe, updateProfile } from 'Services/graphql/queries.graphql';
 import { toast } from 'react-toastify';
+import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 import styles from './EditProfile.css';
 
@@ -13,10 +14,27 @@ class EditProfilePage extends Component {
     user: {}
   }
 
-  notify = () => toast('Datos Actualizado', {
-    type: toast.TYPE.SUCCESS,
-    autoClose: 2000
-  });
+  showSuccessNotification = () => {
+    toast(
+      <ToastTemplate
+        subtitle="Tu informacion se ha actulizado correctamente"
+        status='success'
+      />
+    )
+  }
+
+  showErrorNotification = (resp) => {
+    const errors = resp || {};
+    errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
+      toast(
+        <ToastTemplate
+          title='Ha ocurrido un error'
+          subtitle={value.message}
+          status='error'
+        />
+      )
+    })
+  }
 
   onSubmit = async (ev) => {
     ev.preventDefault();
@@ -52,15 +70,13 @@ class EditProfilePage extends Component {
           if(updateUser.id === -1) {
             this.props.history.push('/profile')
           }else{
-            this.notify();
+            this.showSuccessNotification();
           }
         }
       });
     } catch (err) {
-      const errors = err;
-      errors.graphQLErrors.map((value)=>{
-        toast(value.message, { type: toast.TYPE.ERROR, autoClose: 5000 });
-      })
+      this.showErrorNotification(err);
+      return;
     }
   }
 
