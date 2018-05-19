@@ -4,6 +4,7 @@ import { Card, InputFile, Avatar, InputBox, Button } from 'coupon-components';
 import { withApollo } from 'react-apollo';
 import { Query } from 'react-apollo';
 import { getMe, updateProfile } from 'Services/graphql/queries.graphql';
+import { toast } from 'react-toastify';
 
 import styles from './EditProfile.css';
 
@@ -11,6 +12,11 @@ class EditProfilePage extends Component {
   state = {
     user: {}
   }
+
+  notify = () => toast('Datos Actualizado', {
+    type: toast.TYPE.SUCCESS,
+    autoClose: 2000
+  });
 
   onSubmit = async (ev) => {
     ev.preventDefault();
@@ -43,12 +49,18 @@ class EditProfilePage extends Component {
           if(updateUser.email) { data.me.email = updateUser.email; }
           if(updateUser.image) { data.me.image = updateUser.image; }
           cache.writeQuery({ query: getMe, data: data });
-          if(updateUser.id === -1) this.props.history.push('/profile')
+          if(updateUser.id === -1) {
+            this.props.history.push('/profile')
+          }else{
+            this.notify();
+          }
         }
       });
-    } catch (error) {
-      console.log('error', error);
-      return;
+    } catch (err) {
+      const errors = err;
+      errors.graphQLErrors.map((value)=>{
+        toast(value.message, { type: toast.TYPE.ERROR, autoClose: 5000 });
+      })
     }
   }
 

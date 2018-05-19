@@ -3,7 +3,7 @@ import StepsContainer from './StepsContainer';
 import { withApollo } from 'react-apollo';
 import { createOffice, getMyCompany, makerOffices } from 'Services/graphql/queries.graphql';
 import { graphql } from 'react-apollo';
-import { toast } from 'react-toastify';
+import { toast, Flip } from 'react-toastify';
 
 class NewOfficePage extends Component {
 
@@ -11,7 +11,12 @@ class NewOfficePage extends Component {
 
   notify = () => this.toastId = toast("Almacenando....", { autoClose: false });
 
-  update = () => toast.update(this.toastId, { render: 'Guardado', type: toast.TYPE.SUCCESS, autoClose: 2000 });
+  update = () => toast.update(this.toastId, {
+    render: 'Guardado',
+    type: toast.TYPE.SUCCESS,
+    autoClose: 2000,
+    transition: Flip
+  });
 
   goToOffices = () =>{
     this.props.history.push('/offices')
@@ -64,8 +69,10 @@ class NewOfficePage extends Component {
         }
       });
     } catch (err) {
-      console.log('err', err.message);
-      toast('Ha ocurrido un error', { type: toast.TYPE.ERROR, autoClose: 5000 });
+      const errors = err;
+      errors.graphQLErrors.map((value)=>{
+        toast(value.message, { type: toast.TYPE.ERROR, autoClose: 5000 });
+      })
     }
   }
 
