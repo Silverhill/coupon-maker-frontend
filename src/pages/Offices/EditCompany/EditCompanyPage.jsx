@@ -5,6 +5,7 @@ import { withApollo } from 'react-apollo';
 import { Query } from 'react-apollo';
 import { getMyCompany, updateMyCompany } from 'Services/graphql/queries.graphql';
 import { toast } from 'react-toastify';
+import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 import styles from './EditCompany.css';
 
@@ -13,15 +14,27 @@ class EditCompanyPage extends Component {
     company: {}
   }
 
-  toastId = 'companyToast';
+  showSuccessNotification = () => {
+    toast(
+      <ToastTemplate
+        subtitle="Tu informacion se ha actulizado correctamente"
+        status='success'
+      />
+    )
+  }
 
-  notify = () => this.toastId = toast("Almacenando....", { autoClose: false });
-
-  update = () => toast.update(this.toastId, {
-    render: 'Actualizado',
-    type: toast.TYPE.SUCCESS,
-    autoClose: 2000
-  });
+  showErrorNotification = (resp) => {
+    const errors = resp || {};
+    errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
+      toast(
+        <ToastTemplate
+          title='Ha ocurrido un error'
+          subtitle={value.message}
+          status='error'
+        />
+      )
+    })
+  }
 
   onSubmit = async (ev) => {
     ev.preventDefault();
@@ -57,17 +70,14 @@ class EditCompanyPage extends Component {
           cache.writeQuery({ query: getMyCompany, data: data });
           if(updateCompany.id === -1) {
             this.props.history.push('/offices')
-            this.notify();
           }else{
-            this.update();
+            this.showSuccessNotification();
           }
         }
       });
     } catch (err) {
-      const errors = err;
-      errors.graphQLErrors.map((value)=>{
-        toast(value.message, { type: toast.TYPE.ERROR, autoClose: 5000 });
-      })
+      this.showErrorNotification(err);
+      return;
     }
   }
 

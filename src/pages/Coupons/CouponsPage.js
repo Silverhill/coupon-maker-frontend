@@ -3,6 +3,8 @@ import { withApollo, Query } from 'react-apollo';
 import { canjear, huntersCompany } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import classNames from 'classnames/bind';
+import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
+import { toast } from 'react-toastify';
 
 import { Typography, Panel, Card, BasicRow } from 'coupon-components';
 import styles from './CouponsPage.css';
@@ -16,6 +18,29 @@ class CouponsPage extends Component {
   state = {
     errors: null,
     isOpenRowId: ''
+  }
+
+  showSuccessNotification = () => {
+    toast(
+      <ToastTemplate
+        title="Coupon"
+        subtitle="Ha sido canjeado correctamente"
+        status='success'
+      />
+    )
+  }
+
+  showErrorNotification = (resp) => {
+    const errors = resp || {};
+    errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
+      toast(
+        <ToastTemplate
+          title='Ha ocurrido un error'
+          subtitle={value.message}
+          status='error'
+        />
+      )
+    })
   }
 
   showDetails = (e, id) => {
@@ -37,10 +62,9 @@ class CouponsPage extends Component {
           code: code
         }
       })
-    } catch (error) {
-      this.setState({
-        errors: error
-      });
+      this.showSuccessNotification();
+    } catch (err) {
+      this.showErrorNotification(err);
       return;
     }
   }

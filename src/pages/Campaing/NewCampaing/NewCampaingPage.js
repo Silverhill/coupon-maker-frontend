@@ -9,12 +9,36 @@ import { makerOffices } from 'Services/graphql/queries.graphql';
 import * as palette from 'Styles/palette.css';
 import styles from './NewCampaing.css';
 import { toast } from 'react-toastify';
+import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 class NewCampaingPage extends Component {
 
   state = {
     offices: [],
     company: null,
+  }
+
+  showSuccessNotification = () => {
+    toast(
+      <ToastTemplate
+        title="Nueva Campaña"
+        subtitle="Ha sido agregada correctamente"
+        status='success'
+      />
+    )
+  }
+
+  showErrorNotification = (resp) => {
+    const errors = resp || {};
+    errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
+      toast(
+        <ToastTemplate
+          title='Ha ocurrido un error'
+          subtitle={value.message}
+          status='error'
+        />
+      )
+    })
   }
 
   async componentDidMount() {
@@ -96,15 +120,14 @@ class NewCampaingPage extends Component {
           cache.writeQuery({ query: makerCampaigns, variables: {limit:3, sortDirection:-1}, data: dataCampaingsHome });
           if(addCampaign.id === -1){
             this.goToCampaings();
-            this.notify();
           }else{
-            this.update();
+            this.showSuccessNotification();
           }
         }
       });
     } catch (err) {
-      console.log('err', err.message);
-      toast('Ha ocurrido un error', { type: toast.TYPE.ERROR, autoClose: 2000 });
+      this.showErrorNotification(err);
+      return;
     }
   }
 

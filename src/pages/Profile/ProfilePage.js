@@ -5,14 +5,40 @@ import { Card, Typography, Button, Avatar, InputFile, Menu, InputBox } from 'cou
 import { injectIntl } from 'react-intl';
 import { withApollo } from 'react-apollo';
 import { changeUserImage, updateMyPassword } from 'Services/graphql/queries.graphql';
+import { toast } from 'react-toastify';
+import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 import styles from './ProfilePage.css';
 import * as palette from 'Styles/palette.css';
+
 class ProfilePage extends Component {
   state = {
     isLoadingImage: false,
     showChangePassword: false,
     user: {}
+  }
+
+  showSuccessNotification = () => {
+    toast(
+      <ToastTemplate
+        subtitle="Contraseña actualizada correctamente"
+        status='success'
+        iconProps={{name: 'MdVpnKey'}}
+      />
+    )
+  }
+
+  showErrorNotification = (resp) => {
+    const errors = resp || {};
+    errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
+      toast(
+        <ToastTemplate
+          title='Ha ocurrido un error'
+          subtitle={value.message}
+          status='error'
+        />
+      )
+    })
   }
 
   changeImage = async (ev, value) => {
@@ -74,9 +100,11 @@ class ProfilePage extends Component {
           newPass: user.newPass
         }
       });
+      this.showSuccessNotification();
       this.setState({showChangePassword: false});
-    } catch (error) {
-      console.log('error', error);
+    } catch (err) {
+      debugger
+      this.showErrorNotification(err);
       return;
     }
   }

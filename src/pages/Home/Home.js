@@ -179,8 +179,24 @@ class Home extends Component {
       </Query>
     );
 
+    const CloseButton = ({closeToast }) => (
+      <Icon
+        name="TiDelete"
+        color={palette.baseGrayMedium}
+        size={20}
+        onClick={closeToast}
+      />
+    );
+
     return (
       <div className={styles.container}>
+        <ToastContainer
+          toastClassName={styles.grayFlat}
+          closeButton={<CloseButton />}
+          draggable={false}
+          autoClose= {false}
+          hideProgressBar={true}
+        />
         <Header tabs={tabOptions} optionsUser={optionsUser}/>
         <div className={styles.mainView}>
           <div className={styles.leftPanel}>
@@ -213,7 +229,6 @@ class Home extends Component {
           </main>
         </div>
         <Footer/>
-        <ToastContainer />
       </div>
     );
   }

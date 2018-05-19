@@ -39,6 +39,11 @@
 @value darkNeutral: #8F8E94;
 @value darkColor: baseGray;
 @value highlightColor: brightBlue;
+@value toastError: #F86B5B;
+@value toastSuccess: #15d86c;
+@value toastInfo: brightBlue;
+@value toastWarning: #FFB32C;
+@value grayFlat: #6c6c6c;
 
 /****************
  * Pallette
