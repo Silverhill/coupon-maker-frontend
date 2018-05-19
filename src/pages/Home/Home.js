@@ -9,6 +9,8 @@ import { withApollo, Query } from 'react-apollo';
 import { getMyCompany, makerCampaigns } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import moment from 'moment';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Components
 import Header from 'Components/Header/Header';
@@ -211,6 +213,7 @@ class Home extends Component {
           </main>
         </div>
         <Footer/>
+        <ToastContainer />
       </div>
     );
   }
