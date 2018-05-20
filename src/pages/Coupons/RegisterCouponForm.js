@@ -1,4 +1,6 @@
 import React from 'react';
+import { injectIntl } from 'react-intl';
+
 //styles
 import styles from './CouponsPage.css'
 //components
@@ -21,6 +23,10 @@ class RegisterCouponForm extends React.Component {
   }
 
   render() {
+    const {
+      intl,
+    } = this.props;
+
     const form = (
       <form className={styles.formRegisterCoupon}
             onChange={this.onChange}
@@ -34,13 +40,13 @@ class RegisterCouponForm extends React.Component {
         </div>
         <div className={styles.description}>
           <Typography.Text small light>
-            Puedes buscar el código que aparece en cada cupon para registrarlo manualmente. Ingresa el código en el campo y registra tu cupón.
+            {intl.formatMessage({id: 'coupons.form.label'})}
           </Typography.Text>
           <Button
             shape="pill"
             gradient
             type="submit"
-            text="Canjear"
+            text={intl.formatMessage({id: 'coupons.form.button'})}
           />
         </div>
       </form>
@@ -54,4 +60,4 @@ class RegisterCouponForm extends React.Component {
   }
 }
 
-export default RegisterCouponForm;
+export default injectIntl(RegisterCouponForm);
