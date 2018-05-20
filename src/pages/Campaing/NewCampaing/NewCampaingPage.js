@@ -64,11 +64,6 @@ class NewCampaingPage extends Component {
     this.props.history.push('/campaigns')
   }
 
-  toastId = 'campaignToast';
-
-  notify = () => this.toastId = toast("Almacenando....", { autoClose: false });
-
-  update = () => toast.update(this.toastId, { render: 'Guardado', type: toast.TYPE.SUCCESS, autoClose: 2000 });
 
   createCampaing = async (values) => {
     const { client: { mutate } } = this.props;
