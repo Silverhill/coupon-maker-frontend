@@ -22,17 +22,26 @@ class ColorPicker extends Component {
   }
 
   toggle = (color) => {
-    this.setState({
-      current: color
-    });
-    if(this.props.currentColor) this.props.currentColor(color);
+    if (this.state.current !== color){
+      this.setState({
+        current: color
+      });
+      if(this.props.current) this.props.current(color);
+    }
   }
 
   selectColor = (e, color) => {
+    const newColor = (color !== this.state.selected) ? color : null;
     this.setState({
-      selected: color,
+      selected: newColor,
     });
-    if(this.props.selectedColor) this.props.selectedColor(color);
+    if(this.props.selected) this.props.selected(newColor);
+  }
+
+  reset = () => {
+    this.setState({
+      selected: null,
+    });
   }
 
   render () {
@@ -45,8 +54,9 @@ class ColorPicker extends Component {
       image,
     } = this.props
 
+
     const Squares = ({ values }) => (
-      <div className={cx(styles.container, className)}>
+      <div className={cx(styles.squares)}>
         {
           values && values.map((value, index) => {
             if (value) {
@@ -58,14 +68,12 @@ class ColorPicker extends Component {
               return (
                 <div
                   key={index}
-                  className={styles.square}
+                  className={cx(styles.square, this.state.selected === value ? styles.squareSelected : '')}
                   style={stylesSquare}
                   onMouseLeave={e => this.onMouseLeave(e, null) }
                   onMouseEnter={e => this.onMouseOver(e, currentColor)}
                   onClick={e => this.selectColor(e, currentColor)}
-                >
-                {this.state.selected === value ? '✔' : ''}
-                </div>
+                />
               )
             }
           })
@@ -74,20 +82,29 @@ class ColorPicker extends Component {
     )
 
     return (
-      <Palette image={image}>
-        { palette => (
-          <Squares
-            values={[
-              palette.vibrant,
-              palette.lightVibrant,
-              palette.darkVibrant,
-              palette.muted,
-              palette.lightMuted,
-              palette.darkMute
-            ]}
-          />
-        )}
-      </Palette>
+      <div className={cx(styles.container, className)}>
+        {
+          image &&
+          <Palette image={image}>
+            { palette => (
+              <Squares
+                values={[
+                  palette.vibrant,
+                  palette.lightVibrant,
+                  palette.darkVibrant,
+                  palette.muted,
+                  palette.lightMuted,
+                  palette.darkMute
+                ]}
+              />
+            )}
+          </Palette>
+        }
+        {
+          values &&
+          <Squares values={values} />
+        }
+      </div>
     )
   }
 }

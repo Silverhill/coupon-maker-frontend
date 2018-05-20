@@ -5,11 +5,11 @@
 ) from colors;
 
 .campaing {
-  width: 100%;
   margin: 10px;
+  transition: background 0.5s;
 }
 
-.previsualization {
+.preview {
   padding: 10px;
   display: flex;
   justify-content: center;

@@ -21,25 +21,24 @@ class StepsContainer extends Component {
     campaign: {
       startAt: moment(),
       endAt: moment(),
-      background: null,
     },
     errors: null,
-    colorCoupon: null,
-    previewColor: null
-  }
-
-  currentColor = (color) => {
-    this.setState({ previewColor: color});
-  }
-
-  selectedColor = (color) => {
-    this.setState({ colorCoupon: color});
-    if(this.props.selectedColor) this.props.selectedColor(color);
+    backgroundCoupon: null,
+    previewBackground: null,
   }
 
   componentWillMount() {
     const { steps } = this.props;
     this.setState({ steps, currentStep: steps[0] });
+  }
+
+  currentBackground = (color) => {
+    this.setState({ previewBackground: color});
+  }
+
+  selectedBackground = (color) => {
+    this.setState({ backgroundCoupon: color});
+    if(this.props.selectedBackground) this.props.selectedBackground(color);
   }
 
   handleStepsChange = (currentStep) => {
@@ -136,9 +135,10 @@ class StepsContainer extends Component {
   }
 
   render() {
-    const { steps, currentStep, campaign } = this.state;
+    const { steps, currentStep, campaign, paletteSelected } = this.state;
     const { intl, company } = this.props;
     const cuponData = {};
+
     let moveBtn;
     if(currentStep.id === 1){
       moveBtn = {
@@ -160,7 +160,7 @@ class StepsContainer extends Component {
         <div className={styles.tabs}>
           <StepByStep steps={steps} onChange={this.handleStepsChange} className={styles.steps}/>
         </div>
-        <Panel title={intl.formatMessage({id: 'campaigns.new.panel.previsualization'})} classNameContainer={cx(styles.panel, styles.cuponContainer)}>
+        <Panel title={intl.formatMessage({id: 'campaigns.new.panel.previsualization'})} classNameContainer={cx(styles.preview, styles.cuponContainer)}>
           <InputFile name="image"
               className={styles.inputFileTrigger}
               updateFile={this.onChangeImage}>
@@ -171,26 +171,27 @@ class StepsContainer extends Component {
                 date={cuponData.date}
                 address={cuponData.address}
                 totalCoupons={maxnum(cuponData.totalCoupons)}
-                background={this.state.previewColor || this.state.colorCoupon}
+                background={this.state.previewBackground || this.state.backgroundCoupon}
                 className={styles.campaing}/>
           </InputFile>
           <div className={styles.palettes}>
-            <ColorPicker
-              image={company.logo}
-              size="25px"
-              currentColor={this.currentColor}
-              selectedColor={this.selectedColor}
-            />
+            {
+              company.logo &&
+              <ColorPicker
+                image={company.logo}
+                size="25px"
+                current={this.currentBackground}
+                selected={this.selectedBackground}
+              />
+            }
             {
               cuponData.image &&
-              <div>
-                <ColorPicker
-                  image={cuponData.image}
-                  size="25px"
-                  currentColor={this.currentColor}
-                  selectedColor={this.selectedColor}
-                />
-              </div>
+              <ColorPicker
+                image={cuponData.image}
+                size="25px"
+                current={this.currentBackground}
+                selected={this.selectedBackground}
+              />
             }
           </div>
         </Panel>

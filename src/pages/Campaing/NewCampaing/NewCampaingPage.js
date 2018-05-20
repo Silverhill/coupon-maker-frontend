@@ -14,12 +14,12 @@ class NewCampaingPage extends Component {
   state = {
     offices: [],
     company: null,
-    couponColor: null,
+    couponBackground: null,
   }
 
-  selectedColor = (color) =>{
+  selectedBackground = (background) =>{
     this.setState({
-      couponColor: color
+      couponBackground: background
     });
   }
 
@@ -62,7 +62,7 @@ class NewCampaingPage extends Component {
           initialAgeRange: values.ageRange.min,
           finalAgeRange: values.ageRange.max,
           upload: values.upload.file,
-          background: this.state.couponColor,
+          background: this.state.couponBackground,
         },
         optimisticResponse: {
           __typename: "Mutation",
@@ -86,7 +86,7 @@ class NewCampaingPage extends Component {
               address: 'waiting address'
             },
             totalCoupons: parseInt(values.couponsNumber),
-            background: this.state.couponColor,
+            background: this.state.couponBackground,
           }
         },
         update: (cache, { data: {addCampaign} }) => {
@@ -117,7 +117,7 @@ class NewCampaingPage extends Component {
         offices={offices}
         company={company}
         onSubmit={this.createCampaing}
-        selectedColor={this.selectedColor}
+        selectedBackground={this.selectedBackground}
       />
     );
     const emptyState = (
