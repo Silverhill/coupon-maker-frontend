@@ -4,7 +4,7 @@ import { withApollo } from 'react-apollo';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { createOffice, getMyCompany, makerOffices } from 'Services/graphql/queries.graphql';
 import { graphql } from 'react-apollo';
-import { toast, Flip } from 'react-toastify';
+import { toast } from 'react-toastify';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 class NewOfficePage extends Component {
@@ -22,12 +22,14 @@ class NewOfficePage extends Component {
   showErrorNotification = (resp) => {
     const errors = resp || {};
     errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
-      toast(
-        <ToastTemplate
-          title={<FormattedMessage id='office.toasts.error.create.title' />}
-          subtitle={value.message}
-          status='error'
-        />
+      return (
+        toast(
+          <ToastTemplate
+            title={<FormattedMessage id='office.toasts.error.create.title' />}
+            subtitle={value.message}
+            status='error'
+          />
+        )
       )
     })
   }
