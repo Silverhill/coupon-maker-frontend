@@ -54,16 +54,15 @@ class EditProfilePage extends Component {
 
   onChange = (ev) => {
     const field = { [ev.target.name]: ev.target.value };
-    this.setState(prevState => ({
-      user: {
-        ...prevState.user,
-        ...field,
-      }
-    }));
+    this.updateState(field);
   }
 
   onChangeImage = (ev, values) => {
     const field = { upload:  values};
+    this.updateState(field);
+  }
+
+  updateState = (field) => {
     this.setState(prevState => ({
       user: {
         ...prevState.user,

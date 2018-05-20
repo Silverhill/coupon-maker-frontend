@@ -8,15 +8,21 @@
   & input {
     border-radius: 5px;
     border: solid 1px mediumNeutral;
+    width: 130px;
     height: 45px;
     font-size: 12px;
     text-align: center;
     color: darkColor;
     cursor: pointer;
+    padding-right: 10px;
+    padding-left: 10px;
     &:focus {
       border-color: highlightNeutral;
       border-width: 2px;
       outline: none;
     }
+  }
+  & ul{
+    padding: 0px;
   }
 }

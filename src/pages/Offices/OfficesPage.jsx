@@ -53,12 +53,10 @@ class OfficesPage extends Component {
           cache.writeQuery({ query: getMyCompany, data: data });
         }
       });
-      this.setState({isLoadingImage: false});
     } catch (err) {
-      this.setState({isLoadingImage: false});
       console.log('Error-->', err);
-      return;
     }
+    this.setState({isLoadingImage: false});
   }
 
 

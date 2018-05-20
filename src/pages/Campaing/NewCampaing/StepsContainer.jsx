@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { Card, Panel, StepByStep, RoundButton, InputFile } from 'coupon-components';
+import { Card, Panel, Coupon, StepByStep, RoundButton, InputFile } from 'coupon-components';
 import FirstStep from './partials/FirstStep';
 import SecondStep from './partials/SecondStep';
 import { injectIntl } from 'react-intl';
-import Palette from 'react-palette';
-import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
+
 import moment from 'moment';
 import classNames from 'classnames/bind';
-import Coupon from 'Components/Coupon2/Coupon2';
-import ColorPicker from 'Components/ColorPicker/ColorPicker';
 
 import { maxnum } from 'Utils/filters';
 
@@ -20,8 +16,11 @@ class StepsContainer extends Component {
   state = {
     steps: [],
     currentStep: {},
-    colorCoupon: null,
-    previewColor: null
+    campaign: {
+      startAt: moment(),
+      endAt: moment()
+    },
+    errors: null
   }
 
   componentWillMount() {
@@ -44,18 +43,16 @@ class StepsContainer extends Component {
   renderContent = (currentStep) => {
     switch (currentStep.id) {
       case 0:
-        return <FirstStep offices={this.props.offices}/>;
+        return <FirstStep offices={this.props.offices}
+                  campaign={this.state.campaign}
+                  onChangeData={this.onChangeData}
+                  errors={this.state.errors}/>;
       case 1:
-        return <SecondStep/>;
+        return <SecondStep campaign={this.state.campaign}
+                  onChangeData={this.onChangeData}/>;
       default:
         break;
     }
-  }
-
-  nextStep = () => {
-    const { steps } = this.state;
-    let newStep = this.state.currentStep.id + 1 ;
-    this.handleStepsChange(steps[newStep]);
   }
 
   prevStep = () => {
@@ -64,16 +61,68 @@ class StepsContainer extends Component {
     this.handleStepsChange(steps[newStep]);
   }
 
-  currentColor = (color) => {
-    this.setState({ previewColor: color});
+  onChange = (ev) => {
+    if(ev.target.name === 'couponsNumber'){
+      this.validateNumber(ev);
+    }else{
+      const field = { [ev.target.name]: ev.target.value };
+      this.updateState(field);
+    }
   }
 
-  selectedColor = (color) => {
-    this.setState({ colorCoupon: color});
+  onChangeImage = (ev, values) => {
+    const field = { upload:  values};
+    this.updateState(field);
+  }
+
+  onChangeData = (values, label) => {
+    const field = { [label]: values };
+    this.updateState(field);
+  }
+
+  updateState = (field) => {
+    this.setState(prevState => ({
+      campaign: {
+        ...prevState.campaign,
+        ...field,
+      }
+    }));
+  }
+
+  validateNumber = (ev) => {
+    var strNumber = ev.target.value;
+    var isvalid = /^[1-9][0-9]*$/.test(strNumber);
+    var msg = '';
+    if(isvalid){
+      if(parseInt(strNumber) <= Number.MAX_SAFE_INTEGER){
+        this.setState({ errors: null});
+        const field = { [ev.target.name]: ev.target.value };
+        this.updateState(field);
+      }else{
+        msg = 'Número fuera de rango, Por favor ingrese un número menor a '+Number.MAX_SAFE_INTEGER;
+        this.setState({ errors: { validNumberCoupon: msg}});
+      }
+    }else{
+      msg = 'Por favor ingrese un número entero positivo';
+      this.setState({ errors: { validNumberCoupon: msg}});
+    }
+  }
+
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+    const { campaign, currentStep } = this.state;
+    const { onSubmit } = this.props;
+    if(currentStep.id === 1 && onSubmit){
+      onSubmit(campaign);
+    }else{
+      const { steps } = this.state;
+      let newStep = this.state.currentStep.id + 1 ;
+      this.handleStepsChange(steps[newStep]);
+    }
   }
 
   render() {
-    const { steps, currentStep } = this.state;
+    const { steps, currentStep, campaign } = this.state;
     const { intl, company } = this.props;
     const cuponData = {};
     let moveBtn;
@@ -84,13 +133,12 @@ class StepsContainer extends Component {
         right: '72px',
       };
     }
-    const valuesForm = this.props.form_campaing && this.props.form_campaing.values;
-    if(valuesForm){
-      cuponData.title = valuesForm.title;
-      cuponData.address = valuesForm.office && valuesForm.office.value;
-      cuponData.totalCoupons = valuesForm.couponsNumber;
-      cuponData.date = moment(valuesForm.startAt).format("DD MMM") + '-' + moment(valuesForm.endAt).format("DD MMM YYYY");
-      cuponData.image = valuesForm.image && valuesForm.image.imagePreviewUrl;
+    if(campaign){
+      cuponData.title = campaign.title;
+      cuponData.address = campaign.office && campaign.office.value;
+      cuponData.totalCoupons = campaign.couponsNumber;
+      cuponData.date = campaign.startAt.format("DD MMM") + '-' + campaign.endAt.format("DD MMM YYYY");
+      cuponData.image = campaign.upload && campaign.upload.imagePreviewUrl;
     }
 
     return (
@@ -98,118 +146,33 @@ class StepsContainer extends Component {
         <div className={styles.tabs}>
           <StepByStep steps={steps} onChange={this.handleStepsChange} className={styles.steps}/>
         </div>
-
-        <form onSubmit={this.props.handleSubmit}>
-          <Panel title={intl.formatMessage({id: 'campaigns.new.panel.previsualization'})} classNameContainer={cx(styles.previsualization, styles.cuponContainer)}>
-            <Field name="image"
-                reduxFormInput
-                component={InputFile}
-                className={styles.inputFileTrigger}>
-                <Coupon
-                  patternUrl="http://thepatternlibrary.com/img/ak.png"
-                  color={this.state.previewColor || this.state.colorCoupon}
-                  image={cuponData.image}
-                  logo={company.logo}
-                  title={cuponData.title}
-                  date={cuponData.date}
-                  address={cuponData.address}
-                  totalCoupons={maxnum(cuponData.totalCoupons)}
-                  className={styles.campaing}/>
-            </Field>
-            <div className={styles.palettes}>
-              <Palette image={company.logo}>
-                { palette => (
-                  <ColorPicker
-                    colors={[
-                      palette.vibrant,
-                      palette.lightVibrant,
-                      palette.darkVibrant,
-                      palette.muted,
-                      palette.lightMuted,
-                      palette.darkMute
-                    ]}
-                    size="25px"
-                    currentColor={this.currentColor}
-                    selectedColor={this.selectedColor}
-                  />
-                )}
-              </Palette>
-              <Palette image={company.logo}>
-                { palette => (
-                  <ColorPicker
-                    colors={[
-                      palette.vibrant,
-                      palette.lightVibrant,
-                      palette.darkVibrant,
-                      palette.muted,
-                      palette.lightMuted,
-                      palette.darkMute
-                    ]}
-                    size="25px"
-                    currentColor={this.currentColor}
-                    selectedColor={this.selectedColor}
-                    withDegrate={true}
-                  />
-                )}
-              </Palette>
-              <ColorPicker
-                colors={[
-                  'http://thepatternlibrary.com/img/bc.png',
-                  'http://thepatternlibrary.com/img/ah.png',
-                  'http://thepatternlibrary.com/img/ap.jpg',
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqOFCRV5yojlPRuBY-uIPAftcRaHaxfjzIWbe3sJmQvb2HA0-v',
-                  'https://blog.spoongraphics.co.uk/wp-content/uploads/2012/12/15.png',
-                  'https://d1yn1kh78jj1rr.cloudfront.net/image/preview/rDtN98Qoishumwih/seamless-patterns-for-mothers-day-celebration_fJnicT_O_SB_PM.jpg',
-                  'https://previews.123rf.com/images/daisybea/daisybea1409/daisybea140900012/31359781-greeting-card-or-menu-template-for-father-s-day-with-hand-made-text-and-mustache-background-pattern-.jpg',
-                  'https://img3.stockfresh.com/files/i/ivaleksa/m/64/2817004_stock-photo-chevron-pattern-fathers-day-card.jpg',
-                  'https://i.pinimg.com/originals/49/d4/a9/49d4a9d77d730fd72481b472baf15cbd.jpg',
-                  'https://previews.123rf.com/images/elenarolau/elenarolau1601/elenarolau160100003/50151959-simple-valentines-day-background-hearts-seamless-vector-pattern-flat-design-texture-made-of-heart-si.jpg',
-                ]}
-                size="25px"
-                currentColor={this.currentColor}
-                selectedColor={this.selectedColor}
-                withPatterns={true}
-              />
-              {
-                cuponData.image &&
-                <Palette image={cuponData.image}>
-                  { palette => (
-                    <ColorPicker
-                      colors={[
-                        palette.vibrant,
-                        palette.lightVibrant,
-                        palette.darkVibrant,
-                        palette.muted,
-                        palette.lightMuted,
-                        palette.darkMute
-                      ]}
-                      size="25px"
-                      currentColor={this.currentColor}
-                      selectedColor={this.selectedColor}
-                      withDegrate={true}
-                    />
-                  )}
-                </Palette>
-              }
-            </div>
-          </Panel>
+        <Panel title={intl.formatMessage({id: 'campaigns.new.panel.previsualization'})} classNameContainer={cx(styles.panel, styles.cuponContainer)}>
+          <InputFile name="image"
+              className={styles.inputFileTrigger}
+              updateFile={this.onChangeImage}>
+              <Coupon
+                image={cuponData.image}
+                logo={company.logo}
+                title={cuponData.title}
+                date={cuponData.date}
+                address={cuponData.address}
+                totalCoupons={maxnum(cuponData.totalCoupons)}
+                className={styles.campaing}/>
+          </InputFile>
+        </Panel>
+        <form onChange={this.onChange} onSubmit={this.handleSubmit}>
           {this.renderContent(currentStep)}
-          {(currentStep.id === 1) && <div className={styles.submitButton}>
+          <div className={styles.submitButton}>
             <RoundButton icon="FaArrowRight" type="submit"/>
-          </div>}
+          </div>
         </form>
 
         <div className={styles.submitButton} style={moveBtn}>
           {(currentStep.id === 1) && <RoundButton icon="FaArrowLeft" onClick={this.prevStep}/>}
-          {(currentStep.id === 0) && <RoundButton icon="FaArrowRight" onClick={this.nextStep}/>}
         </div>
       </Card>
     )
   }
 }
 
-export default connect(state => ({ form_campaing: state.form.create_campaign }))(
-  reduxForm({
-    form: 'create_campaign'
-  })(injectIntl(StepsContainer))
-);
+export default (injectIntl(StepsContainer));

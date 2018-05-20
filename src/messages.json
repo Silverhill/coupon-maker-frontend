@@ -115,14 +115,7 @@
         "ageRange": {
           "title": "Age Range",
           "description": "People you choose by age",
-          "initial": {
-            "label": "From",
-            "placeholder": "Write a number"
-          },
-          "final": {
-            "label": "To",
-            "placeholder": "Write un number"
-          }
+          "placeholder": "Select any range"
         }
       },
       "show": {
@@ -154,6 +147,17 @@
            "placeholder": "Update your email"
         },
         "update": "Update"
+      },
+      "password": {
+        "title": "Update Password",
+        "old":{
+          "label": "Old Password",
+          "placeholder": "Please type your old password"
+        },
+        "new":{
+          "label": "New Password",
+          "placeholder": "Please type your new password"
+        }
       }
     },
     "office": {
@@ -213,6 +217,17 @@
       "address": "Address",
       "company": "Company",
       "slogan": "Slogan"
+    },
+    "common": {
+      "agesRanges": {
+        "children": "Children",
+        "teenager": "Teenagers",
+        "young": "Youngs",
+        "adult": "Adults",
+        "adult_b": "Adults B",
+        "old": "Old Man",
+        "years": "years old"
+      }
     }
   },
   "es": {
@@ -331,14 +346,7 @@
         "ageRange": {
           "title": "Rango de edad",
           "description": "Personas a las que eliges por segmentación",
-          "initial": {
-            "label": "Desde",
-            "placeholder": "Escriba un número"
-          },
-          "final": {
-            "label": "Hasta",
-            "placeholder": "Escriba un número"
-          }
+          "placeholder": "Seleccione un rango"
         }
       },
       "show": {
@@ -373,6 +381,17 @@
            "placeholder": "Actualiza tu correo"
         },
         "update": "Actualizar"
+      },
+      "password": {
+        "title": "Actualizar Contraseña",
+        "old":{
+          "label": "Contraseña Actual",
+          "placeholder": "Por favor ingresa tu contraseña actual"
+        },
+        "new":{
+          "label": "Contraseña Nueva",
+          "placeholder": "Por favor ingresa tu nueva contraseña"
+        }
       }
     },
     "office": {
@@ -432,6 +451,17 @@
       "address": "Dirección",
       "company": "Compañia",
       "slogan": "Slogan"
+    },
+    "common": {
+      "agesRanges": {
+        "children": "Niños",
+        "teenager": "Adolescentes",
+        "young": "Jóvenes",
+        "adult": "Adultos",
+        "adult_b": "Adultos B",
+        "old": "Ancianos",
+        "years": "Años"
+      }
     }
   }
 }

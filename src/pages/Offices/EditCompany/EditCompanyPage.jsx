@@ -55,16 +55,15 @@ class EditCompanyPage extends Component {
 
   onChange = (ev) => {
     const field = { [ev.target.name]: ev.target.value };
-    this.setState(prevState => ({
-      company: {
-        ...prevState.company,
-        ...field,
-      }
-    }));
+    this.updateState(field);
   }
 
   onChangeImage = (ev, values) => {
     const field = { upload:  values};
+    this.updateState(field);
+  }
+
+  updateState = (field) => {
     this.setState(prevState => ({
       company: {
         ...prevState.company,
