@@ -33,12 +33,14 @@ class CouponsPage extends Component {
   showErrorNotification = (resp) => {
     const errors = resp || {};
     errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
-      toast(
-        <ToastTemplate
-          title={<FormattedMessage id='coupons.toasts.error.redeem.title' />}
-          subtitle={value.message}
-          status='error'
-        />
+      return (
+        toast(
+          <ToastTemplate
+            title={<FormattedMessage id='coupons.toasts.error.redeem.title' />}
+            subtitle={value.message}
+            status='error'
+          />
+        )
       )
     })
   }

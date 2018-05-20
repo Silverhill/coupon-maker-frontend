@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import StepsContainer from './StepsContainer';
 import { withApollo } from 'react-apollo';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { createOffice, getMyCompany, makerOffices } from 'Services/graphql/queries.graphql';
 import { graphql } from 'react-apollo';
 import { toast, Flip } from 'react-toastify';
@@ -11,8 +12,8 @@ class NewOfficePage extends Component {
   showSuccessNotification = () => {
     toast(
       <ToastTemplate
-        title="Nueva Sucursal"
-        subtitle="Sucursal agregada correctamente"
+        title={<FormattedMessage id='office.toasts.success.create.title' />}
+        subtitle={<FormattedMessage id='office.toasts.success.create.subtitle' />}
         status='success'
       />
     )
@@ -23,7 +24,7 @@ class NewOfficePage extends Component {
     errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
       toast(
         <ToastTemplate
-          title='Ha ocurrido un error'
+          title={<FormattedMessage id='office.toasts.error.create.title' />}
           subtitle={value.message}
           status='error'
         />
@@ -94,4 +95,4 @@ class NewOfficePage extends Component {
   }
 }
 
-export default graphql(getMyCompany)(withApollo(NewOfficePage));
+export default graphql(getMyCompany)(withApollo(injectIntl(NewOfficePage)));

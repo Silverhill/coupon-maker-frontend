@@ -162,6 +162,19 @@
           "available": "Available",
           "segmentation": "Segmentation"
         }
+      },
+      "toasts": {
+        "error": {
+          "create": {
+            "title": "An error has occurred"
+          }
+        },
+        "success": {
+          "create": {
+            "title": "New Campaign",
+            "subtitle": "Has been added successfully"
+          }
+        }
       }
     },
     "profile": {
@@ -187,6 +200,24 @@
         "new":{
           "label": "New Password",
           "placeholder": "Please type your new password"
+        }
+      },
+      "toasts": {
+        "error": {
+          "update": {
+            "title": "An error has occurred"
+          },
+          "updatePassword": {
+            "title": "An error has occurred"
+          }
+        },
+        "success": {
+          "update": {
+            "subtitle": "Information updated successfully"
+          },
+          "updatePassword": {
+            "subtitle": "Password updated successfully"
+          }
         }
       }
     },
@@ -232,6 +263,19 @@
           "label": "Email",
           "placeholder": "Write your email"
         }
+      },
+      "toasts": {
+        "error": {
+          "create": {
+            "title": "An error has occurred"
+          }
+        },
+        "success": {
+          "create": {
+            "title": "New Office",
+            "subtitle": "Has been added successfully"
+          }
+        }
       }
     },
     "myOffices": {
@@ -246,7 +290,19 @@
       "title": "My Company",
       "address": "Address",
       "company": "Company",
-      "slogan": "Slogan"
+      "slogan": "Slogan",
+      "toasts": {
+        "error": {
+          "update": {
+            "title": "An error has occurred"
+          }
+        },
+        "success": {
+          "update": {
+            "subtitle": "Your information was updated successfully"
+          }
+        }
+      }
     },
     "common": {
       "agesRanges": {
@@ -426,6 +482,19 @@
           "available": "Disponibles",
           "segmentation": "Segmentación"
         }
+      },
+      "toasts": {
+        "error": {
+          "create": {
+            "title": "Ha ocurrido un error"
+          }
+        },
+        "success": {
+          "create": {
+            "title": "Nueva Campaña",
+            "subtitle": "Ha sido agregada correctamente"
+          }
+        }
       }
     },
     "profile": {
@@ -451,6 +520,24 @@
         "new":{
           "label": "Contraseña Nueva",
           "placeholder": "Por favor ingresa tu nueva contraseña"
+        }
+      },
+      "toasts": {
+        "error": {
+          "update": {
+            "title": "Ha ocurrido un error"
+          },
+          "updatePassword": {
+            "title": "Ha ocurrido un error"
+          }
+        },
+        "success": {
+          "update": {
+            "subtitle": "Información actualizada correctamente"
+          },
+          "updatePassword": {
+            "subtitle": "Contraseña actualizada correctamente"
+          }
         }
       }
     },
@@ -496,6 +583,19 @@
           "label": "Correo",
           "placeholder": "Ingresa tu correo"
         }
+      },
+      "toasts": {
+        "error": {
+          "create": {
+            "title": "Ha ocurrido un error"
+          }
+        },
+        "success": {
+          "create": {
+            "title": "Nueva Sucursal",
+            "subtitle": "Ha sido agregada correctamente"
+          }
+        }
       }
     },
     "myOffices": {
@@ -510,7 +610,19 @@
       "title": "Mi Compañia",
       "address": "Dirección",
       "company": "Compañia",
-      "slogan": "Slogan"
+      "slogan": "Slogan",
+      "toasts": {
+        "error": {
+          "update": {
+            "title": "Ha ocurrido un error"
+          }
+        },
+        "success": {
+          "update": {
+            "subtitle": "Tu información se actualizo correctamente"
+          }
+        }
+      }
     },
     "common": {
       "agesRanges": {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Card, InputFile, Avatar, InputBox, Button } from 'coupon-components';
 import { withApollo } from 'react-apollo';
 import { Query } from 'react-apollo';
@@ -17,7 +17,7 @@ class EditCompanyPage extends Component {
   showSuccessNotification = () => {
     toast(
       <ToastTemplate
-        subtitle="Tu informacion se ha actulizado correctamente"
+        subtitle={<FormattedMessage id='myCompany.toasts.success.update.subtitle' />}
         status='success'
       />
     )
@@ -26,12 +26,14 @@ class EditCompanyPage extends Component {
   showErrorNotification = (resp) => {
     const errors = resp || {};
     errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
-      toast(
-        <ToastTemplate
-          title='Ha ocurrido un error'
-          subtitle={value.message}
-          status='error'
-        />
+      return (
+        toast(
+          <ToastTemplate
+            title={<FormattedMessage id='myCompany.toasts.error.update.subtitle' />}
+            subtitle={value.message}
+            status='error'
+          />
+        )
       )
     })
   }
