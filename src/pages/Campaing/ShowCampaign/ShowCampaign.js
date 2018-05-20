@@ -141,7 +141,7 @@ class ShowCampaing extends Component {
           if (error) return notFound;
           const {campaign} = data;
           const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
-          const imageCover = campaign && campaign.image || placeholderImage
+          const imageCover = (campaign && campaign.image) || placeholderImage
           const stylesStatus = campaign && campaign.status === "expired" ?
                             {color: palette.dark, backgroundColor: palette.baseGrayMedium} :
                             {color: palette.whiteColor, backgroundColor: palette.primaryColor};

@@ -72,6 +72,7 @@ class NewCampaingPage extends Component {
 
   createCampaing = async (values) => {
     const { client: { mutate } } = this.props;
+    const coupons = parseInt(values.couponsNumber, 10);
     try {
       await mutate({
         mutation: createCampaing,
@@ -81,7 +82,7 @@ class NewCampaingPage extends Component {
           officeId: values.office.id,
           country: values.country.value,
           city: values.city.value,
-          couponsNumber: parseInt(values.couponsNumber),
+          couponsNumber: coupons,
           title: values.title,
           description: values.description,
           customMessage: values.customMessage,
@@ -110,7 +111,7 @@ class NewCampaingPage extends Component {
               id: -1,
               address: 'waiting address'
             },
-            totalCoupons: parseInt(values.couponsNumber)
+            totalCoupons: coupons
           }
         },
         update: (cache, { data: {addCampaign} }) => {

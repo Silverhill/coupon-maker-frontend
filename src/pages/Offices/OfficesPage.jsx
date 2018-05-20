@@ -8,6 +8,8 @@ import { Query } from 'react-apollo';
 import { makerOffices, getMyCompany } from 'Services/graphql/queries.graphql';
 import { withApollo } from 'react-apollo';
 import { changeLogoCompany } from 'Services/graphql/queries.graphql';
+import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
+import { toast } from 'react-toastify';
 
 import styles from './OfficesPage.css';
 import * as palette from 'Styles/palette.css';
@@ -17,6 +19,21 @@ class OfficesPage extends Component {
     currentOffice:'',
     isLoadingImage: false
   };
+
+  showErrorNotification = (resp) => {
+    const errors = resp || {};
+    errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
+      return (
+        toast(
+          <ToastTemplate
+            title={<FormattedMessage id='myCompany.toasts.error.update.title' />}
+            subtitle={value.message}
+            status='error'
+          />
+        )
+      )
+    })
+  }
 
   changeMenu = (id) => {
     this.props.history.push(`/company/${id}/edit`)
@@ -54,7 +71,7 @@ class OfficesPage extends Component {
         }
       });
     } catch (err) {
-      console.log('Error-->', err);
+      this.showErrorNotification(err);
     }
     this.setState({isLoadingImage: false});
   }
