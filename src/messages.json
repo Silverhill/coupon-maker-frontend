@@ -37,6 +37,36 @@
         "register": "Register"
       }
     },
+    "coupons": {
+      "title": "Register Coupon",
+      "form": {
+        "label": "You can search the code that appears in each coupon to register it manually. Enter the code in the field and register your coupon.",
+        "button": "Redeem"
+      },
+      "toasts": {
+        "error": {
+          "redeem": {
+            "title": "An error has occurred"
+          }
+        },
+        "success": {
+          "redeem": {
+            "title": "Coupon",
+            "subtitle": "Successfull Redeem"
+          }
+        }
+      },
+      "AllHunters": {
+        "panel": {
+          "title": "All Hunters"
+        },
+        "empty": {
+          "title": "Hunters",
+          "description": "This section will let you know about your clients",
+          "tip": "All your customers will be listed here"
+        }
+      }
+    },
     "home":{
       "campaings" : {
         "active": {
@@ -266,6 +296,36 @@
       "buttons": {
         "hasAccount": "Ya tienes cuenta? Ingresa",
         "register": "Registrarme"
+      }
+    },
+    "coupons": {
+      "title": "Registrar Cupon",
+      "form": {
+        "label": "Puedes buscar el código que aparece en cada cupon para registrarlo manualmente. Ingresa el código en el campo y registra tu cupón.",
+        "button": "Canjear"
+      },
+      "toasts": {
+        "error": {
+          "redeem": {
+            "title": "Ha ocurrido un error"
+          }
+        },
+        "success": {
+          "redeem": {
+            "title": "Cupon",
+            "subtitle": "Canjeado exitosamente"
+          }
+        }
+      },
+      "AllHunters": {
+        "panel": {
+          "title": "Todos los Hunters"
+        },
+        "empty": {
+          "title": "Hunters",
+          "description": "Esta sección te permitira saber de tus cliente",
+          "tip": "Todos tus clientes seran listados aquí"
+        }
       }
     },
     "home":{

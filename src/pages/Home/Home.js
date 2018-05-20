@@ -194,7 +194,7 @@ class Home extends Component {
           toastClassName={styles.grayFlat}
           closeButton={<CloseButton />}
           draggable={false}
-          autoClose= {false}
+          autoClose= {5000}
           hideProgressBar={true}
         />
         <Header tabs={tabOptions} optionsUser={optionsUser}/>
@@ -215,7 +215,7 @@ class Home extends Component {
           </div>
           <main className={styles.renderContainer}>
             <Switch>
-              <Route exact path='/' component={PageHome} />
+              <Route exact path='/' component={CouponsPage} />
               <Route path='/campaigns' component={Campaigns} />
               <Route path='/new_coupon' component={CouponsPage} />
               <Route path='/offices' component={OfficesPage} />

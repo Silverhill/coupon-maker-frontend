@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import { withApollo, Query } from 'react-apollo';
 import { canjear, huntersCompany } from 'Services/graphql/queries.graphql';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import classNames from 'classnames/bind';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 import { toast } from 'react-toastify';
 
-import { Typography, Panel, Card, BasicRow } from 'coupon-components';
+import { Typography, Panel, Card, BasicRow, Icon } from 'coupon-components';
 import styles from './CouponsPage.css';
 import RegisterCouponForm from './RegisterCouponForm';
 import { maxnum } from 'Utils/filters';
+import * as palette from 'Styles/palette.css';
 
 const cx = classNames.bind(styles)
 
 class CouponsPage extends Component {
 
   state = {
-    errors: null,
     isOpenRowId: ''
   }
 
   showSuccessNotification = () => {
     toast(
       <ToastTemplate
-        title="Coupon"
-        subtitle="Ha sido canjeado correctamente"
+        title={<FormattedMessage id='coupons.toasts.success.redeem.title' />}
+        subtitle={<FormattedMessage id='coupons.toasts.success.redeem.subtitle' />}
         status='success'
       />
     )
@@ -35,7 +35,7 @@ class CouponsPage extends Component {
     errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
       toast(
         <ToastTemplate
-          title='Ha ocurrido un error'
+          title={<FormattedMessage id='coupons.toasts.error.redeem.title' />}
           subtitle={value.message}
           status='error'
         />
@@ -70,6 +70,55 @@ class CouponsPage extends Component {
   }
 
   render() {
+    const {
+      intl,
+    } = this.props;
+
+    const emptyState = (
+      <div className={styles.emptyState}>
+        <div className={styles.illustration}>
+          <div className={styles.circle}>
+            <Icon
+              name="MdDirectionsRun"
+              color={palette.darkNeutral}
+              size={50}
+              style={
+                {
+                  margin: 20,
+                  padding: 30,
+                }
+              }
+            />
+            <div className={styles.coupons}>
+              <Icon
+                  name="CpTicket"
+                  color={palette.silverColor}
+                  size={10}
+              />
+              <Icon
+                  name="CpTicket"
+                  color={palette.brightBlue}
+                  size={12}
+              />
+              <Icon
+                  name="CpTicket"
+                  color={palette.pinkRed}
+                  size={15}
+              />
+            </div>
+          </div>
+        </div>
+        <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
+          {intl.formatMessage({id: 'coupons.AllHunters.empty.title'})}
+        </Typography.Text>
+        <Typography.Text small>
+          {intl.formatMessage({id: 'coupons.AllHunters.empty.description'})}
+        </Typography.Text>
+        <Typography.Text small>
+          {intl.formatMessage({id: 'coupons.AllHunters.empty.tip'})}
+        </Typography.Text>
+      </div>
+    )
 
     const hunters = (
       <Query query={huntersCompany} variables={{ id: this.props.match.params.id }}>
@@ -81,11 +130,11 @@ class CouponsPage extends Component {
           const total = hunters ? hunters.length : 0;
           return (
             <div>
-              {total === 0 && anyHunter}
+              {total === 0 && emptyState}
               {total > 0 &&
                 hunters && hunters.map((cpg) => {
                   const key = { key: cpg.id };
-                  const image = cpg.image || "http://www.drjoydentalclinic.com/wp-content/uploads/2017/03/user.png";
+                  const image = cpg.image;
                   const show = isOpenRowId === cpg.id;
                   const classSelected = show ? styles.selected : '';
                   return (
@@ -153,28 +202,11 @@ class CouponsPage extends Component {
       </Query>
     )
 
-    const anyHunter = (
-      <div className={styles.notFound}>
-        <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
-          Aun nadie a tomado esta promoción
-        </Typography.Text>
-      </div>
-    )
-
-    const errorMessages = (
-      <div className={styles.errorMessages}>
-        <Typography.Text  small style={{color:"red"}}>
-          Codigo Invalido
-        </Typography.Text>
-      </div>
-    )
-
     return (
       <div className={styles.container}>
-        <Card title="Registrar Coupon">
+        <Card title={intl.formatMessage({id: 'coupons.title'})}>
           <div className={styles.register}>
             <RegisterCouponForm onSubmit={this.registerCoupon}/>
-            {this.state.errors ? errorMessages : ""}
           </div>
           <div style={{marginTop: '10px'}}>
             {/* <Panel title="Top 5 Hunters">
@@ -182,8 +214,10 @@ class CouponsPage extends Component {
             </Panel> */}
           </div>
           <div style={{marginTop: '10px'}}>
-            <Panel title="Todos los Hunters" className={styles.hunters}>
-            {hunters}
+            <Panel
+              title={intl.formatMessage({id: 'coupons.AllHunters.panel.title'})}
+              className={styles.hunters}>
+              {hunters}
             </Panel>
           </div>
         </Card>
