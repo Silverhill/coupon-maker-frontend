@@ -163,6 +163,7 @@ class Home extends Component {
                             address={cpg.office.address}
                             totalCoupons={maxnum(cpg.totalCoupons)}
                             className={styles.campaign}
+                            background={cpg.background}
                             onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
                           />
                         )

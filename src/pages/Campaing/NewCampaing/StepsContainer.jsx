@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Card, Panel, Coupon, StepByStep, RoundButton, InputFile } from 'coupon-components';
 import FirstStep from './partials/FirstStep';
 import SecondStep from './partials/SecondStep';
+import ColorPicker from 'Components/ColorPicker/ColorPicker';
+
 import { injectIntl } from 'react-intl';
 
 import moment from 'moment';
@@ -18,9 +20,21 @@ class StepsContainer extends Component {
     currentStep: {},
     campaign: {
       startAt: moment(),
-      endAt: moment()
+      endAt: moment(),
+      background: null,
     },
-    errors: null
+    errors: null,
+    colorCoupon: null,
+    previewColor: null
+  }
+
+  currentColor = (color) => {
+    this.setState({ previewColor: color});
+  }
+
+  selectedColor = (color) => {
+    this.setState({ colorCoupon: color});
+    if(this.props.selectedColor) this.props.selectedColor(color);
   }
 
   componentWillMount() {
@@ -157,8 +171,28 @@ class StepsContainer extends Component {
                 date={cuponData.date}
                 address={cuponData.address}
                 totalCoupons={maxnum(cuponData.totalCoupons)}
+                background={this.state.previewColor || this.state.colorCoupon}
                 className={styles.campaing}/>
           </InputFile>
+          <div className={styles.palettes}>
+            <ColorPicker
+              image={company.logo}
+              size="25px"
+              currentColor={this.currentColor}
+              selectedColor={this.selectedColor}
+            />
+            {
+              cuponData.image &&
+              <div>
+                <ColorPicker
+                  image={cuponData.image}
+                  size="25px"
+                  currentColor={this.currentColor}
+                  selectedColor={this.selectedColor}
+                />
+              </div>
+            }
+          </div>
         </Panel>
         <form onChange={this.onChange} onSubmit={this.handleSubmit}>
           {this.renderContent(currentStep)}

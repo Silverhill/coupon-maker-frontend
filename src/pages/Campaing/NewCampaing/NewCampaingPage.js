@@ -14,11 +14,17 @@ class NewCampaingPage extends Component {
   state = {
     offices: [],
     company: null,
+    couponColor: null,
+  }
+
+  selectedColor = (color) =>{
+    this.setState({
+      couponColor: color
+    });
   }
 
   async componentDidMount() {
     const { client } = this.props;
-
     try {
       const { data: { myOffices, myCompany } } = await client.query({
         query: makerOffices,
@@ -39,6 +45,7 @@ class NewCampaingPage extends Component {
 
   createCampaing = async (values) => {
     const { client: { mutate } } = this.props;
+
     try {
       await mutate({
         mutation: createCampaing,
@@ -54,7 +61,8 @@ class NewCampaingPage extends Component {
           customMessage: values.customMessage,
           initialAgeRange: values.ageRange.min,
           finalAgeRange: values.ageRange.max,
-          upload: values.upload.file
+          upload: values.upload.file,
+          background: this.state.couponColor,
         },
         optimisticResponse: {
           __typename: "Mutation",
@@ -77,7 +85,8 @@ class NewCampaingPage extends Component {
               id: -1,
               address: 'waiting address'
             },
-            totalCoupons: parseInt(values.couponsNumber)
+            totalCoupons: parseInt(values.couponsNumber),
+            background: this.state.couponColor,
           }
         },
         update: (cache, { data: {addCampaign} }) => {
@@ -102,7 +111,15 @@ class NewCampaingPage extends Component {
     ];
     const { offices, company } = this.state;
     const total = offices ? offices.length : 0;
-    const createCampaing = (<StepsContainer steps={steps} offices={offices} company={company} onSubmit={this.createCampaing}/>);
+    const createCampaing = (
+      <StepsContainer
+        steps={steps}
+        offices={offices}
+        company={company}
+        onSubmit={this.createCampaing}
+        selectedColor={this.selectedColor}
+      />
+    );
     const emptyState = (
       <div className={styles.emptyOffice}>
         <Icon

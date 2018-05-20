@@ -51,6 +51,7 @@ query makerCampaigns($limit: Int, $sortDirection: Int){
       endAt
       image
       totalCoupons
+      background
     }
   }
 }
@@ -97,6 +98,7 @@ query getCampaign($id:String!){
       id
       address
     }
+    background
   }
 }
 
@@ -146,6 +148,7 @@ mutation createCampaing(
   $initialAgeRange: Int,
   $finalAgeRange: Int,
   $officeId: String!,
+  $background: String,
   $upload: Upload) {
     addCampaign(input:{
       startAt: $startAt,
@@ -160,6 +163,7 @@ mutation createCampaing(
       finalAgeRange: $finalAgeRange,
       officeId: $officeId,
       upload: $upload
+      background: $background,
     }) {
       id
       title
@@ -178,6 +182,7 @@ mutation createCampaing(
         address
       }
       totalCoupons
+      background
     }
 }
 

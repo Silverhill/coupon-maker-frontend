@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames/bind'
 import styles from './ColorPicker.css'
+import Palette from 'react-palette';
 
 const cx = classNames.bind(styles)
 
@@ -12,7 +13,7 @@ class ColorPicker extends Component {
     current: null
   }
 
-  onMouseOut = (e, color) => {
+  onMouseLeave = (e, color) => {
     this.toggle(color);
   }
 
@@ -21,9 +22,9 @@ class ColorPicker extends Component {
   }
 
   toggle = (color) => {
-    this.setState(prevState => ({
-      current: color,
-    }));
+    this.setState({
+      current: color
+    });
     if(this.props.currentColor) this.props.currentColor(color);
   }
 
@@ -36,17 +37,18 @@ class ColorPicker extends Component {
 
   render () {
     const {
-      colors,
+      values,
       size,
       className,
       withDegrate,
       withPatterns,
+      image,
     } = this.props
 
-    return (
+    const Squares = ({ values }) => (
       <div className={cx(styles.container, className)}>
         {
-          colors && colors.map((value, index) => {
+          values && values.map((value, index) => {
             if (value) {
               const defaultOptions = {width:size, height:size, cursor:"pointer"};
               const stylesBackground = withDegrate ? {backgroundImage: "linear-gradient(" + value + ", rgb(10, 5, 7) 85%)"} : {backgroundColor:value};
@@ -58,8 +60,8 @@ class ColorPicker extends Component {
                   key={index}
                   className={styles.square}
                   style={stylesSquare}
-                  onMouseOut={e => this.onMouseOut(e, "") }
-                  onMouseOver={e => this.onMouseOver(e, currentColor)}
+                  onMouseLeave={e => this.onMouseLeave(e, null) }
+                  onMouseEnter={e => this.onMouseOver(e, currentColor)}
                   onClick={e => this.selectColor(e, currentColor)}
                 >
                 {this.state.selected === value ? '✔' : ''}
@@ -69,6 +71,23 @@ class ColorPicker extends Component {
           })
         }
       </div>
+    )
+
+    return (
+      <Palette image={image}>
+        { palette => (
+          <Squares
+            values={[
+              palette.vibrant,
+              palette.lightVibrant,
+              palette.darkVibrant,
+              palette.muted,
+              palette.lightMuted,
+              palette.darkMute
+            ]}
+          />
+        )}
+      </Palette>
     )
   }
 }
