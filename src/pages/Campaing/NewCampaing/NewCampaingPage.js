@@ -21,8 +21,8 @@ class NewCampaingPage extends Component {
   showSuccessNotification = () => {
     toast(
       <ToastTemplate
-        title="Nueva Campaña"
-        subtitle="Ha sido agregada correctamente"
+        title={<FormattedMessage id='campaigns.toasts.success.create.title' />}
+        subtitle={<FormattedMessage id='campaigns.toasts.success.create.subtitle' />}
         status='success'
       />
     )
@@ -31,12 +31,14 @@ class NewCampaingPage extends Component {
   showErrorNotification = (resp) => {
     const errors = resp || {};
     errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
-      toast(
-        <ToastTemplate
-          title='Ha ocurrido un error'
-          subtitle={value.message}
-          status='error'
-        />
+      return (
+        toast(
+          <ToastTemplate
+            title={<FormattedMessage id='campaigns.toasts.error.create.title' />}
+            subtitle={value.message}
+            status='error'
+          />
+        )
       )
     })
   }

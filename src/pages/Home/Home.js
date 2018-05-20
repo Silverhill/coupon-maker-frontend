@@ -34,8 +34,6 @@ import * as userActions from 'Actions/userActions';
 
 import { maxnum } from 'Utils/filters';
 
-const PageHome = (props) => <div><h1>Home</h1></div>
-
 @connect(state => ({
   user: state.user,
 }),{
@@ -53,7 +51,6 @@ class Home extends Component {
     } = this.props;
 
     const placeholderlogo = 'https://fandog.co/wp-content/plugins/yith-woocommerce-multi-vendor-premium/assets/images/shop-placeholder.jpg';
-    const placeholderImage = 'https://www.ocf.berkeley.edu/~sather/wp-content/uploads/2018/01/food--1200x600.jpg';
 
     let tabOptions = [
       {
@@ -140,7 +137,7 @@ class Home extends Component {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           const { myCompany } = data;
-          const logo = myCompany && myCompany.logo || placeholderlogo;
+          const logo = (myCompany && myCompany.logo) || placeholderlogo;
           return (
             <Query query={makerCampaigns} variables={{limit:3, sortDirection:-1}}>
               {({ loading, error, data}) => {
@@ -158,7 +155,7 @@ class Home extends Component {
                         const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
                         return (
                           <Coupon {...key}
-                            image={cpg.image || placeholderImage}
+                            image={cpg.image}
                             logo={logo}
                             title={cpg.title}
                             date={date}

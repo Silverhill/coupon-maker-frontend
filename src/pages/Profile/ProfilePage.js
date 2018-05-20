@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
 import { Card, Typography, Button, Avatar, InputFile, Menu, InputBox } from 'coupon-components';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { withApollo } from 'react-apollo';
 import { changeUserImage, updateMyPassword } from 'Services/graphql/queries.graphql';
 import { toast } from 'react-toastify';
@@ -21,7 +21,7 @@ class ProfilePage extends Component {
   showSuccessNotification = () => {
     toast(
       <ToastTemplate
-        subtitle="Contraseña actualizada correctamente"
+        subtitle={<FormattedMessage id='profile.toasts.success.updatePassword.subtitle' />}
         status='success'
         iconProps={{name: 'MdVpnKey'}}
       />
@@ -31,12 +31,14 @@ class ProfilePage extends Component {
   showErrorNotification = (resp) => {
     const errors = resp || {};
     errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
-      toast(
-        <ToastTemplate
-          title='Ha ocurrido un error'
-          subtitle={value.message}
-          status='error'
-        />
+      return (
+        toast(
+          <ToastTemplate
+            title={<FormattedMessage id='profile.toasts.error.updatePassword.title' />}
+            subtitle={value.message}
+            status='error'
+          />
+        )
       )
     })
   }
@@ -65,7 +67,7 @@ class ProfilePage extends Component {
         }
       });
     } catch (err) {
-      console.log('Error-->', err);
+      this.showErrorNotification(err);
     }
     this.setState({isLoadingImage: false});
   }
@@ -103,7 +105,6 @@ class ProfilePage extends Component {
       this.showSuccessNotification();
       this.setState({showChangePassword: false});
     } catch (err) {
-      debugger
       this.showErrorNotification(err);
       return;
     }
