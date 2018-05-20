@@ -1,13 +1,33 @@
 import React from 'react';
-import { Typography } from 'coupon-components';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { Typography, Table } from 'coupon-components';
+import { injectIntl } from 'react-intl';
 
 import styles from '../OfficesPage.css';
 import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
-
 const RowOffice = ({ className, data, onClick, isOpen, intl }) => {
+  const tableData = {
+    columns: [
+      {
+        field: 'ruc',
+        title: intl.formatMessage({id: 'office.new.ruc.label'})
+      },
+      {
+        field: 'legalRepresentative',
+        title: intl.formatMessage({id: 'office.new.legalRepresentative.label'})
+      },
+      {
+        field: 'cellPhone',
+        title: intl.formatMessage({id: 'office.new.cellPhone.label'})
+      },
+    ],
+    rows: [{
+      'ruc': data.ruc,
+      'legalRepresentative': data.legalRepresentative,
+      'cellPhone': data.cellPhone,
+    }]
+  }
   return (
     <div className={cx(styles.rowContainer, className)} onClick={onClick}>
       <div className={styles.basicInformation}>
@@ -19,7 +39,7 @@ const RowOffice = ({ className, data, onClick, isOpen, intl }) => {
             {data.address}
           </Typography.Label>
         </div>
-        <div className={styles.information}>
+        <div className={styles.contacts}>
           <Typography.Label lighter style={{margin:0}}>
             Telf: {data.officePhone}
           </Typography.Label>
@@ -28,12 +48,7 @@ const RowOffice = ({ className, data, onClick, isOpen, intl }) => {
           </Typography.Label>
         </div>
       </div>
-      {isOpen && <div className={styles.moreInformation}>
-        <Typography.Subtitle bold><FormattedMessage id='office.new.legalRepresentative.label' /></Typography.Subtitle>
-        <Typography.Label small lighter style={{margin:0}}>{data.ruc}</Typography.Label>
-        <Typography.Label small lighter style={{margin:0}}>{data.legalRepresentative}</Typography.Label>
-        <Typography.Label small lighter style={{margin:0}}>{data.cellPhone}</Typography.Label>
-      </div>}
+      {isOpen && <Table columns={tableData.columns} rows = {tableData.rows} />}
     </div>
   )
 };
