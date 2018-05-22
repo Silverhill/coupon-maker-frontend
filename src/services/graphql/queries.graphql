@@ -210,6 +210,15 @@ mutation createOffice(
       companyId: $companyId
     }) {
       id
+      ruc
+      economicActivity
+      contributorType
+      legalRepresentative
+      name
+      officePhone
+      cellPhone
+      address
+      email
     }
 }
 

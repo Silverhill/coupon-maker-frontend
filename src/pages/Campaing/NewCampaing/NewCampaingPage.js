@@ -8,6 +8,8 @@ import { withApollo } from 'react-apollo';
 import { makerOffices } from 'Services/graphql/queries.graphql';
 import * as palette from 'Styles/palette.css';
 import styles from './NewCampaing.css';
+import { toast } from 'react-toastify';
+import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 class NewCampaingPage extends Component {
 
@@ -21,6 +23,31 @@ class NewCampaingPage extends Component {
     this.setState({
       couponBackground: background
     });
+  }
+
+  showSuccessNotification = () => {
+    toast(
+      <ToastTemplate
+        title={<FormattedMessage id='campaigns.toasts.success.create.title' />}
+        subtitle={<FormattedMessage id='campaigns.toasts.success.create.subtitle' />}
+        status='success'
+      />
+    )
+  }
+
+  showErrorNotification = (resp) => {
+    const errors = resp || {};
+    errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
+      return (
+        toast(
+          <ToastTemplate
+            title={<FormattedMessage id='campaigns.toasts.error.create.title' />}
+            subtitle={value.message}
+            status='error'
+          />
+        )
+      )
+    })
   }
 
   async componentDidMount() {
@@ -43,8 +70,10 @@ class NewCampaingPage extends Component {
     this.props.history.push('/campaigns')
   }
 
+
   createCampaing = async (values) => {
     const { client: { mutate } } = this.props;
+    const coupons = parseInt(values.couponsNumber, 10);
 
     try {
       await mutate({
@@ -55,7 +84,7 @@ class NewCampaingPage extends Component {
           officeId: values.office.id,
           country: values.country.value,
           city: values.city.value,
-          couponsNumber: parseInt(values.couponsNumber),
+          couponsNumber: coupons,
           title: values.title,
           description: values.description,
           customMessage: values.customMessage,
@@ -87,6 +116,7 @@ class NewCampaingPage extends Component {
             },
             totalCoupons: parseInt(values.couponsNumber),
             background: this.state.couponBackground,
+            totalCoupons: coupons
           }
         },
         update: (cache, { data: {addCampaign} }) => {
@@ -96,11 +126,16 @@ class NewCampaingPage extends Component {
           dataCampaingsHome.myCampaigns.campaigns = [addCampaign, ...dataCampaingsHome.myCampaigns.campaigns]
           cache.writeQuery({ query: makerCampaigns, variables: {limit:10, sortDirection:-1}, data: dataCampaingsPage });
           cache.writeQuery({ query: makerCampaigns, variables: {limit:3, sortDirection:-1}, data: dataCampaingsHome });
-          if(addCampaign.id === -1) this.goToCampaings();
+          if(addCampaign.id === -1){
+            this.goToCampaings();
+          }else{
+            this.showSuccessNotification();
+          }
         }
       });
     } catch (err) {
-      console.log('err', err.message);
+      this.showErrorNotification(err);
+      return;
     }
   }
 

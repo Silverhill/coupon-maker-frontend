@@ -107,7 +107,7 @@ class StepsContainer extends Component {
     var isvalid = /^[1-9][0-9]*$/.test(strNumber);
     var msg = '';
     if(isvalid){
-      if(parseInt(strNumber) <= Number.MAX_SAFE_INTEGER){
+      if(parseInt(strNumber, 10) <= Number.MAX_SAFE_INTEGER){
         this.setState({ errors: null});
         const field = { [ev.target.name]: ev.target.value };
         this.updateState(field);
@@ -135,7 +135,7 @@ class StepsContainer extends Component {
   }
 
   render() {
-    const { steps, currentStep, campaign, paletteSelected } = this.state;
+    const { steps, currentStep, campaign } = this.state;
     const { intl, company } = this.props;
     const cuponData = {};
 

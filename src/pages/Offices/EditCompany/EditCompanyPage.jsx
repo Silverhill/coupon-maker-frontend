@@ -1,15 +1,41 @@
 import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Card, InputFile, Avatar, InputBox, Button } from 'coupon-components';
 import { withApollo } from 'react-apollo';
 import { Query } from 'react-apollo';
 import { getMyCompany, updateMyCompany } from 'Services/graphql/queries.graphql';
+import { toast } from 'react-toastify';
+import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 import styles from './EditCompany.css';
 
 class EditCompanyPage extends Component {
   state = {
     company: {}
+  }
+
+  showSuccessNotification = () => {
+    toast(
+      <ToastTemplate
+        subtitle={<FormattedMessage id='myCompany.toasts.success.update.subtitle' />}
+        status='success'
+      />
+    )
+  }
+
+  showErrorNotification = (resp) => {
+    const errors = resp || {};
+    errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
+      return (
+        toast(
+          <ToastTemplate
+            title={<FormattedMessage id='myCompany.toasts.error.update.subtitle' />}
+            subtitle={value.message}
+            status='error'
+          />
+        )
+      )
+    })
   }
 
   onSubmit = async (ev) => {
@@ -44,11 +70,15 @@ class EditCompanyPage extends Component {
           if(updateCompany.slogan) { data.myCompany.slogan = updateCompany.slogan; }
           if(updateCompany.logo) { data.myCompany.logo = updateCompany.logo; }
           cache.writeQuery({ query: getMyCompany, data: data });
-          if(updateCompany.id === -1) this.props.history.push('/offices')
+          if(updateCompany.id === -1) {
+            this.props.history.push('/offices')
+          }else{
+            this.showSuccessNotification();
+          }
         }
       });
-    } catch (error) {
-      console.log('error', error);
+    } catch (err) {
+      this.showErrorNotification(err);
       return;
     }
   }

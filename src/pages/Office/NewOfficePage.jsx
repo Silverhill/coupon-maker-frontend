@@ -1,10 +1,38 @@
 import React, { Component } from 'react';
 import StepsContainer from './StepsContainer';
 import { withApollo } from 'react-apollo';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { createOffice, getMyCompany, makerOffices } from 'Services/graphql/queries.graphql';
 import { graphql } from 'react-apollo';
+import { toast } from 'react-toastify';
+import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 class NewOfficePage extends Component {
+
+  showSuccessNotification = () => {
+    toast(
+      <ToastTemplate
+        title={<FormattedMessage id='office.toasts.success.create.title' />}
+        subtitle={<FormattedMessage id='office.toasts.success.create.subtitle' />}
+        status='success'
+      />
+    )
+  }
+
+  showErrorNotification = (resp) => {
+    const errors = resp || {};
+    errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
+      return (
+        toast(
+          <ToastTemplate
+            title={<FormattedMessage id='office.toasts.error.create.title' />}
+            subtitle={value.message}
+            status='error'
+          />
+        )
+      )
+    })
+  }
 
   goToOffices = () =>{
     this.props.history.push('/offices')
@@ -27,11 +55,36 @@ class NewOfficePage extends Component {
           email: values.email,
           companyId: myCompany.id
         },
-        refetchQueries: [{query: makerOffices}]
+        optimisticResponse: {
+          __typename: "Mutation",
+          addOffice: {
+            __typename: "Office",
+            id: -1,
+            ruc: values.ruc,
+            economicActivity: values.economicActivity,
+            contributorType: values.contributorType,
+            legalRepresentative: values.legalRepresentative,
+            name: values.name,
+            officePhone: values.officePhone,
+            cellPhone: values.cellPhone,
+            address: values.address,
+            email: values.email,
+            companyId: myCompany.id
+          }
+        },
+        update: (cache, { data: {addOffice} }) => {
+          const data = cache.readQuery({ query: makerOffices });
+          data.myOffices = [addOffice, ...data.myOffices]
+          cache.writeQuery({ query: makerOffices, data: data });
+          if(addOffice.id === -1) {
+            this.goToOffices();
+          }else{
+            this.showSuccessNotification();
+          }
+        }
       });
-      this.goToOffices();
     } catch (err) {
-      console.log('err', err.message);
+      this.showErrorNotification(err);
     }
   }
 
@@ -44,4 +97,4 @@ class NewOfficePage extends Component {
   }
 }
 
-export default graphql(getMyCompany)(withApollo(NewOfficePage));
+export default graphql(getMyCompany)(withApollo(injectIntl(NewOfficePage)));

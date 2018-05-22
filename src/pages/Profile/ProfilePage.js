@@ -2,17 +2,45 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
 import { Card, Typography, Button, Avatar, InputFile, Menu, InputBox } from 'coupon-components';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { withApollo } from 'react-apollo';
 import { changeUserImage, updateMyPassword } from 'Services/graphql/queries.graphql';
+import { toast } from 'react-toastify';
+import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 import styles from './ProfilePage.css';
 import * as palette from 'Styles/palette.css';
+
 class ProfilePage extends Component {
   state = {
     isLoadingImage: false,
     showChangePassword: false,
     user: {}
+  }
+
+  showSuccessNotification = () => {
+    toast(
+      <ToastTemplate
+        subtitle={<FormattedMessage id='profile.toasts.success.updatePassword.subtitle' />}
+        status='success'
+        iconProps={{name: 'MdVpnKey'}}
+      />
+    )
+  }
+
+  showErrorNotification = (resp) => {
+    const errors = resp || {};
+    errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
+      return (
+        toast(
+          <ToastTemplate
+            title={<FormattedMessage id='profile.toasts.error.updatePassword.title' />}
+            subtitle={value.message}
+            status='error'
+          />
+        )
+      )
+    })
   }
 
   changeImage = async (ev, value) => {
@@ -39,7 +67,7 @@ class ProfilePage extends Component {
         }
       });
     } catch (err) {
-      console.log('Error-->', err);
+      this.showErrorNotification(err);
     }
     this.setState({isLoadingImage: false});
   }
@@ -74,9 +102,10 @@ class ProfilePage extends Component {
           newPass: user.newPass
         }
       });
+      this.showSuccessNotification();
       this.setState({showChangePassword: false});
-    } catch (error) {
-      console.log('error', error);
+    } catch (err) {
+      this.showErrorNotification(err);
       return;
     }
   }

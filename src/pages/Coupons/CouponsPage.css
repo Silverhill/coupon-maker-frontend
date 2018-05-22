@@ -42,6 +42,31 @@
 
   .hunters {
 
+    .emptyState {
+      text-align: center;
+      padding: 10px 0;
+
+      .illustration {
+        /* background: red; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .circle {
+          background: #f4f4f4;
+          border-radius: 50%;
+          position: relative;
+
+          .coupons {
+            /* background: tan; */
+            position: absolute;
+            top: 40%;
+            right: 10%;
+          }
+        }
+      }
+    }
+
     .row {
 
       &:nth-child(odd) {

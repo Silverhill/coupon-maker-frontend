@@ -1,15 +1,41 @@
 import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Card, InputFile, Avatar, InputBox, Button } from 'coupon-components';
 import { withApollo } from 'react-apollo';
 import { Query } from 'react-apollo';
 import { getMe, updateProfile } from 'Services/graphql/queries.graphql';
+import { toast } from 'react-toastify';
+import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 import styles from './EditProfile.css';
 
 class EditProfilePage extends Component {
   state = {
     user: {}
+  }
+
+  showSuccessNotification = () => {
+    toast(
+      <ToastTemplate
+        subtitle={<FormattedMessage id='profile.toasts.success.update.subtitle' />}
+        status='success'
+      />
+    )
+  }
+
+  showErrorNotification = (resp) => {
+    const errors = resp || {};
+    errors.graphQLErrors && errors.graphQLErrors.map((value)=>{
+      return (
+        toast(
+          <ToastTemplate
+            title={<FormattedMessage id='profile.toasts.error.update.title' />}
+            subtitle={value.message}
+            status='error'
+          />
+        )
+      )
+    })
   }
 
   onSubmit = async (ev) => {
@@ -43,11 +69,15 @@ class EditProfilePage extends Component {
           if(updateUser.email) { data.me.email = updateUser.email; }
           if(updateUser.image) { data.me.image = updateUser.image; }
           cache.writeQuery({ query: getMe, data: data });
-          if(updateUser.id === -1) this.props.history.push('/profile')
+          if(updateUser.id === -1) {
+            this.props.history.push('/profile')
+          }else{
+            this.showSuccessNotification();
+          }
         }
       });
-    } catch (error) {
-      console.log('error', error);
+    } catch (err) {
+      this.showErrorNotification(err);
       return;
     }
   }
