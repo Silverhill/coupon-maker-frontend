@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Card, Panel, Coupon, StepByStep, RoundButton, InputFile } from 'coupon-components';
 import FirstStep from './partials/FirstStep';
 import SecondStep from './partials/SecondStep';
+import ColorPicker from 'Components/ColorPicker/ColorPicker';
+
 import { injectIntl } from 'react-intl';
 
 import moment from 'moment';
@@ -18,14 +20,25 @@ class StepsContainer extends Component {
     currentStep: {},
     campaign: {
       startAt: moment(),
-      endAt: moment()
+      endAt: moment(),
     },
-    errors: null
+    errors: null,
+    backgroundCoupon: null,
+    previewBackground: null,
   }
 
   componentWillMount() {
     const { steps } = this.props;
     this.setState({ steps, currentStep: steps[0] });
+  }
+
+  currentBackground = (color) => {
+    this.setState({ previewBackground: color});
+  }
+
+  selectedBackground = (color) => {
+    this.setState({ backgroundCoupon: color});
+    if(this.props.selectedBackground) this.props.selectedBackground(color);
   }
 
   handleStepsChange = (currentStep) => {
@@ -125,6 +138,7 @@ class StepsContainer extends Component {
     const { steps, currentStep, campaign } = this.state;
     const { intl, company } = this.props;
     const cuponData = {};
+
     let moveBtn;
     if(currentStep.id === 1){
       moveBtn = {
@@ -146,7 +160,7 @@ class StepsContainer extends Component {
         <div className={styles.tabs}>
           <StepByStep steps={steps} onChange={this.handleStepsChange} className={styles.steps}/>
         </div>
-        <Panel title={intl.formatMessage({id: 'campaigns.new.panel.previsualization'})} classNameContainer={cx(styles.panel, styles.cuponContainer)}>
+        <Panel title={intl.formatMessage({id: 'campaigns.new.panel.previsualization'})} classNameContainer={cx(styles.preview, styles.cuponContainer)}>
           <InputFile name="image"
               className={styles.inputFileTrigger}
               updateFile={this.onChangeImage}>
@@ -157,8 +171,29 @@ class StepsContainer extends Component {
                 date={cuponData.date}
                 address={cuponData.address}
                 totalCoupons={maxnum(cuponData.totalCoupons)}
+                background={this.state.previewBackground || this.state.backgroundCoupon}
                 className={styles.campaing}/>
           </InputFile>
+          <div className={styles.palettes}>
+            {
+              company.logo &&
+              <ColorPicker
+                image={company.logo}
+                size="25px"
+                current={this.currentBackground}
+                selected={this.selectedBackground}
+              />
+            }
+            {
+              cuponData.image &&
+              <ColorPicker
+                image={cuponData.image}
+                size="25px"
+                current={this.currentBackground}
+                selected={this.selectedBackground}
+              />
+            }
+          </div>
         </Panel>
         <form onChange={this.onChange} onSubmit={this.handleSubmit}>
           {this.renderContent(currentStep)}

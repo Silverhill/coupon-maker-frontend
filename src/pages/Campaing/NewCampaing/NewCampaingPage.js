@@ -16,6 +16,13 @@ class NewCampaingPage extends Component {
   state = {
     offices: [],
     company: null,
+    couponBackground: null,
+  }
+
+  selectedBackground = (background) =>{
+    this.setState({
+      couponBackground: background
+    });
   }
 
   showSuccessNotification = () => {
@@ -45,7 +52,6 @@ class NewCampaingPage extends Component {
 
   async componentDidMount() {
     const { client } = this.props;
-
     try {
       const { data: { myOffices, myCompany } } = await client.query({
         query: makerOffices,
@@ -68,6 +74,7 @@ class NewCampaingPage extends Component {
   createCampaing = async (values) => {
     const { client: { mutate } } = this.props;
     const coupons = parseInt(values.couponsNumber, 10);
+
     try {
       await mutate({
         mutation: createCampaing,
@@ -83,7 +90,8 @@ class NewCampaingPage extends Component {
           customMessage: values.customMessage,
           initialAgeRange: values.ageRange.min,
           finalAgeRange: values.ageRange.max,
-          upload: values.upload.file
+          upload: values.upload.file,
+          background: this.state.couponBackground,
         },
         optimisticResponse: {
           __typename: "Mutation",
@@ -106,6 +114,8 @@ class NewCampaingPage extends Component {
               id: -1,
               address: 'waiting address'
             },
+            totalCoupons: parseInt(values.couponsNumber),
+            background: this.state.couponBackground,
             totalCoupons: coupons
           }
         },
@@ -136,7 +146,15 @@ class NewCampaingPage extends Component {
     ];
     const { offices, company } = this.state;
     const total = offices ? offices.length : 0;
-    const createCampaing = (<StepsContainer steps={steps} offices={offices} company={company} onSubmit={this.createCampaing}/>);
+    const createCampaing = (
+      <StepsContainer
+        steps={steps}
+        offices={offices}
+        company={company}
+        onSubmit={this.createCampaing}
+        selectedBackground={this.selectedBackground}
+      />
+    );
     const emptyState = (
       <div className={styles.emptyOffice}>
         <Icon
