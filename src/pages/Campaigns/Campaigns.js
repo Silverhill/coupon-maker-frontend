@@ -29,7 +29,8 @@ class Campaigns extends Component {
           {({ loading, error, data}) => {
             if (loading) return "Loading...";
             if (error) return `Error! ${error.message}`;
-            const {myCampaigns: {campaigns} } = data;
+            const { myCampaigns } = data;
+            const campaigns = myCampaigns ? myCampaigns.campaigns : [];
             const total = campaigns ? campaigns.length : 0;
             return (
               <div>

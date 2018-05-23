@@ -9,6 +9,22 @@ import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 class NewOfficePage extends Component {
 
+  updateOffice = (cache, { data: {addOffice} }) => {
+    try {
+      const data = cache.readQuery({ query: makerOffices });
+      data.myOffices = [addOffice, ...data.myOffices]
+      cache.writeQuery({ query: makerOffices, data: data });
+    } catch (err) {
+      this.showErrorNotification(err);
+    }
+
+    if(addOffice.id === -1) {
+      this.goToOffices();
+    }else{
+      this.showSuccessNotification();
+    }
+  }
+
   showSuccessNotification = () => {
     toast(
       <ToastTemplate
@@ -72,16 +88,7 @@ class NewOfficePage extends Component {
             companyId: myCompany.id
           }
         },
-        update: (cache, { data: {addOffice} }) => {
-          const data = cache.readQuery({ query: makerOffices });
-          data.myOffices = [addOffice, ...data.myOffices]
-          cache.writeQuery({ query: makerOffices, data: data });
-          if(addOffice.id === -1) {
-            this.goToOffices();
-          }else{
-            this.showSuccessNotification();
-          }
-        }
+        update: this.updateOffice
       });
     } catch (err) {
       this.showErrorNotification(err);
