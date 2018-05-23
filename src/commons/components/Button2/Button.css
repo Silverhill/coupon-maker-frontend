@@ -1,0 +1,60 @@
+@value (
+  whiteColor,
+  starGradient,
+  endGradient,
+  neutralColorMedium
+) from 'Styles/palette.css';
+
+.btn {
+  width: 100%;
+  min-width: 88px;
+  height: 40px;
+  outline: none;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-radius: 2.5px;
+  color: whiteColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+}
+
+.btn:hover{
+   opacity: 0.8;
+ }
+
+.small {
+  font-size: 10px;
+  width: 15%;
+}
+.medium {
+  font-size: 15px;
+  width: 35%;
+}
+.large {
+  font-size: 20px;
+  width: 60%;
+}
+
+.pill {
+  border-radius: 20px;
+}
+
+.leftIcon {
+  margin-right: 10px;
+}
+
+.rightIcon {
+  margin-left: 10px;
+}
+
+.gradient {
+  background-image: linear-gradient(60deg, starGradient, 20%, endGradient);
+}
+
+.disabled {
+  background-color: neutralColorMedium;
+  pointer-events: none;
+}

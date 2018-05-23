@@ -3,10 +3,11 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './RegisterPage.css'
 //components
-import { InputBox, Button, Typography, Card } from 'coupon-components';
+import { InputBox, Typography, Card } from 'coupon-components';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Logo from 'Components/Logo/Logo';
+import Button from 'Components/Button2/Button';
 
 const cx = classNames.bind(styles);
 
@@ -68,6 +69,7 @@ class RegisterForm extends React.Component {
           shape="pill"
           gradient
           type="submit"
+          loading={this.props.loading}
           text={intl.formatMessage({id: 'register.buttons.register'})}
         />
       </form>

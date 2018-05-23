@@ -15,6 +15,10 @@ import * as constants from 'Utils/values';
 @connect(null, { loginAsync: userActions.login })
 class LogInPage extends React.Component {
 
+  state = {
+    loading: false,
+  }
+
   goToHome = () => {
     this.props.history.push('new_coupon');
   }
@@ -24,7 +28,9 @@ class LogInPage extends React.Component {
       loginAsync,
       client: { query }
     } = this.props;
+
     try {
+      this.setState({ loading: true });
       const res = await query({
         query: loginUser,
         variables: {
@@ -32,6 +38,7 @@ class LogInPage extends React.Component {
           password: values.password
         }
       });
+      this.setState({ loading: false });
       const { data: { signIn } } = res;
       const { logged, role } = await loginAsync(signIn.token);
       if(logged && role === 'maker') {
@@ -41,6 +48,7 @@ class LogInPage extends React.Component {
       }
     } catch (err) {
       console.log('err', err.message);
+      this.setState({ loading: false });
     }
   }
 
@@ -50,7 +58,7 @@ class LogInPage extends React.Component {
       <div className={styles.page}>
         <div className={styles.container}>
           <div className={styles.view}>
-            <LoginForm onSubmit={this.loginApp}/>
+            <LoginForm onSubmit={this.loginApp} loading={this.state.loading}/>
             <div style={{width: '500px', height: '600px'}}>
               <Slider items={items}/>
             </div>
