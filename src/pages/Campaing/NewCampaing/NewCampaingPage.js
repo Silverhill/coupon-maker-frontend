@@ -19,6 +19,30 @@ class NewCampaingPage extends Component {
     couponBackground: null,
   }
 
+  updateCampaigns = (cache, { data: {addCampaign} }) => {
+    try {
+      const dataCampaingsPage = cache.readQuery({ query: makerCampaigns, variables: {limit:10, sortDirection:-1} });
+      dataCampaingsPage.myCampaigns.campaigns = [addCampaign, ...dataCampaingsPage.myCampaigns.campaigns]
+      cache.writeQuery({ query: makerCampaigns, variables: {limit:10, sortDirection:-1}, data: dataCampaingsPage });
+    } catch (err) {
+      this.showErrorNotification(err);
+    }
+
+    try {
+      const dataCampaingsHome = cache.readQuery({ query: makerCampaigns, variables: {limit:3, sortDirection:-1} });
+      dataCampaingsHome.myCampaigns.campaigns = [addCampaign, ...dataCampaingsHome.myCampaigns.campaigns]
+      cache.writeQuery({ query: makerCampaigns, variables: {limit:3, sortDirection:-1}, data: dataCampaingsHome })
+    } catch (err) {
+      this.showErrorNotification(err);
+    }
+
+    if(addCampaign.id === -1){
+      this.goToCampaings();
+    }else{
+      this.showSuccessNotification();
+    }
+  }
+
   selectedBackground = (background) =>{
     this.setState({
       couponBackground: background
@@ -114,24 +138,11 @@ class NewCampaingPage extends Component {
               id: -1,
               address: 'waiting address'
             },
-            totalCoupons: parseInt(values.couponsNumber),
             background: this.state.couponBackground,
             totalCoupons: coupons
           }
         },
-        update: (cache, { data: {addCampaign} }) => {
-          const dataCampaingsPage = cache.readQuery({ query: makerCampaigns, variables: {limit:10, sortDirection:-1} });
-          const dataCampaingsHome = cache.readQuery({ query: makerCampaigns, variables: {limit:3, sortDirection:-1} });
-          dataCampaingsPage.myCampaigns.campaigns = [addCampaign, ...dataCampaingsPage.myCampaigns.campaigns]
-          dataCampaingsHome.myCampaigns.campaigns = [addCampaign, ...dataCampaingsHome.myCampaigns.campaigns]
-          cache.writeQuery({ query: makerCampaigns, variables: {limit:10, sortDirection:-1}, data: dataCampaingsPage });
-          cache.writeQuery({ query: makerCampaigns, variables: {limit:3, sortDirection:-1}, data: dataCampaingsHome });
-          if(addCampaign.id === -1){
-            this.goToCampaings();
-          }else{
-            this.showSuccessNotification();
-          }
-        }
+        update: this.updateCampaigns
       });
     } catch (err) {
       this.showErrorNotification(err);
