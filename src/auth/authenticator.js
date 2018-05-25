@@ -1,4 +1,5 @@
 import decode from 'jwt-decode';
+import moment from 'moment';
 
 class Auth {
   static loggedIn() {
@@ -9,9 +10,8 @@ class Auth {
     if(!token) return notAuth;
     try {
       const { exp } = decode(token);
-      const date = new Date();
 
-      if(exp < date.getTime() / 1000) {
+      if((exp * 1000) < moment().valueOf()) {
         localStorage.removeItem('jwt');
         return notAuth;
       }
