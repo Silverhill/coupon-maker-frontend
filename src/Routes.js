@@ -10,31 +10,38 @@ import LogInPage from './pages/Login/LoginPage';
 import RegisterPage from './pages/Register/RegisterPage';
 import Customer from './pages/Customer/Customer';
 import auth from './auth/authenticator';
+import { withApollo } from 'react-apollo';
 
-const PrivateRoute = ({ component: Component }) => (
-  <Route render={props => (
-    auth.loggedIn() ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location },
-      }} />
-    )
+const redirectToHome = (client, props) =>{
+  client.resetStore();
+  return (
+    <Redirect to={{
+      pathname: '/login',
+      state: { from: props.location },
+    }} />
+  )
+}
+
+const PrivateRoute = ({ client, component: Component }) => (
+  <Route render={(props) => (
+    auth.loggedIn() ? ( <Component {...props} />) : redirectToHome(client, props)
   )}/>
 )
 
-const Pages = () => {
-  return (
-    <main role='application'>
-      <Switch>
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/login" component={LogInPage} />
-        <Route path="/customer/:role" component={Customer} />
-        <PrivateRoute path='/' component={Home} />
-      </Switch>
-    </main>
-  );
+class Pages extends React.Component {
+  render () {
+    const { client } = this.props;
+    return (
+      <main role='application'>
+        <Switch>
+          <Route path="/register" component={RegisterPage} />
+          <Route path="/login" component={LogInPage} />
+          <Route path="/customer/:role" component={Customer} />
+          <PrivateRoute path='/' client={client} component={Home} />
+        </Switch>
+      </main>
+    )
+  }
 }
 
-export default Pages;
+export default withApollo(Pages);
