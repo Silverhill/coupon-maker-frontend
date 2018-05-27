@@ -79,7 +79,12 @@ class CouponsPage extends Component {
 
     const emptyState = (
       <div className={styles.emptyState}>
-        <EmptyState name='hunter' />
+        <EmptyState
+          name='hunter'
+          lowColor="#e4eefc"
+          mediumColor="#3f92fe"
+          highColor="#0169e5"
+        />
         <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
           {intl.formatMessage({id: 'coupons.AllHunters.empty.title'})}
         </Typography.Text>
