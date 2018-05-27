@@ -5,6 +5,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import classNames from 'classnames/bind';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 import { toast } from 'react-toastify';
+import EmptyState from 'Components/EmptyState/EmptyState';
 
 import { Typography, Panel, Card, BasicRow, Icon } from 'coupon-components';
 import styles from './CouponsPage.css';
@@ -78,38 +79,7 @@ class CouponsPage extends Component {
 
     const emptyState = (
       <div className={styles.emptyState}>
-        <div className={styles.illustration}>
-          <div className={styles.circle}>
-            <Icon
-              name="MdDirectionsRun"
-              color={palette.darkNeutral}
-              size={50}
-              style={
-                {
-                  margin: 20,
-                  padding: 30,
-                }
-              }
-            />
-            <div className={styles.coupons}>
-              <Icon
-                  name="CpTicket"
-                  color={palette.silverColor}
-                  size={10}
-              />
-              <Icon
-                  name="CpTicket"
-                  color={palette.brightBlue}
-                  size={12}
-              />
-              <Icon
-                  name="CpTicket"
-                  color={palette.pinkRed}
-                  size={15}
-              />
-            </div>
-          </div>
-        </div>
+        <EmptyState name='hunter' />
         <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
           {intl.formatMessage({id: 'coupons.AllHunters.empty.title'})}
         </Typography.Text>

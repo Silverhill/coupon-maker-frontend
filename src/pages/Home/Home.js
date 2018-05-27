@@ -16,6 +16,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from 'Components/Header/Header';
 import Footer from 'Components/Footer/Footer';
 import { Card, Coupon, Typography, Icon } from 'coupon-components';
+import EmptyState from 'Components/EmptyState/EmptyState';
+
 // Pages
 import Campaigns from '../Campaigns/Campaigns';
 import OfficesPage from '../Offices/OfficesPage';
@@ -91,19 +93,7 @@ class Home extends Component {
 
     const emptyStateActiveCampaigns = (
       <div className={styles.emptyState}>
-        <Icon
-          name="FaNewspaperO"
-          color={palette.baseGrayMedium}
-          size={50}
-          style={
-            {
-              margin: 20,
-              padding: 30,
-              background: palette.baseGrayLow,
-              borderRadius: '50%'
-            }
-          }
-        />
+        <EmptyState name='coupons' />
         <Typography.Text small>
           {intl.formatMessage({id: 'home.campaings.active.empty.text'})}
         </Typography.Text>
@@ -112,19 +102,7 @@ class Home extends Component {
 
     const emptyStateInactiveCampaigns = (
       <div className={styles.emptyState}>
-        <Icon
-          name="FaClockO"
-          color={palette.baseGrayMedium}
-          size={50}
-          style={
-            {
-              margin: 20,
-              padding: 30,
-              background: palette.baseGrayLow,
-              borderRadius: '50%'
-            }
-          }
-        />
+        <EmptyState name='history' />
         <Typography.Text small>
           {intl.formatMessage({id: 'home.campaings.inactive.empty.text'})}
         </Typography.Text>
