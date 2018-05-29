@@ -122,6 +122,25 @@ query huntersCompany{
   }
 }
 
+query inactiveCampaigns($limit: Int, $sortDirection: Int){
+  myCampaigns: myInactiveCampaigns(limit:$limit, sortDirection: $sortDirection) {
+    campaigns{
+      id
+      title
+      office {
+        id
+        address
+      }
+      startAt
+      endAt
+      totalCoupons
+      huntedCoupons
+    }
+  }
+}
+
+
+
 mutation registerUser($company: String!, $name: String!, $email: String!, $password: String!) {
   signUp(input:{company: $company, name: $name, email: $email, password: $password, role: "maker"}) {
     id
