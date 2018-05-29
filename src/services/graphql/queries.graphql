@@ -139,7 +139,13 @@ query inactiveCampaigns($limit: Int, $sortDirection: Int){
   }
 }
 
-
+query couponsByHunterInCampaign($campaignId: String!, $hunterId: String!){
+  coupons: couponsByCampaignAndHunter(campaignId:$campaignId, hunterId: $hunterId) {
+    id
+    status
+    code
+  }
+}
 
 mutation registerUser($company: String!, $name: String!, $email: String!, $password: String!) {
   signUp(input:{company: $company, name: $name, email: $email, password: $password, role: "maker"}) {
