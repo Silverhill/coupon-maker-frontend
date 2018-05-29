@@ -25,6 +25,7 @@ class Header extends React.Component {
           </NavLink>
         </div>
         <div className={cx(styles.itemsContainer)}>
+        <div className={cx(styles.optionTabs)}>
           {tabs && tabs.map((tab) => {
             const key = { key: tab.id };
             return (
@@ -34,6 +35,7 @@ class Header extends React.Component {
               </NavLink>
             )
           })}
+        </div>
           <Dropdown>
             <DropdownTrigger>
               <div>

@@ -3,7 +3,8 @@
   whiteColor,
   primaryColor,
   secondaryColor,
-  lightNeutral
+  lightNeutral,
+  darkColor
 ) from colors;
 
 .container {
@@ -47,16 +48,33 @@
   margin-right: 0.3rem;
 }
 
-.active {
-  color: primaryColor;
-}
-
 .tabs {
-  margin-right: 0.8rem;
+  i, p {
+    transition: 0.2s ease;
+  }
+
+  i {
+    color: darkColor;
+  }
   p {
     padding-left: 0.5rem;
   }
+
+  &:hover {
+    i, p {
+      color: secondaryColor;
+    }
+  }
 }
+
+.active {
+  color: secondaryColor;
+
+  i, p {
+    color: secondaryColor;
+  }
+}
+
 
 .userMenu {
   display: flex;
@@ -86,4 +104,11 @@
       color: whiteColor !important;
     }
   }
+}
+
+.optionTabs {
+  margin-right: 4rem;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 1rem;
 }

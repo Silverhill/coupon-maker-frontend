@@ -57,19 +57,19 @@ class Home extends Component {
         id: 0,
         label: intl.formatMessage({id: 'header.option.coupons'}),
         route: '/new_coupon',
-        icon: 'CpTicket'
+        icon: 'MdConfirmationNumber'
       },
       {
         id: 1,
         label: intl.formatMessage({id: 'header.option.campaigns'}),
         route: '/campaigns',
-        icon: 'FaListAlt'
+        icon: 'MdDeveloperBoard'
       },
       {
         id: 2,
         label:  intl.formatMessage({id: 'header.option.offices'}),
         route: '/offices',
-        icon: 'FaHome'
+        icon: 'MdStore'
       },
     ];
 
