@@ -47,13 +47,15 @@ class Header extends React.Component {
                     const image = me.image || 'https://i.pinimg.com/564x/bc/c8/10/bcc8102f42e58720355ca02d833c204b.jpg';
                     return (
                       <div className={cx(styles.userMenu)}>
-                        <div className={cx(styles.avatarContainer)}>
-                          <Avatar
-                            image={image}
-                            borderColor="accentColorSecondary"
-                          />
+                        <div className={styles.profileContainer}>
+                          <div className={cx(styles.avatarContainer)}>
+                            <Avatar
+                              image={image}
+                              borderColor="accentColorSecondary"
+                            />
+                          </div>
+                          <Typography.Text small bold style={{margin: "0 10px"}}>{me.name}</Typography.Text>
                         </div>
-                        <Typography.Text small bold style={{margin: "0 10px"}}>{me.name}</Typography.Text>
                         <Icon name="FaCaretDown" size={10}/>
                       </div>
                     );

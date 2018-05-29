@@ -57,7 +57,7 @@ class Home extends Component {
         id: 0,
         label: intl.formatMessage({id: 'header.option.coupons'}),
         route: '/new_coupon',
-        icon: 'MdConfirmationNumber'
+        icon: 'MdStyle'
       },
       {
         id: 1,
