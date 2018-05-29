@@ -9,8 +9,6 @@ import { withApollo, Query } from 'react-apollo';
 import { getMyCompany, makerCampaigns, inactiveCampaigns } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import moment from 'moment';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 // Components
 import Header from 'Components/Header/Header';
@@ -183,8 +181,6 @@ class Home extends Component {
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          const { myCompany } = data;
-          const logo = (myCompany && myCompany.logo) || placeholderlogo;
           return (
             <Query query={inactiveCampaigns} variables={{limit:3, sortDirection:-1}}>
               {({ loading, error, data}) => {
@@ -223,24 +219,8 @@ class Home extends Component {
       </Query>
     );
 
-    const CloseButton = ({closeToast }) => (
-      <Icon
-        name="TiDelete"
-        color={palette.baseGrayMedium}
-        size={20}
-        onClick={closeToast}
-      />
-    );
-
     return (
       <div className={styles.container}>
-        <ToastContainer
-          toastClassName={styles.grayFlat}
-          closeButton={<CloseButton />}
-          draggable={false}
-          autoClose= {5000}
-          hideProgressBar={true}
-        />
         <Header tabs={tabOptions} optionsUser={optionsUser}/>
         <div className={styles.mainView}>
           <div className={styles.leftPanel}>

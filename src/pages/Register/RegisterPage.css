@@ -65,7 +65,6 @@
       .form {
         width: 280px;
         padding: 10px;
-        text-align: center;
 
         & .input {
           padding-bottom: 10px;
