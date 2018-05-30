@@ -122,6 +122,47 @@ query huntersCompany{
   }
 }
 
+query inactiveCampaigns($limit: Int, $sortDirection: Int){
+  myCampaigns: myInactiveCampaigns(limit:$limit, sortDirection: $sortDirection) {
+    campaigns{
+      id
+      title
+      office {
+        id
+        address
+      }
+      startAt
+      endAt
+      totalCoupons
+      huntedCoupons
+    }
+  }
+}
+
+query couponsByHunterInCampaign($campaignId: String!, $hunterId: String!){
+  coupons: couponsByCampaignAndHunter(campaignId:$campaignId, hunterId: $hunterId) {
+    id
+    status
+    code,
+    updatedAt
+  }
+}
+
+query couponsByHunterInCompany($hunterId: String!){
+  couponsByHunter(hunterId: $hunterId) {
+    ...on CouponForMaker {
+      id
+      code
+      status
+      updatedAt
+      campaign {
+        id
+        title
+      }
+    }
+  }
+}
+
 mutation registerUser($company: String!, $name: String!, $email: String!, $password: String!) {
   signUp(input:{company: $company, name: $name, email: $email, password: $password, role: "maker"}) {
     id

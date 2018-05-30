@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
-import { getCampaign, huntersCampaign } from 'Services/graphql/queries.graphql';
+import { getCampaign, huntersCampaign, couponsByHunterInCampaign } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import classNames from 'classnames/bind';
-import { Typography, Icon, Panel, Card, BasicRow, Cover } from 'coupon-components';
+import { Typography, Icon, Panel, Card, BasicRow, Cover, Table } from 'coupon-components';
 import { maxnum } from 'Utils/filters';
+import moment from 'moment';
 
 import styles from './ShowCampaign.css';
 import * as palette from 'Styles/palette.css';
@@ -30,6 +31,36 @@ class ShowCampaing extends Component {
   render() {
     const { intl } = this.props;
 
+    const formatDataTable = (data) => {
+      const rows = data && data.map((value) => {
+        return(
+          {
+            updatedAt:  <Typography.Text small>{moment(value.updatedAt).format("DD MMM YYYY")}</Typography.Text>,
+            status: <Typography.Text small>{value.status}</Typography.Text>,
+            code: <Typography.Text small>{value.code}</Typography.Text>,
+          }
+        )
+      })
+      const tableData = {
+        columns: [
+          {
+            field: 'updatedAt',
+            title: <Typography.Text bold>{intl.formatMessage({id: 'campaigns.show.hunter.coupon.date'})}</Typography.Text>
+          },
+          {
+            field: 'status',
+            title: <Typography.Text bold>{intl.formatMessage({id: 'campaigns.show.hunter.coupon.status'})}</Typography.Text>
+          },
+          {
+            field: 'code',
+            title: <Typography.Text bold>{intl.formatMessage({id: 'campaigns.show.hunter.coupon.code'})}</Typography.Text>
+          },
+        ],
+        rows: rows
+      }
+      return tableData;
+    }
+
     const anyHunter = (
       <div className={styles.notFound}>
         <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
@@ -50,56 +81,37 @@ class ShowCampaing extends Component {
             <div>
               {total === 0 && anyHunter}
               {total > 0 &&
-                hunters && hunters.map((cpg) => {
-                  const key = { key: cpg.id };
-                  const image = cpg.image || "http://www.drjoydentalclinic.com/wp-content/uploads/2017/03/user.png";
-                  const show = isOpenRowId === cpg.id;
+                hunters && hunters.map((hunter) => {
+                  const key = { key: hunter.id };
+                  const image = hunter.image || "http://www.drjoydentalclinic.com/wp-content/uploads/2017/03/user.png";
+                  const show = isOpenRowId === hunter.id;
                   const classSelected = show ? styles.selected : '';
                   return (
                     <div {...key}>
                       <BasicRow
-                        title={cpg.name}
+                        title={hunter.name}
                         image={image}
-                        subtitle={cpg.email}
-                        label= 'Total Coupons'
-                        number= {maxnum(cpg.couponsInCampaign)}
-                        onClick={e => this.showDetails(e, cpg.id)}
+                        subtitle={hunter.email}
+                        label={intl.formatMessage({id: 'campaigns.show.hunter.totalCoupons'})}
+                        number= {maxnum(hunter.couponsInCampaign)}
+                        onClick={e => this.showDetails(e, hunter.id)}
                         className={cx(styles.row, classSelected)}
                       />
                       {
                         show &&
-                        <div className={styles.moreInformation}>
-                          <table className={styles.tableDetails}>
-                            <thead>
-                              <tr>
-                                <th>
-                                  <Typography.Text bold>Fecha</Typography.Text>
-                                </th>
-                                <th>
-                                  <Typography.Text bold>Status</Typography.Text>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <Typography.Text small>24 Mayo 2018</Typography.Text>
-                                </td>
-                                <td>
-                                <Typography.Text small>Capturado</Typography.Text>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <Typography.Text small>24 Enero 2018</Typography.Text>
-                                </td>
-                                <td>
-                                <Typography.Text small>Canjeado</Typography.Text>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                        <Query
+                          query={couponsByHunterInCampaign}
+                          variables={{campaignId: this.props.match.params.id, hunterId: hunter.id}}>
+                          {({ loading, error, data}) => {
+                            if (loading) return "Loading...";
+                            if (error) return `Error! ${error.message}`;
+                            const { coupons } = data;
+                            const tableData = formatDataTable(coupons);
+                            return (
+                              <Table columns={tableData.columns} rows = {tableData.rows} />
+                            );
+                          }}
+                        </Query>
                       }
                     </div>
                   )

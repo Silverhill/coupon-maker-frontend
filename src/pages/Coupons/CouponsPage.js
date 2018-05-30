@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { withApollo, Query } from 'react-apollo';
-import { canjear, huntersCompany } from 'Services/graphql/queries.graphql';
+import { NavLink } from 'react-router-dom';
+import { canjear, huntersCompany, couponsByHunterInCompany } from 'Services/graphql/queries.graphql';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import classNames from 'classnames/bind';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 import { toast } from 'react-toastify';
 
-import { Typography, Panel, Card, BasicRow, Icon } from 'coupon-components';
+import { Typography, Panel, Card, BasicRow, Icon, Table } from 'coupon-components';
 import styles from './CouponsPage.css';
 import RegisterCouponForm from './RegisterCouponForm';
 import { maxnum } from 'Utils/filters';
+import moment from 'moment';
 import * as palette from 'Styles/palette.css';
 
 const cx = classNames.bind(styles)
@@ -73,8 +75,43 @@ class CouponsPage extends Component {
 
   render() {
     const {
-      intl,
+      intl
     } = this.props;
+
+    const formatDataTable = (data) => {
+      const rows = data && data.map((value) => {
+        return(
+          {
+            updatedAt:  <Typography.Text small>{moment(value.updatedAt).format("DD MMM YYYY")}</Typography.Text>,
+            status: <Typography.Text small>{value.status}</Typography.Text>,
+            code: <Typography.Text small>{value.code}</Typography.Text>,
+            campaign: <NavLink to={`/campaign/${value.campaign.id}`}><Typography.Text small bold>{value.campaign.title}</Typography.Text></NavLink>,
+          }
+        )
+      })
+      const tableData = {
+        columns: [
+          {
+            field: 'updatedAt',
+            title: <Typography.Text bold>{intl.formatMessage({id: 'coupons.hunter.coupon.date'})}</Typography.Text>
+          },
+          {
+            field: 'campaign',
+            title: <Typography.Text bold>{intl.formatMessage({id: 'coupons.hunter.coupon.campaign'})}</Typography.Text>
+          },
+          {
+            field: 'status',
+            title: <Typography.Text bold>{intl.formatMessage({id: 'coupons.hunter.coupon.status'})}</Typography.Text>
+          },
+          {
+            field: 'code',
+            title: <Typography.Text bold>{intl.formatMessage({id: 'coupons.hunter.coupon.code'})}</Typography.Text>
+          },
+        ],
+        rows: rows
+      }
+      return tableData;
+    }
 
     const emptyState = (
       <div className={styles.emptyState}>
@@ -134,65 +171,38 @@ class CouponsPage extends Component {
             <div>
               {total === 0 && emptyState}
               {total > 0 &&
-                hunters && hunters.map((cpg) => {
-                  const key = { key: cpg.id };
-                  const image = cpg.image;
-                  const show = isOpenRowId === cpg.id;
+                hunters && hunters.map((hunter) => {
+                  const key = { key: hunter.id };
+                  const image = hunter.image || "http://www.drjoydentalclinic.com/wp-content/uploads/2017/03/user.png";
+                  const show = isOpenRowId === hunter.id;
                   const classSelected = show ? styles.selected : '';
+                  const totalCoupons = hunter.huntedCoupons + hunter.redeemedCoupons;
                   return (
                     <div {...key}>
                       <BasicRow
-                        title={cpg.name}
+                        title={hunter.name}
                         image={image}
-                        subtitle={cpg.email}
-                        label= {cpg.campaign}
-                        number= {maxnum(cpg.redeemedCoupons )}
-                        onClick={e => this.showDetails(e, cpg.id)}
+                        subtitle={hunter.email}
+                        label={intl.formatMessage({id: 'coupons.hunter.totalCoupons'})}
+                        number= {maxnum(totalCoupons)}
+                        onClick={e => this.showDetails(e, hunter.id)}
                         className={cx(styles.row, classSelected)}
                       />
                       {
                         show &&
-                        <div className={styles.moreInformation}>
-                          <table className={styles.tableDetails}>
-                            <thead>
-                              <tr>
-                                <th>
-                                  <Typography.Text bold>Fecha</Typography.Text>
-                                </th>
-                                <th>
-                                  <Typography.Text bold>Campaña</Typography.Text>
-                                </th>
-                                <th>
-                                  <Typography.Text bold>Cupones</Typography.Text>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <Typography.Text small>24 Mayo 2018</Typography.Text>
-                                </td>
-                                <td>
-                                <Typography.Text small>Batidos al 2x1</Typography.Text>
-                                </td>
-                                <td>
-                                  <Typography.Text small>1</Typography.Text>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <Typography.Text small>24 Enero 2018</Typography.Text>
-                                </td>
-                                <td>
-                                <Typography.Text small>Almuerzos al 2x1</Typography.Text>
-                                </td>
-                                <td>
-                                  <Typography.Text small>1</Typography.Text>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                        <Query
+                          query={couponsByHunterInCompany}
+                          variables={{hunterId: hunter.id}}>
+                          {({ loading, error, data}) => {
+                            if (loading) return "Loading...";
+                            if (error) return `Error! ${error.message}`;
+                            const { couponsByHunter } = data;
+                            const tableData = formatDataTable(couponsByHunter);
+                            return (
+                              <Table columns={tableData.columns} rows = {tableData.rows} />
+                            );
+                          }}
+                        </Query>
                       }
                     </div>
                   )

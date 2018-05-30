@@ -65,6 +65,15 @@
           "description": "This section will let you know about your clients",
           "tip": "All your customers will be listed here"
         }
+      },
+      "hunter": {
+        "totalCoupons": "Total Coupons",
+        "coupon": {
+          "date": "Date",
+          "campaign": "Campaign",
+          "status": "Status",
+          "code": "Code"
+        }
       }
     },
     "home":{
@@ -161,6 +170,14 @@
           "description": "Description",
           "available": "Available",
           "segmentation": "Segmentation"
+        },
+        "hunter": {
+          "totalCoupons": "Total Coupons",
+          "coupon": {
+            "date": "Date",
+            "status": "Status",
+            "code": "Code"
+          }
         }
       },
       "toasts": {
@@ -382,6 +399,15 @@
           "description": "Esta sección te permitira saber de tus cliente",
           "tip": "Todos tus clientes seran listados aquí"
         }
+      },
+      "hunter": {
+        "totalCoupons": "Total de Cupones",
+        "coupon": {
+          "date": "Fecha",
+          "campaign": "Campaña",
+          "status": "Status",
+          "code": "Codigo"
+        }
       }
     },
     "home":{
@@ -481,6 +507,14 @@
           "description": "Descripción",
           "available": "Disponibles",
           "segmentation": "Segmentación"
+        },
+        "hunter": {
+          "totalCoupons": "Total de Cupones",
+          "coupon": {
+            "date": "Fecha",
+            "status": "Status",
+            "code": "Código"
+          }
         }
       },
       "toasts": {
