@@ -75,8 +75,7 @@ class CouponsPage extends Component {
 
   render() {
     const {
-      intl,
-      history
+      intl
     } = this.props;
 
     const formatDataTable = (data) => {

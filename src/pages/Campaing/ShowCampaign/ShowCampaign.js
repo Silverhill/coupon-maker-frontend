@@ -5,6 +5,7 @@ import { injectIntl } from 'react-intl';
 import classNames from 'classnames/bind';
 import { Typography, Icon, Panel, Card, BasicRow, Cover, Table } from 'coupon-components';
 import { maxnum } from 'Utils/filters';
+import moment from 'moment';
 
 import styles from './ShowCampaign.css';
 import * as palette from 'Styles/palette.css';
@@ -34,7 +35,7 @@ class ShowCampaing extends Component {
       const rows = data && data.map((value) => {
         return(
           {
-            id:  <Typography.Text small>{value.id}</Typography.Text>,
+            updatedAt:  <Typography.Text small>{moment(value.updatedAt).format("DD MMM YYYY")}</Typography.Text>,
             status: <Typography.Text small>{value.status}</Typography.Text>,
             code: <Typography.Text small>{value.code}</Typography.Text>,
           }
@@ -43,7 +44,7 @@ class ShowCampaing extends Component {
       const tableData = {
         columns: [
           {
-            field: 'id',
+            field: 'updatedAt',
             title: <Typography.Text bold>Fecha</Typography.Text>
           },
           {

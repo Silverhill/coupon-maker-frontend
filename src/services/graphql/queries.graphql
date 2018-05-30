@@ -143,7 +143,8 @@ query couponsByHunterInCampaign($campaignId: String!, $hunterId: String!){
   coupons: couponsByCampaignAndHunter(campaignId:$campaignId, hunterId: $hunterId) {
     id
     status
-    code
+    code,
+    updatedAt
   }
 }
 
