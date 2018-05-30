@@ -183,7 +183,7 @@ class CouponsPage extends Component {
                         title={hunter.name}
                         image={image}
                         subtitle={hunter.email}
-                        label= {hunter.campaign}
+                        label={intl.formatMessage({id: 'coupons.hunter.totalCoupons'})}
                         number= {maxnum(totalCoupons)}
                         onClick={e => this.showDetails(e, hunter.id)}
                         className={cx(styles.row, classSelected)}

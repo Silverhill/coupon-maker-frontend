@@ -92,7 +92,7 @@ class ShowCampaing extends Component {
                         title={hunter.name}
                         image={image}
                         subtitle={hunter.email}
-                        label= 'Total Coupons'
+                        label={intl.formatMessage({id: 'campaigns.show.hunter.totalCoupons'})}
                         number= {maxnum(hunter.couponsInCampaign)}
                         onClick={e => this.showDetails(e, hunter.id)}
                         className={cx(styles.row, classSelected)}

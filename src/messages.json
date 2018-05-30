@@ -67,6 +67,7 @@
         }
       },
       "hunter": {
+        "totalCoupons": "Total Coupons",
         "coupon": {
           "date": "Date",
           "campaign": "Campaign",
@@ -171,6 +172,7 @@
           "segmentation": "Segmentation"
         },
         "hunter": {
+          "totalCoupons": "Total Coupons",
           "coupon": {
             "date": "Date",
             "status": "Status",
@@ -399,6 +401,7 @@
         }
       },
       "hunter": {
+        "totalCoupons": "Total de Cupones",
         "coupon": {
           "date": "Fecha",
           "campaign": "Campaña",
@@ -506,6 +509,7 @@
           "segmentation": "Segmentación"
         },
         "hunter": {
+          "totalCoupons": "Total de Cupones",
           "coupon": {
             "date": "Fecha",
             "status": "Status",
