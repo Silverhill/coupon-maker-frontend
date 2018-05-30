@@ -57,7 +57,8 @@ class FirstStep extends Component {
                   type="number"
                   placeholder={intl.formatMessage({id: 'campaigns.new.couponsNumber.placeholder'})}
                   labelText={intl.formatMessage({id: 'campaigns.new.couponsNumber.label'})}
-                  required="required"/>
+                  required="required"
+                  value={campaign && campaign.couponsNumber}/>
               { errors && errors.validNumberCoupon ? errorMessages : "" }
             </div>
           </div>
