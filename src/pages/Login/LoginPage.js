@@ -2,15 +2,17 @@ import React from 'react';
 import { loginUser } from 'Services/graphql/queries.graphql';
 import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
+
 //styles
 import styles from './LoginPage.css';
 //components
-import { Slider } from 'coupon-components';
 import LoginForm from './LoginForm';
 import Footer from 'Components/Footer/Footer';
 import * as userActions from 'Actions/userActions';
-//values
-import * as constants from 'Utils/values';
+
+// images
+import waves from 'Assets/images/waves.svg';
+import campaigns from 'Assets/images/campaigns.svg';
 
 @connect(null, { loginAsync: userActions.login })
 class LogInPage extends React.Component {
@@ -45,15 +47,12 @@ class LogInPage extends React.Component {
   }
 
   render() {
-    const items = constants.sliderImages;
     return (
-      <div className={styles.page}>
+      <div className={styles.page} style={{ backgroundImage: `url(${waves})` }}>
         <div className={styles.container}>
           <div className={styles.view}>
             <LoginForm onSubmit={this.loginApp}/>
-            <div style={{width: '500px', height: '600px'}}>
-              <Slider items={items}/>
-            </div>
+            <img className={styles.image} src={campaigns} alt='maker-campaigns' />
           </div>
         </div>
         <Footer/>

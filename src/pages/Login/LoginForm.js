@@ -37,14 +37,14 @@ class LoginForm extends React.Component {
     const form = (
       <form onChange={this.onChange} onSubmit={this.handleSubmit}>
         <InputBox name="email"
-          leftIcon="FaUser"
+          leftIcon="MdFace"
           placeholder={intl.formatMessage({id: 'login.labels.email'})}
           type="email"
           shape="pill"
           className={styles.input}
           required="required"/>
         <InputBox name="password"
-          leftIcon="FaLock"
+          leftIcon="MdLockOutline"
           placeholder={intl.formatMessage({id: 'login.labels.password'})}
           type="password"
           shape="pill"
@@ -70,7 +70,7 @@ class LoginForm extends React.Component {
           {form}
         </Card>
         <div className={styles.linkBtn}>
-          <Link to='register' className={styles.link}>
+          <Link to='/register' className={styles.link}>
             {intl.formatMessage({id: 'login.buttons.newUser'})}
           </Link>
         </div>
@@ -79,4 +79,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default (injectIntl(LoginForm));
+export default injectIntl(LoginForm);

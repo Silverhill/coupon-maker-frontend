@@ -3,7 +3,8 @@
   whiteColor,
   primaryColor,
   secondaryColor,
-  lightNeutral
+  lightNeutral,
+  darkColor
 ) from colors;
 
 .container {
@@ -47,16 +48,33 @@
   margin-right: 0.3rem;
 }
 
-.active {
-  color: primaryColor;
-}
-
 .tabs {
-  margin-right: 0.8rem;
+  i, p {
+    transition: 0.2s ease;
+  }
+
+  i {
+    color: darkColor;
+  }
   p {
     padding-left: 0.5rem;
   }
+
+  &:hover {
+    i, p {
+      color: secondaryColor;
+    }
+  }
 }
+
+.active {
+  color: secondaryColor;
+
+  i, p {
+    color: secondaryColor;
+  }
+}
+
 
 .userMenu {
   display: flex;
@@ -64,20 +82,23 @@
   justify-content: space-between;
 }
 
-.menuContainer {
-  width: 100%;
-  background-color: whiteColor;
-  max-height: 10rem;
-  overflow-y: scroll;
+.profileContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+
+  p {
+    width: 4.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .menuOption {
-  padding: 5px 1rem;
+  padding: 0.6rem 1rem;
   cursor: pointer;
-
-  &:nth-child(even) {
-    background: lightNeutral;
-  }
 
   &:hover {
     background-color: secondaryColor;
@@ -85,5 +106,48 @@
     & p {
       color: whiteColor !important;
     }
+  }
+}
+
+.optionTabs {
+  margin-right: 4rem;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 1rem;
+}
+.menuContainer {
+  width: 12rem;
+  background-color: white !important;
+  overflow-y: scroll !important;
+  right: 0rem;
+  top: 1.8rem;
+}
+
+.infoContainer {
+  display: flex;
+  padding: 0.6rem;
+  border-bottom: 1px solid lightNeutral;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avatarInfo {
+  width: 2.2rem;
+}
+
+
+.profileInfo {
+  flex: 1;
+  padding-left: 1rem;
+  overflow: hidden;
+  & > * {
+    margin-top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  h3 {
+    font-size: x-small;
   }
 }
