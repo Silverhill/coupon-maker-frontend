@@ -45,15 +45,15 @@ class ShowCampaing extends Component {
         columns: [
           {
             field: 'updatedAt',
-            title: <Typography.Text bold>Fecha</Typography.Text>
+            title: <Typography.Text bold>{intl.formatMessage({id: 'campaigns.show.hunter.coupon.date'})}</Typography.Text>
           },
           {
             field: 'status',
-            title: <Typography.Text bold>Status</Typography.Text>
+            title: <Typography.Text bold>{intl.formatMessage({id: 'campaigns.show.hunter.coupon.status'})}</Typography.Text>
           },
           {
             field: 'code',
-            title: <Typography.Text bold>Codigo</Typography.Text>
+            title: <Typography.Text bold>{intl.formatMessage({id: 'campaigns.show.hunter.coupon.code'})}</Typography.Text>
           },
         ],
         rows: rows
