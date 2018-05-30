@@ -20,8 +20,13 @@
         "password": "Password"
       },
       "buttons": {
-        "newUser": "Are you new? Create an account",
+        "newUser": "Don't you have an account? Create an account",
         "login": "Login"
+      },
+      "toasts": {
+        "error": {
+          "title": "An error has occurred"
+        }
       }
     },
     "register": {
@@ -38,6 +43,11 @@
       "buttons": {
         "hasAccount": "Already an account? Login",
         "register": "Register"
+      },
+      "toasts": {
+        "error": {
+          "title": "An error has occurred"
+        }
       }
     },
     "coupons": {
@@ -357,8 +367,13 @@
         "password": "Contraseña"
       },
       "buttons": {
-        "newUser": "Nuevo en coupon? Crea una cuenta",
+        "newUser": "¿Aún no tienes una cuenta? Crea una cuenta",
         "login": "Inciar Sesión"
+      },
+      "toasts": {
+        "error": {
+          "title": "Ha ocurrido un error"
+        }
       }
     },
     "register": {
@@ -375,6 +390,11 @@
       "buttons": {
         "hasAccount": "Ya tienes cuenta? Ingresa",
         "register": "Registrarme"
+      },
+      "toasts": {
+        "error": {
+          "title": "Ha ocurrido un error"
+        }
       }
     },
     "coupons": {

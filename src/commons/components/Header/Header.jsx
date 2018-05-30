@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames/bind';
 import styles from './Header.css';
 import Logo from 'Components/Logo/Logo';
-import { primaryColor, mediumNeutral } from 'Styles/palette.css';
+import { primaryColor } from 'Styles/palette.css';
 const cx = classNames.bind(styles)
 
 class Header extends React.Component {

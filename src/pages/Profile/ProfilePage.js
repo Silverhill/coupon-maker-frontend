@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
-import { Card, Typography, Button, Avatar, InputFile, Menu, InputBox } from 'coupon-components';
+import { Card, Typography, Button, Avatar, InputFile, InputBox } from 'coupon-components';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withApollo } from 'react-apollo';
 import { changeUserImage, updateMyPassword } from 'Services/graphql/queries.graphql';
@@ -124,10 +124,6 @@ class ProfilePage extends Component {
     const { data: { me }, intl } = this.props;
     const { isLoadingImage, showChangePassword } = this.state;
     let userImage = (me && me.image) ? me.image : '';
-    const menuOptions = [
-      {label: "Editar", iconName: "FaEdit"},
-      {label: "Cambiar Contraseña", iconName: "FaKey"},
-    ];
 
     const passwordSection = (
       <form onChange={this.onChange} className={styles.formContainer}>
