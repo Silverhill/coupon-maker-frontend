@@ -177,6 +177,7 @@ class CouponsPage extends Component {
                   const image = hunter.image || "http://www.drjoydentalclinic.com/wp-content/uploads/2017/03/user.png";
                   const show = isOpenRowId === hunter.id;
                   const classSelected = show ? styles.selected : '';
+                  const totalCoupons = hunter.huntedCoupons + hunter.redeemedCoupons;
                   return (
                     <div {...key}>
                       <BasicRow
@@ -184,7 +185,7 @@ class CouponsPage extends Component {
                         image={image}
                         subtitle={hunter.email}
                         label= {hunter.campaign}
-                        number= {maxnum(hunter.redeemedCoupons )}
+                        number= {maxnum(totalCoupons)}
                         onClick={e => this.showDetails(e, hunter.id)}
                         className={cx(styles.row, classSelected)}
                       />
@@ -196,7 +197,6 @@ class CouponsPage extends Component {
                           {({ loading, error, data}) => {
                             if (loading) return "Loading...";
                             if (error) return `Error! ${error.message}`;
-                            console.log(data);
                             const { couponsByHunter } = data;
                             const tableData = formatDataTable(couponsByHunter);
                             return (
