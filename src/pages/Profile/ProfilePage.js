@@ -73,11 +73,17 @@ class ProfilePage extends Component {
   }
 
   changeMenu = (ev, value) => {
-    if(value.iconName === 'FaEdit'){
-      this.props.history.push('/profile/edit')
-    }else if(value.iconName === 'FaKey'){
-      this.setState({showChangePassword: true});
-    }
+    // if(value.iconName === 'FaEdit'){
+    //   this.props.history.push('/profile/edit')
+    // }else if(value.iconName === 'FaKey'){
+      // this.setState({showChangePassword: true});
+    // }
+
+    this.displayForm();
+  }
+
+  cancelChanges = () => {
+    this.displayForm(false);
   }
 
   onChange = (ev) => {
@@ -103,11 +109,15 @@ class ProfilePage extends Component {
         }
       });
       this.showSuccessNotification();
-      this.setState({showChangePassword: false});
+      this.displayForm(false);
     } catch (err) {
       this.showErrorNotification(err);
       return;
     }
+  }
+
+  displayForm = (formVisible = true) => {
+    this.setState({ showChangePassword: formVisible });
   }
 
   render() {
@@ -156,10 +166,13 @@ class ProfilePage extends Component {
             </Typography.Text>
             { showChangePassword && passwordSection}
           </div>
-          <Menu className={styles.menuOpts}
-                iconOptions={{name: "FaCog", size: 20}}
-                options={menuOptions}
-                onChange={this.changeMenu}/>
+          <div className={styles.editProfile}>
+            {showChangePassword && <Button neutral text='Cancelar' onClick={this.cancelChanges} />}
+            <Button neutral={!showChangePassword}
+              text={showChangePassword ? 'Guardar Cambios' : 'Editar Perfil'}
+              onClick={!showChangePassword ? this.changeMenu : this.onSubmit}
+            />
+          </div>
         </Card>
         <Card classNameContent={styles.accountOptions}>
           <div className={styles.information}>

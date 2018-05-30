@@ -57,10 +57,7 @@ class Header extends React.Component {
                   <div className={cx(styles.userMenu)}>
                     <div className={styles.profileContainer}>
                       <div className={cx(styles.avatarContainer)}>
-                        <Avatar
-                          image={image}
-                          borderColor="accentColorSecondary"
-                        />
+                        <Avatar image={image} borderColor='accentColorSecondary' />
                       </div>
                       <Typography.Text small bold style={{margin: "0 10px"}}>{me.name}</Typography.Text>
                     </div>
@@ -71,10 +68,7 @@ class Header extends React.Component {
               <DropdownContent className={styles.menuContainer}>
                 <div className={styles.infoContainer}>
                   <div className={styles.avatarInfo}>
-                    <Avatar
-                      image={image}
-                      borderColor="accentColorSecondary"
-                    />
+                    <Avatar image={image}/>
                   </div>
                   <div className={styles.profileInfo}>
                     <Typography.Text small>{me.name}</Typography.Text>
