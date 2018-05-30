@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StepByStep, RoundButton, Card } from 'coupon-components';
+import { StepByStep, RoundButton, Card, Form } from 'coupon-components';
 import FirstStep from './partials/FirstStep';
 import SecondStep from './partials/SecondStep';
 import { injectIntl } from 'react-intl';
@@ -57,15 +57,21 @@ class StepsContainer extends Component {
     }));
   }
 
+  forceSubmit = (step) => {
+    if(step.id === 1){
+      this.form.forceSubmit();
+    }else{
+      this.prevStep();
+    }
+  }
+
   handleSubmit = (ev) => {
-    ev.preventDefault();
-    const { office, currentStep } = this.state;
+    const { office, currentStep, steps } = this.state;
     const { onSubmit } = this.props;
     if(currentStep.id === 1 && onSubmit){
       onSubmit(office);
     }else{
-      const { steps } = this.state;
-      let newStep = this.state.currentStep.id + 1 ;
+      let newStep = currentStep.id + 1 ;
       this.handleStepsChange(steps[newStep]);
     }
   }
@@ -87,15 +93,15 @@ class StepsContainer extends Component {
             classNameCard={styles.offices}
             style={{position: 'relative'}}>
         <div className={styles.tabs}>
-          <StepByStep steps={steps} onChange={this.handleStepsChange} className={styles.steps}/>
+          <StepByStep steps={steps} onChange={this.forceSubmit} className={styles.steps}/>
         </div>
 
-        <form onChange={this.onChange} onSubmit={this.handleSubmit}>
+        <Form onChange={this.onChange} onSubmit={this.handleSubmit} ref={ref => this.form = ref}>
           {this.renderContent(currentStep)}
           <div className={styles.submitButton}>
             <RoundButton icon="FaArrowRight" type="submit"/>
           </div>
-        </form>
+        </Form>
 
         <div className={styles.submitButton} style={moveBtn}>
           {(currentStep.id === 1) && <RoundButton icon="FaArrowLeft" onClick={this.prevStep}/>}
