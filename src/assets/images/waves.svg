@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1131px" height="893px" viewBox="0 0 1131 893" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Tile</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1444" height="1023"></rect>
+        <linearGradient x1="208.949875%" y1="436.695101%" x2="-110.282577%" y2="-69.1441509%" id="linearGradient-3">
+            <stop stop-color="#FFFD35" offset="0%"></stop>
+            <stop stop-color="#FF007C" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-203.585977%" y1="343.391701%" x2="302.253275%" y2="24.1592491%" id="linearGradient-4">
+            <stop stop-color="#FFFD35" offset="0%"></stop>
+            <stop stop-color="#FF007C" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="🖥️-Landing" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop" transform="translate(-309.000000, 0.000000)">
+            <g id="Tile">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Bg"></g>
+                <g id="Group-4" mask="url(#mask-2)" fill="url(#linearGradient-3)">
+                    <g transform="translate(1.000000, 0.000000)" id="Rectangle-4">
+                        <path d="M0,0 L1439.00139,1.37145544e-15 L1441,799.484375 C1042.6098,906.214056 787.120435,816.61383 674.5319,530.683695 C561.943366,244.75356 440.02797,67.8589951 308.785714,0 L0,0 Z"></path>
+                    </g>
+                </g>
+                <g id="Group-6" mask="url(#mask-2)">
+                    <g transform="translate(647.000000, -182.000000)">
+                        <rect id="Rectangle-3" fill="#FFFFFF" opacity="0.100000001" transform="translate(476.218533, 333.000000) rotate(-30.000000) translate(-476.218533, -333.000000) " x="-15" y="233" width="982.437066" height="200" rx="100"></rect>
+                        <rect id="Rectangle-3-Copy-4" fill="url(#linearGradient-4)" opacity="0.5" transform="translate(295.390655, 231.136304) rotate(-30.000000) translate(-295.390655, -231.136304) " x="235.390655" y="223.636304" width="120" height="15" rx="7.5"></rect>
+                        <rect id="Rectangle-3-Copy-6" fill="url(#linearGradient-4)" transform="translate(476.390655, 664.815073) rotate(-30.000000) translate(-476.390655, -664.815073) " x="426.390655" y="654.636304" width="100" height="20.3575381" rx="10.1787691"></rect>
+                        <rect id="Rectangle-3-Copy-2" fill="#FFFFFF" opacity="0.100000001" transform="translate(978.407728, 410.211807) rotate(-30.000000) translate(-978.407728, -410.211807) " x="487.189195" y="310.211807" width="982.437066" height="200" rx="100"></rect>
+                        <rect id="Rectangle-3-Copy-3" fill="#FFFFFF" opacity="0.049999997" transform="translate(693.407728, 391.211807) rotate(-30.000000) translate(-693.407728, -391.211807) " x="202.189195" y="291.211807" width="982.437066" height="200" rx="100"></rect>
+                        <path d="M448.897263,973.160285 C533.806307,945.640754 682.19638,931.191535 842.261348,959.000129 L842.261348,1057.41755 C674.277981,1005.57156 543.156619,977.485806 448.897263,973.160285 Z" id="Path-4" fill="#FFFFFF" opacity="0.200000003" transform="translate(645.579306, 1000.710089) rotate(342.000000) translate(-645.579306, -1000.710089) "></path>
+                        <path d="M241.62118,1003.31831 C350.821421,975.798775 541.663657,961.349556 747.520801,989.15815 L747.520801,1087.57557 C531.479923,1035.72958 362.846716,1007.64383 241.62118,1003.31831 Z" id="Path-4-Copy" fill="#FFFFFF" opacity="0.200000003" transform="translate(494.570990, 1030.868111) rotate(357.000000) translate(-494.570990, -1030.868111) "></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

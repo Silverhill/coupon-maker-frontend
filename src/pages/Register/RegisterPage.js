@@ -6,12 +6,13 @@ import { withApollo } from 'react-apollo';
 //styles
 import styles from './RegisterPage.css';
 //components
-import { Slider } from 'coupon-components';
 import RegisterForm from './RegisterForm';
 import Footer from 'Components/Footer/Footer';
 import * as userActions from 'Actions/userActions';
-//values
-import * as constants from 'Utils/values';
+
+// images
+import waves from 'Assets/images/waves.svg';
+import campaigns from 'Assets/images/campaigns.svg';
 
 @connect(null, { loginAsync: userActions.login })
 class RegisterPage extends React.Component {
@@ -49,16 +50,12 @@ class RegisterPage extends React.Component {
   }
 
   render() {
-    const items = constants.sliderImages;
-
     return (
-      <div className={styles.page}>
+      <div className={styles.page} style={{ backgroundImage: `url(${waves})` }}>
         <div className={styles.container}>
           <div className={styles.view}>
             <RegisterForm onSubmit={this.registerApp}/>
-            <div style={{width: '500px', height: '600px'}}>
-              <Slider items={items}/>
-            </div>
+            <img className={styles.image} src={campaigns} alt='maker-campaigns' />
           </div>
         </div>
         <Footer/>
