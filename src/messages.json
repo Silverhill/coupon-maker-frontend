@@ -25,6 +25,9 @@
       }
     },
     "register": {
+      "placeholders": {
+        "email": "Email Address"
+      },
       "labels": {
         "name": "Legal Representate",
         "company": "Company Name",
@@ -342,6 +345,9 @@
       }
     },
     "register": {
+      "placeholders": {
+        "email": "Escribe tu dirección de correo"
+      },
       "labels": {
         "name": "Representate Legal",
         "company": "Nombre de la Empresa",
