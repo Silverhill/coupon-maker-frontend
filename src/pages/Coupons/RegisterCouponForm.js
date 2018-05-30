@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 //styles
 import styles from './CouponsPage.css'
 //components
-import { InputBox, Button, Typography } from 'coupon-components';
+import { InputBox, Button, Typography, Form } from 'coupon-components';
 
 class RegisterCouponForm extends React.Component {
   state = {
@@ -16,7 +16,6 @@ class RegisterCouponForm extends React.Component {
   }
 
   handleSubmit = (ev) => {
-    ev.preventDefault();
     const { code } = this.state;
     const { onSubmit } = this.props;
     if(onSubmit) onSubmit(code);
@@ -28,7 +27,7 @@ class RegisterCouponForm extends React.Component {
     } = this.props;
 
     const form = (
-      <form className={styles.formRegisterCoupon}
+      <Form className={styles.formRegisterCoupon}
             onChange={this.onChange}
             onSubmit={this.handleSubmit}>
         <div className={styles.inputRegister}>
@@ -36,6 +35,7 @@ class RegisterCouponForm extends React.Component {
             name="code"
             className={styles.inputCode}
             placeholder="COP1093"
+            required="required"
           />
         </div>
         <div className={styles.description}>
@@ -49,7 +49,7 @@ class RegisterCouponForm extends React.Component {
             text={intl.formatMessage({id: 'coupons.form.button'})}
           />
         </div>
-      </form>
+      </Form>
     )
 
     return (
