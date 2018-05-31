@@ -119,6 +119,7 @@ query huntersCompany{
     id
     redeemedCoupons
     huntedCoupons
+    image
   }
 }
 
