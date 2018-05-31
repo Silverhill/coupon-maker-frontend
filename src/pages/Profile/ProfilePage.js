@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { getMe } from 'Services/graphql/queries.graphql';
+import { getMe, updateProfile, updateMyPassword } from 'Services/graphql/queries.graphql';
 import { Card, Typography, Button, Avatar, InputBox } from 'coupon-components';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { withApollo } from 'react-apollo';
-import { updateMyPassword } from 'Services/graphql/queries.graphql';
+import { withApollo, Mutation } from 'react-apollo';
 import { toast } from 'react-toastify';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
@@ -15,7 +14,6 @@ import EditProfile from './EditProfile/EditProfilePage';
 class ProfilePage extends Component {
   state = {
     showEditForm: false,
-    forcingSubmit: null,
     user: {}
   }
 
@@ -48,31 +46,21 @@ class ProfilePage extends Component {
     this.displayForm(false);
   }
 
-  onChange = (ev) => {
-    const field = { [ev.target.name]: ev.target.value };
-    this.setState(prevState => ({
-      user: {
-        ...prevState.user,
-        ...field,
-      }
-    }));
-  }
-  forcingSubmit = (refForm) =>{
-    refForm.forceSubmit();
-  }
-
   onSubmit = () => {
-    this.setState({forcingSubmit: this.forcingSubmit});
-
+    this.editForm.forceSubmit();
   }
 
   displayForm = (formVisible = true) => {
     this.setState({ showEditForm: formVisible });
   }
 
+  onChangeProfileForm = (user) => {
+    this.setState({ user });
+  }
+
   render() {
     const { data: { me }, intl } = this.props;
-    const { showEditForm, forcingSubmit } = this.state;
+    const { showEditForm, user } = this.state;
     let userImage = (me && me.image) ? me.image : '';
 
     const passwordSection = (
@@ -109,18 +97,58 @@ class ProfilePage extends Component {
         </div>
       </div>
     )
+
     return (
       <div className={styles.profile}>
         <Card title={intl.formatMessage({id: 'profile.title'})}
           classNameContent={styles.profileContent}>
           { !showEditForm && profileSection}
-          { showEditForm && <EditProfile me={me} forcingSubmit={forcingSubmit}/>}
-          <div className={styles.editProfile}>
-            {showEditForm && <Button neutral text='Cancelar' onClick={this.cancelChanges} />}
-            <Button neutral={!showEditForm}
-              text={showEditForm ? 'Guardar Cambios' : 'Editar Perfil'}
-              onClick={!showEditForm ? this.displayForm : this.onSubmit}
+          { showEditForm &&
+            <EditProfile
+              me={me}
+              onChange={this.onChangeProfileForm}
+              formRef={ref => this.editForm = ref}
             />
+          }
+          <div className={styles.editProfile}>
+            {showEditForm && (
+              <React.Fragment>
+                <Button neutral text='Cancelar' onClick={this.cancelChanges} />
+                <Mutation
+                  variables={user}
+                  mutation={updateProfile}
+                  update={(cache, { data: { updateUser } }) => {
+                    const data = cache.readQuery({ query: getMe });
+                    cache.writeQuery({ query: getMe, data: { me: { ...data.me, ...updateUser } } });
+                  }}
+                >{(updateUser, { loading }) => {
+                  return (
+                    <Button text='Guardar Cambios' onClick={async () => {
+                      try {
+                        await updateUser({
+                          optimisticResponse: {
+                            __typename: "Mutation",
+                            updateUser: {
+                              __typename: "Maker",
+                              id: -1,
+                              role:'maker',
+                              name: (user || {}).name || me.name,
+                              email: (user || {}).email || me.email,
+                              image: (user.upload || {}).imagePreviewUrl || me.image,
+                            }
+                          }
+                        });
+                      } catch (error) {
+                        console.log(error);
+                      }
+                    }}/>
+                  )
+                }}</Mutation>
+              </React.Fragment>
+            )}
+            {!showEditForm && (
+              <Button neutral text='Editar Perfil' onClick={this.displayForm} />
+            )}
           </div>
         </Card>
         <Card classNameContent={styles.accountOptions}>

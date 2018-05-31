@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { InputFile, Avatar, InputBox, Form } from 'coupon-components';
-import { withApollo } from 'react-apollo';
+import { withApollo, Mutation } from 'react-apollo';
 import { getMe, updateProfile } from 'Services/graphql/queries.graphql';
 import { toast } from 'react-toastify';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
@@ -84,31 +84,30 @@ class EditProfilePage extends Component {
 
   onChange = (ev) => {
     const field = { [ev.target.name]: ev.target.value };
-    this.updateState(field);
+    this.updateState(field, () => {
+      if(this.props.onChange) this.props.onChange(this.state.user);
+    });
+
   }
 
   onChangeImage = (ev, values) => {
     const field = { upload:  values};
-    this.updateState(field);
+    this.updateState(field, () => {
+      if(this.props.onChange) this.props.onChange(this.state.user);
+    });
   }
 
-  updateState = (field) => {
+  updateState = (field, cb) => {
     this.setState(prevState => ({
       user: {
         ...prevState.user,
         ...field,
       }
-    }));
-  }
-
-  componentWillReceiveProps = (nextProps) =>{
-    if(nextProps.forcingSubmit){
-      nextProps.forcingSubmit(this.form);
-    }
+    }), cb);
   }
 
   render() {
-    const { me, intl } = this.props;
+    const { me, intl, formRef } = this.props;
     const { user } = this.state;
     const imageUser = (user.upload && user.upload.imagePreviewUrl) ? user.upload.imagePreviewUrl : me.image;
     const name = (user.name === undefined) ? me.name : user.name;
@@ -122,7 +121,7 @@ class EditProfilePage extends Component {
           </InputFile>
         </div>
         <div className={styles.fieldsContainer}>
-          <Form onChange={this.onChange} onSubmit={this.onSubmit} ref={ref => this.form = ref}>
+          <Form onChange={this.onChange} ref={formRef}>
             <InputBox name="name"
               placeholder={intl.formatMessage({ id: 'profile.edit.name.placeholder' })}
               className={styles.row_padding}
