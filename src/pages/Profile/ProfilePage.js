@@ -15,6 +15,7 @@ import EditProfile from './EditProfile/EditProfilePage';
 class ProfilePage extends Component {
   state = {
     showEditForm: false,
+    forcingSubmit: null,
     user: {}
   }
 
@@ -56,25 +57,13 @@ class ProfilePage extends Component {
       }
     }));
   }
+  forcingSubmit = (refForm) =>{
+    refForm.forceSubmit();
+  }
 
-  onSubmit = async (ev) => {
-    ev.preventDefault();
-    const { user } = this.state;
-    const { client: { mutate } } = this.props;
-    try {
-       await mutate({
-        mutation: updateMyPassword,
-        variables: {
-          oldPass: user.oldPass,
-          newPass: user.newPass
-        }
-      });
-      this.showSuccessNotification();
-      this.displayForm(false);
-    } catch (err) {
-      this.showErrorNotification(err);
-      return;
-    }
+  onSubmit = () => {
+    this.setState({forcingSubmit: this.forcingSubmit});
+
   }
 
   displayForm = (formVisible = true) => {
@@ -83,7 +72,7 @@ class ProfilePage extends Component {
 
   render() {
     const { data: { me }, intl } = this.props;
-    const { showEditForm } = this.state;
+    const { showEditForm, forcingSubmit } = this.state;
     let userImage = (me && me.image) ? me.image : '';
 
     const passwordSection = (
@@ -125,7 +114,7 @@ class ProfilePage extends Component {
         <Card title={intl.formatMessage({id: 'profile.title'})}
           classNameContent={styles.profileContent}>
           { !showEditForm && profileSection}
-          { showEditForm && <EditProfile me={me}/>}
+          { showEditForm && <EditProfile me={me} forcingSubmit={forcingSubmit}/>}
           <div className={styles.editProfile}>
             {showEditForm && <Button neutral text='Cancelar' onClick={this.cancelChanges} />}
             <Button neutral={!showEditForm}

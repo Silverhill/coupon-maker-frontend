@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { InputFile, Avatar, InputBox } from 'coupon-components';
+import { InputFile, Avatar, InputBox, Form } from 'coupon-components';
 import { withApollo } from 'react-apollo';
 import { getMe, updateProfile } from 'Services/graphql/queries.graphql';
 import { toast } from 'react-toastify';
@@ -37,8 +37,8 @@ class EditProfilePage extends Component {
     })
   }
 
-  onSubmit = async (ev) => {
-    ev.preventDefault();
+  onSubmit = async () => {
+    console.log('Se llamooo..!!');
     const { user } = this.state;
     const { client: { mutate } } = this.props;
     let userFile = user.upload ? user.upload.file : null;
@@ -68,6 +68,7 @@ class EditProfilePage extends Component {
           if(updateUser.email) { data.me.email = updateUser.email; }
           if(updateUser.image) { data.me.image = updateUser.image; }
           cache.writeQuery({ query: getMe, data: data });
+          console.log('pinche optimize');
           if(updateUser.id === -1) {
             console.log('Updated')
           }else{
@@ -100,6 +101,12 @@ class EditProfilePage extends Component {
     }));
   }
 
+  componentWillReceiveProps = (nextProps) =>{
+    if(nextProps.forcingSubmit){
+      nextProps.forcingSubmit(this.form);
+    }
+  }
+
   render() {
     const { me, intl } = this.props;
     const { user } = this.state;
@@ -115,7 +122,7 @@ class EditProfilePage extends Component {
           </InputFile>
         </div>
         <div className={styles.fieldsContainer}>
-          <form onChange={this.onChange} onSubmit={this.onSubmit}>
+          <Form onChange={this.onChange} onSubmit={this.onSubmit} ref={ref => this.form = ref}>
             <InputBox name="name"
               placeholder={intl.formatMessage({ id: 'profile.edit.name.placeholder' })}
               className={styles.row_padding}
@@ -126,7 +133,7 @@ class EditProfilePage extends Component {
               className={styles.row_padding}
               value={email}
               required="required" />
-          </form>
+          </Form>
         </div>
       </div>
     )
