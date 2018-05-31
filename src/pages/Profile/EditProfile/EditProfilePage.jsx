@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { Card, InputFile, Avatar, InputBox, Button } from 'coupon-components';
+import { InputFile, Avatar, InputBox } from 'coupon-components';
 import { withApollo } from 'react-apollo';
-import { Query } from 'react-apollo';
 import { getMe, updateProfile } from 'Services/graphql/queries.graphql';
 import { toast } from 'react-toastify';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
@@ -70,7 +69,7 @@ class EditProfilePage extends Component {
           if(updateUser.image) { data.me.image = updateUser.image; }
           cache.writeQuery({ query: getMe, data: data });
           if(updateUser.id === -1) {
-            this.props.history.push('/profile')
+            console.log('Updated')
           }else{
             this.showSuccessNotification();
           }
@@ -102,53 +101,34 @@ class EditProfilePage extends Component {
   }
 
   render() {
-    const { intl } = this.props;
+    const { me, intl } = this.props;
     const { user } = this.state;
-    return (
-      <Query query={getMe}>
-        {({ loading, error, data}) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
-          const { me } = data;
-          const imageUser = (user.upload && user.upload.imagePreviewUrl) ? user.upload.imagePreviewUrl : me.image;
-          const name = (user.name === undefined) ? me.name : user.name;
-          const email = (user.email  === undefined) ? me.email : user.email;
+    const imageUser = (user.upload && user.upload.imagePreviewUrl) ? user.upload.imagePreviewUrl : me.image;
+    const name = (user.name === undefined) ? me.name : user.name;
+    const email = (user.email  === undefined) ? me.email : user.email;
 
-          return (
-            <div className={styles.editProfile}>
-              <Card title={intl.formatMessage({id: 'profile.edit.title'})}>
-                <div className={styles.formContainer}>
-                  <div className={styles.avatarContainer}>
-                    <InputFile updateFile={this.onChangeImage}>
-                      <Avatar image={imageUser} className={styles.avatar}/>
-                    </InputFile>
-                  </div>
-                  <div className={styles.fieldsContainer}>
-                    <form onChange={this.onChange} onSubmit={this.onSubmit}>
-                      <InputBox name="name"
-                            placeholder={intl.formatMessage({id: 'profile.edit.name.placeholder'})}
-                            labelText={intl.formatMessage({id: 'profile.edit.name.label'})}
-                            className={styles.row_padding}
-                            value={name}
-                            required="required"/>
-                      <InputBox name="email"
-                            placeholder={intl.formatMessage({id: 'profile.edit.email.placeholder'})}
-                            labelText={intl.formatMessage({id: 'profile.edit.email.label'})}
-                            className={styles.row_padding}
-                            value={email}
-                            required="required"/>
-                      <Button shape="pill"
-                          text={intl.formatMessage({id: 'profile.edit.update'})}
-                          type="submit"
-                          className={styles.btnUpdate}/>
-                    </form>
-                  </div>
-                </div>
-              </Card>
-            </div>
-          );
-        }}
-      </Query>
+    return (
+      <div className={styles.editProfile}>
+        <div className={styles.avatarContainer}>
+          <InputFile updateFile={this.onChangeImage}>
+            <Avatar image={imageUser} className={styles.avatar} />
+          </InputFile>
+        </div>
+        <div className={styles.fieldsContainer}>
+          <form onChange={this.onChange} onSubmit={this.onSubmit}>
+            <InputBox name="name"
+              placeholder={intl.formatMessage({ id: 'profile.edit.name.placeholder' })}
+              className={styles.row_padding}
+              value={name}
+              required="required" />
+            <InputBox name="email"
+              placeholder={intl.formatMessage({ id: 'profile.edit.email.placeholder' })}
+              className={styles.row_padding}
+              value={email}
+              required="required" />
+          </form>
+        </div>
+      </div>
     )
   }
 }

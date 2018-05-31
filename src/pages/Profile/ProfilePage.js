@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { getMe } from 'Services/graphql/queries.graphql';
-import { Card, Typography, Button, Avatar, InputFile, InputBox } from 'coupon-components';
+import { Card, Typography, Button, Avatar, InputBox } from 'coupon-components';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withApollo } from 'react-apollo';
-import { changeUserImage, updateMyPassword } from 'Services/graphql/queries.graphql';
+import { updateMyPassword } from 'Services/graphql/queries.graphql';
 import { toast } from 'react-toastify';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
 import styles from './ProfilePage.css';
 import * as palette from 'Styles/palette.css';
+import EditProfile from './EditProfile/EditProfilePage';
 
 class ProfilePage extends Component {
   state = {
-    isLoadingImage: false,
-    showChangePassword: false,
+    showEditForm: false,
     user: {}
   }
 
@@ -41,45 +41,6 @@ class ProfilePage extends Component {
         )
       )
     })
-  }
-
-  changeImage = async (ev, value) => {
-    const { client: { mutate } } = this.props;
-    this.setState({isLoadingImage: true});
-    try {
-      await mutate({
-        mutation: changeUserImage,
-        variables: {
-          upload: value.file
-        },
-        optimisticResponse: {
-          __typename: "Mutation",
-          addImageToUser: {
-            __typename: "Maker",
-            id: -1,
-            image: value.imagePreviewUrl,
-          }
-        },
-        update: (cache, { data: {addImageToUser} }) => {
-          const data = cache.readQuery({ query: getMe });
-          data.me.image = addImageToUser.image;
-          cache.writeQuery({ query: getMe, data: data });
-        }
-      });
-    } catch (err) {
-      this.showErrorNotification(err);
-    }
-    this.setState({isLoadingImage: false});
-  }
-
-  changeMenu = (ev, value) => {
-    // if(value.iconName === 'FaEdit'){
-    //   this.props.history.push('/profile/edit')
-    // }else if(value.iconName === 'FaKey'){
-      // this.setState({showChangePassword: true});
-    // }
-
-    this.displayForm();
   }
 
   cancelChanges = () => {
@@ -117,12 +78,12 @@ class ProfilePage extends Component {
   }
 
   displayForm = (formVisible = true) => {
-    this.setState({ showChangePassword: formVisible });
+    this.setState({ showEditForm: formVisible });
   }
 
   render() {
     const { data: { me }, intl } = this.props;
-    const { isLoadingImage, showChangePassword } = this.state;
+    const { showEditForm } = this.state;
     let userImage = (me && me.image) ? me.image : '';
 
     const passwordSection = (
@@ -146,27 +107,30 @@ class ProfilePage extends Component {
       </form>
     )
 
+    const profileSection = (
+      <div className={styles.profileContent}>
+        <Avatar image={userImage} className={styles.avatar}/>
+        <div className={styles.information}>
+          <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
+            {me && me.name}
+          </Typography.Text>
+          <Typography.Text small>
+            {me && me.email}
+          </Typography.Text>
+        </div>
+      </div>
+    )
     return (
       <div className={styles.profile}>
         <Card title={intl.formatMessage({id: 'profile.title'})}
           classNameContent={styles.profileContent}>
-          <InputFile updateFile={this.changeImage} isLoading={isLoadingImage}>
-            <Avatar image={userImage} className={styles.avatar}/>
-          </InputFile>
-          <div className={styles.information}>
-            <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
-              {me && me.name}
-            </Typography.Text>
-            <Typography.Text small>
-              {me && me.email}
-            </Typography.Text>
-            { showChangePassword && passwordSection}
-          </div>
+          { !showEditForm && profileSection}
+          { showEditForm && <EditProfile me={me}/>}
           <div className={styles.editProfile}>
-            {showChangePassword && <Button neutral text='Cancelar' onClick={this.cancelChanges} />}
-            <Button neutral={!showChangePassword}
-              text={showChangePassword ? 'Guardar Cambios' : 'Editar Perfil'}
-              onClick={!showChangePassword ? this.changeMenu : this.onSubmit}
+            {showEditForm && <Button neutral text='Cancelar' onClick={this.cancelChanges} />}
+            <Button neutral={!showEditForm}
+              text={showEditForm ? 'Guardar Cambios' : 'Editar Perfil'}
+              onClick={!showEditForm ? this.displayForm : this.onSubmit}
             />
           </div>
         </Card>
