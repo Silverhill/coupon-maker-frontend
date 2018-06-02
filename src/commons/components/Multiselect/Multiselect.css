@@ -1,0 +1,51 @@
+@value colors: "Styles/palette.css";
+@value (
+  lightNeutral,
+  brightBlue,
+  paleGray
+) from colors;
+
+.container {
+
+  .squares {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 1rem;
+
+    .option {
+      text-align: center;
+
+      .square {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .2s ease-in-out;
+        padding: 10px;
+        border: 1px solid paleGray;
+        flex-direction: column;
+        background-color: lightNeutral;
+        border-radius: 5px;
+
+        svg {
+          filter: grayscale(100%);
+        }
+
+        &:hover {
+          border: 1px solid brightBlue;
+        }
+
+        &.squareSelected {
+          border: 1px solid brightBlue;
+
+          svg {
+            filter: grayscale(0%);
+          }
+
+          p {
+            color: brightBlue;
+          }
+        }
+      }
+    }
+  }
+}
