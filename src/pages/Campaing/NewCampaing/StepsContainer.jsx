@@ -93,8 +93,9 @@ class StepsContainer extends Component {
     this.updateState(field);
   }
 
-  updateState = (field) => {
+  updateState = (field, errors) => {
     this.setState(prevState => ({
+      ...errors,
       campaign: {
         ...prevState.campaign,
         ...field,
@@ -106,11 +107,20 @@ class StepsContainer extends Component {
     var strNumber = ev.target.value;
     var isvalid = /^[1-9][0-9]*$/.test(strNumber);
     var msg = '';
+
+    if(strNumber === ''){
+      let field = { [ev.target.name]: ev.target.value };
+      msg = 'Por favor ingrese un número';
+      let errors = { errors: { validNumberCoupon: msg}};
+      this.updateState(field, errors);
+      return;
+    }
+
     if(isvalid){
       if(parseInt(strNumber, 10) <= Number.MAX_SAFE_INTEGER){
-        this.setState({ errors: null});
-        const field = { [ev.target.name]: ev.target.value };
-        this.updateState(field);
+        let errors = { errors: null};
+        let field = { [ev.target.name]: ev.target.value };
+        this.updateState(field, errors);
       }else{
         msg = 'Número fuera de rango, Por favor ingrese un número menor a '+Number.MAX_SAFE_INTEGER;
         this.setState({ errors: { validNumberCoupon: msg}});
@@ -122,13 +132,15 @@ class StepsContainer extends Component {
   }
 
   handleSubmit = (ev) => {
-    const { campaign, currentStep, steps } = this.state;
+    const { campaign, currentStep, steps, errors } = this.state;
     const { onSubmit } = this.props;
-    if(currentStep.id === 1 && onSubmit){
-      onSubmit(campaign);
-    }else{
-      let newStep = currentStep.id + 1 ;
-      this.handleStepsChange(steps[newStep]);
+    if(!errors){
+      if(currentStep.id === 1 && onSubmit){
+        onSubmit(campaign);
+      }else{
+        let newStep = currentStep.id + 1 ;
+        this.handleStepsChange(steps[newStep]);
+      }
     }
   }
 
