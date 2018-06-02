@@ -93,16 +93,14 @@
       "campaings" : {
         "active": {
           "title": "Campaings",
-          "subtitle": "Active",
           "empty": {
             "text": "Here you will see your most recent campaigns"
           }
         },
         "inactive": {
-          "title": "Campaings",
-          "subtitle": "Inactive",
+          "title": "History of Campaings",
           "empty": {
-            "text": "Here you will see a history of your campaigns"
+            "text": "Here you will show your campaigns that have finished"
           }
         }
       }
@@ -439,17 +437,15 @@
     "home":{
       "campaings" : {
         "active": {
-          "title": "Campañas",
-          "subtitle": "Activas",
+          "title": "Campañas Recientes",
           "empty": {
-            "text": "Aqui se mostrara tus campañas más recientes"
+            "text": "Aqui se mostrara tus ultimas campañas"
           }
         },
         "inactive": {
-          "title": "Campañas",
-          "subtitle": "Inactivas",
+          "title": "Historial de Campañas",
           "empty": {
-            "text": "Aqui se mostrara un historial de tus campañas"
+            "text": "Aqui se mostrara tus campañas que han terminado"
           }
         }
       }

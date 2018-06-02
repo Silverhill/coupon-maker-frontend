@@ -93,9 +93,9 @@ class Home extends Component {
       <div className={styles.emptyState}>
         <EmptyState
           name='coupons'
-          lowColor="#e4eefc"
-          mediumColor="#3f92fe"
-          highColor="#0169e5"
+          lowColor={palette.lowColorEmptyState}
+          mediumColor={palette.mediumColorEmptyState}
+          highColor={palette.highColorEmptyState}
           width="55%"
         />
         <Typography.Text small>
@@ -108,9 +108,9 @@ class Home extends Component {
       <div className={styles.emptyState}>
         <EmptyState
           name='history'
-          lowColor="#e4eefc"
-          mediumColor="#3f92fe"
-          highColor="#0169e5"
+          lowColor={palette.lowColorEmptyState}
+          mediumColor={palette.mediumColorEmptyState}
+          highColor={palette.highColorEmptyState}
           width="55%"
         />
         <Typography.Text small>
@@ -216,13 +216,11 @@ class Home extends Component {
           <div className={styles.leftPanel}>
             <Card
               title={intl.formatMessage({id: 'home.campaings.active.title'})}
-              subtitle={intl.formatMessage({id: 'home.campaings.active.subtitle'})}
               classNameCard={styles.card}>
               {activesCampaigns}
             </Card>
             <Card
               title={intl.formatMessage({id: 'home.campaings.inactive.title'})}
-              subtitle={intl.formatMessage({id: 'home.campaings.inactive.subtitle'})}
               classNameCard={styles.card}>
               {inactivesCampaigns}
             </Card>
