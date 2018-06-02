@@ -5,7 +5,7 @@
       "option": {
         "coupons": "Register Coupon",
         "campaigns": "Campaigns",
-        "offices": "Offices"
+        "offices": "My Company"
       },
       "user": {
         "option": {
@@ -350,7 +350,7 @@
       "option": {
         "coupons": "Registro Cupones",
         "campaigns": "Campañas",
-        "offices": "Sucursales"
+        "offices": "Mi Empresa"
       },
       "user": {
         "option": {
@@ -658,8 +658,8 @@
       "title": "Mis Sucursales",
       "panelTitle": "Sucursales Registradas",
       "empty": "Bienvenido A Sucursales",
-      "description": "Sucursales es una sección para crear tus sucursales",
-      "tip": "Todas tus Sucursales seran listadas aquí",
+      "description": "Esta sección te permitira registrar tus locales",
+      "tip": "Los mismos que seran listados aquí",
       "new": "Nueva Sucursal"
     },
     "myCompany": {

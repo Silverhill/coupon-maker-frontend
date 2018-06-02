@@ -104,7 +104,7 @@ class OfficesPage extends Component {
                 />
               </InputFile>
               <div className={styles.editButton}>
-                <Button neutral text='Editar Compañia' onClick={() => this.onEdit(myCompany.id)}/>
+                <Button neutral text='Editar Empresa' onClick={() => this.onEdit(myCompany.id)}/>
               </div>
             </div>
           );
