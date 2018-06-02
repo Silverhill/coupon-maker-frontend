@@ -28,7 +28,7 @@ class SecondStep extends Component {
   render() {
     const { intl, onChangeData, campaign } = this.props;
     const agesRanges = this.getValuesToAgeRange();
-
+    const currentCampaign = campaign || {};
     return (
       <div>
         <Panel title="Público" classNameContainer={styles.panel}>
@@ -50,14 +50,14 @@ class SecondStep extends Component {
                     options={constants.countries}
                     className={cx(styles.field, styles.left )}
                     selectedOption={values => onChangeData(values, 'country')}
-                    currentOption={campaign && campaign.country}/>
+                    currentOption={ currentCampaign.country}/>
               <Select name="city"
                     labelText={intl.formatMessage({id: 'campaigns.new.place.city.label'})}
                     placeholder={intl.formatMessage({id: 'campaigns.new.place.city.placeholder'})}
                     options={constants.cities}
                     className={cx(styles.field, styles.right)}
                     selectedOption={values => onChangeData(values, 'city')}
-                    currentOption={campaign && campaign.city}/>
+                    currentOption={ currentCampaign.city}/>
             </div>
             <div className={cx(styles.row, styles.row_padding)}>
               <div className={styles.fieldColumn}>
@@ -70,7 +70,7 @@ class SecondStep extends Component {
               </div>
             </div>
             <div className={cx(styles.row_padding)}>
-              <Multiselect values={agesRanges} selectedOptions={values => onChangeData(values, 'rangeAge')}/>
+              <Multiselect values={agesRanges} defaultSelectedOptions= {currentCampaign.rangeAge} selectedOptions={values => onChangeData(values, 'rangeAge')}/>
             </div>
           </div>
         </Panel>

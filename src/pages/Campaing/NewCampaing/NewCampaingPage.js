@@ -94,11 +94,18 @@ class NewCampaingPage extends Component {
     this.props.history.push('/campaigns')
   }
 
+  getIdsRangeAge = (values) => {
+    return values && values.map((value)=>{
+      return value.key
+    })
+  }
+
 
   createCampaing = async (values) => {
     const { client: { mutate } } = this.props;
     const coupons = parseInt(values.couponsNumber, 10);
     let couponBackground = this.state.couponBackground ? this.state.couponBackground : palette.pinkRed;
+    const idsRangeAge = this.getIdsRangeAge(values.rangeAge);
     try {
       await mutate({
         mutation: createCampaing,
@@ -114,7 +121,7 @@ class NewCampaingPage extends Component {
           customMessage: values.customMessage,
           upload: values.upload.file,
           background: couponBackground,
-          rangeAge: values.rangeAge
+          rangeAge: idsRangeAge
         },
         optimisticResponse: {
           __typename: "Mutation",
@@ -137,7 +144,7 @@ class NewCampaingPage extends Component {
             },
             background: this.state.couponBackground,
             totalCoupons: coupons,
-            rangeAge: values.rangeAge
+            rangeAge: idsRangeAge
           }
         },
         update: this.updateCampaigns

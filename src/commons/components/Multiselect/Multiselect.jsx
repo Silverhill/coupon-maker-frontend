@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames/bind'
 import styles from './Multiselect.css'
-import Palette from 'react-palette';
-import { Typography, Icon } from 'coupon-components';
-import * as palette from 'Styles/palette.css';
+import { Typography } from 'coupon-components';
 
 const cx = classNames.bind(styles)
 
@@ -14,7 +12,12 @@ class Multiselect extends Component {
     itemsSelected: []
   }
 
-  selectOption = (e, key) => {
+  componentWillMount() {
+    const { defaultSelectedOptions } = this.props;
+    if(defaultSelectedOptions) this.setState({ itemsSelected: defaultSelectedOptions });
+  }
+
+  selectOption = (e, option) => {
     const {
       itemsSelected,
     } = this.state
@@ -23,13 +26,13 @@ class Multiselect extends Component {
       selectedOptions,
     } = this.props
 
-    const isInclude = itemsSelected.includes(key);
+    const isInclude = itemsSelected.includes(option);
     let items = [];
 
     if (!isInclude) {
-      items = [...itemsSelected, key];
+      items = [...itemsSelected, option];
     } else {
-      const index = itemsSelected.indexOf(key);
+      const index = itemsSelected.indexOf(option);
       items = [
         ...itemsSelected.slice(0, index),
         ...itemsSelected.slice(index + 1),
@@ -47,6 +50,7 @@ class Multiselect extends Component {
       values,
       size,
       className,
+      defaultSelectedOptions,
     } = this.props
 
     const {
@@ -60,16 +64,14 @@ class Multiselect extends Component {
             if (option) {
               const defaultOptions = {width:size, height:size, cursor:"pointer"};
               const stylesSquare = defaultOptions;
-              const isSelected = itemsSelected.includes(option.key);
-              let selectColor = isSelected ? palette.whiteColor : palette.darkColor;
-              let selectIcon = isSelected ? 'FaCheckCircle' : 'FaCircleThin';
+              const isSelected = itemsSelected.includes(option) || defaultSelectedOptions && defaultSelectedOptions.includes(option);
               return (
                 <div key={index} className={cx(styles.option)}>
                 <div
                   key={index}
                   className={cx(styles.square, isSelected ? styles.squareSelected : '')}
                   style={stylesSquare}
-                  onClick={e => this.selectOption(e, option.key)}
+                  onClick={e => this.selectOption(e, option)}
                 >
                   <div className={styles.status}>
                     {option.icon}
@@ -101,6 +103,7 @@ Multiselect.propTypes = {
   size: PropTypes.string,
   className: PropTypes.string,
   selectedOptions: PropTypes.func,
+  defaultSelectedOptions: PropTypes.array,
 }
 
 export default Multiselect;
