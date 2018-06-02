@@ -91,8 +91,6 @@ query getCampaign($id:String!){
     city
     country
     description
-    initialAgeRange
-    finalAgeRange
     status
     office {
       id
