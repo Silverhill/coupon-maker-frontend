@@ -5,8 +5,9 @@ import { injectIntl } from 'react-intl';
 import { Panel, Select, Typography } from 'coupon-components';
 import styles from '../../NewCampaing/NewCampaing.css';
 //values
+import Multiselect from 'Components/Multiselect/Multiselect';
 import * as constants from 'Utils/values';
-
+import * as illustrations from 'Utils/illustrations';
 const cx = classNames.bind(styles);
 
 class SecondStep extends Component {
@@ -15,8 +16,10 @@ class SecondStep extends Component {
     const { intl } = this.props;
     const agesRanges = constants.agesRanges.map((item) => {
       let rangeField = intl.formatMessage({id: `common.agesRanges.${item.key}`});
-      let rangeDescription = ' ('+item.min+' - '+item.max+' '+intl.formatMessage({id: 'common.agesRanges.years'})+')';
-      item.value = rangeField + rangeDescription;
+      let rangeDescription = item.min+' - '+item.max+' '+intl.formatMessage({id: 'common.agesRanges.years'});
+      item.title = rangeField;
+      item.subtitle = rangeDescription;
+      item.icon = illustrations.faces[item.key];
       return item;
     });
     return agesRanges;
@@ -64,12 +67,8 @@ class SecondStep extends Component {
                 </Typography.Label>
               </div>
             </div>
-            <div className={cx(styles.fieldsInline, styles.row_padding, styles.field, styles.left)}>
-              <Select name="ageRange"
-                    options={agesRanges}
-                    placeholder={intl.formatMessage({id: 'campaigns.new.ageRange.placeholder'})}
-                    className={cx(styles.field, styles.left )}
-                    selectedOption={values => onChangeData(values, 'ageRange')}/>
+            <div className={cx(styles.row_padding)}>
+              <Multiselect values={agesRanges} />
             </div>
           </div>
         </Panel>
