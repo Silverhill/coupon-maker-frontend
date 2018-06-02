@@ -66,6 +66,10 @@
           "redeem": {
             "title": "Coupon",
             "subtitle": "Successfull Redeem"
+          },
+          "hunted": {
+            "title": "Coupon",
+            "subtitle": "Successfull Hunted"
           }
         }
       },
@@ -413,6 +417,10 @@
           "redeem": {
             "title": "Cupon",
             "subtitle": "Canjeado exitosamente"
+          },
+          "hunted": {
+            "title": "Cupon",
+            "subtitle": "Capturado exitosamente"
           }
         }
       },
