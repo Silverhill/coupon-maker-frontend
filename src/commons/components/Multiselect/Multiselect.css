@@ -1,11 +1,8 @@
 @value colors: "Styles/palette.css";
 @value (
-  whiteColor,
-  primaryColor,
-  secondaryColor,
   lightNeutral,
-  darkColor,
-  brightBlue
+  brightBlue,
+  paleGray
 ) from colors;
 
 .container {
@@ -24,7 +21,7 @@
         justify-content: center;
         transition: all .2s ease-in-out;
         padding: 10px;
-        border: 1px solid #e4e4e4;
+        border: 1px solid paleGray;
         flex-direction: column;
         background-color: lightNeutral;
         border-radius: 5px;
@@ -38,12 +35,10 @@
         }
 
         &.squareSelected {
-          /* background-color: brightBlue; */
           border: 1px solid brightBlue;
 
           svg {
             filter: grayscale(0%);
-            /* fill: brightBlue; */
           }
 
           p {
