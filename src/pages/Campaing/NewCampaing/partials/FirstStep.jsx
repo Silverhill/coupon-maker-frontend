@@ -51,7 +51,8 @@ class FirstStep extends Component {
                 placeholder={intl.formatMessage({id: 'campaigns.new.office.placeholder'})}
                 options={officesOptions}
                 className={cx(styles.field, styles.left)}
-                selectedOption={values => onChangeData(values, 'office')}/>
+                selectedOption={values => onChangeData(values, 'office')}
+                currentOption={campaign && campaign.office}/>
             <div className={cx(styles.couponsNumber, styles.field, styles.right)}>
               <InputBox name="couponsNumber"
                   type="number"
