@@ -19,6 +19,10 @@ class Multiselect extends Component {
       itemsSelected,
     } = this.state
 
+    const {
+      selectedOptions,
+    } = this.props
+
     const isInclude = itemsSelected.includes(key);
     let items = [];
 
@@ -34,8 +38,8 @@ class Multiselect extends Component {
     this.setState({
       itemsSelected: items
     });
-    console.log(itemsSelected);
 
+    if (selectedOptions) selectedOptions(items);
   }
 
   render () {
@@ -48,8 +52,6 @@ class Multiselect extends Component {
     const {
       itemsSelected,
     } = this.state
-
-    // console.log(values);
 
     const Squares = ({ values }) => (
       <div className={cx(styles.squares)}>
@@ -70,13 +72,11 @@ class Multiselect extends Component {
                   onClick={e => this.selectOption(e, option.key)}
                 >
                   <div className={styles.status}>
-                    {/* <Icon name="male" size={40} color={selectColor}/> */}
                     {option.icon}
                   </div>
                   <Typography.Text >{option.title}</Typography.Text>
-                  {/* <Typography.Text small >{option.subtitle}</Typography.Text> */}
                 </div>
-                <Typography.Text small >{option.subtitle}</Typography.Text>
+                <Typography.Text small style={{marginTop:'5px'}}>{option.subtitle}</Typography.Text>
                 </div>
 
               )
@@ -98,9 +98,9 @@ class Multiselect extends Component {
 }
 
 Multiselect.propTypes = {
-  colors: PropTypes.array,
   size: PropTypes.string,
   className: PropTypes.string,
+  selectedOptions: PropTypes.func,
 }
 
 export default Multiselect;

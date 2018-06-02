@@ -92,11 +92,12 @@ query getCampaign($id:String!){
     country
     description
     status
+    background
+    rangeAge
     office {
       id
       address
     }
-    background
   }
 }
 
@@ -187,6 +188,7 @@ mutation createCampaing(
   $customMessage: String,
   $officeId: String!,
   $background: String,
+  $rangeAge: [Int]!,
   $upload: Upload) {
     addCampaign(input:{
       startAt: $startAt,
@@ -200,6 +202,7 @@ mutation createCampaing(
       officeId: $officeId,
       upload: $upload
       background: $background,
+      rangeAge: $rangeAge
     }) {
       id
       title

@@ -1,9 +1,9 @@
 export const agesRanges = [
-  {key:'teenager', value:'', min: 13, max: 17},
-  {key:'young', value:'', min: 18, max: 29},
-  {key:'adult', value:'', min: 30, max: 40},
-  {key:'adult_b', value:'', min: 41, max: 59},
-  {key:'old', value:'', min: 60, max: 100}
+  {key:1, type:'teenager', value:'', min: 13, max: 17},
+  {key:2, type:'young', value:'', min: 18, max: 29},
+  {key:3, type:'adult', value:'', min: 30, max: 40},
+  {key:4, type:'adult_b', value:'', min: 41, max: 59},
+  {key:5, type:'old', value:'', min: 60, max: 100}
 ];
 
 export const countries = [

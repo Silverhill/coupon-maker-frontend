@@ -15,11 +15,11 @@ class SecondStep extends Component {
   getValuesToAgeRange(){
     const { intl } = this.props;
     const agesRanges = constants.agesRanges.map((item) => {
-      let rangeField = intl.formatMessage({id: `common.agesRanges.${item.key}`});
+      let rangeField = intl.formatMessage({id: `common.agesRanges.${item.type}`});
       let rangeDescription = item.min+' - '+item.max+' '+intl.formatMessage({id: 'common.agesRanges.years'});
       item.title = rangeField;
       item.subtitle = rangeDescription;
-      item.icon = illustrations.faces[item.key];
+      item.icon = illustrations.faces[item.type];
       return item;
     });
     return agesRanges;
@@ -70,7 +70,7 @@ class SecondStep extends Component {
               </div>
             </div>
             <div className={cx(styles.row_padding)}>
-              <Multiselect values={agesRanges} />
+              <Multiselect values={agesRanges} selectedOptions={values => onChangeData(values, 'rangeAge')}/>
             </div>
           </div>
         </Panel>

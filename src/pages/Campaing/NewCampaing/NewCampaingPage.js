@@ -114,6 +114,7 @@ class NewCampaingPage extends Component {
           customMessage: values.customMessage,
           upload: values.upload.file,
           background: couponBackground,
+          rangeAge: values.rangeAge
         },
         optimisticResponse: {
           __typename: "Mutation",
@@ -135,7 +136,8 @@ class NewCampaingPage extends Component {
               address: 'waiting address'
             },
             background: this.state.couponBackground,
-            totalCoupons: coupons
+            totalCoupons: coupons,
+            rangeAge: values.rangeAge
           }
         },
         update: this.updateCampaigns
