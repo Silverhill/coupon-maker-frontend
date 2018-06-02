@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { InputFile, Avatar, InputBox, Form } from 'coupon-components';
-import { withApollo, Mutation } from 'react-apollo';
+import { withApollo } from 'react-apollo';
 import { getMe, updateProfile } from 'Services/graphql/queries.graphql';
 import { toast } from 'react-toastify';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';

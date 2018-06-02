@@ -7,6 +7,7 @@
     "apollo-client": "^2.2.7",
     "apollo-link": "^1.2.1",
     "apollo-link-http": "^1.5.3",
+    "apollo-link-state": "^0.4.1",
     "apollo-upload-client": "^8.0.0",
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",

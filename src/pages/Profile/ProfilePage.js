@@ -138,8 +138,12 @@ class ProfilePage extends Component {
                             }
                           }
                         });
+
+                        // this.showSuccessNotification();
+                        console.log('UPDATE USER');
                       } catch (error) {
                         console.log(error);
+                        // this.showErrorNotification(error);
                       }
                     }}/>
                   )
