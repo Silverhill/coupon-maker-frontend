@@ -13,7 +13,7 @@ import moment from 'moment';
 // Components
 import Header from 'Components/Header/Header';
 import Footer from 'Components/Footer/Footer';
-import { Card, Coupon, Typography, Icon, Campaign } from 'coupon-components';
+import { Card, Coupon, Typography, Campaign } from 'coupon-components';
 import EmptyState from 'Components/EmptyState/EmptyState';
 
 // Pages
@@ -91,7 +91,13 @@ class Home extends Component {
 
     const emptyStateActiveCampaigns = (
       <div className={styles.emptyState}>
-        <EmptyState name='coupons' />
+        <EmptyState
+          name='coupons'
+          lowColor="#e4eefc"
+          mediumColor="#3f92fe"
+          highColor="#0169e5"
+          width="55%"
+        />
         <Typography.Text small>
           {intl.formatMessage({id: 'home.campaings.active.empty.text'})}
         </Typography.Text>
@@ -100,7 +106,13 @@ class Home extends Component {
 
     const emptyStateInactiveCampaigns = (
       <div className={styles.emptyState}>
-        <EmptyState name='history' />
+        <EmptyState
+          name='history'
+          lowColor="#e4eefc"
+          mediumColor="#3f92fe"
+          highColor="#0169e5"
+          width="55%"
+        />
         <Typography.Text small>
           {intl.formatMessage({id: 'home.campaings.inactive.empty.text'})}
         </Typography.Text>
