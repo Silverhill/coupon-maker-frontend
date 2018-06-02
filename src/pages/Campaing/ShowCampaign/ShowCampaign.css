@@ -14,27 +14,6 @@
   }
 
   .view {
-    .panelInformation {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      background-color: #f7f7f7;
-      padding: 0 10px 20px 10px;
-
-      .left {
-        width: 70%;
-        text-align: left;
-      }
-
-      .right {
-        width: 30%;
-        text-align: right;
-
-        .icons {
-          padding-right: 15px;
-        }
-      }
-    }
 
     .hunters {
 
