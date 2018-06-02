@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Typography, Icon, Panel, Card, Cover, InputFile, Menu } from 'coupon-components';
+import { Typography, Icon, Panel, Card, Cover, InputFile, Button } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import RowOffice from './partials/RowOffice';
@@ -35,7 +35,7 @@ class OfficesPage extends Component {
     })
   }
 
-  changeMenu = (id) => {
+  onEdit = (id) => {
     this.props.history.push(`/company/${id}/edit`)
   }
 
@@ -103,11 +103,9 @@ class OfficesPage extends Component {
                   rightText={myCompany.businessName}
                 />
               </InputFile>
-              <Menu className={styles.menu}
-                iconOptions={{name: "FaCog", size: 20, color:"white"}}
-                options={[{label: "Editar", iconName: "FaEdit"}]}
-                onChange={() => {this.changeMenu(myCompany.id)} }
-              />
+              <div className={styles.editButton}>
+                <Button neutral text='Editar Compañia' onClick={() => this.onEdit(myCompany.id)}/>
+              </div>
             </div>
           );
         }}

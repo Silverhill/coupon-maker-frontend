@@ -11,6 +11,12 @@ import RegisterPage from './pages/Register/RegisterPage';
 import Customer from './pages/Customer/Customer';
 import auth from './auth/authenticator';
 import { withApollo } from 'react-apollo';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Icon } from 'coupon-components';
+
+// Styles
+import * as palette from 'Styles/palette.css';
 
 const redirectToHome = (client, props) =>{
   client.resetStore();
@@ -30,9 +36,23 @@ const PrivateRoute = ({ client, component: Component }) => (
 
 class Pages extends React.Component {
   render () {
+    const CloseButton = ({closeToast }) => (
+      <Icon
+        name="TiDelete"
+        color={palette.baseGrayMedium}
+        size={20}
+        onClick={closeToast}
+      />
+    );
     const { client } = this.props;
     return (
       <main role='application'>
+        <ToastContainer
+          closeButton={<CloseButton />}
+          draggable={false}
+          autoClose= {5000}
+          hideProgressBar={true}
+        />
         <Switch>
           <Route path="/register" component={RegisterPage} />
           <Route path="/login" component={LogInPage} />

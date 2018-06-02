@@ -6,16 +6,14 @@ import {
 import { connect } from 'react-redux';
 import styles from './Home.css';
 import { withApollo, Query } from 'react-apollo';
-import { getMyCompany, makerCampaigns } from 'Services/graphql/queries.graphql';
+import { getMyCompany, makerCampaigns, inactiveCampaigns } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import moment from 'moment';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 // Components
 import Header from 'Components/Header/Header';
 import Footer from 'Components/Footer/Footer';
-import { Card, Coupon, Typography, Icon } from 'coupon-components';
+import { Card, Coupon, Typography, Icon, Campaign } from 'coupon-components';
 import EmptyState from 'Components/EmptyState/EmptyState';
 
 // Pages
@@ -59,19 +57,19 @@ class Home extends Component {
         id: 0,
         label: intl.formatMessage({id: 'header.option.coupons'}),
         route: '/new_coupon',
-        icon: 'CpTicket'
+        icon: 'MdStyle'
       },
       {
         id: 1,
         label: intl.formatMessage({id: 'header.option.campaigns'}),
         route: '/campaigns',
-        icon: 'FaListAlt'
+        icon: 'MdDeveloperBoard'
       },
       {
         id: 2,
         label:  intl.formatMessage({id: 'header.option.offices'}),
         route: '/offices',
-        icon: 'FaHome'
+        icon: 'MdStore'
       },
     ];
 
@@ -109,7 +107,7 @@ class Home extends Component {
       </div>
     )
 
-    const campaignsActives = (
+    const activesCampaigns = (
       <Query query={getMyCompany}>
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
@@ -156,24 +154,51 @@ class Home extends Component {
       </Query>
     );
 
-    const CloseButton = ({closeToast }) => (
-      <Icon
-        name="TiDelete"
-        color={palette.baseGrayMedium}
-        size={20}
-        onClick={closeToast}
-      />
+    const inactivesCampaigns = (
+      <Query query={getMyCompany}>
+        {({ loading, error, data}) => {
+          if (loading) return "Loading...";
+          if (error) return `Error! ${error.message}`;
+          return (
+            <Query query={inactiveCampaigns} variables={{limit:3, sortDirection:-1}}>
+              {({ loading, error, data}) => {
+                if (loading) return "Loading...";
+                if (error) return `Error! ${error.message}`;
+                const { myCampaigns } = data;
+                const campaigns = myCampaigns ? myCampaigns.campaigns : [];
+                const lastCampaigns = campaigns ? campaigns.slice(0,3) : [];
+                const total = campaigns ? campaigns.length : 0;
+                return (
+                  <div>
+                    {total === 0 && emptyStateInactiveCampaigns}
+                    {total > 0 &&
+                      lastCampaigns && lastCampaigns.map((cpg) => {
+                        const key = { key: cpg.id };
+                        const date = moment(cpg.startAt).format("DD MMM") + ' - ' + moment(cpg.endAt).format("DD MMM YYYY");
+                        return (
+                          <Campaign {...key}
+                            title={cpg.title}
+                            date={date}
+                            address={cpg.address}
+                            totalCoupons={maxnum(cpg.totalCoupons)}
+                            totalCouponsHunted={maxnum(cpg.huntedCoupons)}
+                            className={styles.campaign}
+                            onClick={()=>{history.push(`/campaign/${cpg.id}`)}}
+                          />
+                        )
+                      })
+                    }
+                  </div>
+                );
+              }}
+            </Query>
+          );
+        }}
+      </Query>
     );
 
     return (
       <div className={styles.container}>
-        <ToastContainer
-          toastClassName={styles.grayFlat}
-          closeButton={<CloseButton />}
-          draggable={false}
-          autoClose= {5000}
-          hideProgressBar={true}
-        />
         <Header tabs={tabOptions} optionsUser={optionsUser}/>
         <div className={styles.mainView}>
           <div className={styles.leftPanel}>
@@ -181,13 +206,13 @@ class Home extends Component {
               title={intl.formatMessage({id: 'home.campaings.active.title'})}
               subtitle={intl.formatMessage({id: 'home.campaings.active.subtitle'})}
               classNameCard={styles.card}>
-              {campaignsActives}
+              {activesCampaigns}
             </Card>
             <Card
               title={intl.formatMessage({id: 'home.campaings.inactive.title'})}
               subtitle={intl.formatMessage({id: 'home.campaings.inactive.subtitle'})}
               classNameCard={styles.card}>
-              {emptyStateInactiveCampaigns}
+              {inactivesCampaigns}
             </Card>
           </div>
           <main className={styles.renderContainer}>

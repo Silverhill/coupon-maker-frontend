@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './LoginPage.css'
 //components
-import { InputBox, Button, Typography, Card } from 'coupon-components';
+import { InputBox, Button, Typography, Card, Form } from 'coupon-components';
 import { injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Logo from 'Components/Logo/Logo';
@@ -26,37 +26,38 @@ class LoginForm extends React.Component {
   }
 
   handleSubmit = (ev) => {
-    ev.preventDefault();
     const { account } = this.state;
     const { onSubmit } = this.props;
     if(onSubmit) onSubmit(account);
   }
 
   render() {
-    const { intl } = this.props;
+    const { intl, isLoading, disabledBtn } = this.props;
     const form = (
-      <form onChange={this.onChange} onSubmit={this.handleSubmit}>
+      <Form onChange={this.onChange} onSubmit={this.handleSubmit}>
         <InputBox name="email"
-          leftIcon="FaUser"
+          leftIcon="MdFace"
           placeholder={intl.formatMessage({id: 'login.labels.email'})}
           type="email"
           shape="pill"
           className={styles.input}
           required="required"/>
         <InputBox name="password"
-          leftIcon="FaLock"
+          leftIcon="MdLockOutline"
           placeholder={intl.formatMessage({id: 'login.labels.password'})}
           type="password"
           shape="pill"
           className={styles.input}
           required="required"/>
         <Button
+          loading={isLoading}
+          disabled={disabledBtn}
           shape="pill"
           gradient
           type="submit"
           text={intl.formatMessage({id: 'login.buttons.login'})}
         />
-      </form>
+      </Form>
     )
 
     return (
@@ -70,7 +71,7 @@ class LoginForm extends React.Component {
           {form}
         </Card>
         <div className={styles.linkBtn}>
-          <Link to='register' className={styles.link}>
+          <Link to='/register' className={styles.link}>
             {intl.formatMessage({id: 'login.buttons.newUser'})}
           </Link>
         </div>
@@ -79,4 +80,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default (injectIntl(LoginForm));
+export default injectIntl(LoginForm);

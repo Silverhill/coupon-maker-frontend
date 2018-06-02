@@ -7,27 +7,36 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
 const RowOffice = ({ className, data, onClick, isOpen, intl }) => {
-  const tableData = {
-    columns: [
-      {
-        field: 'ruc',
-        title: intl.formatMessage({id: 'office.new.ruc.label'})
-      },
-      {
-        field: 'legalRepresentative',
-        title: intl.formatMessage({id: 'office.new.legalRepresentative.label'})
-      },
-      {
-        field: 'cellPhone',
-        title: intl.formatMessage({id: 'office.new.cellPhone.label'})
-      },
-    ],
-    rows: [{
-      'ruc': data.ruc,
-      'legalRepresentative': data.legalRepresentative,
-      'cellPhone': data.cellPhone,
-    }]
+  const formatDataTable = (data) => {
+
+    const rows = [{
+      ruc:  <Typography.Text small>{data.ruc}</Typography.Text>,
+      legalRepresentative: <Typography.Text small>{data.legalRepresentative}</Typography.Text>,
+      cellPhone: <Typography.Text small>{data.cellPhone}</Typography.Text>,
+    }];
+
+    const tableData = {
+      columns: [
+        {
+          field: 'ruc',
+          title: <Typography.Text bold>{intl.formatMessage({id: 'office.new.ruc.label'})}</Typography.Text>
+        },
+        {
+          field: 'legalRepresentative',
+          title: <Typography.Text bold>{intl.formatMessage({id: 'office.new.legalRepresentative.label'})}</Typography.Text>
+        },
+        {
+          field: 'cellPhone',
+          title: <Typography.Text bold>{intl.formatMessage({id: 'office.new.cellPhone.label'})}</Typography.Text>
+        },
+      ],
+      rows: rows
+    }
+    return tableData;
   }
+
+  const tableData = data ? formatDataTable(data) : [];
+
   return (
     <div className={cx(styles.rowContainer, className)} onClick={onClick}>
       <div className={styles.basicInformation}>

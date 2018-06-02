@@ -20,11 +20,19 @@
         "password": "Password"
       },
       "buttons": {
-        "newUser": "Are you new? Create an account",
+        "newUser": "Don't you have an account? Create an account",
         "login": "Login"
+      },
+      "toasts": {
+        "error": {
+          "title": "An error has occurred"
+        }
       }
     },
     "register": {
+      "placeholders": {
+        "email": "Email Address"
+      },
       "labels": {
         "name": "Legal Representate",
         "company": "Company Name",
@@ -35,6 +43,11 @@
       "buttons": {
         "hasAccount": "Already an account? Login",
         "register": "Register"
+      },
+      "toasts": {
+        "error": {
+          "title": "An error has occurred"
+        }
       }
     },
     "coupons": {
@@ -64,6 +77,15 @@
           "title": "Hunters",
           "description": "This section will let you know about your clients",
           "tip": "All your customers will be listed here"
+        }
+      },
+      "hunter": {
+        "totalCoupons": "Total Coupons",
+        "coupon": {
+          "date": "Date",
+          "campaign": "Campaign",
+          "status": "Status",
+          "code": "Code"
         }
       }
     },
@@ -161,6 +183,14 @@
           "description": "Description",
           "available": "Available",
           "segmentation": "Segmentation"
+        },
+        "hunter": {
+          "totalCoupons": "Total Coupons",
+          "coupon": {
+            "date": "Date",
+            "status": "Status",
+            "code": "Code"
+          }
         }
       },
       "toasts": {
@@ -337,11 +367,19 @@
         "password": "Contraseña"
       },
       "buttons": {
-        "newUser": "Nuevo en coupon? Crea una cuenta",
+        "newUser": "¿Aún no tienes una cuenta? Crea una cuenta",
         "login": "Inciar Sesión"
+      },
+      "toasts": {
+        "error": {
+          "title": "Ha ocurrido un error"
+        }
       }
     },
     "register": {
+      "placeholders": {
+        "email": "Escribe tu dirección de correo"
+      },
       "labels": {
         "name": "Representate Legal",
         "company": "Nombre de la Empresa",
@@ -352,6 +390,11 @@
       "buttons": {
         "hasAccount": "Ya tienes cuenta? Ingresa",
         "register": "Registrarme"
+      },
+      "toasts": {
+        "error": {
+          "title": "Ha ocurrido un error"
+        }
       }
     },
     "coupons": {
@@ -381,6 +424,15 @@
           "title": "Hunters",
           "description": "Esta sección te permitira saber de tus cliente",
           "tip": "Todos tus clientes seran listados aquí"
+        }
+      },
+      "hunter": {
+        "totalCoupons": "Total de Cupones",
+        "coupon": {
+          "date": "Fecha",
+          "campaign": "Campaña",
+          "status": "Status",
+          "code": "Codigo"
         }
       }
     },
@@ -481,6 +533,14 @@
           "description": "Descripción",
           "available": "Disponibles",
           "segmentation": "Segmentación"
+        },
+        "hunter": {
+          "totalCoupons": "Total de Cupones",
+          "coupon": {
+            "date": "Fecha",
+            "status": "Status",
+            "code": "Código"
+          }
         }
       },
       "toasts": {

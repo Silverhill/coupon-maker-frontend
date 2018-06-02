@@ -94,11 +94,18 @@ class NewCampaingPage extends Component {
     this.props.history.push('/campaigns')
   }
 
+  getIdsRangeAge = (values) => {
+    return values && values.map((value)=>{
+      return value.key
+    })
+  }
+
 
   createCampaing = async (values) => {
     const { client: { mutate } } = this.props;
     const coupons = parseInt(values.couponsNumber, 10);
-
+    let couponBackground = this.state.couponBackground ? this.state.couponBackground : palette.pinkRed;
+    const idsRangeAge = this.getIdsRangeAge(values.rangeAge);
     try {
       await mutate({
         mutation: createCampaing,
@@ -112,10 +119,9 @@ class NewCampaingPage extends Component {
           title: values.title,
           description: values.description,
           customMessage: values.customMessage,
-          initialAgeRange: values.ageRange.min,
-          finalAgeRange: values.ageRange.max,
           upload: values.upload.file,
-          background: this.state.couponBackground,
+          background: couponBackground,
+          rangeAge: idsRangeAge
         },
         optimisticResponse: {
           __typename: "Mutation",
@@ -130,8 +136,6 @@ class NewCampaingPage extends Component {
             title: values.title,
             description: values.description,
             customMessage: values.customMessage,
-            initialAgeRange: values.ageRange.min,
-            finalAgeRange: values.ageRange.max,
             image: values.upload.imagePreviewUrl,
             office: {
               __typename:"OfficeSimple",
@@ -139,7 +143,8 @@ class NewCampaingPage extends Component {
               address: 'waiting address'
             },
             background: this.state.couponBackground,
-            totalCoupons: coupons
+            totalCoupons: coupons,
+            rangeAge: idsRangeAge
           }
         },
         update: this.updateCampaigns

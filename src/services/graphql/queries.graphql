@@ -91,14 +91,13 @@ query getCampaign($id:String!){
     city
     country
     description
-    initialAgeRange
-    finalAgeRange
     status
+    background
+    rangeAge
     office {
       id
       address
     }
-    background
   }
 }
 
@@ -119,6 +118,48 @@ query huntersCompany{
     id
     redeemedCoupons
     huntedCoupons
+    image
+  }
+}
+
+query inactiveCampaigns($limit: Int, $sortDirection: Int){
+  myCampaigns: myInactiveCampaigns(limit:$limit, sortDirection: $sortDirection) {
+    campaigns{
+      id
+      title
+      office {
+        id
+        address
+      }
+      startAt
+      endAt
+      totalCoupons
+      huntedCoupons
+    }
+  }
+}
+
+query couponsByHunterInCampaign($campaignId: String!, $hunterId: String!){
+  coupons: couponsByCampaignAndHunter(campaignId:$campaignId, hunterId: $hunterId) {
+    id
+    status
+    code,
+    updatedAt
+  }
+}
+
+query couponsByHunterInCompany($hunterId: String!){
+  couponsByHunter(hunterId: $hunterId) {
+    ...on CouponForMaker {
+      id
+      code
+      status
+      updatedAt
+      campaign {
+        id
+        title
+      }
+    }
   }
 }
 
@@ -145,10 +186,9 @@ mutation createCampaing(
   $title: String!,
   $description: String,
   $customMessage: String,
-  $initialAgeRange: Int,
-  $finalAgeRange: Int,
   $officeId: String!,
   $background: String,
+  $rangeAge: [Int]!,
   $upload: Upload) {
     addCampaign(input:{
       startAt: $startAt,
@@ -159,11 +199,10 @@ mutation createCampaing(
       title: $title,
       description: $description,
       customMessage: $customMessage,
-      initialAgeRange: $initialAgeRange,
-      finalAgeRange: $finalAgeRange,
       officeId: $officeId,
       upload: $upload
       background: $background,
+      rangeAge: $rangeAge
     }) {
       id
       title
@@ -175,8 +214,6 @@ mutation createCampaing(
       city
       country
       description
-      initialAgeRange
-      finalAgeRange
       office {
         id
         address

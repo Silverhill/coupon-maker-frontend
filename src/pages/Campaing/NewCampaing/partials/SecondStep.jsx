@@ -5,8 +5,9 @@ import { injectIntl } from 'react-intl';
 import { Panel, Select, Typography } from 'coupon-components';
 import styles from '../../NewCampaing/NewCampaing.css';
 //values
+import Multiselect from 'Components/Multiselect/Multiselect';
 import * as constants from 'Utils/values';
-
+import * as illustrations from 'Utils/illustrations';
 const cx = classNames.bind(styles);
 
 class SecondStep extends Component {
@@ -14,18 +15,20 @@ class SecondStep extends Component {
   getValuesToAgeRange(){
     const { intl } = this.props;
     const agesRanges = constants.agesRanges.map((item) => {
-      let rangeField = intl.formatMessage({id: `common.agesRanges.${item.key}`});
-      let rangeDescription = ' ('+item.min+' - '+item.max+' '+intl.formatMessage({id: 'common.agesRanges.years'})+')';
-      item.value = rangeField + rangeDescription;
+      let rangeField = intl.formatMessage({id: `common.agesRanges.${item.type}`});
+      let rangeDescription = item.min+' - '+item.max+' '+intl.formatMessage({id: 'common.agesRanges.years'});
+      item.title = rangeField;
+      item.subtitle = rangeDescription;
+      item.icon = illustrations.faces[item.type];
       return item;
     });
     return agesRanges;
   }
 
   render() {
-    const { intl, onChangeData } = this.props;
+    const { intl, onChangeData, campaign } = this.props;
     const agesRanges = this.getValuesToAgeRange();
-
+    const currentCampaign = campaign || {};
     return (
       <div>
         <Panel title="Público" classNameContainer={styles.panel}>
@@ -46,13 +49,15 @@ class SecondStep extends Component {
                     placeholder={intl.formatMessage({id: 'campaigns.new.place.country.placeholder'})}
                     options={constants.countries}
                     className={cx(styles.field, styles.left )}
-                    selectedOption={values => onChangeData(values, 'country')}/>
+                    selectedOption={values => onChangeData(values, 'country')}
+                    currentOption={ currentCampaign.country}/>
               <Select name="city"
                     labelText={intl.formatMessage({id: 'campaigns.new.place.city.label'})}
                     placeholder={intl.formatMessage({id: 'campaigns.new.place.city.placeholder'})}
                     options={constants.cities}
                     className={cx(styles.field, styles.right)}
-                    selectedOption={values => onChangeData(values, 'city')}/>
+                    selectedOption={values => onChangeData(values, 'city')}
+                    currentOption={ currentCampaign.city}/>
             </div>
             <div className={cx(styles.row, styles.row_padding)}>
               <div className={styles.fieldColumn}>
@@ -64,12 +69,8 @@ class SecondStep extends Component {
                 </Typography.Label>
               </div>
             </div>
-            <div className={cx(styles.fieldsInline, styles.row_padding, styles.field, styles.left)}>
-              <Select name="ageRange"
-                    options={agesRanges}
-                    placeholder={intl.formatMessage({id: 'campaigns.new.ageRange.placeholder'})}
-                    className={cx(styles.field, styles.left )}
-                    selectedOption={values => onChangeData(values, 'ageRange')}/>
+            <div className={cx(styles.row_padding)}>
+              <Multiselect values={agesRanges} defaultSelectedOptions= {currentCampaign.rangeAge} selectedOptions={values => onChangeData(values, 'rangeAge')}/>
             </div>
           </div>
         </Panel>

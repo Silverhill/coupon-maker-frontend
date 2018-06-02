@@ -51,13 +51,15 @@ class FirstStep extends Component {
                 placeholder={intl.formatMessage({id: 'campaigns.new.office.placeholder'})}
                 options={officesOptions}
                 className={cx(styles.field, styles.left)}
-                selectedOption={values => onChangeData(values, 'office')}/>
+                selectedOption={values => onChangeData(values, 'office')}
+                currentOption={campaign && campaign.office}/>
             <div className={cx(styles.couponsNumber, styles.field, styles.right)}>
               <InputBox name="couponsNumber"
                   type="number"
                   placeholder={intl.formatMessage({id: 'campaigns.new.couponsNumber.placeholder'})}
                   labelText={intl.formatMessage({id: 'campaigns.new.couponsNumber.label'})}
-                  required="required"/>
+                  required="required"
+                  value={campaign && campaign.couponsNumber}/>
               { errors && errors.validNumberCoupon ? errorMessages : "" }
             </div>
           </div>
