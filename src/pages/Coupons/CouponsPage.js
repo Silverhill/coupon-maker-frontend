@@ -8,7 +8,7 @@ import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 import { toast } from 'react-toastify';
 import EmptyState from 'Components/EmptyState/EmptyState';
 
-import { Typography, Panel, Card, BasicRow, Icon, Table } from 'coupon-components';
+import { Typography, Panel, Card, BasicRow, Table } from 'coupon-components';
 import styles from './CouponsPage.css';
 import RegisterCouponForm from './RegisterCouponForm';
 import { maxnum } from 'Utils/filters';

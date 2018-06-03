@@ -56,7 +56,7 @@ class Home extends Component {
       {
         id: 0,
         label: intl.formatMessage({id: 'header.option.coupons'}),
-        route: '/new_coupon',
+        route: '/register_coupon',
         icon: 'MdStyle'
       },
       {
@@ -229,7 +229,7 @@ class Home extends Component {
             <Switch>
               <Route exact path='/' component={CouponsPage} />
               <Route path='/campaigns' component={Campaigns} />
-              <Route path='/new_coupon' component={CouponsPage} />
+              <Route path='/register_coupon' component={CouponsPage} />
               <Route path='/offices' component={OfficesPage} />
               <Route path='/new_office' component={NewOfficePage} />
               <Route exact path='/profile' component={ProfilePage} />

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Palette from 'react-palette';
 
 class EmptyState extends Component {
 

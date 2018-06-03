@@ -41,7 +41,7 @@ class LogInPage extends React.Component {
   }
 
   goToHome = () => {
-    this.props.history.push('offices');
+    this.props.history.push('register_coupon');
   }
 
   loginApp = async (values) => {
