@@ -18,7 +18,6 @@ class PanelCampaign extends Component {
     const stylesStatus = campaign && campaign.status === "expired" ?
                       {color: palette.dark, backgroundColor: palette.baseGrayMedium} :
                       {color: palette.whiteColor, backgroundColor: palette.primaryColor};
-
     return (
       <div className={cx(styles.containerCampaign)}>
         <div className={styles.header}>

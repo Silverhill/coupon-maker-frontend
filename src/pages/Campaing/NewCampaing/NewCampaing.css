@@ -142,3 +142,15 @@
     }
   }
 }
+
+.modalContainer {
+  padding: 10px;
+  .btnsModal {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    .sizeBtn {
+      width: 48%;
+    }
+  }
+}
