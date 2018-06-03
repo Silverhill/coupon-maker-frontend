@@ -13,7 +13,9 @@ import moment from 'moment';
 // Components
 import Header from 'Components/Header/Header';
 import Footer from 'Components/Footer/Footer';
-import { Card, Coupon, Typography, Icon, Campaign } from 'coupon-components';
+import { Card, Coupon, Typography, Campaign } from 'coupon-components';
+import EmptyState from 'Components/EmptyState/EmptyState';
+
 // Pages
 import Campaigns from '../Campaigns/Campaigns';
 import OfficesPage from '../Offices/OfficesPage';
@@ -54,7 +56,7 @@ class Home extends Component {
       {
         id: 0,
         label: intl.formatMessage({id: 'header.option.coupons'}),
-        route: '/new_coupon',
+        route: '/register_coupon',
         icon: 'MdStyle'
       },
       {
@@ -89,18 +91,12 @@ class Home extends Component {
 
     const emptyStateActiveCampaigns = (
       <div className={styles.emptyState}>
-        <Icon
-          name="FaNewspaperO"
-          color={palette.baseGrayMedium}
-          size={50}
-          style={
-            {
-              margin: 20,
-              padding: 30,
-              background: palette.baseGrayLow,
-              borderRadius: '50%'
-            }
-          }
+        <EmptyState
+          name='coupons'
+          lowColor={palette.lowColorEmptyState}
+          mediumColor={palette.mediumColorEmptyState}
+          highColor={palette.highColorEmptyState}
+          width="55%"
         />
         <Typography.Text small>
           {intl.formatMessage({id: 'home.campaings.active.empty.text'})}
@@ -110,18 +106,12 @@ class Home extends Component {
 
     const emptyStateInactiveCampaigns = (
       <div className={styles.emptyState}>
-        <Icon
-          name="FaClockO"
-          color={palette.baseGrayMedium}
-          size={50}
-          style={
-            {
-              margin: 20,
-              padding: 30,
-              background: palette.baseGrayLow,
-              borderRadius: '50%'
-            }
-          }
+        <EmptyState
+          name='history'
+          lowColor={palette.lowColorEmptyState}
+          mediumColor={palette.mediumColorEmptyState}
+          highColor={palette.highColorEmptyState}
+          width="55%"
         />
         <Typography.Text small>
           {intl.formatMessage({id: 'home.campaings.inactive.empty.text'})}
@@ -226,13 +216,11 @@ class Home extends Component {
           <div className={styles.leftPanel}>
             <Card
               title={intl.formatMessage({id: 'home.campaings.active.title'})}
-              subtitle={intl.formatMessage({id: 'home.campaings.active.subtitle'})}
               classNameCard={styles.card}>
               {activesCampaigns}
             </Card>
             <Card
               title={intl.formatMessage({id: 'home.campaings.inactive.title'})}
-              subtitle={intl.formatMessage({id: 'home.campaings.inactive.subtitle'})}
               classNameCard={styles.card}>
               {inactivesCampaigns}
             </Card>
@@ -241,7 +229,7 @@ class Home extends Component {
             <Switch>
               <Route exact path='/' component={CouponsPage} />
               <Route path='/campaigns' component={Campaigns} />
-              <Route path='/new_coupon' component={CouponsPage} />
+              <Route path='/register_coupon' component={CouponsPage} />
               <Route path='/offices' component={OfficesPage} />
               <Route path='/new_office' component={NewOfficePage} />
               <Route exact path='/profile' component={ProfilePage} />

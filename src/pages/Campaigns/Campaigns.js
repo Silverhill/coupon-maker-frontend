@@ -70,13 +70,13 @@ class Campaigns extends Component {
       <div className={styles.emptyState}>
         <Icon
           name="MdRecordVoiceOver"
-          color={palette.baseGrayMedium}
+          color={palette.highColorEmptyState}
           size={50}
           style={
             {
               margin: 20,
               padding: 30,
-              background: palette.baseGrayLow,
+              background: palette.lowColorEmptyState,
               borderRadius: '50%'
             }
           }
