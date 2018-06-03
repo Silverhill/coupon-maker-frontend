@@ -104,7 +104,7 @@ class OfficesPage extends Component {
                 />
               </InputFile>
               <div className={styles.editButton}>
-                <Button neutral text='Editar Compañia' onClick={() => this.onEdit(myCompany.id)}/>
+                <Button neutral text='Editar Empresa' onClick={() => this.onEdit(myCompany.id)}/>
               </div>
             </div>
           );
@@ -115,14 +115,14 @@ class OfficesPage extends Component {
     const emptyState = (
       <div className={styles.emptyState}>
         <Icon
-          name="FaHome"
-          color={palette.baseGrayMedium}
+          name="MdStore"
+          color={palette.highColorEmptyState}
           size={50}
           style={
             {
               margin: 20,
               padding: 30,
-              background: palette.baseGrayLow,
+              background: palette.lowColorEmptyState,
               borderRadius: '50%'
             }
           }

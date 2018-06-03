@@ -29,6 +29,13 @@
 @value lightBlueColor: #4a9fff;
 
 /****************
+ * Empty States
+ ****************/
+@value lowColorEmptyState: #e4eefc;
+@value mediumColorEmptyState: #3f92fe;
+@value highColorEmptyState: #0169e5;
+
+/****************
  * Main Pallette
  ****************/
 

@@ -5,6 +5,7 @@ import { injectIntl } from 'react-intl';
 import classNames from 'classnames/bind';
 import { Typography, Icon, Panel, Card, BasicRow, Cover, Table } from 'coupon-components';
 import { maxnum } from 'Utils/filters';
+import EmptyState from 'Components/EmptyState/EmptyState';
 import moment from 'moment';
 
 import styles from './ShowCampaign.css';
@@ -128,21 +129,17 @@ class ShowCampaing extends Component {
         <Typography.Text bold style={{fontSize:'40px'}}>
           404
         </Typography.Text>
-        <Icon
-          name="FaBullhorn"
-          color={palette.baseGrayMedium}
-          size={50}
-          style={
-            {
-              margin: 10,
-              padding: 30,
-              background: palette.baseGrayLow,
-              borderRadius: '50%'
-            }
-          }
+        <EmptyState
+          name='notFoundCampaign'
+          lowColor="#e4eefc"
+          mediumColor="#3f92fe"
+          highColor="#0169e5"
         />
-        <Typography.Text bold style={{padding:"10px 0", fontSize:'20px'}}>
+        <Typography.Text bold style={{padding:"10px 0", fontSize:'18px'}}>
           No hemos encontrado la campaña que estas buscando
+        </Typography.Text>
+        <Typography.Text small style={{padding:"10px"}}>
+          Aqui solo hay un conejo
         </Typography.Text>
       </div>
     )

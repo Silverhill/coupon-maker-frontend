@@ -5,7 +5,7 @@
       "option": {
         "coupons": "Register Coupon",
         "campaigns": "Campaigns",
-        "offices": "Offices"
+        "offices": "My Company"
       },
       "user": {
         "option": {
@@ -97,16 +97,14 @@
       "campaings" : {
         "active": {
           "title": "Campaings",
-          "subtitle": "Active",
           "empty": {
             "text": "Here you will see your most recent campaigns"
           }
         },
         "inactive": {
-          "title": "Campaings",
-          "subtitle": "Inactive",
+          "title": "History of Campaings",
           "empty": {
-            "text": "Here you will see a history of your campaigns"
+            "text": "Here you will show your campaigns that have finished"
           }
         }
       }
@@ -356,7 +354,7 @@
       "option": {
         "coupons": "Registro Cupones",
         "campaigns": "Campañas",
-        "offices": "Sucursales"
+        "offices": "Mi Empresa"
       },
       "user": {
         "option": {
@@ -447,17 +445,15 @@
     "home":{
       "campaings" : {
         "active": {
-          "title": "Campañas",
-          "subtitle": "Activas",
+          "title": "Campañas Recientes",
           "empty": {
-            "text": "Aqui se mostrara tus campañas más recientes"
+            "text": "Aqui se mostrara tus ultimas campañas"
           }
         },
         "inactive": {
-          "title": "Campañas",
-          "subtitle": "Inactivas",
+          "title": "Historial de Campañas",
           "empty": {
-            "text": "Aqui se mostrara un historial de tus campañas"
+            "text": "Aqui se mostrara tus campañas que han terminado"
           }
         }
       }
@@ -670,8 +666,8 @@
       "title": "Mis Sucursales",
       "panelTitle": "Sucursales Registradas",
       "empty": "Bienvenido A Sucursales",
-      "description": "Sucursales es una sección para crear tus sucursales",
-      "tip": "Todas tus Sucursales seran listadas aquí",
+      "description": "Esta sección te permitira registrar tus locales",
+      "tip": "Los mismos que seran listados aquí",
       "new": "Nueva Sucursal"
     },
     "myCompany": {
