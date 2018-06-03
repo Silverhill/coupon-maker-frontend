@@ -186,7 +186,7 @@ class EmptyState extends Component {
 
     const notFoundCampaign = (
       <svg width="251px" height="211px" viewBox="0 0 251 211" version="1.1" xmlns="http://www.w3.org/2000/svg" >
-        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fillRule="evenodd">
             <g id="404-" transform="translate(-68.000000, -67.000000)">
                 <g id="magician-male" transform="translate(69.000000, 67.000000)">
                     <path d="M239,115.39823 C239,51.6666726 187.95935,0 125,0 C62.04065,0 11,51.6666726 11,115.39823 C11,132.37908 14.6537,148.482903 21.1574,163 L228.8426,163 C235.3463,148.482903 239,132.37908 239,115.39823" id="Fill-1" fill={lowColor}></path>
@@ -196,7 +196,7 @@ class EmptyState extends Component {
                     <path d="M129,206.001449 C129,208.76007 114.224609,211 96,211 C77.7725217,211 63,208.76007 63,206.001449 C63,203.23993 77.7725217,201 96,201 C114.224609,201 129,203.23993 129,206.001449" id="Fill-9" fill={lowColor}></path>
                     <g id="rabbit" transform="translate(159.000000, 93.000000)">
                         <g>
-                            <g id="left_ear" transform="translate(3.260870, 0.000000)" fill-rule="nonzero">
+                            <g id="left_ear" transform="translate(3.260870, 0.000000)" fillRule="nonzero">
                                 <path d="M5.92270531,8.22087229 C5.94202899,9.00391956 5.96618357,9.96530678 6.08373591,11.1432496 C6.32045089,13.5201166 6.64170692,13.7231843 6.3252818,14.2904253 C5.60064412,15.5920072 3.18518519,16.1262777 2.66183575,15.5642821 C2.60708535,15.5058345 2.5410628,15.1896183 2.5410628,15.1896183 C1.43800322,12.2762329 1.33333333,11.9675099 1.33333333,11.9675099 C0.989533011,10.9529205 0.47826087,9.41979634 0.206119163,7.39661201 C-0.0177133655,5.73085692 0.0346215781,4.5761432 0.206119163,3.57504163 C0.344605475,2.76651723 0.545088567,2.15131933 0.930756844,1.55185731 C1.27858293,1.00859485 1.8115942,0.177590624 2.66183575,0.0532022544 C3.87600644,-0.124388369 4.95008052,1.2521263 5.10144928,1.45594338 L5.11755233,1.47692455 C5.94444444,2.59192391 5.92995169,4.07034712 5.92270531,5.89795696 C5.91706924,7.2355066 5.91465378,7.90465608 5.92270531,8.22087229 Z" id="Shape" stroke={highColor} fill={neutralColor}></path>
                                 <path d="M4.95652174,9.64459459 C4.97665056,10.409658 4.99114332,11.0023761 5.03703704,11.6677789 C5.09903382,12.5669719 5.19806763,13.3118035 5.27858293,13.8408287 C5.03116969,13.9279704 4.78923899,14.0280399 4.55394525,14.1405598 C4.30072568,14.2726647 4.03005254,14.3734271 3.74879227,14.4402908 C3.74879227,14.4402908 3.47826087,13.7928718 3.26570048,13.2413667 C3.10466989,12.8157487 2.99677939,12.5070257 2.86312399,12.1173754 C2.7294686,11.7277251 2.55958132,11.2129371 2.38003221,10.6187204 C2.26650564,10.1181696 2.12962963,9.51121429 1.97745572,8.82033432 C1.71336554,7.62141027 1.6215781,7.16656846 1.60628019,6.5333867 C1.58856683,5.80054438 1.58615137,5.36443576 1.89694042,4.92383118 C1.96698873,4.82417062 2.49033816,4.10481619 3.25442834,4.16925836 C3.97906602,4.23070322 4.36876006,4.9515563 4.39291465,4.99876393 C4.44041868,5.09093122 4.50563607,5.33521199 4.63446055,5.82302421 C4.71497585,6.13024849 4.75845411,6.29060459 4.79549114,6.49741898 C4.84822368,6.79465237 4.87514915,7.09535542 4.87600644,7.39661201 C4.88647343,8.14593954 4.93639291,8.89526707 4.95652174,9.64459459 Z" id="Shape" fill={mediumColor}></path>
                             </g>
@@ -267,11 +267,51 @@ class EmptyState extends Component {
       </svg>
     )
 
+    const wave = (
+<svg width="100%" height={width} viewBox="0 0 1438 851" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient x1="208.949875%" y1="436.695101%" x2="-110.282577%" y2="-69.1441509%" id="linearGradient-1">
+            <stop stopColor="#FFFD35" offset="0%"></stop>
+            <stop stopColor={neutralColor || "#FF007C"} offset="100%"></stop>
+        </linearGradient>
+        <path d="M1783,0 L1784,821 C1385.6098,927.729681 760,860 649,509 C538,158 131.242256,68.8589951 0,1 L1783,0 Z" id="path-2"></path>
+        <linearGradient x1="-203.585977%" y1="343.391701%" x2="302.253275%" y2="24.1592491%" id="linearGradient-4">
+            <stop stopColor="#FFFD35" offset="0%"></stop>
+            <stop stopColor={neutralColor || "#FF007C"} offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+        <g id="Group" transform="translate(253.000000, -11.000000)">
+            <g>
+                <mask id="mask-3" fill="white">
+                    <use href="#path-2"></use>
+                </mask>
+                <use id="Mask" fill={neutralColor} fillRule="nonzero" href="#path-2"></use>
+                <g mask="url(#mask-3)">
+                    <g transform="translate(630.000000, -131.000000)">
+                        <rect id="Rectangle-3" fill="#FFFFFF" fillRule="nonzero" opacity="0.100000001" transform="translate(476.218533, 333.000000) rotate(-30.000000) translate(-476.218533, -333.000000) " x="-15" y="233" width="982.437066" height="200" rx="100"></rect>
+                        <rect id="Rectangle-3-Copy-4" fill="url(#linearGradient-4)" fillRule="nonzero" opacity="0.5" transform="translate(295.390655, 231.136304) rotate(-30.000000) translate(-295.390655, -231.136304) " x="235.390655" y="223.636304" width="120" height="15" rx="7.5"></rect>
+                        <rect id="Rectangle-3-Copy-6" fill="url(#linearGradient-4)" fillRule="nonzero" transform="translate(476.390655, 664.815073) rotate(-30.000000) translate(-476.390655, -664.815073) " x="426.390655" y="654.636304" width="100" height="20.3575381" rx="10.178769"></rect>
+                        <rect id="Rectangle-3-Copy-2" fill="#FFFFFF" fillRule="nonzero" opacity="0.100000001" transform="translate(978.407728, 410.211807) rotate(-30.000000) translate(-978.407728, -410.211807) " x="487.189195" y="310.211807" width="982.437066" height="200" rx="100"></rect>
+                        <rect id="Rectangle-3-Copy-3" fill="#FFFFFF" fillRule="nonzero" opacity="0.049999997" transform="translate(693.407728, 391.211807) rotate(-30.000000) translate(-693.407728, -391.211807) " x="202.189195" y="291.211807" width="982.437066" height="200" rx="100"></rect>
+                        <path d="M448.897264,973.160285 C533.806308,945.640754 682.196381,931.191535 842.261349,959.000129 L842.261349,1057.41755 C674.277982,1005.57156 543.15662,977.485806 448.897264,973.160285 Z" id="Path-4" fill="#FFFFFF" fillRule="nonzero" opacity="0.200000003" transform="translate(645.579306, 1000.710092) rotate(-18.000000) translate(-645.579306, -1000.710092) "></path>
+                        <path d="M241.62118,1002.31831 C350.821421,974.798775 541.663657,960.349556 747.520801,988.15815 L747.520801,1086.57557 C531.479923,1034.72958 362.846716,1006.64383 241.62118,1002.31831 Z" id="Path-4-Copy" fill="#FFFFFF" fillRule="nonzero" opacity="0.200000003" transform="translate(494.570991, 1029.868112) rotate(-3.000000) translate(-494.570991, -1029.868112) "></path>
+                        <rect id="Rectangle" fill="none" x="29" y="129" width="776" height="851"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
+
+    )
+
     const template = {
       history: history,
       coupons: coupons,
       hunter: hunter,
-      notFoundCampaign: notFoundCampaign
+      notFoundCampaign: notFoundCampaign,
+      wave: wave
     };
 
     return (

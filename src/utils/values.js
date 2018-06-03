@@ -6,6 +6,14 @@ export const agesRanges = [
   {key:5, type:'old', value:'', min: 60, max: 100}
 ];
 
+export const agesRangesObject = {
+  1: {key:1, type:'teenager', value:'', min: 13, max: 17},
+  2: {key:2, type:'young', value:'', min: 18, max: 29},
+  3: {key:3, type:'adult', value:'', min: 30, max: 40},
+  4: {key:4, type:'adult_b', value:'', min: 41, max: 59},
+  5: {key:5, type:'old', value:'', min: 60, max: 100}
+}
+
 export const countries = [
   {key:'ec', value:'Ecuador'}
 ];
