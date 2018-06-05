@@ -21,6 +21,7 @@ class PanelCampaign extends Component {
             title={campaign && campaign.title}
             rangeAge={campaign && campaign.rangeAge}
             background={campaign.background}
+            totalCoupons={campaign.totalCoupons}
           />
         </div>
         <div className={styles.panelInformation}>

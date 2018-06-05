@@ -7,6 +7,7 @@ import * as palette from 'Styles/palette.css'
 import * as illustrations from 'Utils/illustrations';
 import * as constants from 'Utils/values';
 import EmptyState from 'Components/EmptyState/EmptyState';
+import { maxnum } from 'Utils/filters';
 
 const cx = classNames.bind(styles)
 
@@ -18,6 +19,7 @@ class CoverText extends Component {
       background,
       title,
       rangeAge,
+      totalCoupons,
     } = this.props
 
     return (
@@ -58,8 +60,8 @@ class CoverText extends Component {
               <Typography.Text small bold>
                 Cupones creados
               </Typography.Text>
-              <Typography.Title bold>
-                384
+              <Typography.Title style={{marginTop:'10px'}}>
+                {maxnum(totalCoupons)}
               </Typography.Title>
             </div>
           </div>
