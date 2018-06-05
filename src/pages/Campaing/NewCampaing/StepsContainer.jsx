@@ -175,7 +175,7 @@ class StepsContainer extends Component {
   }
 
   render() {
-    const { steps, currentStep, campaign, modalIsOpen } = this.state;
+    const { steps, currentStep, campaign, modalIsOpen, backgroundCoupon } = this.state;
     const { intl, company } = this.props;
     const cuponData = {};
     const previewCampaign = {};
@@ -200,6 +200,9 @@ class StepsContainer extends Component {
       cuponData.date = campaign.startAt.format("DD MMM") + '-' + campaign.endAt.format("DD MMM YYYY");
       cuponData.image = campaign.upload && campaign.upload.imagePreviewUrl;
       previewCampaign.image = campaign.upload && campaign.upload.imagePreviewUrl;
+      previewCampaign.rangeAge = campaign.rangeAge ? campaign.rangeAge.map(range => range.key) : [];
+      previewCampaign.background = backgroundCoupon;
+      previewCampaign.customMessage = campaign.customMessage || '';
     }
 
     return (
@@ -253,7 +256,7 @@ class StepsContainer extends Component {
           {(currentStep.id === 1) && <RoundButton icon="FaArrowLeft" onClick={this.prevStep}/>}
         </div>
 
-        <Modal isOpen={modalIsOpen} dismiss={this.modalDismiss}>
+        <Modal isOpen={modalIsOpen} dismiss={this.modalDismiss} classNameModal={styles.modalBox}>
           <IntlProvider locale={locale} messages={flattenMessages(messages[locale])}>
             <div className={styles.modalContainer}>
               <PanelCampaign campaign={previewCampaign}/>

@@ -154,3 +154,7 @@
     }
   }
 }
+
+.modalBox {
+  width: 50rem !important;
+}
