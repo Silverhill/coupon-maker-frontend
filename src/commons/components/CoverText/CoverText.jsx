@@ -35,21 +35,33 @@ class CoverText extends Component {
               <Typography.Title bold style={{color: palette.dark, fontSize:'30px', marginBottom:'10px'}}>
                 {title}
               </Typography.Title>
-              <Typography.Text small bold>
-                Segmentacion
-              </Typography.Text>
-              <div className={styles.icons}>
-                {
-                  rangeAge && rangeAge.map((range, index)=>{
-                    const age = constants.agesRangesObject[range];
-                    const icon = illustrations.faces[age.type];
-                    return (
-                      <div className={styles.icon} key={index}>
-                        {icon}
-                      </div>
-                    )
-                  })
-                }
+              <div className={styles.info}>
+                <div className={styles.segmentation}>
+                  <Typography.Text small bold>
+                    Segmentacion
+                  </Typography.Text>
+                  <div className={styles.icons}>
+                    {
+                      rangeAge && rangeAge.map((range, index)=>{
+                        const age = constants.agesRangesObject[range];
+                        const icon = illustrations.faces[age.type];
+                        return (
+                          <div className={styles.icon} key={index}>
+                            {icon}
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+                </div>
+                <div className={styles.totalCoupons}>
+                  <Typography.Text small bold>
+                    Cupones creados
+                  </Typography.Text>
+                  <Typography.Title bold>
+                    384
+                  </Typography.Title>
+                </div>
               </div>
             </div>
           </div>

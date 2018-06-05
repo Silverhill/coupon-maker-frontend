@@ -9,6 +9,14 @@ import { maxnum } from 'Utils/filters';
 import EmptyState from 'Components/EmptyState/EmptyState';
 import moment from 'moment';
 
+// images
+import planting from 'Assets/images/planting.svg';
+import waterPlant from 'Assets/images/waterPlant.svg';
+import plant from 'Assets/images/plant.svg';
+import leaves from 'Assets/images/leaves.svg';
+import mushroom from 'Assets/images/mushroom.svg';
+import fruitTree from 'Assets/images/fruitTree.svg';
+
 import styles from './ShowCampaign.css';
 import * as palette from 'Styles/palette.css';
 
@@ -153,11 +161,26 @@ class ShowCampaing extends Component {
           return (
             <div className={styles.view}>
               <PanelCampaign campaign={campaign}/>
-              <Panel
+              <div className={styles.progressCampaign}>
+                <Typography.Text bold>
+                  Crecimiento de Campaña
+                </Typography.Text>
+                <div className={styles.progress}>
+                  <div className={styles.images}>
+                    <img src={planting} width="20px" alt=""/>
+                    <img src={waterPlant} width="35px" alt=""/>
+                    <img src={plant} width="45px" alt=""/>
+                    <img src={leaves} width="50px" alt=""/>
+                    <img src={mushroom} width="55px" alt=""/>
+                    <img src={fruitTree} width="70px" alt=""/>
+                  </div>
+                </div>
+              </div>
+              {/* <Panel
                 title={intl.formatMessage({id: 'campaigns.show.panel.title'})}
                 className={styles.hunters}>
                   {hunters}
-              </Panel>
+              </Panel> */}
             </div>
           );
         }}
