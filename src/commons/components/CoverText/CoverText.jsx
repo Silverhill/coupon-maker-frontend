@@ -21,48 +21,46 @@ class CoverText extends Component {
     } = this.props
 
     return (
-      <div className={cx(styles.container, className)}>
-        <div className={cx(styles.cover)}>
-          <div className={styles.coverWave}>
-            <EmptyState
-              name='wave'
-              neutralColor={background || "#FF007C"}
-              width="255px"
-            />
+      <div className={cx(styles.cover, className)}>
+        <div className={styles.coverWave}>
+          <EmptyState
+            name='wave'
+            neutralColor={background || "#FF007C"}
+            width="255px"
+          />
+        </div>
+        <div className={styles.contentText}>
+          <div className={cx(styles.title)}>
+            <Typography.Title bold style={{color: palette.dark, fontSize:'26px', marginBottom:'10px'}}>
+              {title}
+            </Typography.Title>
           </div>
-          <div className={styles.contentText}>
-            <div className={styles.address}>
-              <Typography.Title bold style={{color: palette.dark, fontSize:'30px', marginBottom:'10px'}}>
-                {title}
-              </Typography.Title>
-              <div className={styles.info}>
-                <div className={styles.segmentation}>
-                  <Typography.Text small bold>
-                    Segmentacion
-                  </Typography.Text>
-                  <div className={styles.icons}>
-                    {
-                      rangeAge && rangeAge.map((range, index)=>{
-                        const age = constants.agesRangesObject[range];
-                        const icon = illustrations.faces[age.type];
-                        return (
-                          <div className={styles.icon} key={index}>
-                            {icon}
-                          </div>
-                        )
-                      })
-                    }
-                  </div>
-                </div>
-                <div className={styles.totalCoupons}>
-                  <Typography.Text small bold>
-                    Cupones creados
-                  </Typography.Text>
-                  <Typography.Title bold>
-                    384
-                  </Typography.Title>
-                </div>
+          <div className={styles.info}>
+            <div className={styles.segmentation}>
+              <Typography.Text small bold>
+                Segmentacion
+              </Typography.Text>
+              <div className={styles.icons}>
+                {
+                  rangeAge && rangeAge.map((range, index)=>{
+                    const age = constants.agesRangesObject[range];
+                    const icon = illustrations.faces[age.type];
+                    return (
+                      <div className={styles.icon} key={index}>
+                        {icon}
+                      </div>
+                    )
+                  })
+                }
               </div>
+            </div>
+            <div className={styles.totalCoupons}>
+              <Typography.Text small bold>
+                Cupones creados
+              </Typography.Text>
+              <Typography.Title bold>
+                384
+              </Typography.Title>
             </div>
           </div>
         </div>

@@ -188,7 +188,7 @@ class ShowCampaing extends Component {
     )
     return (
       <div className={styles.container}>
-        <Card title={intl.formatMessage({id: 'campaigns.show.card.title'})}>
+        <Card title={intl.formatMessage({id: 'campaigns.show.card.title'})} classNameContent={styles.mainCard}>
           {viewCampaign}
         </Card>
       </div>
