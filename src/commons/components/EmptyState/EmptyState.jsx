@@ -281,7 +281,7 @@ class EmptyState extends Component {
         </linearGradient>
     </defs>
     <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-        <g id="Group" transform="translate(253.000000, -11.000000)">
+        <g id="Group" transform="translate(453.000000, -11.000000)">
             <g>
                 <mask id="mask-3" fill="white">
                     <use href="#path-2"></use>

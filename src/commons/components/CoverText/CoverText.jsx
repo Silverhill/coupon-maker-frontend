@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames/bind'
 import styles from './Cover.css'
-import { Typography } from 'coupon-components';
+import { Typography, Avatar } from 'coupon-components';
 import * as palette from 'Styles/palette.css'
 import * as illustrations from 'Utils/illustrations';
 import * as constants from 'Utils/values';
 import EmptyState from 'Components/EmptyState/EmptyState';
 import { maxnum } from 'Utils/filters';
+import moment from 'moment';
 
 const cx = classNames.bind(styles)
 
@@ -16,35 +17,41 @@ class CoverText extends Component {
   render () {
     const {
       className,
-      background,
-      title,
-      rangeAge,
-      totalCoupons,
+      campaign,
     } = this.props
 
+    const currentCampaign = campaign || {};
+    const rangeAge = currentCampaign.rangeAge || [];
+    const background = currentCampaign.background || '#FF007C';
+    const title = currentCampaign.title || 'Unknow';
+    const date = moment(currentCampaign.startAt).format("DD MMM") + ' - ' + moment(currentCampaign.endAt).format("DD MMM YYYY");
+    // console.log(campaign)
     return (
       <div className={cx(styles.cover, className)}>
         <div className={styles.coverWave}>
           <EmptyState
             name='wave'
-            neutralColor={background || "#FF007C"}
+            neutralColor={background}
             width="255px"
           />
         </div>
         <div className={styles.contentText}>
           <div className={cx(styles.title)}>
-            <Typography.Title bold style={{color: palette.dark, fontSize:'26px', marginBottom:'10px'}}>
+            <Typography.Title bold style={{color: palette.dark, fontSize:'24px', marginBottom:'10px'}}>
               {title}
             </Typography.Title>
+            <Typography.Text small style={{marginBottom:'10px'}}>
+              {date}
+            </Typography.Text>
           </div>
           <div className={styles.info}>
             <div className={styles.segmentation}>
-              <Typography.Text small bold>
+              <Typography.Text bold small>
                 Segmentacion
               </Typography.Text>
               <div className={styles.icons}>
                 {
-                  rangeAge && rangeAge.map((range, index)=>{
+                  campaign.rangeAge && campaign.rangeAge.map((range, index)=>{
                     const age = constants.agesRangesObject[range];
                     const icon = illustrations.faces[age.type];
                     return (
@@ -56,16 +63,12 @@ class CoverText extends Component {
                 }
               </div>
             </div>
-            <div className={styles.totalCoupons}>
-              <Typography.Text small bold>
-                Cupones creados
-              </Typography.Text>
-              <Typography.Title style={{marginTop:'10px'}}>
-                {maxnum(totalCoupons)}
-              </Typography.Title>
+            <div className={styles.promo}>
+              <Avatar image={campaign.image} width="120px"/>
             </div>
           </div>
         </div>
+
       </div>
     )
   }
@@ -73,9 +76,7 @@ class CoverText extends Component {
 
 CoverText.propTypes = {
   className: PropTypes.string,
-  image: PropTypes.string,
-  background: PropTypes.string,
-  rangeAge: PropTypes.array
+  campaign: PropTypes.object,
 }
 
 export default CoverText;

@@ -2,22 +2,16 @@
   .panelInformation {
     padding: 20px 0;
 
-    .right {
-      .icons {
-        display: flex;
+    .panelSplit {
+      display: flex;
 
-        .icon {
-          display: flex;
-          align-items: center;
-          flex-direction: column;
-          padding: 5px;
-          border-radius: 50%;
-          border: 2px solid blue;
+      .left{
+        width: 70%;
+      }
 
-          svg {
-            width: 25px !important;
-          }
-        }
+      .rigth{
+        text-align: center;
+        width: 30%;
       }
     }
   }

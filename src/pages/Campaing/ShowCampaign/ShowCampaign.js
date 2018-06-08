@@ -167,11 +167,11 @@ class ShowCampaing extends Component {
                 </Typography.Text>
                 <div className={styles.progress}>
                   <div className={styles.images}>
-                    <img src={planting} width="20px" alt=""/>
-                    <img src={waterPlant} width="35px" alt=""/>
-                    <img src={plant} width="45px" alt=""/>
-                    <img src={leaves} width="50px" alt=""/>
-                    <img src={mushroom} width="55px" alt=""/>
+                    <img src={planting} width="10px" alt=""/>
+                    <img src={waterPlant} width="20px" alt=""/>
+                    <img src={plant} width="25px" alt=""/>
+                    <img src={leaves} width="30px" alt=""/>
+                    <img src={mushroom} width="50px" alt=""/>
                     <img src={fruitTree} width="70px" alt=""/>
                   </div>
                 </div>

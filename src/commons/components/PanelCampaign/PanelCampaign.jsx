@@ -4,7 +4,6 @@ import classNames from 'classnames/bind';
 import { injectIntl } from 'react-intl';
 import { Typography } from 'coupon-components';
 import CoverText from 'Components/CoverText/CoverText';
-
 import styles from './PanelCampaign.css';
 import * as palette from 'Styles/palette.css';
 
@@ -18,26 +17,42 @@ class PanelCampaign extends Component {
       <div className={cx(styles.containerCampaign)}>
         <div className={styles.header}>
           <CoverText
-            title={campaign && campaign.title}
-            rangeAge={campaign && campaign.rangeAge}
-            background={campaign.background}
-            totalCoupons={campaign.totalCoupons}
+            campaign={campaign}
           />
         </div>
         <div className={styles.panelInformation}>
+          <div className={styles.panelSplit}>
+            <div className={styles.left}>
+              <Typography.Text bold>
+                Sucursal
+              </Typography.Text>
+              <Typography.Text small small style={{marginBottom:'10px'}}>
+                {campaign.office.address}
+              </Typography.Text>
+            </div>
+            <div className={styles.rigth}>
+              <Typography.Text bold>
+                Cupones Creados
+              </Typography.Text>
+              <Typography.Text small small style={{marginBottom:'10px'}}>
+                {campaign.totalCoupons}
+              </Typography.Text>
+            </div>
+          </div>
           <div className={styles.left}>
-              <Typography.Text bold>
-                {intl.formatMessage({ id: 'campaigns.show.labels.description' })}
-              </Typography.Text>
-              <Typography.Text small style={{marginBottom:'10px'}}>
-                {campaign && campaign.description}
-              </Typography.Text>
-              <Typography.Text bold>
-                Terminos y Condiciones
-              </Typography.Text>
-              <Typography.Text small style={{marginBottom:'10px'}}>
-                {campaign && campaign.customMessage}
-              </Typography.Text>
+
+            <Typography.Text bold>
+              {intl.formatMessage({ id: 'campaigns.show.labels.description' })}
+            </Typography.Text>
+            <Typography.Text small style={{marginBottom:'10px'}}>
+              {campaign && campaign.description}
+            </Typography.Text>
+            <Typography.Text bold>
+              Terminos y Condiciones
+            </Typography.Text>
+            <Typography.Text small style={{marginBottom:'10px'}}>
+              {campaign && campaign.customMessage}
+            </Typography.Text>
           </div>
         </div>
       </div>
