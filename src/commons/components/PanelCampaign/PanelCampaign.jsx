@@ -13,6 +13,7 @@ class PanelCampaign extends Component {
 
   render() {
     const { intl, campaign } = this.props;
+    const margin = {marginBottom:'15px'};
     return (
       <div className={cx(styles.containerCampaign)}>
         <div className={styles.header}>
@@ -26,7 +27,7 @@ class PanelCampaign extends Component {
               <Typography.Text bold>
                 Sucursal
               </Typography.Text>
-              <Typography.Text small small style={{marginBottom:'10px'}}>
+              <Typography.Text small small style={margin}>
                 {campaign.office.address}
               </Typography.Text>
             </div>
@@ -34,23 +35,22 @@ class PanelCampaign extends Component {
               <Typography.Text bold>
                 Cupones Creados
               </Typography.Text>
-              <Typography.Text small small style={{marginBottom:'10px'}}>
+              <Typography.Text small small style={margin}>
                 {campaign.totalCoupons}
               </Typography.Text>
             </div>
           </div>
           <div className={styles.left}>
-
             <Typography.Text bold>
               {intl.formatMessage({ id: 'campaigns.show.labels.description' })}
             </Typography.Text>
-            <Typography.Text small style={{marginBottom:'10px'}}>
+            <Typography.Text small style={margin}>
               {campaign && campaign.description}
             </Typography.Text>
             <Typography.Text bold>
               Terminos y Condiciones
             </Typography.Text>
-            <Typography.Text small style={{marginBottom:'10px'}}>
+            <Typography.Text small style={margin}>
               {campaign && campaign.customMessage}
             </Typography.Text>
           </div>

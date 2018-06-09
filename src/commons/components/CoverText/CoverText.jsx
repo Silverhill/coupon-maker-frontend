@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames/bind'
+import { injectIntl } from 'react-intl';
 import styles from './Cover.css'
-import { Typography, Avatar } from 'coupon-components';
+import { Typography, Avatar, Tooltip } from 'coupon-components';
 import * as palette from 'Styles/palette.css'
 import * as illustrations from 'Utils/illustrations';
 import * as constants from 'Utils/values';
@@ -18,6 +19,7 @@ class CoverText extends Component {
     const {
       className,
       campaign,
+      intl,
     } = this.props
 
     const currentCampaign = campaign || {};
@@ -25,7 +27,7 @@ class CoverText extends Component {
     const background = currentCampaign.background || '#FF007C';
     const title = currentCampaign.title || 'Unknow';
     const date = moment(currentCampaign.startAt).format("DD MMM") + ' - ' + moment(currentCampaign.endAt).format("DD MMM YYYY");
-    // console.log(campaign)
+
     return (
       <div className={cx(styles.cover, className)}>
         <div className={styles.coverWave}>
@@ -37,7 +39,7 @@ class CoverText extends Component {
         </div>
         <div className={styles.contentText}>
           <div className={cx(styles.title)}>
-            <Typography.Title bold style={{color: palette.dark, fontSize:'24px', marginBottom:'10px'}}>
+            <Typography.Title bold style={{color: palette.dark, fontSize:'1.6rem', marginBottom:'10px'}}>
               {title}
             </Typography.Title>
             <Typography.Text small style={{marginBottom:'10px'}}>
@@ -54,10 +56,13 @@ class CoverText extends Component {
                   campaign.rangeAge && campaign.rangeAge.map((range, index)=>{
                     const age = constants.agesRangesObject[range];
                     const icon = illustrations.faces[age.type];
+                    const ranges = age.min + ' - ' + age.max+ ' '+ intl.formatMessage({id: 'common.agesRanges.years'});
                     return (
-                      <div className={styles.icon} key={index}>
-                        {icon}
-                      </div>
+                      <Tooltip content={ranges} direction="top" key={index}>
+                        <div className={styles.icon}>
+                          {icon}
+                        </div>
+                      </Tooltip>
                     )
                   })
                 }
@@ -79,4 +84,4 @@ CoverText.propTypes = {
   campaign: PropTypes.object,
 }
 
-export default CoverText;
+export default injectIntl(CoverText);
