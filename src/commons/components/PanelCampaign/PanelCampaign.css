@@ -1,6 +1,6 @@
 .containerCampaign{
   .panelInformation {
-    padding: 20px 0;
+    padding: 20px 0 0 0;
 
     .panelSplit {
       display: flex;

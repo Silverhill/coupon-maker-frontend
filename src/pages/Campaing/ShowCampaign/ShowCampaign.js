@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import { getCampaign, huntersCampaign, couponsByHunterInCampaign } from 'Services/graphql/queries.graphql';
 import { injectIntl } from 'react-intl';
 import classNames from 'classnames/bind';
-import { Typography, Icon, Panel, Card, BasicRow, Table, Button } from 'coupon-components';
+import { Typography, Icon, Panel, Card, BasicRow, Table } from 'coupon-components';
 import PanelCampaign from 'Components/PanelCampaign/PanelCampaign';
 import { maxnum } from 'Utils/filters';
 import EmptyState from 'Components/EmptyState/EmptyState';
@@ -18,7 +18,6 @@ import mushroom from 'Assets/images/mushroom.svg';
 import fruitTree from 'Assets/images/fruitTree.svg';
 
 import styles from './ShowCampaign.css';
-import * as palette from 'Styles/palette.css';
 
 const cx = classNames.bind(styles)
 
@@ -26,7 +25,7 @@ class ShowCampaing extends Component {
   state = {
     errors: null,
     isOpenRowId: '',
-    showOption: 'grown'
+    showOption: 'hunters'
   }
 
   showDetails = (e, id) => {
@@ -162,12 +161,68 @@ class ShowCampaing extends Component {
         </Typography.Text>
       </div>
     )
+    const AnalitycsIllustration = ({campaign}) => {
+      const percentage = Math.round(( campaign.redeemedCoupons + (campaign.huntedCoupons * 0.5) ) * 100 / campaign.totalCoupons);
+      const slider = {
+        planting: percentage >=0,
+        waterPlant: percentage >=20,
+        plant: percentage >=40,
+        leaves: percentage >=60,
+        mushroom: percentage >=80,
+        fruitTree: percentage === 100
+      }
+      const styleColor = {filter: 'grayscale(0%)'};
 
-    const progressCampaign = (
+      return (
+        <div className={styles.analitycsContainer}>
+          <div className={styles.analitycsText}>
+            <Typography.Text small>
+              Cupones Capturados: {campaign.huntedCoupons}
+            </Typography.Text>
+            <Typography.Text small bold>
+              Aceptación del: {percentage} %
+            </Typography.Text>
+            <Typography.Text small>
+              Cupones Canjeados: {campaign.redeemedCoupons}
+            </Typography.Text>
+          </div>
+          <div className={styles.progress}>
+            <div className={styles.images}>
+              <div className={styles.imageWithTitle}>
+                <img alt='' src={planting} width="10px" style={slider.planting ? styleColor : {}} />
+                <span>0%</span>
+              </div>
+              <div className={styles.imageWithTitle}>
+                <img alt='' src={waterPlant} width="20px" style={slider.waterPlant ? styleColor : {}} />
+                <span>20%</span>
+              </div>
+              <div className={styles.imageWithTitle}>
+                <img alt='' src={plant} width="25px" style={slider.plant ? styleColor : {}} />
+                <span>40%</span>
+              </div>
+              <div className={styles.imageWithTitle}>
+                <img alt='' src={leaves} width="30px" style={slider.leaves ? styleColor : {}} />
+                <span>60%</span>
+              </div>
+              <div className={styles.imageWithTitle}>
+                <img alt='' src={mushroom} width="50px" style={slider.mushroom ? styleColor : {}} />
+                <span>80%</span>
+              </div>
+              <div className={styles.imageWithTitle}>
+                <img alt='' src={fruitTree} width="70px" style={slider.fruitTree ? styleColor : {}} />
+                <span>100%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    const ProgressCampaign = ({campaign}) => (
       <div className={styles.progressCampaign}>
         <div className={styles.headerOptions}>
           <Typography.Text bold>
-            Progreso de Campaña
+            Desarrollo de Campaña
           </Typography.Text>
           <div className={styles.options}>
             <div className={cx(styles.option, showOption === 'grown' ? styles.selectedOption : '')}
@@ -194,34 +249,11 @@ class ShowCampaing extends Component {
         </div>
         {
           showOption === 'grown' &&
-          <div className={styles.progress}>
-            <div className={styles.images}>
-              <div className={styles.imageWithTitle}>
-                <img src={planting} width="10px" alt=""/>
-                <span>0%</span>
-              </div>
-              <div className={styles.imageWithTitle}>
-                <img src={waterPlant} width="20px" alt=""/>
-                <span>20%</span>
-              </div>
-              <div className={styles.imageWithTitle}>
-                <img src={plant} width="25px" alt=""/>
-                <span>40%</span>
-              </div>
-              <div className={styles.imageWithTitle}>
-                <img src={leaves} width="30px" alt=""/>
-                <span>60%</span>
-              </div>
-              <div className={styles.imageWithTitle}>
-                <img src={mushroom} width="50px" alt=""/>
-                <span>80%</span>
-              </div>
-              <div className={styles.imageWithTitle}>
-                <img src={fruitTree} width="70px" alt=""/>
-                <span>100%</span>
-              </div>
-            </div>
-          </div>
+          <Panel
+            title="Alcance"
+            className={styles.progressPanel}>
+            <AnalitycsIllustration campaign={campaign}/>
+          </Panel>
         }
         {
           showOption === 'hunters' &&
@@ -232,7 +264,8 @@ class ShowCampaing extends Component {
           </Panel>
         }
       </div>
-    )
+    );
+
     const viewCampaign = (
       <Query query={getCampaign} variables={{ id: this.props.match.params.id }}>
         {({ loading, error, data}) => {
@@ -242,7 +275,7 @@ class ShowCampaing extends Component {
           return (
             <div className={styles.view}>
               <PanelCampaign campaign={campaign}/>
-              {progressCampaign}
+              <ProgressCampaign campaign={campaign}/>
             </div>
           );
         }}

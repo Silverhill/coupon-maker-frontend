@@ -8,7 +8,6 @@ import * as palette from 'Styles/palette.css'
 import * as illustrations from 'Utils/illustrations';
 import * as constants from 'Utils/values';
 import EmptyState from 'Components/EmptyState/EmptyState';
-import { maxnum } from 'Utils/filters';
 import moment from 'moment';
 
 const cx = classNames.bind(styles)
@@ -53,7 +52,7 @@ class CoverText extends Component {
               </Typography.Text>
               <div className={styles.icons}>
                 {
-                  campaign.rangeAge && campaign.rangeAge.map((range, index)=>{
+                  rangeAge && rangeAge.map((range, index)=>{
                     const age = constants.agesRangesObject[range];
                     const icon = illustrations.faces[age.type];
                     const ranges = age.min + ' - ' + age.max+ ' '+ intl.formatMessage({id: 'common.agesRanges.years'});

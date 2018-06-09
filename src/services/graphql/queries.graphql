@@ -94,6 +94,8 @@ query getCampaign($id:String!){
     status
     background
     rangeAge
+    huntedCoupons
+    redeemedCoupons
     office {
       id
       address
