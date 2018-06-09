@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
-import { Card, Panel, Coupon, StepByStep, RoundButton, InputFile, Form } from 'coupon-components';
+import { Card, Panel,
+      Coupon, StepByStep,
+      RoundButton, InputFile,
+      Form, Modal, Button } from 'coupon-components';
 import FirstStep from './partials/FirstStep';
 import SecondStep from './partials/SecondStep';
 import ColorPicker from 'Components/ColorPicker/ColorPicker';
-
-import { injectIntl } from 'react-intl';
-
+import PanelCampaign from 'Components/PanelCampaign/PanelCampaign';
+import { injectIntl, IntlProvider, addLocaleData } from 'react-intl';
 import moment from 'moment';
 import classNames from 'classnames/bind';
-
 import { maxnum } from 'Utils/filters';
+import es from 'react-intl/locale-data/es';
+import en from 'react-intl/locale-data/en';
+import messages from '../../../messages';
+import { flattenMessages } from '../../../commons/utils';
+
 
 import styles from './NewCampaing.css';
+
+addLocaleData([...en, ...es])
+const locale = navigator.languages.indexOf('es') >= 0 ? 'es' : 'en'
 const cx = classNames.bind(styles)
 
 class StepsContainer extends Component {
@@ -25,6 +34,7 @@ class StepsContainer extends Component {
     errors: null,
     backgroundCoupon: null,
     previewBackground: null,
+    modalIsOpen: false,
   }
 
   componentWillMount() {
@@ -132,11 +142,10 @@ class StepsContainer extends Component {
   }
 
   handleSubmit = (ev) => {
-    const { campaign, currentStep, steps, errors } = this.state;
-    const { onSubmit } = this.props;
+    const { currentStep, steps, errors } = this.state;
     if(!errors){
-      if(currentStep.id === 1 && onSubmit){
-        onSubmit(campaign);
+      if(currentStep.id === 1){
+        this.toggleModal(ev);
       }else{
         let newStep = currentStep.id + 1 ;
         this.handleStepsChange(steps[newStep]);
@@ -152,10 +161,24 @@ class StepsContainer extends Component {
     }
   }
 
+  saveData = () =>{
+    const { campaign } = this.state;
+    const { onSubmit } = this.props;
+    if(onSubmit) onSubmit(campaign);
+  }
+  toggleModal = e => {
+    this.setState({modalIsOpen: !this.state.modalIsOpen})
+  }
+
+  modalDismiss = () => {
+    this.setState({modalIsOpen: false})
+  }
+
   render() {
-    const { steps, currentStep, campaign } = this.state;
+    const { steps, currentStep, campaign, modalIsOpen, backgroundCoupon } = this.state;
     const { intl, company } = this.props;
     const cuponData = {};
+    const previewCampaign = {};
 
     let moveBtn;
     if(currentStep.id === 1){
@@ -167,10 +190,19 @@ class StepsContainer extends Component {
     }
     if(campaign){
       cuponData.title = campaign.title;
+      previewCampaign.title = campaign.title || '';
+      previewCampaign.status = 'Unavailable';
+      previewCampaign.description = campaign.description || '';
+      previewCampaign.office = { address: campaign.office ? campaign.office.value : ''};
       cuponData.address = campaign.office && campaign.office.value;
       cuponData.totalCoupons = campaign.couponsNumber;
+      previewCampaign.totalCoupons = campaign.couponsNumber;
       cuponData.date = campaign.startAt.format("DD MMM") + '-' + campaign.endAt.format("DD MMM YYYY");
       cuponData.image = campaign.upload && campaign.upload.imagePreviewUrl;
+      previewCampaign.image = campaign.upload && campaign.upload.imagePreviewUrl;
+      previewCampaign.rangeAge = campaign.rangeAge ? campaign.rangeAge.map(range => range.key) : [];
+      previewCampaign.background = backgroundCoupon;
+      previewCampaign.customMessage = campaign.customMessage || '';
     }
 
     return (
@@ -223,9 +255,21 @@ class StepsContainer extends Component {
         <div className={styles.submitButton} style={moveBtn}>
           {(currentStep.id === 1) && <RoundButton icon="FaArrowLeft" onClick={this.prevStep}/>}
         </div>
+
+        <Modal isOpen={modalIsOpen} dismiss={this.modalDismiss} classNameModal={styles.modalBox}>
+          <IntlProvider locale={locale} messages={flattenMessages(messages[locale])}>
+            <div className={styles.modalContainer}>
+              <PanelCampaign campaign={previewCampaign}/>
+              <div className={styles.btnsModal}>
+                <Button neutral text='Cancelar' onClick={this.modalDismiss} className={styles.sizeBtn}/>
+                <Button text='Aceptar' onClick={this.saveData} className={styles.sizeBtn}/>
+              </div>
+            </div>
+          </IntlProvider>
+        </Modal>
       </Card>
     )
   }
 }
 
-export default (injectIntl(StepsContainer));
+export default injectIntl(StepsContainer);

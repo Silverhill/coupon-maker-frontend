@@ -1,0 +1,19 @@
+.containerCampaign{
+  .panelInformation {
+    padding: 20px 0 0 0;
+
+    .panelSplit {
+      display: flex;
+      padding: 10px 0 0 0;
+
+      .left{
+        width: 70%;
+      }
+
+      .rigth{
+        text-align: center;
+        width: 30%;
+      }
+    }
+  }
+}
