@@ -64,7 +64,7 @@ class Multiselect extends Component {
             if (option) {
               const defaultOptions = {width:size, height:size, cursor:"pointer"};
               const stylesSquare = defaultOptions;
-              const isSelected = itemsSelected.includes(option) || defaultSelectedOptions && defaultSelectedOptions.includes(option);
+              const isSelected = itemsSelected.includes(option) || (defaultSelectedOptions && defaultSelectedOptions.includes(option));
               return (
                 <div key={index} className={cx(styles.option)}>
                 <div
