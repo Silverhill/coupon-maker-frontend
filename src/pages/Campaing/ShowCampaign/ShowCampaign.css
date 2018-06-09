@@ -4,7 +4,8 @@
   paleLilac,
   paleGray,
   lightNeutral,
-  whiteColor
+  whiteColor,
+  brightBlue
 ) from colors;
 
 .container {
@@ -21,9 +22,42 @@
       .progressCampaign {
         /* padding: 0 30px; */
 
+        .headerOptions {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .options {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            grid-gap: 0;
+
+            .option {
+              text-align: center;
+              padding: 5px;
+              cursor: pointer;
+
+              &:hover{
+                background-color: lightNeutral;
+              }
+
+              &.selectedOption {
+                color: brightBlue;
+                background-color: lightNeutral;
+
+                p {
+                  color: brightBlue;
+                }
+              }
+            }
+          }
+        }
+
         .progress {
           position: relative;
-          min-height: 100px;
+          min-height: 140px;
+          display: flex;
+          justify-content: center;
 
           .images {
             display: flex;
@@ -31,8 +65,24 @@
             align-items: center;
             position: absolute;
             height: 100%;
-            width: 100%;
+            width: 80%;
             z-index: 1;
+
+            &::before {
+              content: '';
+              position: absolute;
+              width: 100%;
+              bottom: 55%;
+              z-index: 0;
+              height: 2px;
+              background: black;
+            }
+
+            .imageWithTitle {
+              display: grid;
+              text-align: center;
+              z-index: 1;
+            }
 
             img {
               background: #f7f7f7;
@@ -41,20 +91,11 @@
               border: 0.5px solid black;
             }
           }
-
-          &::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            bottom: 50%;
-            z-index: 0;
-            height: 2px;
-            background: black;
-          }
         }
       }
 
       .hunters {
+        margin-top: 10px;
 
         .row {
 
