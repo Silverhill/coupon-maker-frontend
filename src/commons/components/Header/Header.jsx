@@ -1,8 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { getMe } from 'Services/graphql/queries.graphql';
-import { huntedCoupons } from 'Services/graphql/suscriptions.graphql';
+import { Queries, Subscriptions } from 'Services/graphql';
 import { Subscription } from 'react-apollo';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 import { toast } from 'react-toastify';
@@ -41,7 +40,7 @@ class Header extends React.Component {
     const { menuIsOpen } = this.state;
 
     return (
-      <Subscription subscription={huntedCoupons}>{({ data, loading}) => {
+      <Subscription subscription={Subscriptions.HUNTED_COUPON}>{({ data, loading}) => {
         if(data && data.huntedCoupon){
           this.showSuccessNotification(data.huntedCoupon.code);
         }
@@ -66,7 +65,7 @@ class Header extends React.Component {
                 )
               })}
             </div>
-            <Query query={getMe}>{({ loading, error, data }) => {
+            <Query query={Queries.ME}>{({ loading, error, data }) => {
               if (loading) return "Loading...";
               if (error) return `Error! ${error.message}`;
               const {me} = data;

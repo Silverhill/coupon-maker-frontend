@@ -3,7 +3,8 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { Card, InputFile, Avatar, InputBox, Button } from 'coupon-components';
 import { withApollo } from 'react-apollo';
 import { Query } from 'react-apollo';
-import { getMe, updateProfile } from 'Services/graphql/queries.graphql';
+import { Queries, Mutations } from 'Services/graphql';
+
 import { toast } from 'react-toastify';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
@@ -46,7 +47,7 @@ class EditProfilePage extends Component {
     let userImage = user.upload ? user.upload.imagePreviewUrl : null;
     try {
        await mutate({
-        mutation: updateProfile,
+        mutation: Mutations.UPDATE_USER,
         variables: {
           name: user.name,
           email: user.email,
@@ -64,11 +65,11 @@ class EditProfilePage extends Component {
           }
         },
         update: (cache, { data: {updateUser} }) => {
-          const data = cache.readQuery({ query: getMe });
+          const data = cache.readQuery({ query: Queries.ME });
           if(updateUser.name) { data.me.name = updateUser.name; }
           if(updateUser.email) { data.me.email = updateUser.email; }
           if(updateUser.image) { data.me.image = updateUser.image; }
-          cache.writeQuery({ query: getMe, data: data });
+          cache.writeQuery({ query: Queries.ME, data: data });
           if(updateUser.id === -1) {
             this.props.history.push('/profile')
           }else{
@@ -105,7 +106,7 @@ class EditProfilePage extends Component {
     const { intl } = this.props;
     const { user } = this.state;
     return (
-      <Query query={getMe}>
+      <Query query={Queries.ME}>
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;

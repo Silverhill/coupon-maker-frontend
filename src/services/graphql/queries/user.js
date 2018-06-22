@@ -1,15 +1,19 @@
 import gql from 'graphql-tag';
 
 export const ME = gql`
-  {
+  query getMe($withCompany: Boolean = false) {
     me {
-      ...on Hunter {
-        id
-        name
-        email
-        score
-        role
-      }
+      name
+      email
+      image
+      id
+      role
+    }
+    myCompany @include(if: $withCompany) {
+      id
+      businessName
+      logo
+      slogan
     }
   }
 `;

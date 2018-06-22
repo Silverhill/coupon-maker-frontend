@@ -1,7 +1,0 @@
-subscription huntedCoupons {
-  huntedCoupon {
-    id
-    status
-    code
-  }
-}

@@ -1,5 +1,6 @@
 import { REDEEM_COUPON, CREATE_CAMPAIGN } from './campaign';
-import { UPLOAD_IMAGE_USER, UPDATE_USER, SIGN_UP } from './user';
+import { UPLOAD_IMAGE_USER, UPDATE_USER, SIGN_UP, UPDATE_PASSWORD } from './user';
+import { UPDATE_COMPANY, UPLOAD_LOGO, CREATE_OFFICE} from './company';
 
 export default {
   REDEEM_COUPON,
@@ -7,4 +8,8 @@ export default {
   UPLOAD_IMAGE_USER,
   UPDATE_USER,
   SIGN_UP,
+  UPDATE_PASSWORD,
+  UPDATE_COMPANY,
+  UPLOAD_LOGO,
+  CREATE_OFFICE,
 }

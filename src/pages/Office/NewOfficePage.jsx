@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import StepsContainer from './StepsContainer';
 import { withApollo } from 'react-apollo';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { createOffice, getMyCompany, makerOffices } from 'Services/graphql/queries.graphql';
+import { Queries, Mutations } from 'Services/graphql';
 import { graphql } from 'react-apollo';
 import { toast } from 'react-toastify';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
@@ -11,9 +11,9 @@ class NewOfficePage extends Component {
 
   updateOffice = (cache, { data: {addOffice} }) => {
     try {
-      const data = cache.readQuery({ query: makerOffices });
+      const data = cache.readQuery({ query: Queries.OFFICES });
       data.myOffices = [addOffice, ...data.myOffices]
-      cache.writeQuery({ query: makerOffices, data: data });
+      cache.writeQuery({ query: Queries.OFFICES, data: data });
     } catch (err) {
       this.showErrorNotification(err);
     }
@@ -58,7 +58,7 @@ class NewOfficePage extends Component {
     const { data: { myCompany }, client: { mutate } } = this.props;
     try {
       await mutate({
-        mutation: createOffice,
+        mutation: Mutations.CREATE_OFFICE,
         variables: {
           ruc: values.ruc,
           economicActivity: values.economicActivity,
@@ -104,4 +104,4 @@ class NewOfficePage extends Component {
   }
 }
 
-export default graphql(getMyCompany)(withApollo(injectIntl(NewOfficePage)));
+export default graphql(Queries.COMPANY)(withApollo(injectIntl(NewOfficePage)));
