@@ -32,11 +32,11 @@ query getMe($withCompany: Boolean = false) {
   }
 }
 
-query loginUser($email: String!, $password: String!) {
-  signIn(email: $email, password: $password) {
-   token
-  }
-}
+# query loginUser($email: String!, $password: String!) {
+#   signIn(email: $email, password: $password) {
+#    token
+#   }
+# }
 
 query makerCampaigns($limit: Int, $sortDirection: Int){
   myCampaigns(limit:$limit, sortDirection: $sortDirection) {
@@ -113,16 +113,16 @@ query huntersCampaign($id:String!){
   }
 }
 
-query huntersCompany{
-  hunters: myHunters{
-    name
-    email
-    id
-    redeemedCoupons
-    huntedCoupons
-    image
-  }
-}
+# query huntersCompany{
+#   hunters: myHunters{
+#     name
+#     email
+#     id
+#     redeemedCoupons
+#     huntedCoupons
+#     image
+#   }
+# }
 
 query inactiveCampaigns($limit: Int, $sortDirection: Int){
   myCampaigns: myInactiveCampaigns(limit:$limit, sortDirection: $sortDirection) {
@@ -150,34 +150,34 @@ query couponsByHunterInCampaign($campaignId: String!, $hunterId: String!){
   }
 }
 
-query couponsByHunterInCompany($hunterId: String!){
-  couponsByHunter(hunterId: $hunterId) {
-    ...on CouponForMaker {
-      id
-      code
-      status
-      updatedAt
-      campaign {
-        id
-        title
-      }
-    }
-  }
-}
+# query couponsByHunterInCompany($hunterId: String!){
+#   couponsByHunter(hunterId: $hunterId) {
+#     ...on CouponForMaker {
+#       id
+#       code
+#       status
+#       updatedAt
+#       campaign {
+#         id
+#         title
+#       }
+#     }
+#   }
+# }
 
-mutation registerUser($company: String!, $name: String!, $email: String!, $password: String!) {
-  signUp(input:{company: $company, name: $name, email: $email, password: $password, role: "maker"}) {
-    id
-  }
-}
+# mutation registerUser($company: String!, $name: String!, $email: String!, $password: String!) {
+#   signUp(input:{company: $company, name: $name, email: $email, password: $password, role: "maker"}) {
+#     id
+#   }
+# }
 
-mutation canjear($code: String!){
-  redeemCoupon(input:{ couponCode: $code}){
-    code
-    id
-    status
-  }
-}
+# mutation canjear($code: String!){
+#   redeemCoupon(input:{ couponCode: $code}){
+#     code
+#     id
+#     status
+#   }
+# }
 
 mutation createCampaing(
   $startAt: Timestamp!,

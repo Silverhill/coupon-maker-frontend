@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withApollo, Query } from 'react-apollo';
 import { NavLink } from 'react-router-dom';
-import { canjear, huntersCompany, couponsByHunterInCompany } from 'Services/graphql/queries.graphql';
+import { Queries, Mutations } from 'Services/graphql';
+
 import { injectIntl, FormattedMessage } from 'react-intl';
 import classNames from 'classnames/bind';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
@@ -62,7 +63,7 @@ class CouponsPage extends Component {
     const { client: { mutate } } = this.props;
     try {
       await mutate({
-        mutation: canjear,
+        mutation: Mutations.REDEEM_COUPON,
         variables: {
           code: code
         }
@@ -135,7 +136,7 @@ class CouponsPage extends Component {
     )
 
     const hunters = (
-      <Query query={huntersCompany} variables={{ id: this.props.match.params.id }}>
+      <Query query={Queries.HUNTERS_COMPANY} variables={{ id: this.props.match.params.id }}>
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
@@ -166,7 +167,7 @@ class CouponsPage extends Component {
                       {
                         show &&
                         <Query
-                          query={couponsByHunterInCompany}
+                          query={Queries.HUNTERS_COUPONS}
                           variables={{hunterId: hunter.id}}>
                           {({ loading, error, data}) => {
                             if (loading) return "Loading...";
