@@ -5,9 +5,9 @@ import { NavLink } from 'react-router-dom';
 import RowOffice from './partials/RowOffice';
 
 import { Query } from 'react-apollo';
-import { makerOffices, getMyCompany } from 'Services/graphql/queries.graphql';
 import { withApollo } from 'react-apollo';
-import { changeLogoCompany } from 'Services/graphql/queries.graphql';
+import { Queries, Mutations } from 'Services/graphql';
+
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 import { toast } from 'react-toastify';
 
@@ -52,7 +52,7 @@ class OfficesPage extends Component {
     this.setState({isLoadingImage: true});
     try {
       await mutate({
-        mutation: changeLogoCompany,
+        mutation: Mutations.UPLOAD_LOGO,
         variables: {
           upload: value.file
         },
@@ -65,9 +65,9 @@ class OfficesPage extends Component {
           }
         },
         update: (cache, { data: {addImageToCompany} }) => {
-          const data = cache.readQuery({ query: getMyCompany});
+          const data = cache.readQuery({ query: Queries.COMPANY});
           data.myCompany.logo = addImageToCompany.logo;
-          cache.writeQuery({ query: getMyCompany, data: data });
+          cache.writeQuery({ query: Queries.COMPANY, data: data });
         }
       });
     } catch (err) {
@@ -82,7 +82,7 @@ class OfficesPage extends Component {
     const { currentOffice, isLoadingImage } = this.state;
 
     const companyquery = (
-      <Query query={getMyCompany}>
+      <Query query={Queries.COMPANY}>
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
@@ -145,7 +145,7 @@ class OfficesPage extends Component {
     )
 
     const tableOffices = (
-      <Query query={makerOffices}>
+      <Query query={Queries.OFFICES}>
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;

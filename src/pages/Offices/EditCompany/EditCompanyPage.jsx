@@ -3,7 +3,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { Card, InputFile, Avatar, InputBox, Button } from 'coupon-components';
 import { withApollo } from 'react-apollo';
 import { Query } from 'react-apollo';
-import { getMyCompany, updateMyCompany } from 'Services/graphql/queries.graphql';
+import { Queries, Mutations } from 'Services/graphql';
 import { toast } from 'react-toastify';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
@@ -47,7 +47,7 @@ class EditCompanyPage extends Component {
 
     try {
        await mutate({
-        mutation: updateMyCompany,
+        mutation: Mutations.UPDATE_COMPANY,
         variables: {
           businessName: company.name,
           slogan: company.slogan,
@@ -65,11 +65,11 @@ class EditCompanyPage extends Component {
           }
         },
         update: (cache, { data: {updateCompany} }) => {
-          const data = cache.readQuery({ query: getMyCompany });
+          const data = cache.readQuery({ query: Queries.COMPANY });
           if(updateCompany.businessName) { data.myCompany.businessName = updateCompany.businessName; }
           if(updateCompany.slogan) { data.myCompany.slogan = updateCompany.slogan; }
           if(updateCompany.logo) { data.myCompany.logo = updateCompany.logo; }
-          cache.writeQuery({ query: getMyCompany, data: data });
+          cache.writeQuery({ query: Queries.COMPANY, data: data });
           if(updateCompany.id === -1) {
             this.props.history.push('/offices')
           }else{
@@ -106,7 +106,7 @@ class EditCompanyPage extends Component {
     const { intl } = this.props;
     const { company } = this.state;
     return (
-      <Query query={getMyCompany}>
+      <Query query={Queries.COMPANY}>
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;

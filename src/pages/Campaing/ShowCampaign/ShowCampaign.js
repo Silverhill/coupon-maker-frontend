@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
-import { getCampaign, huntersCampaign, couponsByHunterInCampaign } from 'Services/graphql/queries.graphql';
+import { Queries } from 'Services/graphql';
+
 import { injectIntl } from 'react-intl';
 import classNames from 'classnames/bind';
 import { Typography, Icon, Panel, Card, BasicRow, Table } from 'coupon-components';
@@ -90,7 +91,7 @@ class ShowCampaing extends Component {
     )
 
     const hunters = (
-      <Query query={huntersCampaign} variables={{ id: this.props.match.params.id }}>
+      <Query query={Queries.HUNTERS_CAMPAIGN} variables={{ id: this.props.match.params.id }}>
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
@@ -119,7 +120,7 @@ class ShowCampaing extends Component {
                       {
                         show &&
                         <Query
-                          query={couponsByHunterInCampaign}
+                          query={Queries.HUNTER_COUPONS_IN_CAMPAING}
                           variables={{campaignId: this.props.match.params.id, hunterId: hunter.id}}>
                           {({ loading, error, data}) => {
                             if (loading) return "Loading...";
@@ -267,7 +268,7 @@ class ShowCampaing extends Component {
     );
 
     const viewCampaign = (
-      <Query query={getCampaign} variables={{ id: this.props.match.params.id }}>
+      <Query query={Queries.GET_CAMPAIGN} variables={{ id: this.props.match.params.id }}>
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return notFound;

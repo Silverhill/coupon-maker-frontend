@@ -1,6 +1,5 @@
 import React from 'react';
-import { registerUser } from 'Services/graphql/queries.graphql';
-import { loginUser } from 'Services/graphql/queries.graphql';
+import { Queries, Mutations } from 'Services/graphql';
 import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
 import { FormattedMessage } from 'react-intl';
@@ -50,7 +49,7 @@ class RegisterPage extends React.Component {
     this.setState({isLoading: true, disabledBtn: true});
     try {
       await mutate({
-        mutation: registerUser,
+        mutation: Mutations.SIGN_UP,
         variables: {
           company: values.company,
           name: values.name,
@@ -59,7 +58,7 @@ class RegisterPage extends React.Component {
         }
       });
       const res = await query({
-        query: loginUser,
+        query: Queries.SIGN_IN,
         variables: {
           email: values.email,
           password: values.password

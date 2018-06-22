@@ -1,5 +1,5 @@
 import React from 'react';
-import { loginUser } from 'Services/graphql/queries.graphql';
+import { Queries } from 'Services/graphql';
 import { connect } from 'react-redux';
 import { withApollo } from 'react-apollo';
 import { FormattedMessage } from 'react-intl';
@@ -52,7 +52,7 @@ class LogInPage extends React.Component {
     this.setState({isLoading: true, disabledBtn: true});
     try {
       const res = await query({
-        query: loginUser,
+        query: Queries.SIGN_IN,
         variables: {
           email: values.email,
           password: values.password

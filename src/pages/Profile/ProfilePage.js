@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import { getMe } from 'Services/graphql/queries.graphql';
-import { Card, Typography, Button, Avatar, InputFile, InputBox } from 'coupon-components';
+import { graphql, withApollo } from 'react-apollo';
+import { Queries, Mutations } from 'Services/graphql';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { withApollo } from 'react-apollo';
-import { changeUserImage, updateMyPassword } from 'Services/graphql/queries.graphql';
+import { Card, Typography, Button, Avatar, InputFile, InputBox } from 'coupon-components';
+
 import { toast } from 'react-toastify';
 import ToastTemplate from 'Components/ToastTemplate/ToastTemplate';
 
@@ -48,7 +47,7 @@ class ProfilePage extends Component {
     this.setState({isLoadingImage: true});
     try {
       await mutate({
-        mutation: changeUserImage,
+        mutation: Mutations.UPLOAD_IMAGE_USER,
         variables: {
           upload: value.file
         },
@@ -61,9 +60,9 @@ class ProfilePage extends Component {
           }
         },
         update: (cache, { data: {addImageToUser} }) => {
-          const data = cache.readQuery({ query: getMe });
+          const data = cache.readQuery({ query: Queries.ME });
           data.me.image = addImageToUser.image;
-          cache.writeQuery({ query: getMe, data: data });
+          cache.writeQuery({ query: Queries.ME, data: data });
         }
       });
     } catch (err) {
@@ -102,7 +101,7 @@ class ProfilePage extends Component {
     const { client: { mutate } } = this.props;
     try {
        await mutate({
-        mutation: updateMyPassword,
+        mutation: Mutations.UPDATE_PASSWORD,
         variables: {
           oldPass: user.oldPass,
           newPass: user.newPass
@@ -191,4 +190,4 @@ class ProfilePage extends Component {
   }
 }
 
-export default graphql(getMe)(withApollo((injectIntl(ProfilePage))));
+export default graphql(Queries.ME)(withApollo((injectIntl(ProfilePage))));
