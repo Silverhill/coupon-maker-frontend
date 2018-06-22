@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { makerCampaigns } from 'Services/graphql/queries.graphql';
+import { Queries } from 'Services/graphql';
+
 import { Card, Typography, Icon, BasicRow, Panel } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import moment from 'moment';
@@ -25,7 +26,7 @@ class Campaigns extends Component {
 
     const view = (
       <div className={styles.container}>
-        <Query query={makerCampaigns} variables={{limit:10, sortDirection:-1}}>
+        <Query query={Queries.ALL_CAMPAIGNS} variables={{limit:10, sortDirection:-1}}>
           {({ loading, error, data}) => {
             if (loading) return "Loading...";
             if (error) return `Error! ${error.message}`;

@@ -3,9 +3,9 @@ import StepsContainer from './StepsContainer';
 import { NavLink } from 'react-router-dom';
 import { Typography, Icon } from 'coupon-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { createCampaing, makerCampaigns } from 'Services/graphql/queries.graphql';
+import { Queries, Mutations } from 'Services/graphql';
+
 import { withApollo } from 'react-apollo';
-import { makerOffices } from 'Services/graphql/queries.graphql';
 import * as palette from 'Styles/palette.css';
 import styles from './NewCampaing.css';
 import { toast } from 'react-toastify';
@@ -21,17 +21,17 @@ class NewCampaingPage extends Component {
 
   updateCampaigns = (cache, { data: {addCampaign} }) => {
     try {
-      const dataCampaingsPage = cache.readQuery({ query: makerCampaigns, variables: {limit:10, sortDirection:-1} });
+      const dataCampaingsPage = cache.readQuery({ query: Queries.ALL_CAMPAIGNS, variables: {limit:10, sortDirection:-1} });
       dataCampaingsPage.myCampaigns.campaigns = [addCampaign, ...dataCampaingsPage.myCampaigns.campaigns]
-      cache.writeQuery({ query: makerCampaigns, variables: {limit:10, sortDirection:-1}, data: dataCampaingsPage });
+      cache.writeQuery({ query: Queries.ALL_CAMPAIGNS, variables: {limit:10, sortDirection:-1}, data: dataCampaingsPage });
     } catch (err) {
       this.showErrorNotification(err);
     }
 
     try {
-      const dataCampaingsHome = cache.readQuery({ query: makerCampaigns, variables: {limit:3, sortDirection:-1} });
+      const dataCampaingsHome = cache.readQuery({ query: Queries.ALL_CAMPAIGNS, variables: {limit:3, sortDirection:-1} });
       dataCampaingsHome.myCampaigns.campaigns = [addCampaign, ...dataCampaingsHome.myCampaigns.campaigns]
-      cache.writeQuery({ query: makerCampaigns, variables: {limit:3, sortDirection:-1}, data: dataCampaingsHome })
+      cache.writeQuery({ query: Queries.ALL_CAMPAIGNS, variables: {limit:3, sortDirection:-1}, data: dataCampaingsHome })
     } catch (err) {
       this.showErrorNotification(err);
     }
@@ -78,7 +78,7 @@ class NewCampaingPage extends Component {
     const { client } = this.props;
     try {
       const { data: { myOffices, myCompany } } = await client.query({
-        query: makerOffices,
+        query: Queries.OFFICES,
         variables: { withCompany: true }
       });
       this.setState({
@@ -108,7 +108,7 @@ class NewCampaingPage extends Component {
     const idsRangeAge = this.getIdsRangeAge(values.rangeAge);
     try {
       await mutate({
-        mutation: createCampaing,
+        mutation: Mutations.CREATE_CAMPAIGN,
         variables: {
           startAt: values.startAt.valueOf(),
           endAt: values.endAt.valueOf(),

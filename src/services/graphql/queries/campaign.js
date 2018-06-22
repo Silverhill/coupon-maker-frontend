@@ -1,169 +1,78 @@
 import gql from 'graphql-tag';
 
 export const ALL_CAMPAIGNS = gql`
-  query allCampaigns($limit: Int = 30, $skip: Int = 0) {
-    allCampaigns(sortField: "startAt", sortDirection: -1, limit: $limit, skip: $skip) @connection(key: "allCampaigns"){
-      totalCount
-      campaigns {
+  query allCampaigns($limit: Int, $sortDirection: Int){
+    myCampaigns(limit:$limit, sortDirection: $sortDirection) {
+      campaigns{
         id
-        startAt
-        endAt
-        country
-        city
-        totalCoupons
-        huntedCoupons
-        redeemedCoupons
-        couponsRedeemedByMe
-        couponsHuntedByMe
-        canHunt
-        status
         title
-        description
-        customMessage
-        deleted
-        image
-        remainingCoupons
-        background
         office {
           id
           address
-          company {
-            id
-            logo
-            businessName
-          }
         }
-        maker {
-          id
-          name
-          image
-        }
+        startAt
+        endAt
+        image
+        totalCoupons
+        background
       }
     }
   }
 `;
 
-export const CAMPAIGNS_BY_MAKER_ID = gql`
-  query campaignsByMakerId($makerId: String!){
-    campaignsByMakerId(makerId: $makerId){
+export const INACTIVE_CAMPAIGNS = gql`
+  query inactiveCampaigns($limit: Int, $sortDirection: Int){
+    myCampaigns: myInactiveCampaigns(limit:$limit, sortDirection: $sortDirection) {
+      campaigns{
+        id
+        title
+        office {
+          id
+          address
+        }
+        startAt
+        endAt
+        totalCoupons
+        huntedCoupons
+      }
+    }
+  }
+`;
+
+export const GET_CAMPAIGN = gql`
+  query getCampaign($id:String!){
+    campaign(id:$id){
       id
+      title
       startAt
       endAt
-      country
-      city
+      image
       totalCoupons
+      customMessage
+      city
+      country
+      description
+      status
+      background
+      rangeAge
       huntedCoupons
       redeemedCoupons
-      couponsRedeemedByMe
-      couponsHuntedByMe
-      canHunt
-      status
-      title
-      description
-      customMessage
-      deleted
-      image
-      remainingCoupons
-      background
       office {
-        address
-        company {
-          logo
-          businessName
-        }
-      }
-      maker {
         id
-        name
-        image
+        address
       }
     }
   }
 `;
 
-export const MY_COUPONS = gql`
-  query myCoupons{
-    myCoupons(sortField: "huntedAt", limit: 30, sortDirection: -1) {
+export const HUNTERS_CAMPAIGN = gql`
+  query huntersCampaign($id:String!){
+    hunters: huntersByCampaign(campaignId: $id){
+      name
+      email
+      image
       id
-      status
-      code
-      ... on CouponHunted {
-        huntedAt
-        redeemedAt
-        campaign {
-          id
-          startAt
-          endAt
-          country
-          city
-          totalCoupons
-          huntedCoupons
-          redeemedCoupons
-          status
-          remainingCoupons
-          title
-          description
-          customMessage
-          deleted
-          image
-          background
-          office {
-            address
-            company {
-              logo
-              businessName
-            }
-          }
-          maker {
-            id
-            name
-            image
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const MY_REDEEMED_COUPONS = gql`
-  query myRedeemedCoupons{
-    myRedeemedCoupons(sortField: "redeemedAt", limit: 30, sortDirection: -1) {
-      id
-      status
-      code
-      ... on CouponHunted {
-        redeemedAt
-        huntedAt
-        campaign {
-          id
-          startAt
-          endAt
-          country
-          city
-          totalCoupons
-          huntedCoupons
-          redeemedCoupons
-          status
-          title
-          description
-          customMessage
-          deleted
-          image
-          background
-          office {
-            address
-            company {
-              logo
-              businessName
-            }
-          }
-          maker {
-            id
-            name
-            image
-          }
-        }
-      }
+      couponsInCampaign
     }
   }
 `;

@@ -6,7 +6,8 @@ import {
 import { connect } from 'react-redux';
 import styles from './Home.css';
 import { withApollo, Query } from 'react-apollo';
-import { getMyCompany, makerCampaigns, inactiveCampaigns } from 'Services/graphql/queries.graphql';
+import { Queries } from 'Services/graphql';
+
 import { injectIntl } from 'react-intl';
 import moment from 'moment';
 
@@ -120,14 +121,14 @@ class Home extends Component {
     )
 
     const activesCampaigns = (
-      <Query query={getMyCompany}>
+      <Query query={Queries.COMPANY}>
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           const { myCompany } = data;
           const logo = (myCompany && myCompany.logo) || placeholderlogo;
           return (
-            <Query query={makerCampaigns} variables={{limit:3, sortDirection:-1}}>
+            <Query query={Queries.ALL_CAMPAIGNS} variables={{limit:3, sortDirection:-1}}>
               {({ loading, error, data}) => {
                 if (loading) return "Loading...";
                 if (error) return `Error! ${error.message}`;
@@ -167,12 +168,12 @@ class Home extends Component {
     );
 
     const inactivesCampaigns = (
-      <Query query={getMyCompany}>
+      <Query query={Queries.COMPANY}>
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           return (
-            <Query query={inactiveCampaigns} variables={{limit:3, sortDirection:-1}}>
+            <Query query={Queries.INACTIVE_CAMPAIGNS} variables={{limit:3, sortDirection:-1}}>
               {({ loading, error, data}) => {
                 if (loading) return "Loading...";
                 if (error) return `Error! ${error.message}`;

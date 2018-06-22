@@ -167,7 +167,7 @@ class CouponsPage extends Component {
                       {
                         show &&
                         <Query
-                          query={Queries.HUNTERS_COUPONS}
+                          query={Queries.HUNTER_COUPONS_IN_COMPANY}
                           variables={{hunterId: hunter.id}}>
                           {({ loading, error, data}) => {
                             if (loading) return "Loading...";

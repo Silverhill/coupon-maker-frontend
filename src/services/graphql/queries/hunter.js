@@ -1,19 +1,6 @@
 import gql from 'graphql-tag';
 
-export const HUNTERS_COMPANY = gql`
-  query huntersCompany{
-    hunters: myHunters{
-      name
-      email
-      id
-      redeemedCoupons
-      huntedCoupons
-      image
-    }
-  }
-`;
-
-export const HUNTERS_COUPONS = gql`
+export const HUNTER_COUPONS_IN_COMPANY = gql`
   query couponsByHunterInCompany($hunterId: String!){
     couponsByHunter(hunterId: $hunterId) {
       ...on CouponForMaker {
@@ -29,4 +16,16 @@ export const HUNTERS_COUPONS = gql`
     }
   }
 `;
+
+export const HUNTER_COUPONS_IN_CAMPAING = gql`
+  query couponsByHunterInCampaign($campaignId: String!, $hunterId: String!){
+    coupons: couponsByCampaignAndHunter(campaignId:$campaignId, hunterId: $hunterId) {
+      id
+      status
+      code,
+      updatedAt
+    }
+  }
+`;
+
 
