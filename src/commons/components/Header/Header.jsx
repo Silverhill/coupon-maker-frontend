@@ -11,12 +11,16 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames/bind';
 import styles from './Header.css';
 import Logo from 'Components/Logo/Logo';
-import { primaryColor } from 'Styles/palette.css';
+import { primaryColor, whiteColor } from 'Styles/palette.css';
 const cx = classNames.bind(styles)
 
 class Header extends React.Component {
   state = {
     menuIsOpen: false,
+  }
+  componentWillMount(){
+    const totalCount = this.getNotifications();
+    this.setState({ totalNotifications: totalCount.length });
   }
 
   onMenuIsOpen = (isOpen) => {
@@ -35,13 +39,30 @@ class Header extends React.Component {
     )
   }
 
+  getNotifications(){
+    const notificationsSaved = localStorage.getItem('my_notifications');
+    const allnotifications = JSON.parse(notificationsSaved) || [];
+    return allnotifications;
+  }
+
+  saveNotifications(newNotification){
+    const notificationsSaved = localStorage.getItem('my_notifications');
+    const allnotifications = JSON.parse(notificationsSaved) || [];
+    allnotifications.push(newNotification);
+    localStorage.setItem('my_notifications', JSON.stringify(allnotifications));
+    this.setState(prevState => ({
+      totalNotifications: prevState.totalNotifications+1
+    }));
+  }
+
   render() {
     const { tabs, optionsUser } = this.props;
-    const { menuIsOpen } = this.state;
+    const { menuIsOpen, totalNotifications } = this.state;
 
     return (
       <Subscription subscription={Subscriptions.HUNTED_COUPON}>{({ data, loading}) => {
         if(data && data.huntedCoupon){
+          this.saveNotifications(data);
           this.showSuccessNotification(data.huntedCoupon.code);
         }
         return(
@@ -72,41 +93,59 @@ class Header extends React.Component {
               const image = me.image;
 
               return (
-                <Dropdown isOpen={this.onMenuIsOpen}>
-                  <DropdownTrigger>
-                    <div>
-                      <div className={cx(styles.userMenu)}>
-                        <div className={styles.profileContainer}>
-                          <div className={cx(styles.avatarContainer)}>
-                            <Avatar image={image} borderColor='accentColorSecondary' />
+                <div className={cx(styles.rightOptions)}>
+                  <Dropdown>
+                    <DropdownTrigger>
+                      <div className={cx(styles.notificationBadget)}>
+                        {totalNotifications > 0 && <div className={cx(styles.counter)}>
+                          <Typography.Text small style={{color: whiteColor}}>{totalNotifications}</Typography.Text>
+                        </div>}
+                        <Icon name={'MdNotifications'} size={35}/>
+                      </div>
+                    </DropdownTrigger>
+                    <DropdownContent className={styles.notificationsContainer}>
+                      <div className={styles.header}>
+                        <Typography.Subtitle>Notifications</Typography.Subtitle>
+                        <Logo/>
+                      </div>
+                    </DropdownContent>
+                  </Dropdown>
+                  <Dropdown isOpen={this.onMenuIsOpen}>
+                    <DropdownTrigger>
+                      <div>
+                        <div className={cx(styles.userMenu)}>
+                          <div className={styles.profileContainer}>
+                            <div className={cx(styles.avatarContainer)}>
+                              <Avatar image={image} borderColor='accentColorSecondary' />
+                            </div>
+                            <Typography.Text small bold style={{margin: "0 10px"}}>{me.name}</Typography.Text>
                           </div>
-                          <Typography.Text small bold style={{margin: "0 10px"}}>{me.name}</Typography.Text>
+                          <Icon name={menuIsOpen ? 'FaCaretUp' : 'FaCaretDown'} size={15}/>
                         </div>
-                        <Icon name={menuIsOpen ? 'FaCaretUp' : 'FaCaretDown'} size={15}/>
                       </div>
-                    </div>
-                  </DropdownTrigger>
-                  <DropdownContent className={styles.menuContainer}>
-                    <div className={styles.infoContainer}>
-                      <div className={styles.avatarInfo}>
-                        <Avatar image={image}/>
-                      </div>
-                      <div className={styles.profileInfo}>
-                        <Typography.Text small>{me.name}</Typography.Text>
-                        <Typography.Label>{me.email}</Typography.Label>
-                      </div>
-                    </div>
-                    {optionsUser.options && optionsUser.options.map((option, i) => {
-                      return (
-                        <div key={`option-${i}`} onClick={option.onClick} className={styles.menuOption}>
-                          <Typography.Text small>
-                            {option.value}
-                          </Typography.Text>
+                    </DropdownTrigger>
+                    <DropdownContent className={styles.menuContainer}>
+                      <div className={styles.infoContainer}>
+                        <div className={styles.avatarInfo}>
+                          <Avatar image={image}/>
                         </div>
-                      )
-                    })}
-                  </DropdownContent>
-                </Dropdown>
+                        <div className={styles.profileInfo}>
+                          <Typography.Text small>{me.name}</Typography.Text>
+                          <Typography.Label>{me.email}</Typography.Label>
+                        </div>
+                      </div>
+                      {optionsUser.options && optionsUser.options.map((option, i) => {
+                        return (
+                          <div key={`option-${i}`} onClick={option.onClick} className={styles.menuOption}>
+                            <Typography.Text small>
+                              {option.value}
+                            </Typography.Text>
+                          </div>
+                        )
+                      })}
+                    </DropdownContent>
+                  </Dropdown>
+                </div>
               );
             }}</Query>
           </div>

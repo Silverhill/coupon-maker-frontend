@@ -6,6 +6,16 @@ export const HUNTED_COUPON = gql`
       id
       status
       code
+      campaign {
+        id
+        title
+      }
+      hunter {
+        id
+        image
+        name
+        email
+      }
     }
   }
 `;

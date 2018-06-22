@@ -96,6 +96,47 @@
   }
 }
 
+.rightOptions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .notificationBadget {
+    position: relative;
+    .counter {
+      display: flex;
+      position: absolute;
+      align-items: center;
+      justify-content: center;
+      top: 0px;
+      right: 0px;
+      width: 18px;
+      height: 18px;
+      border-radius: 100%;
+      background: primaryColor;
+    }
+
+    i {
+      color: darkColor;
+    }
+
+    &:hover {
+      i {
+        color: secondaryColor;
+      }
+    }
+  }
+  .notificationsContainer {
+    width: 12rem;
+    background-color: white !important;
+    overflow-y: scroll !important;
+    right: -5rem;
+    top: 1.8rem;
+    .header {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
 .menuOption {
   padding: 0.6rem 1rem;
   cursor: pointer;
